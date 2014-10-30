@@ -1,0 +1,101 @@
+<div class="container">
+
+    <div class="row">
+        <div class="col-xs-12 fx-catalog-header">
+            <em class="fx-typo-black">Catalog</em> <!--| <em class="fx-catalog-header-btn-close">Open Filter</em>-->
+            <!--<em class="fx-catalog-header-btn-settings pull-right">SETTINGS</em>-->
+        </div>
+    </div>
+    <div class="row fx-catalog-modular-filter-container">
+        <div class="col-xs-3 fx-catalog-modular-menu-container">
+            <div id="fx-catalog-modular-menu"></div>
+        </div>
+        <div class="col-xs-9 fx-catalog-modular-form-wrapper">
+            <div class="fx-catalog-hints row">
+                <div data-step="1" class="col-xs-3 intro-step">
+                    <img src="css/img/catalog-icons-1.png" class="img-responsive" alt="Catalog Hints">
+                    <!--<h3>1</h3>-->
+                    <h4>1. Select</h4>
+                    <p>Sit amet</p>
+                    <button class="btn">More</button>
+                </div>
+                <div data-step="2" class="col-xs-3 intro-step">
+                    <img src="css/img/catalog-icons-2.png" class="img-responsive" alt="Catalog Hints">
+                    <!--<h3>2</h3>-->
+                    <h4>2. Filter</h4>
+                    <p>Dolor sit amet</p>
+                    <button class="btn">More</button>
+                </div>
+                <div data-step="3" class="col-xs-3 intro-step">
+                    <img src="css/img/catalog-icons-3.png" class="img-responsive" alt="Catalog Hints">
+                    <!--<h3>3</h3>-->
+                    <h4>3. Verify</h4>
+                    <p>Ipsum dolor sit amet</p>
+                    <button class="btn">More</button>
+                </div>
+                <div data-step="4" class="col-xs-3 intro-step">
+                    <img src="css/img/catalog-icons-4.png" class="img-responsive" alt="Catalog Hints">
+                    <!--<h3>4</h3>-->
+                    <h4>4. Search</h4>
+                    <p>Sum dolor sit amet</p>
+                    <button class="btn">More</button>
+                </div>
+            </div>
+            <div id="fx-catalog-modular-form" class="fx-catalog-modular-form-container"></div>
+
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-xs-12 fx-catalog-resume-bar">
+            <div class="fx-catalog-resume-bar-help"></div>
+            <div class="fx-catalog-resume-bar-text">FILTER BY</div>
+            <div class="fx-catalog-resume-bar-arrow"></div>
+            <div id="fx-catalog-resume">
+                <button class="btn pull-right fx-typo-black" id="fx-catalog-submit-btn">SEARCH</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div id="fx-catalog-results" class="col-xs-12">
+            <ul> </ul>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+            </div>
+            <div class="modal-body">
+                <p><strong>Placeholder</strong> for extended information about selected result<br>
+
+                <p>
+                <dl class="dl-horizontal">
+                    <dt>Title</dt>
+                    <dd>Production quantity of primary Crops</dd>
+                    <dt>Source</dt>
+                    <dd>D3S</dd>
+                    <dt>Region</dt>
+                    <dd>Kenya</dd>
+                    <dd>Etiam porta sem malesuada magna mollis euismod.</dd>
+                    <dt>Felis euismod semper eget lacinia</dt>
+                    <dd>Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut
+                        fermentum massa justo sit amet risus.
+                    </dd>
+                </dl>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
