@@ -1,0 +1,77 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'node', '/usr/bin/npm', 'install' ]
+2 info using npm@2.0.1
+3 info using node@v0.10.28
+4 verbose node symlink /usr/bin/node
+5 verbose readDependencies using package.json deps
+6 verbose install where, deps [ '/home/daniele/GitRepos/FENIX/fenix-ui-catalog',
+6 verbose install   [ 'jquery',
+6 verbose install     'intro.js',
+6 verbose install     'nprogress',
+6 verbose install     'jstree',
+6 verbose install     'bootstrap',
+6 verbose install     'requirejs',
+6 verbose install     'draggabilly',
+6 verbose install     'packery',
+6 verbose install     'isotpe' ] ]
+7 info preinstall fenix-ui-catalog@0.0.1
+8 warn package.json domReady@2.0.1 'repositories' (plural) Not supported. Please pick one as the 'repository' field
+9 warn package.json jqwidgets@0.0.1 No repository field.
+10 verbose readDependencies using package.json deps
+11 verbose already installed skipping bootstrap@~3.2.0 /home/daniele/GitRepos/FENIX/fenix-ui-catalog
+12 verbose already installed skipping requirejs@~2.1.14 /home/daniele/GitRepos/FENIX/fenix-ui-catalog
+13 verbose already installed skipping draggabilly@~1.1.1 /home/daniele/GitRepos/FENIX/fenix-ui-catalog
+14 verbose cache add [ 'isotpe@git://github.com/metafizzy/isotope.git', null ]
+15 verbose cache add spec="isotpe@git://github.com/metafizzy/isotope.git" args=["isotpe@git://github.com/metafizzy/isotope.git",null]
+16 verbose parsed spec { raw: 'isotpe@git://github.com/metafizzy/isotope.git',
+16 verbose parsed spec   scope: null,
+16 verbose parsed spec   name: 'isotpe',
+16 verbose parsed spec   rawSpec: 'git://github.com/metafizzy/isotope.git',
+16 verbose parsed spec   spec: 'git://github.com/metafizzy/isotope.git',
+16 verbose parsed spec   type: 'git' }
+17 verbose already installed skipping packery@~1.2.4 /home/daniele/GitRepos/FENIX/fenix-ui-catalog
+18 verbose parsed spec { raw: 'isotpe@git://github.com/metafizzy/isotope.git',
+18 verbose parsed spec   scope: null,
+18 verbose parsed spec   name: 'isotpe',
+18 verbose parsed spec   rawSpec: 'git://github.com/metafizzy/isotope.git',
+18 verbose parsed spec   spec: 'git://github.com/metafizzy/isotope.git',
+18 verbose parsed spec   type: 'git' }
+19 verbose addRemoteGit u="git://github.com/metafizzy/isotope.git" silent=false
+20 silly addRemoteGit parsed { protocol: 'git:',
+20 silly addRemoteGit   slashes: true,
+20 silly addRemoteGit   auth: null,
+20 silly addRemoteGit   host: 'github.com',
+20 silly addRemoteGit   port: null,
+20 silly addRemoteGit   hostname: 'github.com',
+20 silly addRemoteGit   hash: null,
+20 silly addRemoteGit   search: '',
+20 silly addRemoteGit   query: {},
+20 silly addRemoteGit   pathname: '/metafizzy/isotope.git',
+20 silly addRemoteGit   path: '/metafizzy/isotope.git',
+20 silly addRemoteGit   href: 'git://github.com/metafizzy/isotope.git' }
+21 verbose already installed skipping jquery@~2.1.0 /home/daniele/GitRepos/FENIX/fenix-ui-catalog
+22 silly lockFile c80b6e0e-github-com-metafizzy-isotope-git git://github.com/metafizzy/isotope.git
+23 verbose lock git://github.com/metafizzy/isotope.git /home/daniele/.npm/c80b6e0e-github-com-metafizzy-isotope-git.lock
+24 verbose already installed skipping intro.js@~0.9.0 /home/daniele/GitRepos/FENIX/fenix-ui-catalog
+25 verbose addRemoteGit [ 'git://github.com/metafizzy/isotope.git', 'master' ]
+26 verbose already installed skipping nprogress@~0.1.6 /home/daniele/GitRepos/FENIX/fenix-ui-catalog
+27 verbose already installed skipping jstree@~3.0.8 /home/daniele/GitRepos/FENIX/fenix-ui-catalog
+28 silly lockFile c80b6e0e-github-com-metafizzy-isotope-git git://github.com/metafizzy/isotope.git
+29 silly lockFile c80b6e0e-github-com-metafizzy-isotope-git git://github.com/metafizzy/isotope.git
+30 verbose stack Error: EACCES, mkdir '/home/daniele/.npm/_git-remotes/git-github-com-metafizzy-isotope-git-c80b6e0e'
+31 verbose cwd /home/daniele/GitRepos/FENIX/fenix-ui-catalog
+32 error Linux 3.5.0-51-generic
+33 error argv "node" "/usr/bin/npm" "install"
+34 error node v0.10.28
+35 error npm  v2.0.1
+36 error path /home/daniele/.npm/_git-remotes/git-github-com-metafizzy-isotope-git-c80b6e0e
+37 error code EACCES
+38 error errno 3
+39 error Error: EACCES, mkdir '/home/daniele/.npm/_git-remotes/git-github-com-metafizzy-isotope-git-c80b6e0e'
+39 error  { [Error: EACCES, mkdir '/home/daniele/.npm/_git-remotes/git-github-com-metafizzy-isotope-git-c80b6e0e']
+39 error   errno: 3,
+39 error   code: 'EACCES',
+39 error   path: '/home/daniele/.npm/_git-remotes/git-github-com-metafizzy-isotope-git-c80b6e0e',
+39 error   parent: 'fenix-ui-catalog' }
+40 error Please try running this command again as root/Administrator.
+41 verbose exit [ 3, true ]
