@@ -27,7 +27,6 @@
         "bootstrap" :  "~3.2.0",
         "requirejs" : "~2.1.14",
         "draggabilly": "~1.1.1",
-        "packery": "~1.2.4",
-        "isotpe" : "git://github.com/metafizzy/isotope.git#master"
+        "packery": "~1.2.4"
     }
 }
