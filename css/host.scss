@@ -1,9 +1,15 @@
-@import 'colors'; /* Imported by Analysis, should be deleted ASAP */
-@import 'mixins';
+/* Analysis Host */
+
+
+/* Imports */
+@import 'fx-colors';
+@import 'fx-mixins';
+
+
+/* Host CSS */
 
 html, body {
   height: 100%;
-
 }
 
 $host-menu-height : 70px;

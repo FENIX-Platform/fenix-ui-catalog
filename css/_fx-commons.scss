@@ -1,0 +1,81 @@
+/*  FENIX COMMONS */
+
+body{
+  background-color: $fenix-light-bg;
+  font: $standard-text;
+
+}
+
+/* Reset Jqwidget content font */
+.jqx-widget, .jqx-widget-content, .jqx-fill-state-normal{
+  font: $standard-text;
+}
+
+a {
+  color: $fenix-gray-text;
+  &:hover {
+    color: $fenix-standard-blue !important;
+    @include animate;
+  }
+}
+
+h1, h2, h3{
+  font-family: Roboto;
+  color: $fenix-standard-blue;
+  font-weight: 100;
+  color: $fx-cool-blue;
+}
+
+h1{
+  font-size: 32px;
+}
+
+h3{
+  font-size: 20px;
+}
+
+
+.fx-validation{
+  @include animate;
+}
+
+.fx-red-cell{
+  background-color: orangered;
+  color: white;
+}
+
+.obj-box {
+  -moz-border-bottom-colors: none;
+  -moz-border-left-colors: none;
+  -moz-border-right-colors: none;
+  -moz-border-top-colors: none;
+  background-color: #FFFFFF;
+  border-color: #D8D8D8;
+  border-image: none;
+  @include fx-border-radius(3px);
+  border-style: solid;
+  border-width: 1px 1px 2px;
+  margin: 10px 0 20px;
+  padding: 20px;
+  width: auto;
+}
+
+.obj-box-radius10 {
+  @extend .obj-box;
+  @include fx-border-radius(10px);
+}
+
+.fx-bullet-number{
+  display: block;
+  float: left;
+  font-size: 15px;
+  height: 20px;
+  width: 20px;
+  line-height: 20px;
+  text-align: center;
+  font-style: normal;
+  background-color: $fx-cool-blue;
+  @include fx-border-radius(100%);
+  color: white;
+  margin-right: 10px;
+}
