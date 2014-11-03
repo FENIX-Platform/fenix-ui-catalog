@@ -1,5 +1,20 @@
 /* Fenix UI Catalog */
 
+#fx-catalog-modular-menu{
+  .panel-title{
+    font-weight:400;
+  }
+
+   .panel-body{
+      .btn{
+        background-color: transparent;
+        font-weight:300;
+      }
+   }
+}
+
+
+
 .fx-catalog-hints {
   background-color: $fenix-light-bg;
   position: absolute;
@@ -27,7 +42,7 @@
     font-size: 14px;
     font-weight: 300;
     color: white;
-    border: 1px solid $fenix-gray-text;
+    border: 1px solid $fenix-text;
     display: inline-block;
     width: 25px;
     height: 25px;
@@ -45,7 +60,7 @@
   }
 
   p{
-    color: $fenix-gray-text;
+    color: $fenix-text;
     font-size: 12px;
     margin-bottom: 2px;
   }
@@ -60,14 +75,19 @@
 
 /* Packery */
 
+
+
 .fx-catalog-form-module {
+  //margin: 10px 0 20px;
   width: 50%;
-  background-color: white;
-  border: 10px solid #E3E3E3;
-  border-radius: 4px;
-  /*margin-bottom: 20px;*/
-  min-height: 20px;
-  /*    padding: 19px;*/
+  border: 10px solid $fenix-light-bg;
+
+}
+
+.fx-catalog-modular-form-holder{
+  @extend .obj-box;
+  padding: 5px;
+  margin: 0;
 }
 
 .fx-catalog-form-module.fit {
@@ -109,19 +129,20 @@
 
 }
 
+
+
+
 /* ====== NEW*/
 /*========= HEADER =========*/
 
 .fx-catalog-header {
-  height: 20px;
-  background-color: white;
-  color: #f3f3f3;
-  padding-right: 30px;
 
 }
 
 .fx-catalog-header em {
   font-style: normal;
+  font-family: Roboto;
+  font-weight: 100;
 }
 
 .fx-catalog-header-btn {
@@ -150,14 +171,14 @@
 
 /*========= FILTER CONTAINER =========*/
 .fx-catalog-modular-filter-container {
-  background-color: #f1f1f1;
+  background-color:  $fenix-light-bg;
   min-height: 250px;
   overflow: hidden;
 }
 
 /*========= MODULAR MENU =========*/
 .fx-catalog-modular-menu-container {
-  background-color: #f1f1f1;
+  background-color:  $fenix-light-bg;
   padding: 0;
   min-height: 250px;
 }
@@ -185,7 +206,7 @@
 }
 
 #fx-catalog-modular-menu .panel-heading {
-  background-color: #f1f1f1;
+  background-color:  $fenix-light-bg;
   -webkit-border-radius: 0;
   border-radius: 0;
 }
@@ -255,21 +276,22 @@
   /*overflow: hidden;*/
   min-height: 250px;
   position: relative;
+  background-color:$fenix-light-bg;
 }
 
 .fx-catalog-modular-form-container {
-  background-color: #E3E3E3;
+
 }
 
 .fx-catalog-form-module {
   /*padding: 7px;  */
   /*border: 0;   */
-  min-height: 200px;
+//  min-height: 200px;
+  //background-color: white;
 }
 
 .fx-catalog-modular-form-header {
   position: relative;
-  background-color: #ffd865;
   height: 30px;
 }
 
@@ -321,7 +343,7 @@
 
 /*========= RESUME BAR =========*/
 .fx-catalog-resume-bar {
-  background-color: #e1dfda;
+  background-color: $fenix-light-bg;
   min-height: 38px;
 }
 
@@ -332,9 +354,9 @@
 }
 
 #fx-catalog-submit-btn {
-  color: #f3f3f3;
+  color: white;
   text-transform: uppercase;
-  background-color: #6e6e6e;
+  background-color: $fx-cool-blue;
   position: absolute;
   right: 0;
   height: 100%;
