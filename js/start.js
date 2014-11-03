@@ -77,7 +77,8 @@ define(["fx-cat-br/controllers/Fx-catalog-page",
                 config: {
                     itemSelector: '.fx-catalog-form-module',
                     columnWidth: '.fx-catalog-form-module',
-                    rowHeight: '.fx-catalog-form-module'
+                    rowHeight: 0
+
                 }
             });
 

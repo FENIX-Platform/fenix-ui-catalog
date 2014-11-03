@@ -102,7 +102,7 @@
                 "valueMember": "value",
                 "multiple": true,
                 "width": "100%",
-                "height" : 100
+                "height" : "100%"
             }
         }
     },
@@ -168,7 +168,7 @@
         "cssclass": "unitOfMeasure-css",
         "container": "unitOfMeasure-container",
         "label": {
-            "EN": "Unit od Measure",
+            "EN": "Unit of Measure",
             "ES": "ES List",
             "FR": "FR List"
         },
@@ -196,7 +196,7 @@
                 "valueMember": "value",
                 "multiple": true,
                 "width": "100%",
-                "height":100
+                "height":"100%"
             }
         }
     },
@@ -234,7 +234,7 @@
                 "valueMember": "value",
                 "multiple": true,
                 "width": "100%",
-                "height": 100
+                "height": "100%"
             }
         }
     },
@@ -272,7 +272,7 @@
                 "valueMember": "value",
                 "multiple": true,
                 "width": "100%",
-                "height" : 100
+                "height" : "100%"
             }
         }
     },
@@ -310,7 +310,7 @@
                 "valueMember": "value",
                 "multiple": true,
                 "width": "100%",
-                "height" : 100
+                "height" : "100%"
             }
         }
     },
@@ -348,7 +348,7 @@
                 "valueMember": "value",
                 "multiple": true,
                 "width": "100%",
-                "height": 100
+                "height": "100%"
             }
         }
     },
@@ -380,7 +380,7 @@
                 "valueMember": "id",
                 "multiple": true,
                 "width": "100%",
-                "height": 100
+                "height": "100%"
             }
         }
     },
@@ -412,7 +412,7 @@
                 "valueMember": "id",
                 "multiple": true,
                 "width": "100%",
-                "height": 100
+                "height": "100%"
             }
         }
     },
@@ -444,7 +444,7 @@
                 "valueMember": "id",
                 "multiple": true,
                 "width": "100%",
-                "height": 100
+                "height": "100%"
             }
         }
     }

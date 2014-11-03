@@ -11,6 +11,7 @@ define([
                 lang: 'EN'
             },
             css_classes: {
+                HOLDER: "fx-catalog-modular-form-holder",
                 HEADER: "fx-catalog-modular-form-header",
                 HANDLER: "fx-catalog-modular-form-handler",
                 CONTENT: "fx-catalog-modular-form-content",
@@ -88,7 +89,8 @@ define([
         var self = this;
 
         var $module = $("<div class='" + o.css_classes.MODULE + "'></div>"),
-            $header = $("<div class='" + o.css_classes.HEADER + "'></div>");
+            $header = $("<div class='" + o.css_classes.HEADER + "'></div>"),
+            $holder = $("<div class='" + o.css_classes.HOLDER + "'></div>");
 
         $module.attr("data-module", module.module);
         $module.attr("data-size", "half");
@@ -97,6 +99,9 @@ define([
 
         var $resize = $("<div class='" + o.css_classes.RESIZE + "'></div>");
         $resize.on("click", { module: $module.get(0), btn: $resize}, function (e) {
+
+            $(window).trigger('resize');
+            window.dispatchEvent(new Event('resize'));
 
             if ($(e.data.module).attr("data-size") === 'half') {
                 $(e.data.module).attr("data-size", "full");
@@ -129,8 +134,10 @@ define([
             });
 
         $header.append($close_btn);
-        $module.append($header);
-        $module.append("<div class='" + o.css_classes.CONTENT + "'></div>");
+
+        $module.append($holder);
+        $holder.append($header);
+        $holder.append("<div class='" + o.css_classes.CONTENT + "'></div>");
 
         $(o.container).append($module);
 
