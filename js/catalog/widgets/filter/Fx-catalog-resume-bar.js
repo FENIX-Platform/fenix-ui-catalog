@@ -124,7 +124,7 @@ define([
 
         var $c = $('<div class="fx-resume-item-selected" data-module="' + item.module + '"></div>'),
             $title = $('<div data-role="title" class="fx-resume-module-title"><em><i class=" ' + icon + '"></i>'+ item.module +'</em></div>'),
-            $list = $('<div data-role="list" class="fx-resume-module-list"></div>');
+            $list = $('<div class="fx-resume-module-list-holder"><div data-role="list" class="fx-resume-module-list"></div></div>');
 
         $c.append($title).append($list);
 

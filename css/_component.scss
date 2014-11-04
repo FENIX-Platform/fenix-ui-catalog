@@ -13,6 +13,25 @@
    }
 }
 
+.fx-catalog-welcome{
+  text-align: center;
+  max-width:300px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  @include fx-transfor-me(translate(-50%,-50%));
+
+  .catalog-ico{
+    height:50px;
+    width: 50px;
+  }
+
+  h1{
+    margin-top: 10px;
+  }
+
+}
+
 
 
 .fx-catalog-hints {
@@ -369,6 +388,7 @@
 
 .fx-catalog-resume-noitem{
   padding-left: 15px;
+  position: absolute;
 }
 
 #fx-catalog-submit-btn {
@@ -386,7 +406,7 @@
   border-radius:0;
   border: 0;
 
- @include fx-transfor-me(translateY(14px));
+ @include fx-transfor-me(translateY(0));
 
 //  &:after {
 //
@@ -403,6 +423,7 @@
   &.disabled {
     background-color: $fenix-light-gray;
     opacity: 1;
+    @include fx-transfor-me(translateY(32px));
 //    &:after {
 //      background: url("img/search-btn-arrow-disabled.svg") no-repeat -0px 0;
 //    }
@@ -435,23 +456,43 @@
 }
 
 .fx-resume-item-selected{
+  position:relative;
+  border-top: 5px solid white;
+  border-bottom: 5px solid white;
 
   .fx-resume-module-title{
     display: inline-block;
-    font-family: Roboto;
-    color: $fx-cool-blue;
-    font-weight: 400;
-    font-size: 12px;
     width: 20%;
+    padding-left: 15px;
+
+    em{
+      font-family: Roboto;
+      color: $fx-cool-blue;
+      font-weight: 400;
+      font-size: 12px;
+      font-style: normal;
+      position: absolute;
+      top: 0;
+    }
+
   }
 
-  .fx-resume-module-list{
+  .fx-resume-module-list-holder{
     display: inline-block;
-    width: 80%;
+    max-width: 80%;
+    padding-right: 15px;
+
+    .fx-resume-module-list{
+      display: inline-block;
+      @include fx-border-radius(3px);
+      border: 1px solid $fenix-text;
+
+    }
 
   }
 
 }
+
 
 .fx-catalog-resume-obj-close{
   display: inline-block;
@@ -459,21 +500,22 @@
   width: 15px;
   background: url("icons/fenix-catalog-sprite-small.png") no-repeat -45px 0;
   cursor: pointer;
+  position: relative;
+  top: 3px;
 }
 
 .fx-catalog-resume-list-obj{
-  display: inline-block;
+  display:inline-block;
 
   .fx-catalog-resume-obj-value{
     display: inline;
+    margin-right:7px ;
   }
 
   .fx-resume-item-selected i{
 
   }
 }
-
-
 
 
 /*========= RESULTS */
@@ -487,4 +529,22 @@
 
 .fx_result_icon_img{
   width: 42px;
+}
+
+/* HELP */
+
+.introjs-helperNumberLayer{
+  border: 2px solid white;
+  background: none;
+  background-color: $fx-cool-blue;
+  font-family: Roboto;
+  -webkit-box-shadow:none;
+  -moz-box-shadow:none;
+  box-shadow:none;
+  text-shadow: none;
+  padding: 0;
+  font-weight: normal;
+  line-height: normal;
+  left: -25px;
+  top:-20;
 }

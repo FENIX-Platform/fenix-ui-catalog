@@ -1,5 +1,48 @@
 /* Fenix Typography */
 $standard-text : normal normal 300 14px/normal 'Roboto Condensed';
 
+body{
+  color: $fenix-text;
+  font: $standard-text;
+}
+
+a{
+  color: $fx-cool-blue;
+}
+
+.navbar-default .navbar-nav > li > a{
+  color:$fenix-text;
+}
+
+.dropdown-menu > li > a{
+  font-weight: 300;
+  color:$fenix-text;
+}
+
+h1 small, h2 small, h3 small, h4 small, h5 small, h6 small, .h1 small, .h2 small, .h3 small, .h4 small, .h5 small, .h6 small, h1 .small, h2 .small, h3 .small, h4 .small, h5 .small, h6 .small, .h1 .small, .h2 .small, .h3 .small, .h4 .small, .h5 .small, .h6 .small{
+  font-weight: 100;
+  color: $fx-cool-blue;
+}
+
+h1, h2, h3, h4{
+  font-family: Roboto;
+  font-weight: 100;
+}
+
+h1{
+  font-size: 32px;
+}
+
+h2{
+  font-size: 26px;
+}
+
+h3{
+  font-size: 20px;
+}
+
+h4{
+  font-family: "Roboto Condensed";
+}
 
 

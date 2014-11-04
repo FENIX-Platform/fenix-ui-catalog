@@ -22,7 +22,7 @@ define([
 
     PageController.prototype.initIntroduction = function () {
 
-        $('.intro-step').on('click', function(e){
+        $('#how-does-it-work-btn').on('click', function(e){
 
             var intro = IntroJS();
 
@@ -50,7 +50,7 @@ define([
                 ]
             });
 
-            intro.goToStep($(e.currentTarget).data("step")).start();
+            intro.start();
         });
 
     };

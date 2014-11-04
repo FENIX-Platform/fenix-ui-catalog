@@ -11,6 +11,40 @@ PUT THIS AFTER BOOTSTRAP */
 /* Fenix Colors */
 /* Specials */
 /* Fenix Typography */
+body {
+  color: #666666;
+  font: normal normal 300 14px/normal "Roboto Condensed"; }
+
+a {
+  color: #0076ff; }
+
+.navbar-default .navbar-nav > li > a {
+  color: #666666; }
+
+.dropdown-menu > li > a {
+  font-weight: 300;
+  color: #666666; }
+
+h1 small, h2 small, h3 small, h4 small, h5 small, h6 small, .h1 small, .h2 small, .h3 small, .h4 small, .h5 small, .h6 small, h1 .small, h2 .small, h3 .small, h4 .small, h5 .small, h6 .small, .h1 .small, .h2 .small, .h3 .small, .h4 .small, .h5 .small, .h6 .small {
+  font-weight: 100;
+  color: #0076ff; }
+
+h1, h2, h3, h4 {
+  font-family: Roboto;
+  font-weight: 100; }
+
+h1 {
+  font-size: 32px; }
+
+h2 {
+  font-size: 26px; }
+
+h3 {
+  font-size: 20px; }
+
+h4 {
+  font-family: "Roboto Condensed"; }
+
 /*  FENIX COMMONS */
 body {
   background-color: white;
@@ -78,6 +112,23 @@ body {
 #fx-catalog-modular-menu .panel-body .btn {
   background-color: transparent;
   font-weight: 300; }
+
+.fx-catalog-welcome {
+  text-align: center;
+  max-width: 300px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -ms-transform: translate(-50%, -50%);
+  /* IE 9 */
+  -webkit-transform: translate(-50%, -50%);
+  /* Chrome, Safari, Opera */
+  transform: translate(-50%, -50%); }
+  .fx-catalog-welcome .catalog-ico {
+    height: 50px;
+    width: 50px; }
+  .fx-catalog-welcome h1 {
+    margin-top: 10px; }
 
 .fx-catalog-hints {
   background-color: #f8f8f8;
@@ -361,7 +412,8 @@ body {
   font-size: 10px; }
 
 .fx-catalog-resume-noitem {
-  padding-left: 15px; }
+  padding-left: 15px;
+  position: absolute; }
 
 #fx-catalog-submit-btn {
   color: white;
@@ -375,14 +427,19 @@ body {
   -moz-border-radius: 0;
   border-radius: 0;
   border: 0;
-  -ms-transform: translateY(14px);
+  -ms-transform: translateY(0);
   /* IE 9 */
-  -webkit-transform: translateY(14px);
+  -webkit-transform: translateY(0);
   /* Chrome, Safari, Opera */
-  transform: translateY(14px); }
+  transform: translateY(0); }
   #fx-catalog-submit-btn.disabled {
     background-color: #dddddd;
-    opacity: 1; }
+    opacity: 1;
+    -ms-transform: translateY(32px);
+    /* IE 9 */
+    -webkit-transform: translateY(32px);
+    /* Chrome, Safari, Opera */
+    transform: translateY(32px); }
 
 .fx-catalog-resume-bar-help {
   position: absolute;
@@ -406,28 +463,48 @@ body {
   left: 288px;
   /* Sistemare questo */ }
 
-.fx-resume-item-selected .fx-resume-module-title {
-  display: inline-block;
-  font-family: Roboto;
-  color: #0076ff;
-  font-weight: 400;
-  font-size: 12px;
-  width: 20%; }
-.fx-resume-item-selected .fx-resume-module-list {
-  display: inline-block;
-  width: 80%; }
+.fx-resume-item-selected {
+  position: relative;
+  border-top: 5px solid white;
+  border-bottom: 5px solid white; }
+  .fx-resume-item-selected .fx-resume-module-title {
+    display: inline-block;
+    width: 20%;
+    padding-left: 15px; }
+    .fx-resume-item-selected .fx-resume-module-title em {
+      font-family: Roboto;
+      color: #0076ff;
+      font-weight: 400;
+      font-size: 12px;
+      font-style: normal;
+      position: absolute;
+      top: 0; }
+  .fx-resume-item-selected .fx-resume-module-list-holder {
+    display: inline-block;
+    max-width: 80%;
+    padding-right: 15px; }
+    .fx-resume-item-selected .fx-resume-module-list-holder .fx-resume-module-list {
+      display: inline-block;
+      -webkit-border-radius: 3px;
+      -moz-border-radius: 3px;
+      -ms-border-radius: 3px;
+      border-radius: 3px;
+      border: 1px solid #666666; }
 
 .fx-catalog-resume-obj-close {
   display: inline-block;
   height: 15px;
   width: 15px;
   background: url("icons/fenix-catalog-sprite-small.png") no-repeat -45px 0;
-  cursor: pointer; }
+  cursor: pointer;
+  position: relative;
+  top: 3px; }
 
 .fx-catalog-resume-list-obj {
   display: inline-block; }
   .fx-catalog-resume-list-obj .fx-catalog-resume-obj-value {
-    display: inline; }
+    display: inline;
+    margin-right: 7px; }
 
 /*========= RESULTS */
 /*========= COMMONS =========*/
@@ -436,3 +513,19 @@ body {
 
 .fx_result_icon_img {
   width: 42px; }
+
+/* HELP */
+.introjs-helperNumberLayer {
+  border: 2px solid white;
+  background: none;
+  background-color: #0076ff;
+  font-family: Roboto;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  text-shadow: none;
+  padding: 0;
+  font-weight: normal;
+  line-height: normal;
+  left: -25px;
+  top: -20; }

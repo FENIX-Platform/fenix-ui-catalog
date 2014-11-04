@@ -26,7 +26,7 @@ define([
         }, uiCreator, w_Commons, cache = {}, modules = [];
 
     var s = {
-       HINTS_CONTAINER: '.fx-catalog-hints'
+       HINTS_CONTAINER: '.fx-catalog-welcome'
     };
 
     function Fx_catalog_modular_form() {
