@@ -100,9 +100,6 @@ define([
         var $resize = $("<div class='" + o.css_classes.RESIZE + "'></div>");
         $resize.on("click", { module: $module.get(0), btn: $resize}, function (e) {
 
-            $(window).trigger('resize');
-            window.dispatchEvent(new Event('resize'));
-
             if ($(e.data.module).attr("data-size") === 'half') {
                 $(e.data.module).attr("data-size", "full");
                 $(e.data.btn).css({

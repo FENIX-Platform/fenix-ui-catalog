@@ -20,6 +20,7 @@ define([
 
     function Fx_Catalog_Resume_Bar() {
         w_Commons = new W_Commons();
+        this.counter = 0;
     }
 
     Fx_Catalog_Resume_Bar.prototype.initEventListeners = function () {
@@ -53,7 +54,6 @@ define([
     };
 
     Fx_Catalog_Resume_Bar.prototype.addItem = function (item) {
-
         var module = this.findResumeItem(item.module);
 
         if (module.length !== 0) {
@@ -61,7 +61,6 @@ define([
             this.printTags($list, item.value, item);
         } else {
             $(o.container).append(this.createResumeItem(item));
-            this.addItem(item)
         }
     };
 
@@ -75,8 +74,10 @@ define([
     };
 
     Fx_Catalog_Resume_Bar.prototype.getTag = function( obj, item ){
+
+
         var $obj = $('<div class="fx-catalog-resume-list-obj"></div>'),
-            $close = $('<div class="fx-catalog-resume-obj-close">x</div>'),
+            $close = $('<div class="fx-catalog-resume-obj-close"></div>'),
             $value = $('<div class="fx-catalog-resume-obj-value">'+obj.label+'</div>');
 
         $close.on('click', function () {
@@ -99,7 +100,33 @@ define([
 
     Fx_Catalog_Resume_Bar.prototype.createResumeItem = function ( item ) {
 
-        return  $('<div class="fx-resume-item-selected" data-module="' + item.module + '"><div data-role="title" class="fx-resume-module-title">'+ item.module +'</div><div data-role="list" class="fx-resume-module-list"></div></div>');
+        var icon;
+
+        switch (item.module){
+            case "resourceType" : icon="fa fa-database fa-fw"; break;
+            case "uid" : icon="fa fa-slack fa-fw"; break;
+            case "unitOfMeasure" : icon="fa fa-arrows-h fa-fw"; break;
+            case "indicator" : icon="fa fa-archive fa-fw"; break;
+            case "item" : icon="fa fa-dot-circle-o fa-fw"; break;
+            case "coverageSector" : icon="fa fa-book fa-fw"; break;
+            case "referencePeriod" : icon="fa fa-clock-o fa-fw"; break;
+            case "basePeriod" : icon="fa fa-clock-o fa-fw"; break;
+            case "updatePeriodicity" : icon="fa fa-calendar fa-fw"; break;
+            case "region" : icon="fa fa-globe fa-fw"; break;
+            case "source" : icon="fa fa-user fa-fw"; break;
+            case "owner" : icon="fa fa-user fa-fw"; break;
+            case "provider" : icon="fa fa-user fa-fw"; break;
+        }
+
+        return  $('<div class="fx-resume-item-selected" data-module="' + item.module + '"><div data-role="title" class="fx-resume-module-title"><em><i class=" ' + icon + '"></i>'+ item.module +'</em></div><div data-role="list" class="fx-resume-module-list"></div></div>');
+
+    };
+
+    Fx_Catalog_Resume_Bar.prototype.hideCourtesyMessage = function () {
+        $('.fx-catalog-resume-noitem').hide();
+    };
+    Fx_Catalog_Resume_Bar.prototype.showCourtesyMessage = function () {
+        $('.fx-catalog-resume-noitem').show();
     };
 
     return Fx_Catalog_Resume_Bar;

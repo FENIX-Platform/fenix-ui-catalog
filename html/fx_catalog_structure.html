@@ -1,9 +1,11 @@
 <div class="container">
 
-    <div class="row">
-        <div class="col-xs-12 fx-catalog-header">
-            <em class="fx-typo-black">Catalog</em> <!--| <em class="fx-catalog-header-btn-close">Open Filter</em>-->
-            <!--<em class="fx-catalog-header-btn-settings pull-right">SETTINGS</em>-->
+    <div class="row fx-catalog-header">
+        <div class="col-xs-3">
+            <em>ATTRIBUTES </em> <!--<i class="fa fa-caret-down"></i>-->
+        </div>
+        <div class="col-xs-9">
+            <em>FILTER BUILDING</em> <!--<i class="fa fa-caret-down"></i>-->
         </div>
     </div>
     <div class="row fx-catalog-modular-filter-container">
@@ -46,15 +48,13 @@
         </div>
 
     </div>
-    <div class="row">
-        <div class="col-xs-12 fx-catalog-resume-bar">
-            <!--<div class="fx-catalog-resume-bar-help"></div>-->
-            <!--<div class="fx-catalog-resume-bar-text">FILTER BY</div>-->
-            <!--<div class="fx-catalog-resume-bar-arrow"></div>-->
-            <div id="fx-catalog-resume">
-                <button class="btn pull-right fx-typo-black" id="fx-catalog-submit-btn">SEARCH</button>
-            </div>
+
+    <div class="row fx-catalog-resume-bar">
+        <div id="fx-catalog-resume">
+           <div class="fx-catalog-resume-title">SELECTION RESUME</div>
+           <div class="fx-catalog-resume-noitem">No item selected</div>
         </div>
+            <button class="btn fx-typo-black disabled" id="fx-catalog-submit-btn">SHOW RESULT<br><i class="fa fa-chevron-down"></i></button>
     </div>
 </div>
 
