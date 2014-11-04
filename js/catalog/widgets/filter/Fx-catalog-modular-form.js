@@ -41,9 +41,18 @@ define([
 
     Fx_catalog_modular_form.prototype.removeItem = function (item) {
         this.grid.removeItem(item);
-        if (this.grid.getElementsCounts() === 0){
-            $(s.HINTS_CONTAINER).fadeIn();
-        }
+    };
+
+    Fx_catalog_modular_form.prototype.getElementsCounts = function (){
+        return this.grid.getElementsCounts();
+    };
+
+    Fx_catalog_modular_form.prototype.hideCourtesyMessage = function(){
+        $(s.HINTS_CONTAINER).fadeOut(200);
+    };
+
+    Fx_catalog_modular_form.prototype.showCourtesyMessage = function(){
+        $(s.HINTS_CONTAINER).fadeIn();
     };
 
     /*
@@ -52,10 +61,6 @@ define([
     * is used to discriminate what widgets must be rendered
     * */
     Fx_catalog_modular_form.prototype.addItem = function (module) {
-
-        if (this.grid.getElementsCounts() === 0){
-            $(s.HINTS_CONTAINER).fadeOut(200);
-        }
 
         var blank = this.getBlankModule(module);
 

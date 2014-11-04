@@ -24,7 +24,6 @@ define([
         this.publishFxCatalogBridgePlugin();
 
         w_Commons = new W_Commons();
-
     }
 
     //(injected)
@@ -59,12 +58,25 @@ define([
         var self = this;
 
         document.body.addEventListener(o.events.SELECT, function (e) {
+            if (self.form.getElementsCounts() === 0){
+                self.form.hideCourtesyMessage();
+                self.resume.hideCourtesyMessage();
+                $(self.submit).removeClass('disabled');
+            }
             self.form.addItem(e.detail);
         }, false);
 
         document.body.addEventListener(o.events.REMOVE, function (e) {
-            self.menu.activate(e.detail.type);
+
             self.form.removeItem(e.detail.module);
+            self.menu.activate(e.detail.type);
+
+            if (self.form.getElementsCounts() === 0){
+                self.form.showCourtesyMessage();
+                self.resume.showCourtesyMessage();
+                $(self.submit).addClass('disabled');
+            }
+
         }, false);
 
         $(selectors.TOGGLE_BTN).on('click', {self: this},function(e){

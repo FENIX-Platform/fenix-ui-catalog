@@ -14,6 +14,9 @@ define([
                 REMOVE: 'fx.catalog.module.remove',
                 DESELECT: 'fx.catalog.module.deselect.'
             }
+        },
+        s = {
+            COURTESY_MSG : '.fx-catalog-resume-noitem'
         };
 
     var w_Commons;
@@ -61,6 +64,7 @@ define([
             this.printTags($list, item.value, item);
         } else {
             $(o.container).append(this.createResumeItem(item));
+            this.addItem(item);
         }
     };
 
@@ -118,15 +122,21 @@ define([
             case "provider" : icon="fa fa-user fa-fw"; break;
         }
 
-        return  $('<div class="fx-resume-item-selected" data-module="' + item.module + '"><div data-role="title" class="fx-resume-module-title"><em><i class=" ' + icon + '"></i>'+ item.module +'</em></div><div data-role="list" class="fx-resume-module-list"></div></div>');
+        var $c = $('<div class="fx-resume-item-selected" data-module="' + item.module + '"></div>'),
+            $title = $('<div data-role="title" class="fx-resume-module-title"><em><i class=" ' + icon + '"></i>'+ item.module +'</em></div>'),
+            $list = $('<div data-role="list" class="fx-resume-module-list"></div>');
 
+        $c.append($title).append($list);
+
+        return $c;
     };
 
     Fx_Catalog_Resume_Bar.prototype.hideCourtesyMessage = function () {
-        $('.fx-catalog-resume-noitem').hide();
+        $(s.COURTESY_MSG).fadeOut(200);
     };
+
     Fx_Catalog_Resume_Bar.prototype.showCourtesyMessage = function () {
-        $('.fx-catalog-resume-noitem').show();
+        $(s.COURTESY_MSG).fadeIn(200);
     };
 
     return Fx_Catalog_Resume_Bar;

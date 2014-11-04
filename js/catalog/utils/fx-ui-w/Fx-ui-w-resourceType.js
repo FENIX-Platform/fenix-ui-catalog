@@ -10,7 +10,6 @@ define([
             },
             events: {
                 READY: 'fx.catalog.module.ready',
-                REMOVE: 'fx.catalog.module.remove',
                 DESELECT: 'fx.catalog.module.deselect.'
             }
         }, w_commons;
