@@ -32,7 +32,9 @@ define([
     function Fx_catalog_modular_form() {
 
         uiCreator = new UiCreator();
-        uiCreator.init();
+        uiCreator.init({
+           plugin_folder: 'fx-cat-br/utils/fx-ui-w/'
+        });
         w_Commons = new W_Commons();
     }
 

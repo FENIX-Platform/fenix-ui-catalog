@@ -135,7 +135,9 @@ define([
     }
 
     //Public Component
-    function Fenix_ui_creator() {
+    function Fenix_ui_creator(o) {
+         this.o = {};
+        $.extend(this.o, o);
     }
 
     Fenix_ui_creator.prototype.getValidation = function (o, values) {
@@ -192,15 +194,13 @@ define([
 
                 //Synch call of require
                 try {
-                    var module = require("fx-cat-br/utils/fx-ui-w/Fx-ui-w-" + element.type),
+                    var module = require( self.o.plugin_folder + "Fx-ui-w-" + element.type),
                         widget = new module();
                     result[element.type] = widget.getValue(element);
 
                 } catch (e) {
                     console.log(e)
                 }
-
-
             });
 
         } else {
@@ -214,7 +214,7 @@ define([
 
                 //Synch call of require
                 try {
-                    var module = require("fx-cat-br/utils/fx-ui-w/Fx-ui-w-" + element.type),
+                    var module = require( self.o.plugin_folder + "Fx-ui-w-" + element.type),
                         widget = new module();
 
                     result[element.id] = widget.getValue(element);
@@ -239,7 +239,7 @@ define([
 
     Fenix_ui_creator.prototype.render = function (o) {
 
-        var i;
+        var self = this;
 
         valid = true;
 
@@ -249,7 +249,7 @@ define([
 
             $(elems).each(function (index, element) {
 
-                var widgetCreator = "fx-cat-br/utils/fx-ui-w/Fx-ui-w-" + element.type;
+                var widgetCreator = self.o.plugin_folder + "Fx-ui-w-" + element.type;
 
                 require([widgetCreator], function (Widget) {
                     valid = true;
@@ -267,7 +267,9 @@ define([
         }
     };
 
-    Fenix_ui_creator.prototype.init = function () { };
+    Fenix_ui_creator.prototype.init = function (o) {
+        $.extend(this.o, o);
+    };
 
     //Public API
     return Fenix_ui_creator;
