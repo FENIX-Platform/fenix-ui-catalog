@@ -33,7 +33,7 @@ define([
      o: component internal options
      v: used to get validation result
      */
-    var langs = ["EN", "FR", "ES"], o = {}, elems, v;
+    var langs = ["EN", "FR", "ES"], elems, v;
 
     //helper functions
     function handleError(e) {
@@ -42,7 +42,7 @@ define([
     }
 
     //Validation fns
-    function inputValidation() {
+    function inputValidation(o) {
 
         //Existing container
         if (!document.querySelector(o.container)) {
@@ -89,7 +89,7 @@ define([
     }
 
     //Rendering fns
-    function createElement(e, container, widget) {
+    function createElement(o, e, container, widget) {
 
         var div, label, c;
 
@@ -138,7 +138,7 @@ define([
     function Fenix_ui_creator() {
     }
 
-    Fenix_ui_creator.prototype.getValidation = function (values) {
+    Fenix_ui_creator.prototype.getValidation = function (o, values) {
 
         var result = {}, propertyErrors, property, validatorName, e;
 
@@ -173,7 +173,6 @@ define([
 
                         propertyErrors.value = values[property];
                         result[property] = propertyErrors;
-
                     }
                 }
             }
@@ -185,7 +184,7 @@ define([
     //Get Values
     Fenix_ui_creator.prototype.getValues = function (validate, externalElements) {
 
-        var result = {}, i, self = this;
+        var result = {}, self = this;
 
         if (externalElements) {
 
@@ -226,7 +225,7 @@ define([
             });
         }
 
-        v = validate === undefined || validate === false ? null : self.getValidation(result);
+        v = validate === undefined || validate === false ? null : self.getValidation({}, result);
         if (v) {
             throw new Error(v);
         }
@@ -238,14 +237,13 @@ define([
         return this.getValidation(this.getValues());
     };
 
-    Fenix_ui_creator.prototype.render = function (options) {
+    Fenix_ui_creator.prototype.render = function (o) {
 
         var i;
 
-        $.extend(o, options);
         valid = true;
 
-        if (inputValidation()) {
+        if (inputValidation(o)) {
 
             elems = JSON.parse(o.elements);
 
@@ -258,7 +256,7 @@ define([
                     var widget = new Widget();
 
                     if (validateElement(element, widget)) {
-                        createElement(element, o.container, widget);
+                        createElement(o, element, o.container, widget);
                     }
 
                 }, function (err) {
@@ -266,7 +264,6 @@ define([
                 });
 
             });
-
         }
     };
 
