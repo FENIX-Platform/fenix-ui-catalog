@@ -10,7 +10,6 @@ define([
             },
             events: {
                 READY: 'fx.catalog.module.ready',
-                REMOVE: 'fx.catalog.module.remove',
                 DESELECT: 'fx.catalog.module.deselect.'
             }
         }, w_commons;
@@ -39,8 +38,10 @@ define([
 
                     var id = Math.random(),
                         $label = $('<label for="fx-radio-'+id+'">'+ choices[i].label[o.widget.lang]+'</label>'),
-                        $radio = $('<input id="fx-radio-'+id+'" type="radio" name="'+ e.component.name+'" value="'+choices[i].value+'"/>');
-                    $form.append($label).append($radio);
+                        $radio = $('<input id="fx-radio-'+id+'" type="radio" name="'+ e.component.name+'" value="'+choices[i].value+'"/>'),
+                        $c = $('<div class="fx-radio-container"></div>');
+                    $c.append($label).append($radio);
+                    $form.append($c);
                 }
 
                 $form.find('input[ name="'+ e.component.name+'" ]:radio').change(function(e) {

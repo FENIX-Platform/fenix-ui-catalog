@@ -26,13 +26,15 @@ define([
         }, uiCreator, w_Commons, cache = {}, modules = [];
 
     var s = {
-       HINTS_CONTAINER: '.fx-catalog-hints'
+       HINTS_CONTAINER: '.fx-catalog-welcome'
     };
 
     function Fx_catalog_modular_form() {
 
         uiCreator = new UiCreator();
-        uiCreator.init();
+        uiCreator.init({
+           plugin_folder: 'fx-cat-br/utils/fx-ui-w/'
+        });
         w_Commons = new W_Commons();
     }
 
@@ -41,9 +43,18 @@ define([
 
     Fx_catalog_modular_form.prototype.removeItem = function (item) {
         this.grid.removeItem(item);
-        if (this.grid.getElementsCounts() === 0){
-            $(s.HINTS_CONTAINER).fadeIn();
-        }
+    };
+
+    Fx_catalog_modular_form.prototype.getElementsCounts = function (){
+        return this.grid.getElementsCounts();
+    };
+
+    Fx_catalog_modular_form.prototype.hideCourtesyMessage = function(){
+        $(s.HINTS_CONTAINER).fadeOut(200);
+    };
+
+    Fx_catalog_modular_form.prototype.showCourtesyMessage = function(){
+        $(s.HINTS_CONTAINER).fadeIn();
     };
 
     /*
@@ -52,10 +63,6 @@ define([
     * is used to discriminate what widgets must be rendered
     * */
     Fx_catalog_modular_form.prototype.addItem = function (module) {
-
-        if (this.grid.getElementsCounts() === 0){
-            $(s.HINTS_CONTAINER).fadeOut(200);
-        }
 
         var blank = this.getBlankModule(module);
 
@@ -99,9 +106,6 @@ define([
 
         var $resize = $("<div class='" + o.css_classes.RESIZE + "'></div>");
         $resize.on("click", { module: $module.get(0), btn: $resize}, function (e) {
-
-            $(window).trigger('resize');
-            window.dispatchEvent(new Event('resize'));
 
             if ($(e.data.module).attr("data-size") === 'half') {
                 $(e.data.module).attr("data-size", "full");
