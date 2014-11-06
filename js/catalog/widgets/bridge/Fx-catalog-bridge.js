@@ -8,7 +8,7 @@ define([
     var o = { },
         defaultOptions = {
             error_prefix: "Fx_catalog_bridge ERROR: ",
-            url: 'http://faostat3.fao.org:7788/find/meta/',
+            url: 'http://faostat3.fao.org:7799/v2/msd/resources/find/',
             events: {
                 END : "end.query.catalog.fx",
                 EMPTY_RESPONSE: "empty_response.query.catalog.fx"

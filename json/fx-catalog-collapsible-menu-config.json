@@ -2,7 +2,36 @@
     "panels": [
         {
             "title": {
-                "EN": "RESOURCE"
+                "EN": "IDENTIFICATION"
+            },
+            "popover": {
+                "data-container": "body",
+                "data-toggle": "popover",
+                "data-placement": "left",
+                "data-content": "Vivamus sagittis lacus vel augue laoreet rutrum faucibus.",
+                "data-trigger": "hover"
+
+            },
+            "modules": [
+                {
+                    "module": "uid",
+                    "label": {
+                        "EN": "Uid"
+                    },
+                    "icon": "fa fa-slack fa-lg fa-fw"
+                },
+                {
+                    "module": "version",
+                    "label": {
+                        "EN": "Version"
+                    },
+                    "icon": "fa fa-slack fa-lg fa-fw"
+                }
+            ]
+        },
+        {
+            "title": {
+                "EN": "CONTENT"
             },
             "popover": {
                 "data-container": "body",
@@ -21,56 +50,6 @@
                     "icon": "fa fa-database fa-lg fa-fw"
                 },
                 {
-                    "module": "uid",
-                    "label": {
-                        "EN": "Uid"
-                    },
-                    "icon": "fa fa-slack fa-lg fa-fw"
-                },
-                {
-                    "module": "unitOfMeasure",
-                    "label": {
-                        "EN": "Unit of Measure"
-                    },
-                    "icon": "fa fa-arrows-h fa-lg fa-fw"
-                },
-                {
-                    "module": "indicator",
-                    "label": {
-                        "EN": "Domain"
-                    },
-                    "icon": "fa fa-archive fa-lg fa-fw"
-                },
-                {
-                    "module": "item",
-                    "label": {
-                        "EN": "Commodity"
-                    },
-                    "icon": "fa fa-dot-circle-o fa-lg fa-fw"
-                },
-                {
-                    "module": "coverageSector",
-                    "label": {
-                        "EN": "Coverage Sector"
-                    },
-                    "icon": "fa fa-book fa-lg fa-fw"
-                }
-            ]
-        },
-        {
-            "title": {
-                "EN": "TIME"
-            },
-            "popover": {
-                "data-container": "body",
-                "data-toggle": "popover",
-                "data-placement": "left",
-                "data-content": "Vivamus sagittis lacus vel augue laoreet rutrum faucibus.",
-                "data-trigger": "hover"
-
-            },
-            "modules": [
-                {
                     "module": "referencePeriod",
                     "label": {
                         "EN": "Reference Period"
@@ -78,34 +57,19 @@
                     "icon": "fa fa-clock-o fa-lg fa-fw"
                 },
                 {
-                    "module": "basePeriod",
+                    "module": "referenceArea",
                     "label": {
-                        "EN": "Base Period"
+                        "EN": "Reference Area"
                     },
                     "icon": "fa fa-clock-o fa-lg fa-fw"
                 },
                 {
-                    "module": "updatePeriodicity",
+                    "module": "sector",
                     "label": {
-                        "EN": "Update Periodicity"
+                        "EN": "Sector"
                     },
-                    "icon": "fa fa-calendar fa-lg fa-fw"
-                }
-            ]
-        },
-        {
-            "title": {
-                "EN": "GEOGRAPHICAL INFO"
-            },
-            "popover": {
-                "data-container": "body",
-                "data-toggle": "popover",
-                "data-placement": "left",
-                "data-content": "Vivamus sagittis lacus vel augue laoreet rutrum faucibus.",
-                "data-trigger": "hover"
-
-            },
-            "modules": [
+                    "icon": "fa fa-clock-o fa-lg fa-fw"
+                },
                 {
                     "module": "region",
                     "label": {
@@ -117,7 +81,7 @@
         },
         {
             "title": {
-                "EN": "CONTACTS"
+                "EN": "Accessibility"
             },
             "popover": {
                 "data-container": "body",
@@ -129,28 +93,13 @@
             },
             "modules": [
                 {
-                    "module": "source",
+                    "module": "statusOfConfidentiality",
                     "label": {
-                        "EN": "Source"
+                        "EN": "Status of Confidentiality"
                     },
-                    "icon": "fa fa-user fa-lg fa-fw"
-                },
-                {
-                    "module": "owner",
-                    "label": {
-                        "EN": "Owner"
-                    },
-                    "icon": "fa fa-user fa-lg fa-fw"
-                },
-                {
-                    "module": "provider",
-                    "label": {
-                        "EN": "Provider"
-                    },
-                    "icon": "fa fa-user fa-lg fa-fw"
+                    "icon": "fa fa-globe fa-lg fa-fw"
                 }
             ]
         }
-
     ]
 }

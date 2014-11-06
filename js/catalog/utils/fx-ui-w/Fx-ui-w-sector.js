@@ -12,11 +12,11 @@ define([
         }
     }, w_commons;
 
-    function Fx_ui_w_referencePeriod() {
+    function Fx_ui_w_sector() {
         w_commons = new W_Commons();
     }
 
-    Fx_ui_w_referencePeriod.prototype.validate = function (e) {
+    Fx_ui_w_sector.prototype.validate = function (e) {
 
         if (!e.hasOwnProperty("source")) {
             throw new Error("ELEM_NOT_SOURCE");
@@ -25,7 +25,7 @@ define([
         return true;
     };
 
-    Fx_ui_w_referencePeriod.prototype.bindEventListeners = function () {
+    Fx_ui_w_sector.prototype.bindEventListeners = function () {
 
         var that = this;
 
@@ -34,7 +34,7 @@ define([
         }, false);
     };
 
-    Fx_ui_w_referencePeriod.prototype.render = function (e, container) {
+    Fx_ui_w_sector.prototype.render = function (e, container) {
 
         o.container = container;
         o.module = e;
@@ -44,13 +44,13 @@ define([
 
     };
 
-    Fx_ui_w_referencePeriod.prototype.getCodelist = function () {
+    Fx_ui_w_sector.prototype.getCodelist = function () {
 
         var body = {
             uid: o.module.component.source.uid
         };
 
-        if (o.module.component.source.version) {
+        if (o.module.component.source.version){
             body['version'] = o.module.component.source.version;
         }
 
@@ -62,15 +62,15 @@ define([
             dataType: "json",
             success: $.proxy(this.printList, this),
             error: function () {
-                alert("Fx_ui_w_referencePeriod error: impossible to load codelist");
+                alert("Fx_ui_w_sector error: impossible to load codelist");
             }
         });
 
     };
 
-    Fx_ui_w_referencePeriod.prototype.printList = function (data) {
+    Fx_ui_w_sector.prototype.printList = function (data) {
 
-        var source = $.extend({datatype: "json", localdata: data}, o.module.component.source);
+        var source = $.extend({datatype: "json",  localdata: data}, o.module.component.source);
         var dataAdapter = new $.jqx.dataAdapter(source);
 
         $(o.container).jqxListBox($.extend({ source: dataAdapter}, o.module.component.rendering))
@@ -92,25 +92,22 @@ define([
 
     };
 
-    Fx_ui_w_referencePeriod.prototype.deselectValue = function (obj) {
+    Fx_ui_w_sector.prototype.deselectValue = function (obj) {
         var item = $(o.container).jqxListBox('getItemByValue', obj.value);
         $(o.container).jqxListBox('unselectItem', item);
     };
 
-    Fx_ui_w_referencePeriod.prototype.getValue = function (e) {
-
+    Fx_ui_w_sector.prototype.getValue = function (e) {
         var codes = $("#" + e.id).jqxListBox('val').split(','),
-            uid = e.details.cl.uid,
-            version = e.details.cl.version;
+            uid = e.details.cl.uid;
 
         return {
             codes: {
                 uid: uid,
-                version: version,
                 codes: codes
             }
         };
     };
 
-    return Fx_ui_w_referencePeriod;
+    return Fx_ui_w_sector;
 });

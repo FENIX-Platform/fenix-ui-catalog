@@ -1,46 +1,27 @@
 {
-    "resourceType": {
-        "path" : "filter.types"
-    },
     "uid": {
-        "path" : "filter.metadata.uid"
+        "path" : "uid"
     },
-    "region": {
-        "path" : "filter.metadata.region"
+    "version": {
+        "path" : "version"
+    },
+    "resourceType": {
+        "path" : "resourceType"
     },
     "referencePeriod": {
-        "path" : "filter.metadata.referencePeriod",
-        "conversion" : {
-            "min" : "from",
-            "max" : "to"
-        }
+        "path" : "referencePeriod"
     },
-    "basePeriod": {
-        "path" : "filter.metadata.basePeriod" ,
-        "conversion" : {
-            "min" : "from",
-            "max" : "to"
-        }
+    "referenceArea": {
+        "path" : "referenceArea"
     },
-    "unitOfMeasure": {
-        "path" : "filter.metadata.unitOfMeasure"
+    "sector": {
+        "path" : "sector"
     },
-    "indicator": {
-        "path" : "filter.data.INDICATOR"
+    "region": {
+        "path" : "region"
     },
-    "item": {
-        "path" : "filter.data.ITEM"
-    },
-    "updatePeriodicity": {
-        "path" : "filter.metadata.updatePeriodicity"
-    },
-    "source": {
-        "path" : "filter.metadata.source"
-    },
-    "owner": {
-        "path" : "filter.metadata.owner"
-    },
-    "provider": {
-        "path" : "filter.metadata.provider"
+    "statusOfConfidentiality": {
+        "path" : "statusOfConfidentiality"
     }
+
 }

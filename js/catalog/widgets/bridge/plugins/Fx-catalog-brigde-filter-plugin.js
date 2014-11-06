@@ -48,6 +48,7 @@ define([
             mapping = JSON.parse(map),
             position = request;
 
+
         for (var i = 0; i < keys.length; i++) {
             if (values.hasOwnProperty(keys[i])) {
                 if (mapping.hasOwnProperty(keys[i])){

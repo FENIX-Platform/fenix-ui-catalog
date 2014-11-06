@@ -1,88 +1,118 @@
 define([
     "jquery",
-    "fx-cat-br/widgets/Fx-widgets-commons"
+    "fx-cat-br/widgets/Fx-widgets-commons",
+    "jqwidgets"
 ], function ($, W_Commons) {
 
-    var o = { },
-        defaultOptions = {
-            widget: {
-                lang: 'EN'
-            },
-            events: {
-                READY: 'fx.catalog.module.ready',
-                DESELECT: 'fx.catalog.module.deselect.'
-            }
-        }, w_commons;
+    var o = {
+        lang: 'EN',
+        events: {
+            READY: "fx.catalog.module.ready",
+            DESELECT: 'fx.catalog.module.deselect.'
+        }
+    }, w_commons;
 
-    function Fx_ui_w_ResourcesType() {
-        w_commons = new W_Commons();}
+    function Fx_ui_w_resourceType() {
+        w_commons = new W_Commons();
+    }
 
-    Fx_ui_w_ResourcesType.prototype.validate = function () {
+    Fx_ui_w_resourceType.prototype.validate = function (e) {
+
+        if (!e.hasOwnProperty("source")) {
+            throw new Error("ELEM_NOT_SOURCE");
+        }
+
         return true;
     };
 
-    Fx_ui_w_ResourcesType.prototype.render = function (e, container) {
-
-        //Merge options
-        $.extend(o, defaultOptions);
-
-        o.container = container;
-        o.module = e;
-
-        if (e.hasOwnProperty("component")){
-            if (e.component.hasOwnProperty("choices")){
-                var choices = e.component.choices,
-                    $form = $("<form></form>");
-
-                for (var i = 0; i<choices.length; i++){
-
-                    var id = Math.random(),
-                        $label = $('<label for="fx-radio-'+id+'">'+ choices[i].label[o.widget.lang]+'</label>'),
-                        $radio = $('<input id="fx-radio-'+id+'" type="radio" name="'+ e.component.name+'" value="'+choices[i].value+'"/>'),
-                        $c = $('<div class="fx-radio-container"></div>');
-                    $c.append($label).append($radio);
-                    $form.append($c);
-                }
-
-                $form.find('input[ name="'+ e.component.name+'" ]:radio').change(function(e) {
-
-                    w_commons.raiseCustomEvent(
-                        o.container,
-                        o.events.READY,
-                        { value : [{label: $('label[for="'+e.currentTarget.id+'"]').html()}],
-                            module:   o.module.type }
-                    );
-
-                });
-
-                $(container).append($form);
-                this.bindEventListeners();
-            }
-        }
-    };
-
-    Fx_ui_w_ResourcesType.prototype.bindEventListeners = function () {
+    Fx_ui_w_resourceType.prototype.bindEventListeners = function () {
 
         var that = this;
-        document.body.addEventListener(o.events.DESELECT+o.module.type, function (e) {
+
+        document.body.addEventListener(o.events.DESELECT + o.module.type, function (e) {
             that.deselectValue(e.detail);
         }, false);
     };
 
-    Fx_ui_w_ResourcesType.prototype.deselectValue = function () {
-        var inputs = o.container.getElementsByTagName("input");
-        for(var i = inputs.length-1;i>=0;i--){
-            if(inputs[i].getAttribute("type")==="radio"){
-                inputs[i].checked=false;
-            }
+    Fx_ui_w_resourceType.prototype.render = function (e, container) {
+
+        o.container = container;
+        o.module = e;
+
+        this.bindEventListeners();
+        this.getCodelist();
+
+    };
+
+    Fx_ui_w_resourceType.prototype.getCodelist = function () {
+
+        $.get(o.module.component.source.url, $.proxy(this.onGetCodelistSuccess, this))
+            .fail(function () {
+                alert("Fx_ui_w_resourceType error: impossible to load codelist");
+            });
+
+    };
+
+    Fx_ui_w_resourceType.prototype.onGetCodelistSuccess = function (d) {
+
+        var array = [],
+            keys = Object.keys(d);
+
+        for (var i = 0; i < keys.length; i++) {
+            array.push({value: keys[i], label: d[keys[i]][o.lang] })
         }
+
+        this.printList(array);
     };
 
+    Fx_ui_w_resourceType.prototype.printList = function (data) {
 
-    Fx_ui_w_ResourcesType.prototype.getValue = function (e) {
-        var result = $('#'+e.id).find('input[type=radio]:checked').val();
-        return  result.split(",");
+        var source = {
+            datatype: "json",
+            datafields: [
+                { "name": "label"},
+                { "name": "value" }
+            ],
+            id: 'value',
+            localdata: data
+        };
+        var dataAdapter = new $.jqx.dataAdapter(source);
+
+        $(o.container).jqxListBox($.extend({ source: dataAdapter}, o.module.component.rendering))
+            .on('change', {container: o.container }, function (event) {
+                var selected = $(event.data.container).jqxListBox("getSelectedItems"),
+                    payload = [];
+
+                for (var i = 0; i < selected.length; i++) {
+                    payload.push({label: selected[i].label, value: selected[i].value })
+                }
+
+                w_commons.raiseCustomEvent(
+                    o.container,
+                    o.events.READY,
+                    { value: payload,
+                        module: o.module.type }
+                );
+            });
+
     };
 
-    return Fx_ui_w_ResourcesType;
+    Fx_ui_w_resourceType.prototype.deselectValue = function (obj) {
+        var item = $(o.container).jqxListBox('getItemByValue', obj.value);
+        $(o.container).jqxListBox('unselectItem', item);
+    };
+
+    Fx_ui_w_resourceType.prototype.getValue = function (e) {
+
+        var results = [],
+            array  = $("#" + e.id).jqxListBox('val').split(',');
+
+        for (var i =0; i < array.length; i++){
+            results.push({enumeration: array[i]})
+        }
+
+        return results;
+    };
+
+    return Fx_ui_w_resourceType;
 });
