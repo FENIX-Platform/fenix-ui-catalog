@@ -149,7 +149,6 @@ define([
     };
 
     Fx_catalog_modular_form.prototype.getValues = function (boolean) {
-
         return uiCreator.getValues(boolean, modules);
     };
 

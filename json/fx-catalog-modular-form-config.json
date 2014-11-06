@@ -1,48 +1,4 @@
 {
-    "resourceType": {
-        "id": "fx-resourcestype-id",
-        "type": "resourceType",
-        "container": "resourcestype-container",
-        "cssclass": "resourcestype",
-        "label": {
-            "EN": "Resources Type",
-            "DE": "Suche",
-            "ES": "Búsqueda",
-            "FR": "Recherchet"
-        },
-        "component": {
-            "name" : "resources-radio",
-            "choices": [
-                {
-                    "label": {
-                        "EN": "Data-sets",
-                        "DE": "Suche",
-                        "ES": "Búsqueda",
-                        "FR": "Recherchet"
-                    },
-                    "value": "dataset"
-                },
-                {
-                    "label": {
-                        "EN": "Layer",
-                        "DE": "Suche",
-                        "ES": "Búsqueda",
-                        "FR": "Recherchet"
-                    },
-                    "value": "layer"
-                },
-                {
-                    "label": {
-                        "EN": "Both",
-                        "DE": "Suche",
-                        "ES": "Búsqueda",
-                        "FR": "Recherchet"
-                    },
-                    "value": "dataset,layer"
-                }
-            ]
-        }
-    },
     "uid": {
         "id": "fx-uid-id",
         "type": "uid",
@@ -68,41 +24,57 @@
             }
         }
     },
-    "region": {
-        "id": "fx-region-id",
-        "type": "region",
-        "cssclass": "region-css",
-        "container": "region-container",
+    "version": {
+        "id": "fx-version-id",
+        "type": "version",
+        "container": "name-container",
+        "cssclass": "name-class",
         "label": {
-            "EN": "Region",
-            "ES": "ES List",
-            "FR": "FR List"
+            "EN": "Version",
+            "DE": "Suche",
+            "ES": "Búsqueda",
+            "FR": "Recherchet"
+        },
+        "component": {
+            "rendering": {
+                "placeholder": {
+                    "EN": "Version",
+                    "DE": "Version",
+                    "ES": "Version",
+                    "FR": "Version"
+                },
+                "htmlattributes": {
+                    "className": "form-control"
+                }
+            }
+        }
+    },
+    "resourceType": {
+        "id": "fx-resourcestype-id",
+        "type": "resourceType",
+        "container": "resourcestype-container",
+        "cssclass": "resourcestype",
+        "label": {
+            "EN": "Resources Type",
+            "DE": "Suche",
+            "ES": "Búsqueda",
+            "FR": "Recherchet"
         },
         "details": {
-            "cl" : {
-                "system" : "GAUL",
-                "version" : "1.0"
+            "cl": {
+                "uid": "RepresentationType"
             }
         },
         "component": {
             "source": {
-                "datafields": [
-                    {
-                        "name": "label", "map" : "title>EN"
-                    },
-                    {
-                        "name": "value", "map" : "code"
-                    }
-                ],
-                "id" : "code",
-                "url": "http://faostat3.fao.org:7788/msd/cl/code/GAUL/1.0"
+                "url": "http://faostat3.fao.org:7799/v2/msd/choices/RepresentationType"
             },
             "rendering": {
                 "displayMember": "label",
                 "valueMember": "value",
                 "multiple": true,
                 "width": "100%",
-                "height" : "100%"
+                "height": "100%"
             }
         }
     },
@@ -117,117 +89,71 @@
             "DE": "Zeitbereich",
             "FR": "Intervalle de temps"
         },
+        "details": {
+            "cl": {
+                "uid": "FAO_Period",
+                "version": "1.0"
+            }
+        },
         "component": {
             "source": {
-                "step": 1,
-                "bounds": {
-                    "min": 1980,
-                    "max": 2014
-                }
+                "datafields": [
+                    {
+                        "name": "label",
+                        "map": "title>EN"
+                    },
+                    {
+                        "name": "value",
+                        "map": "code"
+                    }
+                ],
+                "id": "value",
+                "uid": "FAO_Period",
+                "version": "1.0",
+                "url": "http://exlprsdmxreg1.ext.fao.org:8000/d3sp/codes/filter"
             },
             "rendering": {
-                "arrows": true,
-                "defaultValues": {
-                    "min": 1980,
-                    "max": 2014
-                }
+                "displayMember": "label",
+                "valueMember": "value",
+                "multiple": true,
+                "width": "100%",
+                "height": "100%"
             }
         }
     },
-    "basePeriod": {
-        "id": "fx-basePeriod-id",
-        "type": "basePeriod",
+    "referenceArea": {
+        "id": "fx-referenceArea-id",
+        "type": "referenceArea",
         "cssclass": "fx-catalog-mod-timerseries",
-        "container": "basePeriod-container",
+        "container": "referenceArea-container",
         "label": {
-            "EN": "Base Period",
+            "EN": "Reference Area",
             "ES": "Intervalo de tiempo",
             "DE": "Zeitbereich",
             "FR": "Intervalle de temps"
         },
-        "component": {
-            "source": {
-                "step": 1,
-                "bounds": {
-                    "min": 1980,
-                    "max": 2014
-                }
-            },
-            "rendering": {
-                "arrows": true,
-                "defaultValues": {
-                    "min": 1980,
-                    "max": 2014
-                }
-            }
-        }
-    },
-    "unitOfMeasure": {
-        "id": "fx-unitOfMeasure-id",
-        "type": "unitOfMeasure",
-        "cssclass": "unitOfMeasure-css",
-        "container": "unitOfMeasure-container",
-        "label": {
-            "EN": "Unit of Measure",
-            "ES": "ES List",
-            "FR": "FR List"
-        },
         "details": {
-            "cl" : {
-                "system" : "CS_Units",
-                "version" : "1.0"
+            "cl": {
+                "uid": "GAUL_ReferenceArea",
+                "version": "1.0"
             }
         },
         "component": {
             "source": {
                 "datafields": [
                     {
-                        "name": "label", "map" : "title>EN"
+                        "name": "label",
+                        "map": "title>EN"
                     },
                     {
-                        "name": "value", "map" : "code"
+                        "name": "value",
+                        "map": "code"
                     }
                 ],
-                "id" : "code",
-                "url": "http://faostat3.fao.org:7788/msd/cl/code/CS_Units/1.0"
-            },
-            "rendering": {
-                "displayMember": "label",
-                "valueMember": "value",
-                "multiple": true,
-                "width": "100%",
-                "height":"100%"
-            }
-        }
-    },
-    "coverageSector": {
-        "id": "fx-coverageSector-id",
-        "type": "coverageSector",
-        "cssclass": "coverageSector-css",
-        "container": "coverageSector-container",
-        "label": {
-            "EN": "Coverage Sector",
-            "ES": "ES List",
-            "FR": "FR List"
-        },
-        "details": {
-            "cl" : {
-                "system" : "FAOSTAT_CoveregeSectors",
-                "version" : "1.0"
-            }
-        },
-        "component": {
-            "source": {
-                "datafields": [
-                    {
-                        "name": "label", "map" : "title>EN"
-                    },
-                    {
-                        "name": "value", "map" : "code"
-                    }
-                ],
-                "id" : "code",
-                "url": "http://faostat3.fao.org:7788/msd/cl/code/FAOSTAT_CoveregeSectors/1.0"
+                "id": "value",
+                "uid": "GAUL_ReferenceArea",
+                "version": "1.0",
+                "url": "http://exlprsdmxreg1.ext.fao.org:8000/d3sp/codes/filter"
             },
             "rendering": {
                 "displayMember": "label",
@@ -238,110 +164,37 @@
             }
         }
     },
-    "indicator": {
-        "id": "fx-indicator-id",
-        "type": "indicator",
-        "cssclass": "indicator-css",
-        "container": "indicator-container",
+    "sector": {
+        "id": "fx-sector-id",
+        "type": "sector",
+        "cssclass": "fx-catalog-mod-timerseries",
+        "container": "sector-container",
         "label": {
-            "EN": "Domain",
-            "ES": "ES List",
-            "FR": "FR List"
+            "EN": "Sector",
+            "ES": "Intervalo de tiempo",
+            "DE": "Zeitbereich",
+            "FR": "Intervalle de temps"
         },
         "details": {
-            "cl" : {
-                "system" : "CS_Indicator",
-                "version" : "1.0"
+            "cl": {
+                "uid": "CRS_purpose_codes"
             }
         },
         "component": {
             "source": {
                 "datafields": [
                     {
-                        "name": "label", "map" : "title>EN"
+                        "name": "label",
+                        "map": "title>EN"
                     },
                     {
-                        "name": "value", "map" : "code"
+                        "name": "value",
+                        "map": "code"
                     }
                 ],
-                "id" : "code",
-                "url": "http://faostat3.fao.org:7788/msd/cl/code/CS_Indicator/1.0"
-            },
-            "rendering": {
-                "displayMember": "label",
-                "valueMember": "value",
-                "multiple": true,
-                "width": "100%",
-                "height" : "100%"
-            }
-        }
-    },
-    "item": {
-        "id": "fx-item-id",
-        "type": "item",
-        "cssclass": "item-css",
-        "container": "item-container",
-        "label": {
-            "EN": "Commodity",
-            "ES": "ES List",
-            "FR": "FR List"
-        },
-        "details": {
-            "cl" : {
-                "system" : "CS_Prod_Trade",
-                "version" : "1.0"
-            }
-        },
-        "component": {
-            "source": {
-                "datafields": [
-                    {
-                        "name": "label", "map" : "title>EN"
-                    },
-                    {
-                        "name": "value", "map" : "code"
-                    }
-                ],
-                "id" : "code",
-                "url": "http://faostat3.fao.org:7788/msd/cl/code/CS_Prod_Trade/1.0"
-            },
-            "rendering": {
-                "displayMember": "label",
-                "valueMember": "value",
-                "multiple": true,
-                "width": "100%",
-                "height" : "100%"
-            }
-        }
-    },
-    "updatePeriodicity": {
-        "id": "fx-updatePeriodicity-id",
-        "type": "updatePeriodicity",
-        "cssclass": "updatePeriodicity-css",
-        "container": "updatePeriodicity-container",
-        "details": {
-          "cl" : {
-              "system" : "FAOSTAT_Periodicity",
-              "version" : "1.0"
-          }
-        },
-        "label": {
-            "EN": "Update Periodicity",
-            "ES": "ES List",
-            "FR": "FR List"
-        },
-        "component": {
-            "source": {
-                "datafields": [
-                    {
-                        "name": "label", "map" : "title>EN"
-                    },
-                    {
-                        "name": "value", "map" : "code"
-                    }
-                ],
-                "id" : "code",
-                "url": "http://faostat3.fao.org:7788/msd/cl/code/FAOSTAT_Periodicity/1.0"
+                "id": "value",
+                "uid": "CRS_purpose_codes",
+                "url": "http://exlprsdmxreg1.ext.fao.org:8000/d3sp/codes/filter"
             },
             "rendering": {
                 "displayMember": "label",
@@ -352,100 +205,88 @@
             }
         }
     },
-    "source": {
-        "id": "fx-sources-id",
-        "type": "source",
-        "cssclass": "sources-css",
-        "container": "sources-container",
+    "region": {
+        "id": "fx-region-id",
+        "type": "region",
+        "cssclass": "region-css",
+        "container": "region-container",
         "label": {
-            "EN": "Sources",
+            "EN": "Region",
             "ES": "ES List",
             "FR": "FR List"
+        },
+        "details": {
+            "cl": {
+                "uid": "GAUL",
+                "version": "1.0"
+            }
         },
         "component": {
             "source": {
                 "datafields": [
                     {
-                        "name": "label", "map" : "title>EN"
+                        "name": "label",
+                        "map": "title>EN"
                     },
                     {
-                        "name": "id"
+                        "name": "value",
+                        "map": "code"
                     }
                 ],
-                "id" : "id",
-                "url": "http://faostat3.fao.org:7788/msd/cm/contact/byFields?institution=FAO"
+                "id": "code",
+                "url": "http://faostat3.fao.org:7788/msd/cl/code/GAUL/1.0"
             },
             "rendering": {
                 "displayMember": "label",
-                "valueMember": "id",
+                "valueMember": "value",
                 "multiple": true,
                 "width": "100%",
                 "height": "100%"
             }
         }
     },
-    "owner": {
-        "id": "fx-owner-id",
-        "type": "owner",
-        "cssclass": "owner-css",
-        "container": "owner-container",
+    "statusOfConfidentiality": {
+        "id": "fx-statusOfConfidentiality-id",
+        "type": "statusOfConfidentiality",
+        "cssclass": "fx-catalog-mod-timerseries",
+        "container": "statusOfConfidentiality-container",
         "label": {
-            "EN": "Owner",
-            "ES": "ES List",
-            "FR": "FR List"
+            "EN": "Status of Confidentiality",
+            "ES": "Intervalo de tiempo",
+            "DE": "Zeitbereich",
+            "FR": "Intervalle de temps"
         },
-        "component": {
-            "source": {
-                "datafields": [
-                    {
-                        "name": "label", "map" : "title>EN"
-                    },
-                    {
-                        "name": "id"
-                    }
-                ],
-                "id" : "id",
-                "url": "http://faostat3.fao.org:7788/msd/cm/contact/byFields?institution=FAO"
-            },
-            "rendering": {
-                "displayMember": "label",
-                "valueMember": "id",
-                "multiple": true,
-                "width": "100%",
-                "height": "100%"
+        "details": {
+            "cl": {
+                "uid": "CL_CONF_STATUS",
+                "version": "1.0"
             }
-        }
-    },
-    "provider": {
-        "id": "fx-provider-id",
-        "type": "provider",
-        "cssclass": "provider-css",
-        "container": "provider-container",
-        "label": {
-            "EN": "Provider",
-            "ES": "ES List",
-            "FR": "FR List"
         },
         "component": {
             "source": {
                 "datafields": [
                     {
-                        "name": "label", "map" : "title>EN"
+                        "name": "label",
+                        "map": "title>EN"
                     },
                     {
-                        "name": "id"
+                        "name": "value",
+                        "map": "code"
                     }
                 ],
-                "id" : "id",
-                "url": "http://faostat3.fao.org:7788/msd/cm/contact/byFields?institution=FAO"
+                "id": "value",
+                "uid": "CL_CONF_STATUS",
+                "version": "1.0",
+                "url": "http://exlprsdmxreg1.ext.fao.org:8000/d3sp/codes/filter"
             },
             "rendering": {
                 "displayMember": "label",
-                "valueMember": "id",
+                "valueMember": "value",
                 "multiple": true,
                 "width": "100%",
                 "height": "100%"
             }
         }
     }
+
 }

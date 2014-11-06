@@ -1,62 +1,116 @@
 define([
     "jquery",
     "fx-cat-br/widgets/Fx-widgets-commons",
-    "jqrangeslider"
-], function ($, W_Commons,a ) {
+    "jqwidgets"
+], function ($, W_Commons) {
 
     var o = {
-        lang : 'EN',
+        lang: 'EN',
         events: {
-            READY : "fx.catalog.module.ready",
+            READY: "fx.catalog.module.ready",
             DESELECT: 'fx.catalog.module.deselect.'
         }
     }, w_commons;
 
-    function Fx_ui_w_SimpleRange() {
+    function Fx_ui_w_referencePeriod() {
         w_commons = new W_Commons();
     }
 
-    Fx_ui_w_SimpleRange.prototype.validate = function () {
+    Fx_ui_w_referencePeriod.prototype.validate = function (e) {
+
+        if (!e.hasOwnProperty("source")) {
+            throw new Error("ELEM_NOT_SOURCE");
+        }
 
         return true;
     };
 
-    Fx_ui_w_SimpleRange.prototype.render = function (e, container) {
+    Fx_ui_w_referencePeriod.prototype.bindEventListeners = function () {
+
+        var that = this;
+
+        document.body.addEventListener(o.events.DESELECT + o.module.type, function (e) {
+            that.deselectValue(e.detail);
+        }, false);
+    };
+
+    Fx_ui_w_referencePeriod.prototype.render = function (e, container) {
 
         o.container = container;
         o.module = e;
 
-        // create rangeSlider.
-        $(container).rangeSlider($.extend(e.component.rendering, e.component.source))
-            .on("valuesChanged", {w_commons : w_commons, type: o.module.type}, function(e, data){
+        this.bindEventListeners();
+        this.getCodelist();
 
-            e.data.w_commons.raiseCustomEvent(
-                o.container,
-                o.events.READY,
-                {   value : [ { label: data.values.min +" - "+ data.values.max} ],
-                    module: e.data.type }
-            );
+    };
+
+    Fx_ui_w_referencePeriod.prototype.getCodelist = function () {
+
+        var body = {
+            uid: o.module.component.source.uid
+        };
+
+        if (o.module.component.source.version) {
+            body['version'] = o.module.component.source.version;
+        }
+
+        $.ajax({
+            type: "POST",
+            contentType: "application/json",
+            url: o.module.component.source.url,
+            data: JSON.stringify(body),
+            dataType: "json",
+            success: $.proxy(this.printList, this),
+            error: function () {
+                alert("Fx_ui_w_referencePeriod error: impossible to load codelist");
+            }
         });
 
-        //Default initialization
-        var that = this;
-        window.setTimeout(function(){
-            var results = that.getValue(e);
+    };
 
-            w_commons.raiseCustomEvent(
-                o.container,
-                o.events.READY,
-                {   value :  [ { label: results[0].min +" - "+ results[0].max} ],
-                    module: o.module.type }
-            );
-        }, 100);
+    Fx_ui_w_referencePeriod.prototype.printList = function (data) {
+
+        var source = $.extend({datatype: "json", localdata: data}, o.module.component.source);
+        var dataAdapter = new $.jqx.dataAdapter(source);
+
+        $(o.container).jqxListBox($.extend({ source: dataAdapter}, o.module.component.rendering))
+            .on('change', {container: o.container }, function (event) {
+                var selected = $(event.data.container).jqxListBox("getSelectedItems"),
+                    payload = [];
+
+                for (var i = 0; i < selected.length; i++) {
+                    payload.push({label: selected[i].label, value: selected[i].value })
+                }
+
+                w_commons.raiseCustomEvent(
+                    o.container,
+                    o.events.READY,
+                    { value: payload,
+                        module: o.module.type }
+                );
+            });
 
     };
 
-    Fx_ui_w_SimpleRange.prototype.getValue = function (e) {
-
-        return [$("#" + e.id).rangeSlider("values")];
+    Fx_ui_w_referencePeriod.prototype.deselectValue = function (obj) {
+        var item = $(o.container).jqxListBox('getItemByValue', obj.value);
+        $(o.container).jqxListBox('unselectItem', item);
     };
 
-    return Fx_ui_w_SimpleRange;
+    Fx_ui_w_referencePeriod.prototype.getValue = function (e) {
+
+        var codes = $("#" + e.id).jqxListBox('val').split(','),
+            uid = e.details.cl.uid,
+            version = e.details.cl.version;
+
+        return {
+            codes: {
+                uid: uid,
+                version: version,
+                codes: codes
+            }
+        };
+    };
+
+    return Fx_ui_w_referencePeriod;
 });

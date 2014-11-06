@@ -194,6 +194,7 @@ define([
 
                 //Synch call of require
                 try {
+
                     var module = require( self.o.plugin_folder + "Fx-ui-w-" + element.type),
                         widget = new module();
                     result[element.type] = widget.getValue(element);

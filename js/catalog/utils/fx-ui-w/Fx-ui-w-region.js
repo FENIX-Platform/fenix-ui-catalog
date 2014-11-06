@@ -147,15 +147,16 @@ define([
     Fx_ui_w_geographicExtent.prototype.getValue = function (e) {
 
         var codes = $("#" + e.id).find('.jstree-holder').jstree(true).get_selected(),
-            system = e.details.cl.system,
-            version = e.details.cl.version,
-            results = [];
+            uid = e.details.cl.uid,
+            version = e.details.cl.version;
 
-        for (var i = 0 ; i < codes.length; i++){
-            results.push({code: {code : codes[i], systemKey : system, systemVersion:version}});
-        }
-
-        return results;
+        return {
+            codes: {
+                uid: uid,
+                version: version,
+                codes: codes
+            }
+        };
     };
 
     return Fx_ui_w_geographicExtent;
