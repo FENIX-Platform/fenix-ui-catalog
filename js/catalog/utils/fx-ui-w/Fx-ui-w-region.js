@@ -5,9 +5,9 @@ define([
 ], function ($, W_Commons) {
 
     var o = {
-        lang : 'EN',
+        lang: 'EN',
         events: {
-            READY : "fx.catalog.module.ready",
+            READY: "fx.catalog.module.ready",
             DESELECT: 'fx.catalog.module.deselect.'
         }
     }, w_commons;
@@ -28,35 +28,72 @@ define([
         return true;
     };
 
-    Fx_ui_w_geographicExtent.prototype.processData = function ( data ){
+    Fx_ui_w_geographicExtent.prototype.processData = function (data) {
 
         var r = [];
 
         $(data).each(function (index, item) {
 
-           r.push({"text" : item.title.EN, "id" : item.code, "children" : true});
+            r.push({"text": item.title.EN, "id": item.code, "children": true});
         });
 
         return r;
     };
 
-    Fx_ui_w_geographicExtent.prototype.getFirstCall = function (o, cb ) {
+    Fx_ui_w_geographicExtent.prototype.getFirstCall = function (o, cb) {
 
-        var self =this;
+        var self = this,
+            body = {
+                uid: o.component.source.uid,
+                level: 1,
+                levels: 1
+            };
 
-        $.get( o.component.source.url, function( data ){
+        if (o.component.source.version) {
+            body['version'] = o.component.source.version;
+        }
 
-            cb(self.processData(data));
+        $.ajax({
+            type: "POST",
+            contentType: "application/json",
+            url: o.component.source.url,
+            data: JSON.stringify(body),
+            dataType: "json",
+            success: function (data) {
+                cb(self.processData(data));
+            },
+            error: function () {
+                alert("Fx_ui_w_geographicExtent error: impossible to load codelist");
+            }
         });
     };
 
-    Fx_ui_w_geographicExtent.prototype.getChildren = function (o, node, cb ) {
+    Fx_ui_w_geographicExtent.prototype.getChildren = function (o, node, cb) {
 
-        var self =this;
+        var self = this,
+            body = {
+                uid: o.component.source.uid,
+                level: 1,
+                levels: 2,
+                codes: [node.id]
+            };
 
-        $.get( o.component.source.url + '/' + node.id + '?levels=1', function( data ){
+        if (o.component.source.version) {
+            body['version'] = o.component.source.version;
+        }
 
-            cb(self.processData(data.childs));
+        $.ajax({
+            type: "POST",
+            contentType: "application/json",
+            url: o.component.source.url,
+            data: JSON.stringify(body),
+            dataType: "json",
+            success: function (data) {
+                cb(self.processData(data[0].children));
+            },
+            error: function () {
+                alert("Fx_ui_w_geographicExtent error: impossible to load codelist");
+            }
         });
     };
 
@@ -76,9 +113,9 @@ define([
 
         this.$treeContainer.jstree({
 
-            'core' : {
-                'data' : function (node, cb) {
-                    if(node.id === "#") {
+            'core': {
+                'data': function (node, cb) {
+                    if (node.id === "#") {
                         self.getFirstCall(e, cb);
                     }
                     else {
@@ -86,17 +123,19 @@ define([
                     }
                 }
             },
-            "plugins" : ["checkbox", "wholerow", "search"],
-            "search" : {
+            "plugins": ["checkbox", "wholerow", "search"],
+            "search": {
                 show_only_matches: true
             }
         });
 
         var to = false;
         this.$searchForm.find('#q').keyup(function () {
-            if(to) { clearTimeout(to); }
+            if (to) {
+                clearTimeout(to);
+            }
             to = setTimeout(function () {
-                var v =self.$searchForm.find('#q').val();
+                var v = self.$searchForm.find('#q').val();
                 self.$treeContainer.jstree(true).search(v);
             }, 250);
         });
@@ -104,8 +143,8 @@ define([
         this.$treeContainer.on("changed.jstree", function (e, data) {
 
             var i, j, r = [];
-            for(i = 0, j = data.selected.length; i < j; i++) {
-                r.push({label: data.instance.get_node(data.selected[i]).text, value:data.instance.get_node(data.selected[i])});
+            for (i = 0, j = data.selected.length; i < j; i++) {
+                r.push({label: data.instance.get_node(data.selected[i]).text, value: data.instance.get_node(data.selected[i])});
             }
 
             w_commons.raiseCustomEvent(
@@ -116,11 +155,11 @@ define([
             );
         });
 
-        this.$searchForm.find('.sel_all').on('click', function(){
-           self.$treeContainer.jstree(true).select_all();
+        this.$searchForm.find('.sel_all').on('click', function () {
+            self.$treeContainer.jstree(true).select_all();
         });
 
-        this.$searchForm.find('.desel_all').on('click', function(){
+        this.$searchForm.find('.desel_all').on('click', function () {
             self.$treeContainer.jstree(true).deselect_all();
         });
 
@@ -132,13 +171,13 @@ define([
 
         var that = this;
 
-        document.body.addEventListener(o.events.DESELECT+o.module.type, function (e) {
+        document.body.addEventListener(o.events.DESELECT + o.module.type, function (e) {
             that.deselectValue(e.detail);
         }, false);
     };
 
     Fx_ui_w_geographicExtent.prototype.deselectValue = function (obj) {
-        this.$treeContainer.jstree('deselect_node',[ obj.value]);
+        this.$treeContainer.jstree('deselect_node', [ obj.value]);
         this.$treeContainer.jstree(true).deselect_node([ obj.value]);
 
 
@@ -151,11 +190,13 @@ define([
             version = e.details.cl.version;
 
         return {
-            codes: {
-                uid: uid,
-                version: version,
-                codes: codes
-            }
+            codes: [
+                {
+                    uid: uid,
+                    version: version,
+                    codes: codes
+                }
+            ]
         };
     };
 

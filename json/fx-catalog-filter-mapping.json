@@ -6,22 +6,22 @@
         "path" : "version"
     },
     "resourceType": {
-        "path" : "resourceType"
+        "path" : "meContent.resourceRepresentationType"
     },
     "referencePeriod": {
-        "path" : "referencePeriod"
+        "path" : "meContent.seReferencePopulation.referencePeriod"
     },
     "referenceArea": {
-        "path" : "referenceArea"
+        "path" : "meContent.seReferencePopulation.referenceArea"
     },
     "sector": {
-        "path" : "sector"
+        "path" : "meContent.seCoverage.coverageSectors"
     },
     "region": {
         "path" : "region"
     },
     "statusOfConfidentiality": {
-        "path" : "statusOfConfidentiality"
+        "path" : "meAccessibility.seConfidentiality.confidentialityStatus"
     }
 
 }

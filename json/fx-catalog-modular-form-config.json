@@ -218,7 +218,7 @@
         "details": {
             "cl": {
                 "uid": "GAUL",
-                "version": "1.0"
+                "version": "2014"
             }
         },
         "component": {
@@ -233,8 +233,9 @@
                         "map": "code"
                     }
                 ],
-                "id": "code",
-                "url": "http://faostat3.fao.org:7788/msd/cl/code/GAUL/1.0"
+                "uid": "GAUL",
+                "version": "2014",
+                "url": "http://exlprsdmxreg1.ext.fao.org:8000/d3sp/codes/filter"
             },
             "rendering": {
                 "displayMember": "label",

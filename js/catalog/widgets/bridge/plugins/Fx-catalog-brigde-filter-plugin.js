@@ -53,14 +53,19 @@ define([
             if (values.hasOwnProperty(keys[i])) {
                 if (mapping.hasOwnProperty(keys[i])){
 
-                    if (mapping[keys[i]].conversion) { values[keys[i]] = this.convertValue(values[keys[i]], mapping[keys[i]].conversion); };
+                    if (mapping[keys[i]].conversion) { values[keys[i]] = this.convertValue(values[keys[i]], mapping[keys[i]].conversion); }
 
-                    var path = mapping[keys[i]].path.split(".");
-
+                    /*
+                    For nested mapping
+                     var path = mapping[keys[i]].path.split(".");
                     for (var j = 0; j < path.length - 1; j++) { position = position[path[j]]; }
 
                     position[path[ path.length - 1 ]] = values[keys[i]];
                     position = request;
+                    */
+                    position[mapping[keys[i]].path] = values[keys[i]];
+                    position = request;
+
                 }
             }
         }

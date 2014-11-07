@@ -103,11 +103,11 @@ define([
             version = e.details.cl.version;
 
         return {
-            codes: {
+            codes: [{
                 uid: uid,
                 version: version,
                 codes: codes
-            }
+            }]
         };
     };
 

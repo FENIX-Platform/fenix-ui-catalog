@@ -104,14 +104,7 @@ define([
 
     Fx_ui_w_resourceType.prototype.getValue = function (e) {
 
-        var results = [],
-            array  = $("#" + e.id).jqxListBox('val').split(',');
-
-        for (var i =0; i < array.length; i++){
-            results.push({enumeration: array[i]})
-        }
-
-        return results;
+        return {enumeration : $("#" + e.id).jqxListBox('val').split(',')};
     };
 
     return Fx_ui_w_resourceType;

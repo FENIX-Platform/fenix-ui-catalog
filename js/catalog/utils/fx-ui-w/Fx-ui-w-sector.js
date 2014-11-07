@@ -102,10 +102,10 @@ define([
             uid = e.details.cl.uid;
 
         return {
-            codes: {
+            codes: [{
                 uid: uid,
                 codes: codes
-            }
+            }]
         };
     };
 
