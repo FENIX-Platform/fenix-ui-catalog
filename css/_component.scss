@@ -364,6 +364,31 @@
   top: 25px;
 }
 
+
+.region-css {
+  height: 100%;
+  position: relative; }
+
+.jstree-holder {
+  height: 90%;
+  overflow-y: auto; }
+
+.jstree-default {
+
+  .jstree-search{
+    color: #666666;
+    font-weight: 300;
+    font-style: normal;
+  }
+}
+
+div[data-module="region"]{
+  .fx-catalog-modular-form-content{
+    height: 180px;
+  }
+ }
+
+
 /*========= RESUME BAR =========*/
 .fx-catalog-resume-bar {
   padding-right:150px;
