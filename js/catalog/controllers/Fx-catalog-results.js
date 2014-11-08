@@ -45,7 +45,7 @@ define([
         this.grid.clear();
 
         if (response) {
-            var items = response.resources;
+            var items = response;
 
             for (var i = 0; i < items.length; i++) {
                 this.grid.addItems(this.resultsRenderer.getInstance(items[i]));

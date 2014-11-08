@@ -104,9 +104,9 @@ define([
 
             self.storage.getItem(o.storage.CATALOG, function (item) {
                 var a = JSON.parse(item) || [];
-                a.push(payload.metadata.uid);
+                a.push(payload.uid);
                 self.storage.setItem(o.storage.CATALOG, JSON.stringify(a));
-                $(e.currentTarget).trigger(o.events.ANALYZE, [payload.metadata.uid]);
+                $(e.currentTarget).trigger(o.events.ANALYZE, [payload]);
             });
         });
     };

@@ -12,7 +12,8 @@ define([
         s_desc_source: ".fx_result_description_source",
         s_desc_geo: ".fx_result_description_geograficalarea",
         s_desc_period: ".fx_result_description_baseperiod",
-        s_uid : ".fx_result_uid"
+        s_uid : ".fx_result_uid",
+        s_version : '.fx_result_version'
     }, $result;
 
     function Fx_catalog_result_render_dataset(options) {
@@ -22,26 +23,31 @@ define([
 
     Fx_catalog_result_render_dataset.prototype.initText = function () {
 
-        if (this.o.metadata.hasOwnProperty('uid') && this.o.metadata.uid !== null) {
+        if (this.o.hasOwnProperty('uid') && this.o.uid !== null) {
 
-            $result.find(selectors.s_uid).html(this.o.metadata.uid);
+            $result.find(selectors.s_uid).html(this.o.uid);
         }
 
-        if (this.o.metadata.hasOwnProperty('title') && this.o.metadata.title !== null) {
+        if (this.o.hasOwnProperty('version') && this.o.version !== null) {
 
-            if (this.o.metadata.title.hasOwnProperty('EN')) {
-                $result.find(selectors.s_desc_title).html(this.o.metadata.title['EN']);
+            $result.find(selectors.s_version).html(this.o.version);
+        }
+
+        if (this.o.hasOwnProperty('title') && this.o.title !== null) {
+
+            if (this.o.title.hasOwnProperty('EN')) {
+                $result.find(selectors.s_desc_title).html(this.o.title['EN']);
             } else {
 
-                var keys = Object.keys(this.o.metadata.title);
+                var keys = Object.keys(this.o.title);
 
                 if (keys.length > 0) {
-                    $result.find(selectors.s_desc_title).html(this.o.metadata.title[ keys[0] ]);
+                    $result.find(selectors.s_desc_title).html(this.o.title[ keys[0] ]);
                 }
             }
         }
 
-        $result.find(this.o.s_desc_source).html(this.o.source);
+/*        $result.find(this.o.s_desc_source).html(this.o.source);
 
         if (this.o.metadata.hasOwnProperty('geographicExtent') && this.o.metadata.geographicExtent !== null) {
 
@@ -63,7 +69,7 @@ define([
             if (this.o.metadata.basePeriod.hasOwnProperty('from') && this.o.metadata.basePeriod.hasOwnProperty('to')) {
                 $result.find(selectors.s_desc_period).html("from " + new Date(this.o.metadata.basePeriod.from).getFullYear() + " to " + new Date(this.o.metadata.basePeriod.to).getFullYear());
             }
-        }
+        }*/
     };
 
     Fx_catalog_result_render_dataset.prototype.initModal = function () {

@@ -25,17 +25,7 @@ define([
 
     Fx_catalog_results_generator.prototype.getInstance = function (options) {
 
-        switch (options.resourceType.toUpperCase()) {
-            case "DATASET" :
-                return new Dataset(options).getHtml();
-                break;
-            case "CODELIST" :
-                //return new Fenix_catalog_result_codelist( options );
-                break;
-            case "LAYER" :
-                return new Layer(options).getHtml();
-                break;
-        }
+        return new Dataset(options).getHtml();
     };
 
     return Fx_catalog_results_generator;
