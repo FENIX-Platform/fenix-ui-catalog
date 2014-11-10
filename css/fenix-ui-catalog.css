@@ -409,6 +409,10 @@ body {
 div[data-module="region"] .fx-catalog-modular-form-content {
   height: 180px; }
 
+.jstree-default .jstree-themeicon {
+  display: none;
+  /* It hides folder icon */ }
+
 /*========= RESUME BAR =========*/
 .fx-catalog-resume-bar {
   padding-right: 150px;
