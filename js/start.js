@@ -87,7 +87,8 @@ define(["fx-cat-br/controllers/Fx-catalog-page",
             });
 
             resume.init({
-                container: document.querySelector("#" + html_ids.RESUME)
+                container: document.querySelector("#" + html_ids.RESUME),
+                catalog: document.querySelector("#" + html_ids.FORM)
             });
 
             // Perform dependency injection by extending objects

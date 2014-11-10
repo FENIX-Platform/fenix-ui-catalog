@@ -33,7 +33,8 @@ define([
 
         uiCreator = new UiCreator();
         uiCreator.init({
-           plugin_folder: 'fx-cat-br/utils/fx-ui-w/'
+            plugin_folder: 'fx-cat-br/utils/fx-ui-w/',
+            result_key : 'type'
         });
         w_Commons = new W_Commons();
     }

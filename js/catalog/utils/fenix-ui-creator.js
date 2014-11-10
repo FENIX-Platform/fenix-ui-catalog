@@ -197,7 +197,7 @@ define([
 
                     var module = require( self.o.plugin_folder + "Fx-ui-w-" + element.type),
                         widget = new module();
-                    result[element.type] = widget.getValue(element);
+                    result[element[self.o.result_key]] = widget.getValue(element);
 
                 } catch (e) {
                     console.log(e)

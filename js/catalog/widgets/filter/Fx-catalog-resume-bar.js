@@ -30,11 +30,11 @@ define([
 
         var that = this;
 
-        document.body.addEventListener(o.events.READY, function (e) {
+        o.catalog.addEventListener(o.events.READY, function (e) {
             that.addItem(e.detail)
         }, false);
 
-        document.body.addEventListener(o.events.REMOVE, function (e) {
+        o.catalog.addEventListener(o.events.REMOVE, function (e) {
             that.removeItem(e.detail.type)
         }, false);
 
