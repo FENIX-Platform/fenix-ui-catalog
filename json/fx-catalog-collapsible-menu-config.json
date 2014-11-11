@@ -19,13 +19,6 @@
                         "EN": "Uid"
                     },
                     "icon": "fa fa-slack fa-lg fa-fw"
-                },
-                {
-                    "module": "version",
-                    "label": {
-                        "EN": "Version"
-                    },
-                    "icon": "fa fa-slack fa-lg fa-fw"
                 }
             ]
         },

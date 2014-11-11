@@ -17,7 +17,7 @@ define(function() {
         'fx-cat-br/start' : './start',
         'jquery': '../node_modules/jquery/dist/jquery.min',
         'pnotify' : 'lib/pnotify',
-        'jqwidgets': "http://fenixapps.fao.org/repository/js/jqwidgets/3.1/jqx-all",
+        'jqwidgets': "http://fenixapps.fao.org/repository/js/jqwidgets/3.1/jqx-light",
         'jqueryui': "http://code.jquery.com/ui/1.10.3/jquery-ui.min",
         'nprogress' : '../node_modules/nprogress/nprogress',
         'intro' : '../node_modules/intro.js/minified/intro.min',

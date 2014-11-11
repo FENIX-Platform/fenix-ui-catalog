@@ -18,7 +18,7 @@
         "path" : "meContent.seCoverage.coverageSectors"
     },
     "region": {
-        "path" : "region"
+        "path" : "meContent.seCoverage.coverageGeographic"
     },
     "statusOfConfidentiality": {
         "path" : "meAccessibility.seConfidentiality.confidentialityStatus"
