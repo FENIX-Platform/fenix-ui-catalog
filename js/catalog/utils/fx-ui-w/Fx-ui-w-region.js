@@ -60,7 +60,9 @@ define([
             data: JSON.stringify(body),
             dataType: "json",
             success: function (data) {
-                cb(self.processData(data));
+                if (data){
+                    cb(self.processData(data));
+                }
             },
             error: function () {
                 alert("Fx_ui_w_geographicExtent error: impossible to load codelist");
@@ -89,7 +91,12 @@ define([
             data: JSON.stringify(body),
             dataType: "json",
             success: function (data) {
-                cb(self.processData(data[0].children));
+                if (data){
+                    cb(self.processData(data[0].children|| []));
+                } else {
+                    cb([]);
+                }
+
             },
             error: function () {
                 alert("Fx_ui_w_geographicExtent error: impossible to load codelist");
@@ -105,7 +112,8 @@ define([
         o.module = e;
 
         this.$treeContainer = $('<div class="jstree-holder"></div>');
-        this.$searchForm = $('<form id="s"><input type="search" id="q" /><input class="sel_all" type="button" value="sel all"><input class="desel_all" type="button" value="desel all"></form>');
+        //this.$searchForm = $('<form id="s"><input type="search" id="q" /><input class="sel_all" type="button" value="sel all"><input class="desel_all" type="button" value="desel all"></form>');
+        this.$searchForm = $('<form id="s"><input type="search" id="q" class="form-control"  /></form>');
 
         this.$container = $(container);
         this.$container.append(this.$searchForm);

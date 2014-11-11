@@ -398,7 +398,7 @@ body {
   position: relative; }
 
 .jstree-holder {
-  height: 90%;
+  height: 209px;
   overflow-y: auto; }
 
 .jstree-default .jstree-search {
@@ -407,7 +407,7 @@ body {
   font-style: normal; }
 
 div[data-module="region"] .fx-catalog-modular-form-content {
-  height: 180px; }
+  height: 263px; }
 
 .jstree-default .jstree-themeicon {
   display: none;
