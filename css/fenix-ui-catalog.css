@@ -413,6 +413,9 @@ div[data-module="region"] .fx-catalog-modular-form-content {
   display: none;
   /* It hides folder icon */ }
 
+.jstree-default .jstree-node, .jstree-default .jstree-icon {
+  background-image: url("icons/treejs-32px.png"); }
+
 /*========= RESUME BAR =========*/
 .fx-catalog-resume-bar {
   padding-right: 150px;
