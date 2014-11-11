@@ -396,13 +396,15 @@ div[data-module="region"]{
 /*========= RESUME BAR =========*/
 .fx-catalog-resume-bar {
   padding-right:150px;
+
   background-color: $fenix-light-bg;
   position: relative;
 }
 
 #fx-catalog-resume {
   background-color:white;
-
+  padding-top: 20px;
+  min-height: 60px;
 }
 
 .fx-catalog-resume-title{
@@ -413,11 +415,14 @@ div[data-module="region"]{
   font-family: Roboto;
   font-weight: 400;
   font-size:10px;
+  position: absolute;
+  top: 0;
 }
 
 .fx-catalog-resume-noitem{
   padding-left: 15px;
   position: absolute;
+  top: 15px;
 }
 
 #fx-catalog-submit-btn {
@@ -435,7 +440,7 @@ div[data-module="region"]{
   border-radius:0;
   border: 0;
 
- @include fx-transfor-me(translateY(0));
+// @include fx-transfor-me(translateY(0));
 
 //  &:after {
 //
@@ -452,7 +457,7 @@ div[data-module="region"]{
   &.disabled {
     background-color: $fenix-light-gray;
     opacity: 1;
-    @include fx-transfor-me(translateY(32px));
+//    @include fx-transfor-me(translateY(32px));
 //    &:after {
 //      background: url("img/search-btn-arrow-disabled.svg") no-repeat -0px 0;
 //    }
@@ -514,7 +519,7 @@ div[data-module="region"]{
     .fx-resume-module-list{
       display: inline-block;
       @include fx-border-radius(3px);
-      border: 1px solid $fenix-text;
+      border: 1px solid $fenix-hr;
 
     }
 
