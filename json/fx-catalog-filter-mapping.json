@@ -22,6 +22,9 @@
     },
     "statusOfConfidentiality": {
         "path" : "meAccessibility.seConfidentiality.confidentialityStatus"
+    },
+    "contact": {
+        "path" : "meAccessibility.seConfidentiality.confidentialityStatus"
     }
 
 }

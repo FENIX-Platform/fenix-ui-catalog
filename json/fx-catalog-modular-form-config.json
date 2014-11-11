@@ -246,6 +246,36 @@
             }
         }
     },
+    "contact": {
+        "id": "fx-contact-id",
+        "type": "contact",
+        "container": "contact-container",
+        "cssclass": "contact",
+        "label": {
+            "EN": "Contact",
+            "DE": "Suche",
+            "ES": "Búsqueda",
+            "FR": "Recherchet"
+        },
+        "details": {
+            "cl": {
+                "uid": "ResponsiblePartyRole"
+            }
+        },
+        "component": {
+            "source": {
+                "url": "http://faostat3.fao.org:7799/v2/msd/choices/ResponsiblePartyRole"
+            },
+            "rendering": {
+                "displayMember": "label",
+                "valueMember": "value",
+                "multiple": true,
+                "width": "100%",
+                "height": "100%"
+            }
+
+        }
+    },
     "statusOfConfidentiality": {
         "id": "fx-statusOfConfidentiality-id",
         "type": "statusOfConfidentiality",

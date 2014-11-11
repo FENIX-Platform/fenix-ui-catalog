@@ -102,12 +102,14 @@ define([
 
         $('body').on(o.events.ANALYZE_SUB, function (e, payload) {
 
-            self.storage.getItem(o.storage.CATALOG, function (item) {
+
+            /*self.storage.getItem(o.storage.CATALOG, function (item) {
                 var a = JSON.parse(item) || [];
-                a.push(payload.uid);
+                a.push({uid: payload.uid, version: payload.version});
                 self.storage.setItem(o.storage.CATALOG, JSON.stringify(a));
                 $(e.currentTarget).trigger(o.events.ANALYZE, [payload]);
-            });
+            });*/
+            $(e.currentTarget).trigger(o.events.ANALYZE, [payload]);
         });
     };
 

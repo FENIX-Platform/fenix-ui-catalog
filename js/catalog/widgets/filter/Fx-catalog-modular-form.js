@@ -127,7 +127,7 @@ define([
 
         var $close_btn = $("<div class='" + o.css_classes.CLOSE_BTN + "'></div>")
             .on("click", { o: o }, function () {
-                w_Commons.raiseCustomEvent(document.body, o.events.REMOVE_MODULE, { type: module.module, module: $module.get(0)});
+                w_Commons.raiseCustomEvent(o.catalog, o.events.REMOVE_MODULE, { type: module.module, module: $module.get(0)});
 
                 for (var i = 0; i < modules.length; i++) {
 
@@ -139,7 +139,6 @@ define([
             });
 
         $header.append($close_btn);
-
         $module.append($holder);
         $holder.append($header);
         $holder.append("<div class='" + o.css_classes.CONTENT + "'></div>");

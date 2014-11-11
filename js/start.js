@@ -65,7 +65,8 @@ define(["fx-cat-br/controllers/Fx-catalog-page",
             });
             form.init({
                 container: document.querySelector("#" + html_ids.FORM),
-                config: "json/fx-catalog-modular-form-config.json"
+                config: "json/fx-catalog-modular-form-config.json",
+                catalog: document.querySelector("#" + html_ids.FORM)
             });
 
             grid.init({
