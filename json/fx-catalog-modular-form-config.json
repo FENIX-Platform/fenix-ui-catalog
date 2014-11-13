@@ -217,7 +217,7 @@
         },
         "details": {
             "cl": {
-                "uid": "GAUL",
+                "uid": "GAUL0",
                 "version": "2014"
             }
         },
@@ -233,7 +233,7 @@
                         "map": "code"
                     }
                 ],
-                "uid": "GAUL",
+                "uid": "GAUL0",
                 "version": "2014",
                 "url": "http://faostat3.fao.org/d3s2/v2/msd/codes/filter"
             },
