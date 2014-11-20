@@ -49,23 +49,6 @@
   }
 }
 
-.btn{
-  background-color: transparent;
-  color: $fenix-text;
-  border-color: $fenix-text;
-  &:hover{
-    background-color: transparent;
-    color: $fenix-text;
-    border-color: $fenix-text;
-  }
-  &:active{
-    background-color: $fenix-text;
-    color: white;
-    border-color: $fenix-text;
-    @include fx-box-shadow(0, 0, 0, white);
-  }
-
-}
 
 /*================= Packry =================*/
 .fx-analysis-item {

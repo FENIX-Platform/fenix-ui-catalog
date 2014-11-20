@@ -91,8 +91,8 @@ define([
         var $header = $('<div class="panel-heading"></div>'),
             $title = $('<h4 class="panel-title fx-menu-category-title"></h4>'),
             $a = $('<a data-toggle="collapse"></a>'),
-            $info = $('<div class="fx-catalog-modular-menu-category-info"></div>'),
-            $plus = $('<div class="fx-catalog-modular-menu-category-plus"></div>');
+            $info = $('<span class="fx-panel-info"></span>'),
+            $plus = $('<span class="fx-panel-plus"></span>');
 
         $a.attr("data-parent", "#" + o.collapseId);
         $a.attr("href", "#" + id);
@@ -101,7 +101,7 @@ define([
             $a.html(panel["title"][o.widget.lang]);
         }
 
-        return $header.append($title.append($a.append($plus)).append($info));
+        return $header.append($title.append($a.prepend($plus)).append($info));
 
     };
 
