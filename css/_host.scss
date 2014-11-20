@@ -1,24 +1,5 @@
 /* Analysis Host */
-
-
-/* Imports */
-@import 'fx-colors';
-@import 'fx-mixins';
-
-
 /* Host CSS */
-
-html, body {
-  height: 100%;
-}
-
-$host-menu-height : 0px;
-
-body{
-  padding-top: $host-menu-height;
-}
-
-
 
 #overlay {
   .closeOverlay{

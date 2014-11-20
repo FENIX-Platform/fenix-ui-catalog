@@ -104,7 +104,7 @@
 }
 
 .fx-catalog-modular-form-holder{
-  @extend .obj-box;
+  @include fx-obj-box;
   padding: 5px;
   margin: 0;
 }

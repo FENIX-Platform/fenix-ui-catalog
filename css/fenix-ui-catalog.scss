@@ -1,11 +1,12 @@
 /* Fenix UI  DSD Editor  CSS
 PUT THIS AFTER BOOTSTRAP */
 
-@import 'fx-mixins';
-@import 'fx-colors';
-@import 'fx-typography';
-@import 'fx-commons';
+//@import 'fx-mixins';
+//@import 'fx-colors';
+//@import 'fx-typography';
+//@import 'fx-commons';
 
+@import '../../fenix-ui-common/css/utils/fx-utils';
 
 @import 'component';
-
+@import 'host';
