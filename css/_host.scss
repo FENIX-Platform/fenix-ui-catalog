@@ -7,6 +7,9 @@
     width: 35px;
     background: url("img/icons-sprite.png") no-repeat -595px 0px;
     border: none;
+    position: absolute;
+    right: 0;
+    z-index: 1;
   }
 }
 
@@ -84,9 +87,4 @@
    }
   }
 
-}
-
-.closeOverlay {
-  position: absolute;
-  right: 0;
 }

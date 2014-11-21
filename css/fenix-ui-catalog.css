@@ -1,18 +1,4 @@
 /* Fenix - Catalog Component */
-/* Fenix - Utilities */
-/* Fenix - Variables */
-/* Layout */
-/* Typography */
-/* Fenix Colors */
-/* Specials */
-/* Fenix - Functions */
-/* Fenix - Mixins */
-/* CSS TRANSFORMS */
-/* CSS TRANSITION */
-/* 3D flow */
-/* Blurred */
-/* Color Mixins */
-/* Animations */
 /* Fenix UI Catalog */
 .fx-catalog-welcome {
   text-align: center;
@@ -21,70 +7,13 @@
   left: 50%;
   top: 50%;
   -ms-transform: translate(-50%, -50%);
-  /* IE 9 */
   -webkit-transform: translate(-50%, -50%);
-  /* Chrome, Safari, Opera */
   transform: translate(-50%, -50%); }
   .fx-catalog-welcome .catalog-ico {
     height: 50px;
     width: 50px; }
   .fx-catalog-welcome h1 {
     margin-top: 10px; }
-
-.fx-catalog-hints {
-  background-color: #f8f8f8;
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  text-align: center;
-  padding: 10px;
-  padding-left: 80px;
-  padding-right: 80px; }
-  .fx-catalog-hints .col-xs-3 {
-    position: relative;
-    top: 50%;
-    -ms-transform: translateY(-50%);
-    /* IE 9 */
-    -webkit-transform: translateY(-50%);
-    /* Chrome, Safari, Opera */
-    transform: translateY(-50%); }
-  .fx-catalog-hints img {
-    position: relative;
-    left: 50%;
-    -ms-transform: translateX(-50%);
-    /* IE 9 */
-    -webkit-transform: translateX(-50%);
-    /* Chrome, Safari, Opera */
-    transform: translateX(-50%); }
-  .fx-catalog-hints h3 {
-    margin-top: 0;
-    font-size: 14px;
-    font-weight: 300;
-    color: white;
-    border: 1px solid #666666;
-    display: inline-block;
-    width: 25px;
-    height: 25px;
-    padding-top: 4px;
-    text-align: center;
-    -webkit-border-radius: 100%;
-    -moz-border-radius: 100%;
-    -ms-border-radius: 100%;
-    border-radius: 100%; }
-  .fx-catalog-hints h4 {
-    margin-top: 0;
-    margin-bottom: 2px;
-    color: #4c647f;
-    font-size: 14px;
-    text-transform: uppercase; }
-  .fx-catalog-hints p {
-    color: #666666;
-    font-size: 12px;
-    margin-bottom: 2px; }
-  .fx-catalog-hints button {
-    padding-top: 0px;
-    padding-bottom: 2px;
-    font-size: 10px; }
 
 /* Packery */
 .fx-catalog-form-module {
@@ -96,8 +25,8 @@
 
 .fx_result_description_title {
   text-transform: uppercase;
-  font-weight: bold;
-  display: inline; }
+  display: inline;
+  color: #bf4040; }
 
 .fx_result_description_source {
   display: inline;
@@ -113,22 +42,21 @@
 .fenix-result {
   width: 100%;
   background-color: white;
-  border: 1px solid #E3E3E3;
-  border-radius: 4px;
+  border: 1px solid #d8d8d8;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  border-radius: 10px;
   margin-bottom: 20px;
   min-height: 20px;
   padding: 19px 0 16px 19px; }
 
-/* ====== NEW*/
 /*========= HEADER =========*/
 .fx-catalog-header {
   text-align: center;
   background-color: #f8f8f8; }
   .fx-catalog-header em {
-    font-style: normal;
-    font-family: Roboto;
-    font-weight: 400;
-    font-size: 10px; }
+    font: normal normal 400 10px/normal "Roboto"; }
 
 .fx-catalog-header-btn {
   cursor: pointer; }
@@ -145,18 +73,12 @@
   padding: 0;
   min-height: 250px; }
 
-.fx-catalog-modular-menu-container .btn-default:hover {
-  background-color: #e1dfda; }
-
 .fx-catalog-modular-menu-category-plus {
   position: absolute;
   top: 0;
   height: 15px;
   width: 15px;
   background: url("img/fenix-catalog-sprite-small.png") no-repeat -90px 0; }
-
-#fx-catalog-modular-menu button span {
-  margin-right: 10px; }
 
 .fx-catalog-mod-timerseries {
   top: 25px; }
@@ -168,18 +90,6 @@
 .jstree-holder {
   height: 209px;
   overflow-y: auto; }
-
-.jstree-default .jstree-search {
-  color: #666666;
-  font-weight: 300;
-  font-style: normal; }
-
-.jstree-default .jstree-themeicon {
-  display: none;
-  /* It hides folder icon */ }
-
-.jstree-default .jstree-node, .jstree-default .jstree-icon {
-  background-image: url("icons/treejs-32px.png"); }
 
 /*========= RESUME BAR =========*/
 .fx-catalog-resume-bar {
@@ -193,13 +103,10 @@
   min-height: 60px; }
 
 .fx-catalog-resume-title {
-  color: #005295;
+  color: red;
   padding-left: 15px;
   padding-top: 5px;
-  font-style: normal;
-  font-family: Roboto;
-  font-weight: 400;
-  font-size: 10px;
+  font: normal normal 400 10px/normal "Roboto";
   position: absolute;
   top: 0; }
 
@@ -211,15 +118,15 @@
 #fx-catalog-submit-btn {
   color: white;
   text-transform: uppercase;
-  background-color: #005295;
+  background-color: red;
   width: 150px;
   position: absolute;
   bottom: 0;
   right: 0;
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
-  border-radius: 0;
-  border: 0; }
+  -ms-border-radius: 0;
+  border-radius: 0; }
   #fx-catalog-submit-btn.disabled {
     background-color: #dddddd;
     opacity: 1; }
@@ -233,11 +140,10 @@
     width: 20%;
     padding-left: 15px; }
     .fx-resume-item-selected .fx-resume-module-title em {
-      font-family: Roboto;
-      color: #005295;
-      font-weight: 400;
+      font: normal normal 400 10px/normal "Roboto";
+      color: red;
       font-size: 12px;
-      font-style: normal;
+      /* Not expected */
       position: absolute;
       top: 0; }
   .fx-resume-item-selected .fx-resume-module-list-holder {
@@ -246,10 +152,10 @@
     padding-right: 15px; }
     .fx-resume-item-selected .fx-resume-module-list-holder .fx-resume-module-list {
       display: inline-block;
-      -webkit-border-radius: 3px;
-      -moz-border-radius: 3px;
-      -ms-border-radius: 3px;
-      border-radius: 3px;
+      -webkit-border-radius: 10px;
+      -moz-border-radius: 10px;
+      -ms-border-radius: 10px;
+      border-radius: 10px;
       border: 1px solid #d8d8d8; }
 
 .fx-catalog-resume-obj-close {
@@ -275,29 +181,16 @@
 .fx_result_icon_img {
   width: 42px; }
 
-/* HELP */
-.introjs-helperNumberLayer {
-  border: 2px solid white;
-  background: none;
-  background-color: #005295;
-  font-family: Roboto;
-  -webkit-box-shadow: none;
-  -moz-box-shadow: none;
-  box-shadow: none;
-  text-shadow: none;
-  padding: 0;
-  font-weight: normal;
-  line-height: normal;
-  left: -25px;
-  top: -20; }
-
 /* Analysis Host */
 /* Host CSS */
 #overlay .closeOverlay {
   height: 35px;
   width: 35px;
   background: url("img/icons-sprite.png") no-repeat -595px 0px;
-  border: none; }
+  border: none;
+  position: absolute;
+  right: 0;
+  z-index: 1; }
 
 #fx-catalog-results {
   margin-top: 20px; }
@@ -361,7 +254,3 @@
     height: 100%; }
     #overlay .overlay-content #catalogContainer {
       height: 100%; }
-
-.closeOverlay {
-  position: absolute;
-  right: 0; }
