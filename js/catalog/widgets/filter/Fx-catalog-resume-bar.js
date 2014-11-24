@@ -80,9 +80,9 @@ define([
     Fx_Catalog_Resume_Bar.prototype.getTag = function( obj, item ){
 
 
-        var $obj = $('<div class="fx-catalog-resume-list-obj"></div>'),
-            $close = $('<div class="fx-catalog-resume-obj-close"></div>'),
-            $value = $('<div class="fx-catalog-resume-obj-value">'+obj.label+'</div>');
+        var $obj = $('<div class="fx-resume-list-obj"></div>'),
+            $close = $('<div class="fx-resume-obj-close"></div>'),
+            $value = $('<div class="fx-resume-obj-value">'+obj.label+'</div>');
 
         $close.on('click', function () {
 
@@ -90,7 +90,7 @@ define([
 
             w_Commons.raiseCustomEvent(
                 document.body,
-                o.events.DESELECT + item.module,
+                o.events.DESELECT + tem.module,
                 {value : obj.value}
             );
         });
