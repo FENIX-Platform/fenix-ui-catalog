@@ -2,13 +2,12 @@ define([
     "jquery",
     "text!fx-cat-br/json/fx-catalog-filter-mapping.json",
     "text!fx-cat-br/json/fx-catalog-blank-filter.json"
-], function ($, map, blank) {
+], function ($, map, emptyFilter) {
 
     var o = { };
 
     function FilterPlugin(options) {
         $.extend(o, options);
-
     }
 
     FilterPlugin.prototype.preValidation = function () {
@@ -41,17 +40,25 @@ define([
 
     };
 
+
     FilterPlugin.prototype.createJsonFilter = function (values) {
 
-        var request = JSON.parse(blank),
-            keys = Object.keys(values),
+        var keys = Object.keys(values),
             mapping = JSON.parse(map),
-            position = request;
+            request, position;
 
+        if (o.BLANK_FILTER){
+            request = o.BLANK_FILTER;
+        }else {
+            request = JSON.parse(emptyFilter);
+        }
+
+        position = request;
 
         for (var i = 0; i < keys.length; i++) {
             if (values.hasOwnProperty(keys[i])) {
                 if (mapping.hasOwnProperty(keys[i])){
+
 
                     if (mapping[keys[i]].conversion) { values[keys[i]] = this.convertValue(values[keys[i]], mapping[keys[i]].conversion); }
 
