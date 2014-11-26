@@ -36,7 +36,7 @@
 .fx_result_description_title {
   text-transform: uppercase;
   display: inline;
-  color: $fx-secondary-color;
+  //color: $fx-secondary-color;
 }
 
 .fx_result_description_source {
@@ -125,113 +125,6 @@
 }
 
 
-
-/*========= RESUME BAR =========*/
-.fx-catalog-resume-bar {
-  padding-right:150px;
-
-  background-color: $fenix-light-bg;
-  position: relative;
-}
-
-#fx-catalog-resume {
-  background-color:white;
-  padding-top: 20px;
-  min-height: 60px;
-}
-
-.fx-catalog-resume-title{
-  color: $fx-cool-blue;
-  padding-left: 15px;
-  padding-top: 5px;
-  font: $fx-text-smalltitle-normal;
-  position: absolute;
-  top: 0;
-}
-
-.fx-catalog-resume-noitem{
-  padding-left: 15px;
-  position: absolute;
-  top: 15px;
-}
-
-#fx-catalog-submit-btn {
-  color: white;
-  text-transform: uppercase;
-  background-color: $fx-cool-blue;
-  width: 150px;
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  @include fx-border-radius(0);
-
-
-  &.disabled {
-    background-color: $fenix-light-gray;
-    opacity: 1;
-
-  }
-
-}
-
-.fx-resume-item-selected{
-  position:relative;
-  border-top: 5px solid white;
-  border-bottom: 5px solid white;
-
-  .fx-resume-module-title{
-    display: inline-block;
-    width: 20%;
-    padding-left: 15px;
-
-    em{
-      font: $fx-text-smalltitle-normal;
-      color: $fx-cool-blue;
-      font-size: 12px; /* Not expected */
-      position: absolute;
-      top: 0;
-    }
-
-  }
-
-  .fx-resume-module-list-holder{
-    display: inline-block;
-    max-width: 80%;
-    padding-right: 15px;
-
-    .fx-resume-module-list{
-      display: inline-block;
-      @include fx-border-radius($fx-border-radius);
-      border: 1px solid $fenix-hr;
-
-    }
-
-  }
-
-}
-
-
-.fx-catalog-resume-obj-close{
-  display: inline-block;
-
-  @include fx-small-icons(-45px, 0);
-  cursor: pointer;
-  position: relative;
-  top: 3px;
-}
-
-.fx-catalog-resume-list-obj{
-  display:inline-block;
-
-  .fx-catalog-resume-obj-value{
-    display: inline;
-    margin-right:7px ;
-  }
-
-  .fx-resume-item-selected i{
-
-  }
-}
 
 
 /*========= RESULTS */

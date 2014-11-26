@@ -16,7 +16,7 @@ define([
             }
         },
         s = {
-            COURTESY_MSG : '.fx-catalog-resume-noitem'
+            COURTESY_MSG : '.fx-resume-noitem'
         };
 
     var w_Commons;

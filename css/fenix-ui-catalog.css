@@ -25,8 +25,7 @@
 
 .fx_result_description_title {
   text-transform: uppercase;
-  display: inline;
-  color: #bf4040; }
+  display: inline; }
 
 .fx_result_description_source {
   display: inline;
@@ -43,10 +42,10 @@
   width: 100%;
   background-color: white;
   border: 1px solid #d8d8d8;
-  -webkit-border-radius: 10px;
-  -moz-border-radius: 10px;
-  -ms-border-radius: 10px;
-  border-radius: 10px;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  -ms-border-radius: 0;
+  border-radius: 0;
   margin-bottom: 20px;
   min-height: 20px;
   padding: 19px 0 16px 19px; }
@@ -90,88 +89,6 @@
 .jstree-holder {
   height: 209px;
   overflow-y: auto; }
-
-/*========= RESUME BAR =========*/
-.fx-catalog-resume-bar {
-  padding-right: 150px;
-  background-color: #f8f8f8;
-  position: relative; }
-
-#fx-catalog-resume {
-  background-color: white;
-  padding-top: 20px;
-  min-height: 60px; }
-
-.fx-catalog-resume-title {
-  color: red;
-  padding-left: 15px;
-  padding-top: 5px;
-  font: normal normal 400 10px/normal "Roboto";
-  position: absolute;
-  top: 0; }
-
-.fx-catalog-resume-noitem {
-  padding-left: 15px;
-  position: absolute;
-  top: 15px; }
-
-#fx-catalog-submit-btn {
-  color: white;
-  text-transform: uppercase;
-  background-color: red;
-  width: 150px;
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  -webkit-border-radius: 0;
-  -moz-border-radius: 0;
-  -ms-border-radius: 0;
-  border-radius: 0; }
-  #fx-catalog-submit-btn.disabled {
-    background-color: #dddddd;
-    opacity: 1; }
-
-.fx-resume-item-selected {
-  position: relative;
-  border-top: 5px solid white;
-  border-bottom: 5px solid white; }
-  .fx-resume-item-selected .fx-resume-module-title {
-    display: inline-block;
-    width: 20%;
-    padding-left: 15px; }
-    .fx-resume-item-selected .fx-resume-module-title em {
-      font: normal normal 400 10px/normal "Roboto";
-      color: red;
-      font-size: 12px;
-      /* Not expected */
-      position: absolute;
-      top: 0; }
-  .fx-resume-item-selected .fx-resume-module-list-holder {
-    display: inline-block;
-    max-width: 80%;
-    padding-right: 15px; }
-    .fx-resume-item-selected .fx-resume-module-list-holder .fx-resume-module-list {
-      display: inline-block;
-      -webkit-border-radius: 10px;
-      -moz-border-radius: 10px;
-      -ms-border-radius: 10px;
-      border-radius: 10px;
-      border: 1px solid #d8d8d8; }
-
-.fx-catalog-resume-obj-close {
-  display: inline-block;
-  height: 15px;
-  width: 15px;
-  background: url("img/fenix-catalog-sprite-small.png") no-repeat -45px 0;
-  cursor: pointer;
-  position: relative;
-  top: 3px; }
-
-.fx-catalog-resume-list-obj {
-  display: inline-block; }
-  .fx-catalog-resume-list-obj .fx-catalog-resume-obj-value {
-    display: inline;
-    margin-right: 7px; }
 
 /*========= RESULTS */
 /*========= COMMONS =========*/

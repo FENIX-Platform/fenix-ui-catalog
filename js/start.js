@@ -21,7 +21,7 @@ define(["fx-cat-br/controllers/Fx-catalog-page",
             FORM: "fx-catalog-modular-form",
             SUBMIT: "fx-catalog-submit-btn",
             RESULT: "fx-catalog-results",
-            RESUME: "fx-catalog-resume"
+            RESUME: "fx-resume"
         };
 
         function Start(o) {

@@ -39,7 +39,7 @@ define([
                         intro: "Filter the values"
                     },
                     {
-                        element: document.querySelector('.fx-catalog-resume-bar'),
+                        element: document.querySelector('.fx-resume-bar'),
                         intro: "Verify the values"
                     },
                     {
