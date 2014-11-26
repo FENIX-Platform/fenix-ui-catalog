@@ -24,16 +24,19 @@ define(["fx-cat-br/controllers/Fx-catalog-page",
             RESUME: "fx-catalog-resume"
         };
 
-        function Start() {
+        function Start(o) {
+            this.o = o || {};
         }
 
         Start.prototype.init = function (options) {
 
-            if (!options.hasOwnProperty('container')){
+            $.extend(this.o, options);
+
+            if (!options.hasOwnProperty('container')) {
                 throw 'Catalog needs a container!'
             }
 
-           $(options.container).html(structure);
+            $(options.container).html(structure);
 
             var pageController = new Controller();
 
@@ -42,15 +45,15 @@ define(["fx-cat-br/controllers/Fx-catalog-page",
                 filter: this.initFilter(),
                 bridge: this.initBridge(),
                 results: this.initResults(),
-                storage : new Storage()
+                storage: new Storage()
             });
 
-            if ( options.manualRender !== true){
-                 pageController.render();
+            if (options.manualRender !== true) {
+                pageController.render();
             }
 
             return pageController;
-         };
+        };
 
         Start.prototype.initFilter = function () {
 
@@ -58,7 +61,7 @@ define(["fx-cat-br/controllers/Fx-catalog-page",
                 menu = new Menu(),
                 form = new Form(),
                 resume = new Resume(),
-                grid =  new FluidForm();
+                grid = new FluidForm();
 
             menu.init({
                 container: document.querySelector("#" + html_ids.MENU)
@@ -79,7 +82,6 @@ define(["fx-cat-br/controllers/Fx-catalog-page",
                     itemSelector: '.fx-catalog-form-module',
                     columnWidth: '.fx-catalog-form-module',
                     rowHeight: 0
-
                 }
             });
 
@@ -114,8 +116,7 @@ define(["fx-cat-br/controllers/Fx-catalog-page",
 
             var resultsController = new ResultController(),
                 grid = new FilterableGrid(),
-                //grid = new CrazyGrid();
-                renderer = new ResultsRenderer();
+                renderer = new ResultsRenderer(this.o.results || {});
 
             grid.init({
                 container: document.querySelector("#" + html_ids.RESULT),

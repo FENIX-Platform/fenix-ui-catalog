@@ -12,8 +12,8 @@ define([
         s_desc_source: ".fx_result_description_source",
         s_desc_geo: ".fx_result_description_geograficalarea",
         s_desc_period: ".fx_result_description_baseperiod",
-        s_uid : ".fx_result_uid",
-        s_version : '.fx_result_version'
+        s_uid: ".fx_result_uid",
+        s_version: '.fx_result_version'
     }, $result;
 
     function Fx_catalog_result_render_dataset(options) {
@@ -47,29 +47,29 @@ define([
             }
         }
 
-/*        $result.find(this.o.s_desc_source).html(this.o.source);
+        /*        $result.find(this.o.s_desc_source).html(this.o.source);
 
-        if (this.o.metadata.hasOwnProperty('geographicExtent') && this.o.metadata.geographicExtent !== null) {
+         if (this.o.metadata.hasOwnProperty('geographicExtent') && this.o.metadata.geographicExtent !== null) {
 
-            if (this.o.metadata.geographicExtent.hasOwnProperty('title') && this.o.metadata.geographicExtent.title !== null) {
-                if (this.o.metadata.geographicExtent.title.hasOwnProperty('EN')) {
-                    $result.find(selectors.s_desc_geo).html(this.o.metadata.geographicExtent.title['EN']);
-                } else {
+         if (this.o.metadata.geographicExtent.hasOwnProperty('title') && this.o.metadata.geographicExtent.title !== null) {
+         if (this.o.metadata.geographicExtent.title.hasOwnProperty('EN')) {
+         $result.find(selectors.s_desc_geo).html(this.o.metadata.geographicExtent.title['EN']);
+         } else {
 
-                    var keys = Object.keys(this.o.metadata.geographicExtent.title);
+         var keys = Object.keys(this.o.metadata.geographicExtent.title);
 
-                    if (keys.length > 0) {
-                        $result.find(selectors.s_desc_geo).html(this.o.metadata.geographicExtent.title[ keys[0] ]);
-                    }
-                }
-            }
-        }
+         if (keys.length > 0) {
+         $result.find(selectors.s_desc_geo).html(this.o.metadata.geographicExtent.title[ keys[0] ]);
+         }
+         }
+         }
+         }
 
-        if (this.o.metadata.hasOwnProperty('basePeriod') && this.o.metadata.basePeriod !== null) {
-            if (this.o.metadata.basePeriod.hasOwnProperty('from') && this.o.metadata.basePeriod.hasOwnProperty('to')) {
-                $result.find(selectors.s_desc_period).html("from " + new Date(this.o.metadata.basePeriod.from).getFullYear() + " to " + new Date(this.o.metadata.basePeriod.to).getFullYear());
-            }
-        }*/
+         if (this.o.metadata.hasOwnProperty('basePeriod') && this.o.metadata.basePeriod !== null) {
+         if (this.o.metadata.basePeriod.hasOwnProperty('from') && this.o.metadata.basePeriod.hasOwnProperty('to')) {
+         $result.find(selectors.s_desc_period).html("from " + new Date(this.o.metadata.basePeriod.from).getFullYear() + " to " + new Date(this.o.metadata.basePeriod.to).getFullYear());
+         }
+         }*/
     };
 
     Fx_catalog_result_render_dataset.prototype.initModal = function () {
@@ -83,6 +83,27 @@ define([
             //Listen to it within Fx-catalog-results-generator
             $(e.currentTarget).trigger("clickResultAnalyzeBtn", [e.data.o]);
         });
+    };
+
+
+    Fx_catalog_result_render_dataset.prototype.addActions = function () {
+
+        var self = this;
+
+        if (this.o.hasOwnProperty('actions')) {
+
+            if (this.o.actions.hasOwnProperty('EDIT_METADATA')) {
+
+                var $b =  $('<button class="btn btn-default">Edit Metadata</button>');
+                $b.on('click', function (e) {
+                    //Listen to it within Fx-catalog-results-generator
+                    $(e.currentTarget).trigger("clickResultEditMetadata", [self.o]);
+                });
+
+                $result.find('.results-actions-container').prepend($b)
+            }
+
+        }
     };
 
     Fx_catalog_result_render_dataset.prototype.getHtml = function () {
@@ -100,6 +121,7 @@ define([
         this.initText();
         this.initModal();
         this.initBtns();
+        this.addActions();
 
         return $result.get(0);
     };

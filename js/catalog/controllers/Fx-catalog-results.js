@@ -7,7 +7,9 @@ define([
     var o = {
         events : {
             ANALYZE_SUB : 'clickResultAnalyze',
-            ANALYZE: 'resultAnalyze'
+            EDIT_METADATA_SUB : 'clickResultEditMetadata',
+            ANALYZE: 'resultAnalyze',
+            EDIT_METADATA : "resultEditMetadata"
         }
     };
 
@@ -62,6 +64,13 @@ define([
         $('body').on(o.events.ANALYZE_SUB, function (e, payload) {
             //Listen to it on Fx-catalog-page
             $(e.currentTarget).trigger(o.events.ANALYZE, [payload]);
+        });
+        $('body').on(o.events.EDIT_METADATA_SUB, function (e, payload) {
+            //Listen to it on Fx-catalog-page
+            //$(e.currentTarget).trigger(o.events.EDIT_METADATA, [payload]);
+
+             var loc = './createdataset.html?resourceType=%rt&uid=%u'.replace("%rt", "dataset").replace("%u", payload.uid);
+             document.location.href = loc;
         });
     };
 

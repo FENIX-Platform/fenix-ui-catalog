@@ -11,7 +11,8 @@ define([
         }
     };
 
-    function Fx_catalog_results_generator() {
+    function Fx_catalog_results_generator(options) {
+        this.o = options || {};
         this.initEventListeners();
     }
 
@@ -25,7 +26,7 @@ define([
 
     Fx_catalog_results_generator.prototype.getInstance = function (options) {
 
-        return new Dataset(options).getHtml();
+        return new Dataset($.extend(options, this.o || {})).getHtml();
     };
 
     return Fx_catalog_results_generator;
