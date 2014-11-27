@@ -77,7 +77,8 @@
   top: 0;
   height: 15px;
   width: 15px;
-  background: url("img/fenix-catalog-sprite-small.png") no-repeat -90px 0; }
+  background: url("img/fenix-catalog-sprite-small.svg") no-repeat -90px 0;
+  background-size: 150px 30px; }
 
 .fx-catalog-mod-timerseries {
   top: 25px; }
