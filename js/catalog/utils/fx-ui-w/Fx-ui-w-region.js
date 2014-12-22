@@ -131,7 +131,10 @@ define([
                     }
                 }
             },
-            "plugins": ["checkbox", "wholerow", "search"],
+            themes: {
+                icons: false
+            },
+        "plugins": ["checkbox", "wholerow", "search"],
             "search": {
                 show_only_matches: true
             }
