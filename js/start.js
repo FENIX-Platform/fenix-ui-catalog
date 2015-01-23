@@ -109,7 +109,7 @@ define(["fx-cat-br/controllers/Fx-catalog-page",
         Start.prototype.initBridge = function () {
 
             var bridge = new Bridge();
-            bridge.init(this.o.catalog);
+            bridge.init(this.o.bridge);
             return bridge;
         };
 

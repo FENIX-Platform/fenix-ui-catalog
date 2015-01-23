@@ -25,7 +25,7 @@ define([
         $.extend(o, defaultOptions);
         $.extend(o, options);
 
-        return $(this);
+        return this;
     };
 
     Fx_catalog_bridge.prototype.query = function (src, callback, context) {
@@ -51,7 +51,7 @@ define([
             throw new Error(o.error_prefix + " callback param is not a function");
         } else {
 
-            if (o.BLANK_FILTER){
+            if (o.blankFilter){
                 this.getCustomBlankFilter(callback, context)
             }  else {
                 this.performQuery(callback, context);
@@ -64,15 +64,16 @@ define([
 
         var self = this;
 
-        $.getJSON(o.BLANK_FILTER, function (data) {
+        $.getJSON(o.blankFilter, function (data) {
 
-            plugin.init({BLANK_FILTER: data});
+            plugin.init({blankFilter: data});
             self.performQuery(callback, context);
         })
 
     };
 
     Fx_catalog_bridge.prototype.performQuery = function (callback, context) {
+
         //Ask the plugin the filter, make the request and pass data to callback()
         $.ajax({
             url: o.url,

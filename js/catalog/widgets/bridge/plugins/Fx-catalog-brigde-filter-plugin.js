@@ -47,8 +47,8 @@ define([
             mapping = JSON.parse(map),
             request, position;
 
-        if (o.BLANK_FILTER){
-            request = o.BLANK_FILTER;
+        if (o.blankFilter){
+            request = o.blankFilter;
         }else {
             request = JSON.parse(emptyFilter);
         }
