@@ -1,6 +1,7 @@
 define([
     "jquery",
-    "text!fx-cat-br/html/fx_result_fragments.html"
+    "text!fx-cat-br/html/fx_result_fragments.html",
+    'amplify'
 ], function ($, template) {
 
     //Default Result options
@@ -42,34 +43,10 @@ define([
                 var keys = Object.keys(this.o.title);
 
                 if (keys.length > 0) {
-                    $result.find(selectors.s_desc_title).html(this.o.title[ keys[0] ]);
+                    $result.find(selectors.s_desc_title).html(this.o.title[keys[0]]);
                 }
             }
         }
-
-        /*        $result.find(this.o.s_desc_source).html(this.o.source);
-
-         if (this.o.metadata.hasOwnProperty('geographicExtent') && this.o.metadata.geographicExtent !== null) {
-
-         if (this.o.metadata.geographicExtent.hasOwnProperty('title') && this.o.metadata.geographicExtent.title !== null) {
-         if (this.o.metadata.geographicExtent.title.hasOwnProperty('EN')) {
-         $result.find(selectors.s_desc_geo).html(this.o.metadata.geographicExtent.title['EN']);
-         } else {
-
-         var keys = Object.keys(this.o.metadata.geographicExtent.title);
-
-         if (keys.length > 0) {
-         $result.find(selectors.s_desc_geo).html(this.o.metadata.geographicExtent.title[ keys[0] ]);
-         }
-         }
-         }
-         }
-
-         if (this.o.metadata.hasOwnProperty('basePeriod') && this.o.metadata.basePeriod !== null) {
-         if (this.o.metadata.basePeriod.hasOwnProperty('from') && this.o.metadata.basePeriod.hasOwnProperty('to')) {
-         $result.find(selectors.s_desc_period).html("from " + new Date(this.o.metadata.basePeriod.from).getFullYear() + " to " + new Date(this.o.metadata.basePeriod.to).getFullYear());
-         }
-         }*/
     };
 
     Fx_catalog_result_render_dataset.prototype.initModal = function () {
@@ -77,32 +54,27 @@ define([
         $result.find("#myModalLabel").html(this.o.name);
     };
 
-    Fx_catalog_result_render_dataset.prototype.initBtns = function () {
-
-        $result.find(".btn-to-analyze").on('click', {o: this.o}, function (e) {
-            //Listen to it within Fx-catalog-results-generator
-            $(e.currentTarget).trigger("clickResultAnalyzeBtn", [e.data.o]);
-        });
-    };
-
-
     Fx_catalog_result_render_dataset.prototype.addActions = function () {
 
-        var self = this;
+        var self = this,
+            actions,
+            key;
 
         if (this.o.hasOwnProperty('actions')) {
 
-            if (this.o.actions.hasOwnProperty('EDIT_METADATA')) {
+            actions = this.o.actions;
 
-                var $b =  $('<button class="btn btn-default">Edit Metadata</button>');
+            for (key in actions) {
+
+                var $b = $('<button class="btn btn-default">' + actions[key].labels.EN + '</button>');
                 $b.on('click', function (e) {
                     //Listen to it within Fx-catalog-results-generator
-                    $(e.currentTarget).trigger("clickResultEditMetadata", [self.o]);
+                    $(e.currentTarget).trigger(actions[key].event, [self.o]);
+                    amplify.publish('fx.widget.catalog.'+actions[key].event, self.o);
                 });
 
                 $result.find('.results-actions-container').prepend($b)
             }
-
         }
     };
 
@@ -120,7 +92,6 @@ define([
 
         this.initText();
         this.initModal();
-        this.initBtns();
         this.addActions();
 
         return $result.get(0);

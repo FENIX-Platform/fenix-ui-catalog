@@ -79,7 +79,6 @@ define([
 
     Fx_Catalog_Resume_Bar.prototype.getTag = function( obj, item ){
 
-
         var $obj = $('<div class="fx-resume-list-obj"></div>'),
             $close = $('<div class="fx-resume-obj-close"></div>'),
             $value = $('<div class="fx-resume-obj-value">'+obj.label+'</div>');
@@ -90,7 +89,7 @@ define([
 
             w_Commons.raiseCustomEvent(
                 document.body,
-                o.events.DESELECT + tem.module,
+                o.events.DESELECT + item.module,
                 {value : obj.value}
             );
         });
