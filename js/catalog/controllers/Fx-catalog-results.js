@@ -38,7 +38,7 @@ define([
 
     ResultsController.prototype.render = function () {
         this.preValidation();
-        this.initEventListeners();
+        this.bindEventListeners();
         this.renderComponents();
     };
 
@@ -59,19 +59,40 @@ define([
         this.grid.clear();
     };
 
-    ResultsController.prototype.initEventListeners = function(){
+    ResultsController.prototype.bindEventListeners = function(){
 
-        $('body').on(o.events.ANALYZE_SUB, function (e, payload) {
-            //Listen to it on Fx-catalog-page
-            $(e.currentTarget).trigger(o.events.ANALYZE, [payload]);
-        });
-        $('body').on(o.events.EDIT_METADATA_SUB, function (e, payload) {
-            //Listen to it on Fx-catalog-page
-            //$(e.currentTarget).trigger(o.events.EDIT_METADATA, [payload]);
+        $('body').on(o.events.ANALYZE_SUB, this.onAnalyze);
 
-             var loc = './createdataset.html?resourceType=%rt&uid=%u'.replace("%rt", "dataset").replace("%u", payload.uid);
-             document.location.href = loc;
-        });
+        $('body').on(o.events.EDIT_METADATA_SUB,  this.onShowMetadata);
+    };
+
+    /* event callback */
+
+    ResultsController.prototype.onAnalyze = function (e, payload) {
+        //Listen to it on Fx-catalog-page
+        $(e.currentTarget).trigger(o.events.ANALYZE, [payload]);
+    };
+
+    ResultsController.prototype.onShowMetadata = function (e, payload) {
+        //Listen to it on Fx-catalog-page
+        //$(e.currentTarget).trigger(o.events.EDIT_METADATA, [payload]);
+
+        var loc = './createdataset.html?resourceType=%rt&uid=%u'.replace("%rt", "dataset").replace("%u", payload.uid);
+        document.location.href = loc;
+    };
+
+    /* end event callback */
+
+    ResultsController.prototype.unbindEventListeners = function(){
+
+        $('body').off(o.events.ANALYZE_SUB);
+
+        $('body').off(o.events.EDIT_METADATA_SUB);
+    };
+
+    ResultsController.prototype.destroy = function () {
+        this.grid.destroy();
+        this.unbindEventListeners();
     };
 
     return ResultsController;

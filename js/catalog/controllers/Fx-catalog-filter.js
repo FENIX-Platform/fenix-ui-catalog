@@ -7,15 +7,15 @@ define([
 
     var w_Commons,
         o = {
-            name : 'fx-catalog-filter',
+            name: 'fx-catalog-filter',
             events: {
-                SELECT : "fx.catalog.module.select",
+                SELECT: "fx.catalog.module.select",
                 REMOVE: "fx.catalog.module.remove"
             }
         };
 
     var selectors = {
-        CONTAINER : ".fx-catalog-modular-filter-container",
+        CONTAINER: ".fx-catalog-modular-filter-container",
         TOGGLE_BTN: ".fx-catalog-header-btn-close"
     };
 
@@ -23,8 +23,22 @@ define([
 
         this.publishFxCatalogBridgePlugin();
 
+        //workaround to unbind listeners
+        this.onItemSelect = $.proxy(this.onItemSelect, this);
+        this.onItemRemove = $.proxy(this.onItemRemove, this);
+
         w_Commons = new W_Commons();
     }
+
+    FilterController.prototype.publishFxCatalogBridgePlugin = function () {
+
+        //FENIX Catalog Plugin Registration
+        if (!window.Fx_catalog_bridge_plugins) {
+            window.Fx_catalog_bridge_plugins = {};
+        }
+        window.Fx_catalog_bridge_plugins[o.name] = new Plugin();
+
+    };
 
     //(injected)
     FilterController.prototype.menu = undefined;
@@ -38,55 +52,13 @@ define([
     //(injected)
     FilterController.prototype.submit = undefined;
 
-    FilterController.prototype.initSubmit = function () {
-        var self = this;
+    /* API */
+    FilterController.prototype.render = function () {
 
-        $(this.submit).on("click", function () {
-            w_Commons.raiseCustomEvent(self.submit, "submit.catalog.fx", {});
-        });
-    };
+        this.preValidation();
+        this.bindEventListeners();
 
-    FilterController.prototype.renderComponents = function () {
-
-        this.menu.render();
-        this.form.render();
-        this.resume.render();
-    };
-
-    FilterController.prototype.initEventListeners = function () {
-
-        var self = this;
-
-        document.body.addEventListener(o.events.SELECT, function (e) {
-            if (self.form.getElementsCounts() === 0){
-                self.form.hideCourtesyMessage();
-                self.resume.hideCourtesyMessage();
-                $(self.submit).removeClass('disabled');
-            }
-            self.form.addItem(e.detail);
-        }, false);
-
-        document.body.addEventListener(o.events.REMOVE, function (e) {
-
-            self.form.removeItem(e.detail.module);
-            self.menu.activate(e.detail.type);
-
-            if (self.form.getElementsCounts() === 0){
-                self.form.showCourtesyMessage();
-                self.resume.showCourtesyMessage();
-                $(self.submit).addClass('disabled');
-            }
-
-        }, false);
-
-        $(selectors.TOGGLE_BTN).on('click', {self: this},function(e){
-
-            if ( $(selectors.CONTAINER).is(":visible") ) {
-                e.data.self.collapseFilter();
-            } else {
-                e.data.self.openFilter();
-            }
-        })
+        this.renderComponents();
     };
 
     FilterController.prototype.preValidation = function () {
@@ -106,23 +78,76 @@ define([
 
     };
 
-    FilterController.prototype.render = function () {
+    FilterController.prototype.bindEventListeners = function () {
 
-        this.preValidation();
-        this.initEventListeners();
-        this.initSubmit();
+        document.body.addEventListener(o.events.SELECT, this.onItemSelect);
 
-        this.renderComponents();
+        document.body.addEventListener(o.events.REMOVE, this.onItemRemove);
+
+        $(selectors.TOGGLE_BTN).on('click', this.onToggleCatalog);
+
+        $(this.submit).on("click", this.onSubmit);
     };
 
-    FilterController.prototype.publishFxCatalogBridgePlugin = function () {
+    FilterController.prototype.unbindEventListeners = function () {
 
-        //FENIX Catalog Plugin Registration
-        if (!window.Fx_catalog_bridge_plugins) {
-            window.Fx_catalog_bridge_plugins = {};
+        document.body.removeEventListener(o.events.SELECT, this.onItemSelect);
+
+        document.body.removeEventListener(o.events.REMOVE, this.onItemRemove);
+
+        $(selectors.TOGGLE_BTN).off();
+
+        $(this.submit).off();
+    };
+
+    /* event callback */
+
+    FilterController.prototype.onItemSelect = function (e) {
+
+        console.log('on item select')
+
+        if (this.form.getElementsCounts() === 0) {
+            this.form.hideCourtesyMessage();
+            this.resume.hideCourtesyMessage();
+            $(this.submit).removeClass('disabled');
         }
-        window.Fx_catalog_bridge_plugins[o.name] = new Plugin();
+        this.form.addItem(e.detail);
 
+    };
+
+    FilterController.prototype.onItemRemove = function (e) {
+        this.form.removeItem(e.detail.module);
+        this.menu.activate(e.detail.type);
+
+        if (this.form.getElementsCounts() === 0) {
+            this.form.showCourtesyMessage();
+            this.resume.showCourtesyMessage();
+            $(this.submit).addClass('disabled');
+        }
+    };
+
+    FilterController.prototype.onToggleCatalog = function () {
+
+        if ($(selectors.CONTAINER).is(":visible")) {
+            $(selectors.CONTAINER).hide();
+        } else {
+            $(selectors.CONTAINER).show();
+        }
+
+    };
+
+    FilterController.prototype.onSubmit = function () {
+
+        w_Commons.raiseCustomEvent(this.submit, "submit.catalog.fx", {});
+    };
+
+    /* end event callback */
+
+    FilterController.prototype.renderComponents = function () {
+
+        this.menu.render();
+        this.form.render();
+        this.resume.render();
     };
 
     FilterController.prototype.getValues = function (boolean) {
@@ -133,14 +158,15 @@ define([
         return o.name;
     };
 
-    FilterController.prototype.collapseFilter = function () {
+    FilterController.prototype.destroy = function () {
 
-        $(selectors.CONTAINER).hide();
-    };
+        this.menu.destroy();
 
-    FilterController.prototype.openFilter = function () {
+        this.form.destroy();
 
-        $(selectors.CONTAINER).show();
+        this.resume.destroy();
+
+        this.unbindEventListeners();
     };
 
     return FilterController;

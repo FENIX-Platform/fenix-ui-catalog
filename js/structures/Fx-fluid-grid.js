@@ -119,6 +119,10 @@ define([
         return this;
     };
 
+    Fx_Fluid_Grid.prototype.destroy = function () {
+        this.pckry.destroy();
+    };
+
     return Fx_Fluid_Grid;
 
 });

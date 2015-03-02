@@ -24,21 +24,11 @@ define([
     function Fx_Catalog_Resume_Bar() {
         w_Commons = new W_Commons();
         this.counter = 0;
+
+        //workaround for unbinding
+        this.onReady = $.proxy(this.onReady, this);
+        this.onRemove = $.proxy(this.onRemove, this);
     }
-
-    Fx_Catalog_Resume_Bar.prototype.initEventListeners = function () {
-
-        var that = this;
-
-        o.catalog.addEventListener(o.events.READY, function (e) {
-            that.addItem(e.detail)
-        }, false);
-
-        o.catalog.addEventListener(o.events.REMOVE, function (e) {
-            that.removeItem(e.detail.type)
-        }, false);
-
-    };
 
     Fx_Catalog_Resume_Bar.prototype.init = function (options) {
 
@@ -49,7 +39,29 @@ define([
 
     Fx_Catalog_Resume_Bar.prototype.render = function () {
 
-        this.initEventListeners();
+        this.bindEventListeners();
+    };
+
+    Fx_Catalog_Resume_Bar.prototype.bindEventListeners = function () {
+
+        o.catalog.addEventListener(o.events.READY, this.onReady );
+
+        o.catalog.addEventListener(o.events.REMOVE, this.onRemove);
+    };
+
+    Fx_Catalog_Resume_Bar.prototype.onReady = function (e){
+        this.addItem(e.detail)
+    };
+
+    Fx_Catalog_Resume_Bar.prototype.onRemove = function (e){
+        this.removeItem(e.detail.type)
+    };
+
+    Fx_Catalog_Resume_Bar.prototype.unbindEventListeners = function () {
+
+        o.catalog.removeEventListener(o.events.READY, this.onReady );
+
+        o.catalog.removeEventListener(o.events.REMOVE, this.onRemove);
     };
 
     Fx_Catalog_Resume_Bar.prototype.removeItem = function (item) {
@@ -136,6 +148,11 @@ define([
 
     Fx_Catalog_Resume_Bar.prototype.showCourtesyMessage = function () {
         $(s.COURTESY_MSG).fadeIn(200);
+    };
+
+    Fx_Catalog_Resume_Bar.prototype.destroy = function () {
+        this.unbindEventListeners();
+        $('.fx-resume-obj-close').off();
     };
 
     return Fx_Catalog_Resume_Bar;

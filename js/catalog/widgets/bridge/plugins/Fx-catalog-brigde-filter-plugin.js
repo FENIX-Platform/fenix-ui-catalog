@@ -40,7 +40,6 @@ define([
 
     };
 
-
     FilterPlugin.prototype.createJsonFilter = function (values) {
 
         var keys = Object.keys(values),

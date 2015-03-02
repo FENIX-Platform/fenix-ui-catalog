@@ -27,7 +27,6 @@ define([
         //Merge options
         $.extend(o, defaultOptions);
         $.extend(o, options);
-
     };
 
     Fx_Catalog_Collapsible_Menu.prototype.render = function (options) {
@@ -52,16 +51,12 @@ define([
 
     Fx_Catalog_Collapsible_Menu.prototype.renderMenu = function (json) {
 
-        var self = this;
-
         if (json.hasOwnProperty("panels")) {
 
             var panels = json.panels;
 
             for (var i = 0; i < panels.length; i++) {
-
-                $collapse.append(self.buildPanel(panels[i]))
-
+                $collapse.append(this.buildPanel(panels[i]))
             }
 
             $(o.container).append($collapse)
@@ -72,15 +67,15 @@ define([
     };
 
     Fx_Catalog_Collapsible_Menu.prototype.buildPanel = function (panel) {
-        var self = this,
-            id = "fx-collapse-panel-" + w_Commons.getFenixUniqueId();
 
-        var $p = $(document.createElement("DIV"));
+        var id = "fx-collapse-panel-" + w_Commons.getFenixUniqueId(),
+            $p = $(document.createElement("DIV"));
+
         $p.addClass("panel");
         $p.addClass("panel-default");
 
-        $p.append(self.buildPanelHeader(panel, id));
-        $p.append(self.buildPanelBody(panel, id));
+        $p.append(this.buildPanelHeader(panel, id));
+        $p.append(this.buildPanelBody(panel, id));
 
         return $p;
     };
@@ -122,6 +117,7 @@ define([
                     $btn = $('<button type="button" class="btn btn-default btn-block"></button>');
 
                 $btn.on('click', {module: modules[j] }, function (e) {
+
                     var $btn = $(this);
 
                     if ($btn.is(':disabled') === false) {
@@ -176,6 +172,11 @@ define([
     Fx_Catalog_Collapsible_Menu.prototype.activate = function (module) {
 
         $(o.container).find("[data-module='" + module + "']").removeAttr("disabled");
+    };
+
+    Fx_Catalog_Collapsible_Menu.prototype.destroy = function () {
+
+        $(o.container).find('button.btn.btn-default.btn-block').off()
 
     };
 

@@ -78,14 +78,17 @@ define([
         //Merge options
         $.extend(o, defaultOptions);
         $.extend(o, baseOptions);
-
     };
 
     Fx_Filterable_grid.prototype.clear = function () {
 
         this.isotope.remove(this.isotope.getItemElements());
         this.filter("*");
+    };
 
+    Fx_Filterable_grid.prototype.destroy = function () {
+        this.isotope.destroy();
+        $(o.filters).off();
     };
 
     //Public API

@@ -47,6 +47,7 @@ define([
         //Existing container
         if (!document.querySelector(o.container)) {
             handleError("CONTAINER_NOT_FOUND");
+            return;
         }
 
         //valid JSON Source
@@ -54,11 +55,13 @@ define([
             JSON.parse(o.elements);
         } catch (e) {
             handleError("ELEMENTS_NOT_JSON");
+            return;
         }
 
         //Source as Array
         if (JSON.parse(o.elements).length === undefined) {
             handleError("ELEMENTS_NOT_ARRAY");
+            return;
         }
 
         //UI valid lang
@@ -200,7 +203,7 @@ define([
                     result[element[self.o.result_key]] = widget.getValue(element);
 
                 } catch (e) {
-                    console.log(e)
+                    console.error(e)
                 }
             });
 
@@ -220,7 +223,7 @@ define([
 
                     result[element.id] = widget.getValue(element);
                 } catch (e) {
-                    console.log(e)
+                    console.error(e)
                 }
 
             });

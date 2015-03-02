@@ -68,6 +68,7 @@ define([
         var blank = this.getBlankModule(module);
 
         this.grid.addItem(blank.get(0));
+
         this.renderModule(blank, module);
 
     };
@@ -169,6 +170,14 @@ define([
 
         $.extend(o, defaultOptions);
         $.extend(o, options);
+    };
+
+    Fx_catalog_modular_form.prototype.destroy = function () {
+
+        $("." + o.css_classes.RESIZE).off();
+        $("." + o.css_classes.CLOSE_BTN).off();
+        this.grid.destroy();
+
     };
 
     return Fx_catalog_modular_form;

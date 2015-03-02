@@ -18,15 +18,20 @@ define([
     };
 
     function PageController() {
+
+        //workaround for unbinding
+        this.onSubmit = $.proxy(this.onSubmit, this);
+        this.onEndCatalogSearch = $.proxy(this.onEndCatalogSearch, this);
+        this.onEmptyResponse = $.proxy(this.onEmptyResponse, this)
     }
 
     PageController.prototype.initIntroduction = function () {
 
-        $('#how-does-it-work-btn').on('click', function(e){
+        $('#how-does-it-work-btn').on('click', function (e) {
 
             var intro = IntroJS();
 
-            intro.setOptions({ 'showButtons': true, 'showBullets': false });
+            intro.setOptions({'showButtons': true, 'showBullets': false});
 
             intro.setOptions({
                 steps: [
@@ -67,50 +72,12 @@ define([
     //(injected)
     PageController.prototype.results = undefined;
 
-    PageController.prototype.renderComponents = function () {
-        this.filter.render();
-        this.results.render();
-    };
+    PageController.prototype.render = function () {
 
-    PageController.prototype.initEventListeners = function () {
-
-        var self = this;
-
-        document.body.addEventListener("submit.catalog.fx", function () {
-            NProgress.start();
-            self.bridge.query(self.filter, self.results.addItems, self.results);
-            //self.filter.collapseFilter();
-        }, false);
-
-        document.body.addEventListener("end.query.catalog.fx", function () {
-            NProgress.done();
-        }, false);
-
-        document.body.addEventListener("empty_response.query.catalog.fx", function () {
-
-            self.results.clear();
-
-            new PNotify({
-                title: 'No Result Notice',
-                text: 'The request has no results',
-                type: 'error',
-                nonblock: {
-                    nonblock: true
-                }
-            });
-        }, false);
-
-        $('body').on(o.events.ANALYZE_SUB, function (e, payload) {
-
-
-            /*self.storage.getItem(o.storage.CATALOG, function (item) {
-                var a = JSON.parse(item) || [];
-                a.push({uid: payload.uid, version: payload.version});
-                self.storage.setItem(o.storage.CATALOG, JSON.stringify(a));
-                $(e.currentTarget).trigger(o.events.ANALYZE, [payload]);
-            });*/
-            $(e.currentTarget).trigger(o.events.ANALYZE, [payload]);
-        });
+        this.preValidation();
+        this.bindEventListeners();
+        this.renderComponents();
+        this.initIntroduction();
     };
 
     PageController.prototype.preValidation = function () {
@@ -119,12 +86,83 @@ define([
         }
     };
 
-    PageController.prototype.render = function () {
+    PageController.prototype.bindEventListeners = function () {
 
-        this.preValidation();
-        this.initEventListeners();
-        this.renderComponents();
-        this.initIntroduction();
+        document.body.addEventListener("submit.catalog.fx", this.onSubmit );
+
+        document.body.addEventListener("end.query.catalog.fx", this.onEndCatalogSearch);
+
+        document.body.addEventListener("empty_response.query.catalog.fx", this.onEmptyResponse);
+
+        $('body').on(o.events.ANALYZE_SUB, this.onAnalyze);
+    };
+
+    PageController.prototype.unbindEventListeners = function () {
+
+        document.body.removeEventListener("submit.catalog.fx", this.onSubmit);
+
+        document.body.removeEventListener("end.query.catalog.fx", this.onEndCatalogSearch);
+
+        document.body.removeEventListener("empty_response.query.catalog.fx", this.onEmptyResponse);
+
+        $('body').off();
+    };
+
+    /* event callback */
+
+    PageController.prototype.onSubmit = function () {
+        NProgress.start();
+        this.bridge.query(this.filter, this.results.addItems, this.results);
+        //this.filter.collapseFilter();
+    };
+
+    PageController.prototype.onEndCatalogSearch = function () {
+        NProgress.done();
+    };
+
+    PageController.prototype.onEmptyResponse = function () {
+
+        this.results.clear();
+
+        new PNotify({
+            title: 'No Result Notice',
+            text: 'The request has no results',
+            type: 'error',
+            nonblock: {
+                nonblock: true
+            }
+        });
+    };
+
+    PageController.prototype.onAnalyze = function (e, payload) {
+
+        /*self.storage.getItem(o.storage.CATALOG, function (item) {
+         var a = JSON.parse(item) || [];
+         a.push({uid: payload.uid, version: payload.version});
+         self.storage.setItem(o.storage.CATALOG, JSON.stringify(a));
+         $(e.currentTarget).trigger(o.events.ANALYZE, [payload]);
+         });*/
+        $(e.currentTarget).trigger(o.events.ANALYZE, [payload]);
+    };
+
+    /* end event callback */
+
+    PageController.prototype.renderComponents = function () {
+        this.filter.render();
+        this.results.render();
+    };
+
+    PageController.prototype.destroy = function () {
+
+        this.storage.destroy();
+
+        this.filter.destroy();
+
+        this.bridge.destroy();
+
+        this.results.destroy();
+
+        this.unbindEventListeners();
     };
 
     return PageController;

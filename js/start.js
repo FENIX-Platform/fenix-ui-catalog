@@ -57,8 +57,8 @@ define(["fx-cat-br/controllers/Fx-catalog-page",
 
         Start.prototype.initFilter = function () {
 
-            var filterController = new FilterController(),
-                menu = new Menu(),
+             this.filterController = new FilterController();
+                 var menu = new Menu(),
                 form = new Form(),
                 resume = new Resume(),
                 grid = new FluidForm();
@@ -95,14 +95,14 @@ define(["fx-cat-br/controllers/Fx-catalog-page",
             });
 
             // Perform dependency injection by extending objects
-            $.extend(filterController, {
+            $.extend(this.filterController, {
                 menu: menu,
                 form: form,
                 resume: resume,
                 submit: document.querySelector("#" + html_ids.SUBMIT)
             });
 
-            return filterController;
+            return this.filterController;
 
         };
 
@@ -133,6 +133,11 @@ define(["fx-cat-br/controllers/Fx-catalog-page",
             });
 
             return resultsController;
+        };
+
+        Start.prototype.destroy = function () {
+
+            this.filterController.destroy();
         };
 
         return Start;
