@@ -26,6 +26,7 @@ define([
         //workaround to unbind listeners
         this.onItemSelect = $.proxy(this.onItemSelect, this);
         this.onItemRemove = $.proxy(this.onItemRemove, this);
+        this.onSubmit = $.proxy(this.onSubmit, this);
 
         w_Commons = new W_Commons();
     }
@@ -103,8 +104,6 @@ define([
     /* event callback */
 
     FilterController.prototype.onItemSelect = function (e) {
-
-        console.log('on item select')
 
         if (this.form.getElementsCounts() === 0) {
             this.form.hideCourtesyMessage();
