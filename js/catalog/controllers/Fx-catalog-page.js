@@ -99,7 +99,7 @@ define([
 
     PageController.prototype.unbindEventListeners = function () {
 
-        //document.body.removeEventListener("submit.catalog.fx", this.onSubmit);
+        document.body.removeEventListener("submit.catalog.fx", this.onSubmit);
 
         document.body.removeEventListener("end.query.catalog.fx", this.onEndCatalogSearch);
 

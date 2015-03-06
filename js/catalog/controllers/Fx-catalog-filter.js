@@ -98,7 +98,7 @@ define([
 
         $(selectors.TOGGLE_BTN).off();
 
-        $(this.submit).off();
+        $(this.submit).off('click', this.onSubmit);
     };
 
     /* event callback */
