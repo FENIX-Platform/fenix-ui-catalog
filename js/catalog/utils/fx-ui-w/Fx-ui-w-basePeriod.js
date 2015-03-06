@@ -1,7 +1,8 @@
 define([
     "jquery",
     "fx-cat-br/widgets/Fx-widgets-commons",
-    "jqrangeslider"
+    "jqrangeslider",
+    "amplify"
 ], function ($, W_Commons) {
 
     var o = {
@@ -29,12 +30,16 @@ define([
         $(container).rangeSlider($.extend(e.component.rendering, e.component.source))
             .on("valuesChanged", {w_commons : w_commons, type: o.module.type}, function(e, data){
 
-                e.data.w_commons.raiseCustomEvent(
+                amplify.publish( o.events.READY,
+                    {   value :[ { label: data.values.min + " - "+ data.values.max} ],
+                        module: e.data.type });
+
+                /*e.data.w_commons.raiseCustomEvent(
                     o.container,
                     o.events.READY,
                     {   value :[ { label: data.values.min + " - "+ data.values.max} ],
                         module: e.data.type }
-                );
+                );*/
         });
 
         //Default initialization
@@ -42,12 +47,16 @@ define([
         window.setTimeout(function(){
             var results = that.getValue(e);
 
-            w_commons.raiseCustomEvent(
+            amplify.publish( o.events.READY,
+                {   value :  [ { label: results[0].min +" - "+ results[0].max} ],
+                    module: o.module.type });
+
+          /*  w_commons.raiseCustomEvent(
                 o.container,
                 o.events.READY,
-              {   value :  [ { label: results[0].min +" - "+ results[0].max} ],
-                module: o.module.type }
-            );
+                {   value :  [ { label: results[0].min +" - "+ results[0].max} ],
+                    module: o.module.type }
+            );*/
         }, 100);
     };
 

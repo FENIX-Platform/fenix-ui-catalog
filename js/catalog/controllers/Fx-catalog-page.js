@@ -1,10 +1,11 @@
-/*global define */
+/*global define, amplify */
 
 define([
     'jquery',
     'nprogress',
     'pnotify',
-    'intro'
+    'intro',
+    'amplify'
 ], function ($, NProgress, PNotify, IntroJS) {
 
     var o = {
@@ -19,10 +20,10 @@ define([
 
     function PageController() {
 
-        //workaround for unbinding
+      /*  //workaround for unbinding
         this.onSubmit = $.proxy(this.onSubmit, this);
         this.onEndCatalogSearch = $.proxy(this.onEndCatalogSearch, this);
-        this.onEmptyResponse = $.proxy(this.onEmptyResponse, this)
+        this.onEmptyResponse = $.proxy(this.onEmptyResponse, this)*/
     }
 
     PageController.prototype.initIntroduction = function () {
@@ -88,29 +89,44 @@ define([
 
     PageController.prototype.bindEventListeners = function () {
 
-        document.body.addEventListener("submit.catalog.fx", this.onSubmit );
+        amplify.subscribe("fx.catalog.submit", this, this.onSubmit);
+        amplify.subscribe("fx.catalog.query.end", this, this.onEndCatalogSearch);
+        amplify.subscribe("fx.catalog.query.empty_response", this, this.onEmptyResponse);
+        amplify.subscribe(o.events.ANALYZE_SUB, this, this.onAnalyze);
+
+/*        document.body.addEventListener("submit.catalog.fx", this.onSubmit );
 
         document.body.addEventListener("end.query.catalog.fx", this.onEndCatalogSearch);
 
         document.body.addEventListener("empty_response.query.catalog.fx", this.onEmptyResponse);
 
-        $('body').on(o.events.ANALYZE_SUB, this.onAnalyze);
+ $('body').on(o.events.ANALYZE_SUB, this.onAnalyze);*/
+
+
     };
 
     PageController.prototype.unbindEventListeners = function () {
 
-        document.body.removeEventListener("submit.catalog.fx", this.onSubmit);
+        amplify.unsubscribe("fx.catalog.submit", this.onSubmit);
+        amplify.unsubscribe("fx.catalog.query.end", this.onEndCatalogSearch);
+        amplify.unsubscribe("fx.catalog.query.empty_response", this.onEmptyResponse);
+        amplify.unsubscribe(o.events.ANALYZE_SUB, this.onAnalyze);
+
+       /* document.body.removeEventListener("submit.catalog.fx", this.onSubmit);
 
         document.body.removeEventListener("end.query.catalog.fx", this.onEndCatalogSearch);
 
         document.body.removeEventListener("empty_response.query.catalog.fx", this.onEmptyResponse);
 
         $('body').off(o.events.ANALYZE_SUB);
+        */
+
     };
 
     /* event callback */
 
     PageController.prototype.onSubmit = function () {
+
         NProgress.start();
         this.bridge.query(this.filter, this.results.addItems, this.results);
         //this.filter.collapseFilter();
@@ -142,7 +158,8 @@ define([
          self.storage.setItem(o.storage.CATALOG, JSON.stringify(a));
          $(e.currentTarget).trigger(o.events.ANALYZE, [payload]);
          });*/
-        $(e.currentTarget).trigger(o.events.ANALYZE, [payload]);
+        //$(e.currentTarget).trigger(o.events.ANALYZE, [payload]);
+        amplify.publish(o.events.ANALYZE, [payload]);
     };
 
     /* end event callback */
@@ -154,11 +171,7 @@ define([
 
     PageController.prototype.destroy = function () {
 
-        this.storage.destroy();
-
         this.filter.destroy();
-
-        this.bridge.destroy();
 
         this.results.destroy();
 

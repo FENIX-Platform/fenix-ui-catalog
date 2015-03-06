@@ -1,7 +1,8 @@
-/*global define */
+/*global define, amplify */
 
 define([
-    'jquery'
+    'jquery',
+    'amplify'
 ], function ($) {
 
     var o = {
@@ -61,9 +62,12 @@ define([
 
     ResultsController.prototype.bindEventListeners = function(){
 
+        amplify.subscribe(o.events.ANALYZE_SUB, this, this.onAnalyze);
+        amplify.subscribe(o.events.EDIT_METADATA_SUB, this, this.onShowMetadata);
+/*
         $('body').on(o.events.ANALYZE_SUB, this.onAnalyze);
 
-        $('body').on(o.events.EDIT_METADATA_SUB,  this.onShowMetadata);
+        $('body').on(o.events.EDIT_METADATA_SUB,  this.onShowMetadata);*/
     };
 
     /* event callback */
@@ -85,9 +89,12 @@ define([
 
     ResultsController.prototype.unbindEventListeners = function(){
 
+        amplify.unsubscribe(o.events.ANALYZE_SUB, this.onAnalyze);
+        amplify.unsubscribe(o.events.EDIT_METADATA_SUB, this.onShowMetadata);
+/*
         $('body').off(o.events.ANALYZE_SUB);
 
-        $('body').off(o.events.EDIT_METADATA_SUB);
+        $('body').off(o.events.EDIT_METADATA_SUB);*/
     };
 
     ResultsController.prototype.destroy = function () {

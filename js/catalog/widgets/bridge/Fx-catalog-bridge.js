@@ -2,8 +2,8 @@
 
 define([
     "jquery",
-    "fx-cat-br/widgets/Fx-widgets-commons"
-], function ($, W_Commons) {
+    "amplify"
+], function ($) {
 
     var o = { },
         defaultOptions = {
@@ -11,13 +11,13 @@ define([
             //url: 'http://faostat3.fao.org/d3s2/v2/msd/resources/find/',
             url:'http://fenix.fao.org/d3s_dev/msd/resources/find',
             events: {
-                END : "end.query.catalog.fx",
-                EMPTY_RESPONSE: "empty_response.query.catalog.fx"
+                END : "fx.catalog.query.end",
+                EMPTY_RESPONSE: "fx.catalog.query.empty_response"
             }
-        }, w_commons, plugin;
+        }, plugin;
 
     function Fx_catalog_bridge() {
-        w_commons = new W_Commons();
+
     }
 
     Fx_catalog_bridge.prototype.init = function (options) {
@@ -92,21 +92,17 @@ define([
                     }
 
                 } else {
-                    w_commons.raiseCustomEvent(
-                        document.body,
-                        o.events.EMPTY_RESPONSE,
-                        { }
-                    );
+
+                    amplify.publish( o.events.EMPTY_RESPONSE,  { });
+
                 }
 
             },
             data: JSON.stringify(plugin.getFilter()),
             complete: function(){
-                w_commons.raiseCustomEvent(
-                    document.body,
-                    o.events.END,
-                    { }
-                );
+                amplify.publish( o.events.END,  { });
+
+
             }
         });
     };

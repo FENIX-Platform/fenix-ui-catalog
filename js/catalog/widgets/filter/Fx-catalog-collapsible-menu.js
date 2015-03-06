@@ -2,7 +2,8 @@ define([
     "jquery",
     "fx-cat-br/widgets/Fx-widgets-commons",
     'text!fx-cat-br/json/fx-catalog-collapsible-menu-config.json',
-    'bootstrap'
+    'bootstrap',
+    'amplify'
 ], function ($, W_Commons, conf) {
 
     var o = { },
@@ -122,7 +123,8 @@ define([
 
                     if ($btn.is(':disabled') === false) {
                         $btn.attr("disabled", "disabled");
-                        w_Commons.raiseCustomEvent(o.container, o.events.SELECT, e.data.module)
+                        amplify.publish(o.events.SELECT, e.data.module);
+                        //w_Commons.raiseCustomEvent(o.container, o.events.SELECT, e.data.module)
                     }
 
                 });

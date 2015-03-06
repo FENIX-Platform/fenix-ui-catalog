@@ -1,7 +1,8 @@
 define([
     "jquery",
     "fx-cat-br/widgets/Fx-widgets-commons",
-    "jqwidgets"
+    "jqwidgets",
+    "amplify"
 ], function ($, W_Commons) {
 
     var o = {
@@ -29,9 +30,13 @@ define([
 
         var that = this;
 
-        document.body.addEventListener(o.events.DESELECT + o.module.type, function (e) {
+        amplify.subscribe(o.events.DESELECT + o.module.type,function (e) {
+            that.deselectValue(e);
+        } );
+
+ /*       document.body.addEventListener(o.events.DESELECT + o.module.type, function (e) {
             that.deselectValue(e.detail);
-        }, false);
+        }, false);*/
     };
 
     Fx_ui_w_statusOfConfidentiality.prototype.render = function (e, container) {
@@ -82,12 +87,16 @@ define([
                     payload.push({label: selected[i].label, value: selected[i].value })
                 }
 
-                w_commons.raiseCustomEvent(
+                amplify.publish( o.events.READY,
+                    { value: payload,
+                        module: o.module.type });
+
+               /* w_commons.raiseCustomEvent(
                     o.container,
                     o.events.READY,
                     { value: payload,
                         module: o.module.type }
-                );
+                );*/
             });
 
     };

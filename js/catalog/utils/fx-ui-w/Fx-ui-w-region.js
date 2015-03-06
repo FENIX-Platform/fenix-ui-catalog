@@ -1,7 +1,8 @@
 define([
     "jquery",
     "fx-cat-br/widgets/Fx-widgets-commons",
-    "jstree"
+    "jstree",
+    "amplify"
 ], function ($, W_Commons) {
 
     var o = {
@@ -158,12 +159,17 @@ define([
                 r.push({label: data.instance.get_node(data.selected[i]).text, value: data.instance.get_node(data.selected[i])});
             }
 
-            w_commons.raiseCustomEvent(
+            amplify.publish( o.events.READY,
+                { value: r,
+                    module: o.module.type });
+
+
+           /* w_commons.raiseCustomEvent(
                 o.container,
                 o.events.READY,
                 { value: r,
                     module: o.module.type }
-            );
+            );*/
         });
 
         this.$searchForm.find('.sel_all').on('click', function () {
@@ -182,9 +188,14 @@ define([
 
         var that = this;
 
-        document.body.addEventListener(o.events.DESELECT + o.module.type, function (e) {
+        amplify.subscribe(o.events.DESELECT + o.module.type,function (e) {
+            that.deselectValue(e);
+        } );
+
+
+       /* document.body.addEventListener(o.events.DESELECT + o.module.type, function (e) {
             that.deselectValue(e.detail);
-        }, false);
+        }, false);*/
     };
 
     Fx_ui_w_geographicExtent.prototype.deselectValue = function (obj) {

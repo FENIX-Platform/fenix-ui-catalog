@@ -1,8 +1,8 @@
 define([
     "jquery",
-    "fx-cat-br/widgets/Fx-widgets-commons",
-    'bootstrap'
-], function ($, W_Commons) {
+    'bootstrap',
+    'amplify'
+], function ($) {
 
     var o = { },
         defaultOptions = {
@@ -19,15 +19,14 @@ define([
             COURTESY_MSG : '.fx-resume-noitem'
         };
 
-    var w_Commons;
 
     function Fx_Catalog_Resume_Bar() {
-        w_Commons = new W_Commons();
+
         this.counter = 0;
 
         //workaround for unbinding
-        this.onReady = $.proxy(this.onReady, this);
-        this.onRemove = $.proxy(this.onRemove, this);
+       /* this.onReady = $.proxy(this.onReady, this);
+        this.onRemove = $.proxy(this.onRemove, this);*/
     }
 
     Fx_Catalog_Resume_Bar.prototype.init = function (options) {
@@ -44,24 +43,32 @@ define([
 
     Fx_Catalog_Resume_Bar.prototype.bindEventListeners = function () {
 
-        o.catalog.addEventListener(o.events.READY, this.onReady );
+        amplify.subscribe(o.events.READY, this, this.onReady);
+        amplify.subscribe(o.events.REMOVE, this, this.onRemove);
 
-        o.catalog.addEventListener(o.events.REMOVE, this.onRemove);
+
+       /* o.catalog.addEventListener(o.events.READY, this.onReady );
+
+        o.catalog.addEventListener(o.events.REMOVE, this.onRemove);*/
     };
 
     Fx_Catalog_Resume_Bar.prototype.onReady = function (e){
-        this.addItem(e.detail)
+        this.addItem(e)
     };
 
     Fx_Catalog_Resume_Bar.prototype.onRemove = function (e){
-        this.removeItem(e.detail.type)
+        this.removeItem(e.type)
     };
 
     Fx_Catalog_Resume_Bar.prototype.unbindEventListeners = function () {
 
-        o.catalog.removeEventListener(o.events.READY, this.onReady );
+        amplify.unsubscribe(o.events.READY, this.onReady);
+        amplify.unsubscribe(o.events.REMOVE, this.onRemove);
 
-        o.catalog.removeEventListener(o.events.REMOVE, this.onRemove);
+
+/*        o.catalog.removeEventListener(o.events.READY, this.onReady );
+
+        o.catalog.removeEventListener(o.events.REMOVE, this.onRemove);*/
     };
 
     Fx_Catalog_Resume_Bar.prototype.removeItem = function (item) {
@@ -99,11 +106,8 @@ define([
 
             $obj.remove();
 
-            w_Commons.raiseCustomEvent(
-                document.body,
-                o.events.DESELECT + item.module,
-                {value : obj.value}
-            );
+            amplify.publish(  o.events.DESELECT + item.module, {value : obj.value} );
+
         });
 
         return $obj.append($close).append($value);

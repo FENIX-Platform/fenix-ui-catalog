@@ -1,7 +1,8 @@
 define([
     'jquery',
     "fx-cat-br/widgets/results/renderers/Fx-result-renderer-dataset",
-    "fx-cat-br/widgets/results/renderers/Fx-result-renderer-layer"
+    "fx-cat-br/widgets/results/renderers/Fx-result-renderer-layer",
+    "amplify"
 ], function ($, Dataset, Layer) {
 
     var o = {
@@ -18,10 +19,14 @@ define([
 
     Fx_catalog_results_generator.prototype.initEventListeners = function(){
 
-       $('body').on(o.events.ANALYZE_SUB, function (e, payload) {
+        amplify.subscribe(o.events.ANALYZE_SUB, function (payload) {
+              amplify.publish(o.events.ANALYZE, [payload])
+        })
+
+      /* $('body').on(o.events.ANALYZE_SUB, function (e, payload) {
            //Listen to it on Fx-catalog-results
             $(e.currentTarget).trigger(o.events.ANALYZE, [payload]);
-       });
+       });*/
     };
 
     Fx_catalog_results_generator.prototype.getInstance = function (options) {

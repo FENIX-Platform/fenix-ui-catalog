@@ -69,7 +69,7 @@ define([
                 var $b = $('<button class="btn btn-default">' + actions[key].labels.EN + '</button>');
                 $b.on('click', function (e) {
                     //Listen to it within Fx-catalog-results-generator
-                    $(e.currentTarget).trigger(actions[key].event, [self.o]);
+                    //$(e.currentTarget).trigger(actions[key].event, [self.o]);
                     amplify.publish('fx.widget.catalog.'+actions[key].event, self.o);
                 });
 

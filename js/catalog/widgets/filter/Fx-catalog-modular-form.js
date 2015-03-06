@@ -2,7 +2,8 @@ define([
     "jquery",
     "fx-cat-br/utils/fenix-ui-creator",
     'text!fx-cat-br/json/fx-catalog-modular-form-config.json',
-    "fx-cat-br/widgets/Fx-widgets-commons"
+    "fx-cat-br/widgets/Fx-widgets-commons",
+    "amplify"
 ], function ($, UiCreator, config, W_Commons) {
 
     var o = { },
@@ -128,7 +129,8 @@ define([
 
         var $close_btn = $("<div class='" + o.css_classes.CLOSE_BTN + "'></div>")
             .on("click", { o: o }, function () {
-                w_Commons.raiseCustomEvent(o.catalog, o.events.REMOVE_MODULE, { type: module.module, module: $module.get(0)});
+                amplify.publish(o.events.REMOVE_MODULE, { type: module.module, module: $module.get(0)})
+                //w_Commons.raiseCustomEvent(o.catalog, o.events.REMOVE_MODULE, { type: module.module, module: $module.get(0)});
 
                 for (var i = 0; i < modules.length; i++) {
 

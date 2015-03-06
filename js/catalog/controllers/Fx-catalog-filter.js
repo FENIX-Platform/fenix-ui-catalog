@@ -1,12 +1,10 @@
-/*global define */
+/*global define, amplify */
 
 define([
-    "fx-cat-br/plugins/Fx-catalog-brigde-filter-plugin",
-    "fx-cat-br/widgets/Fx-widgets-commons"
-], function (Plugin, W_Commons) {
+    "fx-cat-br/plugins/Fx-catalog-brigde-filter-plugin"
+], function (Plugin) {
 
-    var w_Commons,
-        o = {
+    var o = {
             name: 'fx-catalog-filter',
             events: {
                 SELECT: "fx.catalog.module.select",
@@ -24,11 +22,9 @@ define([
         this.publishFxCatalogBridgePlugin();
 
         //workaround to unbind listeners
-        this.onItemSelect = $.proxy(this.onItemSelect, this);
+       /* this.onItemSelect = $.proxy(this.onItemSelect, this);
         this.onItemRemove = $.proxy(this.onItemRemove, this);
-        this.onSubmit = $.proxy(this.onSubmit, this);
-
-        w_Commons = new W_Commons();
+        this.onSubmit = $.proxy(this.onSubmit, this);*/
     }
 
     FilterController.prototype.publishFxCatalogBridgePlugin = function () {
@@ -73,17 +69,20 @@ define([
         if (!this.submit) {
             throw new Error("FilterController: INVALID SUBMIT ITEM.")
         }
-        if (!w_Commons.isNode(this.submit)) {
-            throw new Error("FilterController: SUBMIT NOT DOM NODE.")
-        }
 
     };
 
     FilterController.prototype.bindEventListeners = function () {
 
+        amplify.subscribe(o.events.SELECT, this, this.onItemSelect);
+        amplify.subscribe(o.events.REMOVE, this, this.onItemRemove);
+
+
+/*
         document.body.addEventListener(o.events.SELECT, this.onItemSelect);
 
         document.body.addEventListener(o.events.REMOVE, this.onItemRemove);
+*/
 
         $(selectors.TOGGLE_BTN).on('click', this.onToggleCatalog);
 
@@ -92,9 +91,12 @@ define([
 
     FilterController.prototype.unbindEventListeners = function () {
 
+        amplify.unsubscribe(o.events.SELECT, this.onItemSelect);
+        amplify.unsubscribe(o.events.REMOVE, this.onItemRemove);
+/*
         document.body.removeEventListener(o.events.SELECT, this.onItemSelect);
 
-        document.body.removeEventListener(o.events.REMOVE, this.onItemRemove);
+        document.body.removeEventListener(o.events.REMOVE, this.onItemRemove);*/
 
         $(selectors.TOGGLE_BTN).off();
 
@@ -110,13 +112,14 @@ define([
             this.resume.hideCourtesyMessage();
             $(this.submit).removeClass('disabled');
         }
-        this.form.addItem(e.detail);
+
+        this.form.addItem(e);
 
     };
 
     FilterController.prototype.onItemRemove = function (e) {
-        this.form.removeItem(e.detail.module);
-        this.menu.activate(e.detail.type);
+        this.form.removeItem(e.module);
+        this.menu.activate(e.type);
 
         if (this.form.getElementsCounts() === 0) {
             this.form.showCourtesyMessage();
@@ -137,7 +140,7 @@ define([
 
     FilterController.prototype.onSubmit = function () {
 
-        w_Commons.raiseCustomEvent(this.submit, "submit.catalog.fx", {});
+        amplify.publish('fx.catalog.submit');
     };
 
     /* end event callback */

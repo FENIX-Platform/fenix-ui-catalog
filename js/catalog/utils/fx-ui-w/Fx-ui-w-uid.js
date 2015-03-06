@@ -1,6 +1,7 @@
 define([
     "jquery",
-    "fx-cat-br/widgets/Fx-widgets-commons"
+    "fx-cat-br/widgets/Fx-widgets-commons",
+    "amplify"
 ], function ($, W_Commons) {
 
     var o = {
@@ -48,12 +49,16 @@ define([
 
         $(text).focusout( {w_commons : w_commons, type: o.module.type }, function(e){
 
-            e.data.w_commons.raiseCustomEvent(
+            amplify.publish( o.events.READY,
+                { value : [{label: $(o.container).find("input").val()}],
+                    module:  e.data.type });
+
+           /* e.data.w_commons.raiseCustomEvent(
                 o.container,
                 o.events.READY,
                 { value : [{label: $(o.container).find("input").val()}],
                   module:  e.data.type }
-            );
+            );*/
         });
 
         $(container).append(text);

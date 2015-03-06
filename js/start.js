@@ -38,10 +38,10 @@ define(["fx-cat-br/controllers/Fx-catalog-page",
 
             $(options.container).html(structure);
 
-            var pageController = new Controller();
+            this.pageController = new Controller();
 
             // Perform dependency injection by extending objects
-            $.extend(pageController, {
+            $.extend(this.pageController, {
                 filter: this.initFilter(),
                 bridge: this.initBridge(),
                 results: this.initResults(),
@@ -49,10 +49,10 @@ define(["fx-cat-br/controllers/Fx-catalog-page",
             });
 
             if (options.manualRender !== true) {
-                pageController.render();
+                this.pageController.render();
             }
 
-            return pageController;
+            return this.pageController;
         };
 
         Start.prototype.initFilter = function () {
@@ -137,7 +137,7 @@ define(["fx-cat-br/controllers/Fx-catalog-page",
 
         Start.prototype.destroy = function () {
 
-            this.filterController.destroy();
+            this.pageController.destroy();
         };
 
         return Start;
