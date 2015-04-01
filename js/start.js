@@ -32,11 +32,11 @@ define(["fx-cat-br/controllers/Fx-catalog-page",
 
             $.extend(this.o, options);
 
-            if (!options.hasOwnProperty('container')) {
+            if (!this.o.hasOwnProperty('container')) {
                 throw 'Catalog needs a container!'
             }
 
-            $(options.container).html(structure);
+            $(this.o.container).html(structure);
 
             this.pageController = new Controller();
 
@@ -48,7 +48,7 @@ define(["fx-cat-br/controllers/Fx-catalog-page",
                 storage: new Storage()
             });
 
-            if (options.manualRender !== true) {
+            if (this.o.manualRender !== true) {
                 this.pageController.render();
             }
 
