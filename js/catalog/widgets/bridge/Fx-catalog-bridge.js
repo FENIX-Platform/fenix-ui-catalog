@@ -10,7 +10,7 @@ define([
             error_prefix: "Fx_catalog_bridge ERROR: ",
             //url: 'http://faostat3.fao.org/d3s2/v2/msd/resources/find/',
             //url:'http://fenix.fao.org/d3s_dev/msd/resources/find',
-            url: 'http://lprapp16.fao.org:7733/v2/msd/resources/find',
+            url: 'http://lprapp16.fao.org:7788/v2/msd/resources/find',
             events: {
                 END : "fx.catalog.query.end",
                 EMPTY_RESPONSE: "fx.catalog.query.empty_response"
