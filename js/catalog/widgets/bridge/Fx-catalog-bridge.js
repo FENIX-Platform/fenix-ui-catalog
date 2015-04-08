@@ -2,17 +2,19 @@
 
 define([
     "jquery",
+    'fx-d-m/config/services',
+    'fx-d-m/config/services-default',
     "amplify"
-], function ($) {
+], function ($, S, DS) {
 
-    var o = { },
+    var o = {},
         defaultOptions = {
             error_prefix: "Fx_catalog_bridge ERROR: ",
             //url: 'http://faostat3.fao.org/d3s2/v2/msd/resources/find/',
-            url:'http://fenix.fao.org/d3s_dev/msd/resources/find',
+            //url: 'http://fenix.fao.org/d3s_dev/msd/resources/find',
             //url: 'http://fenix.fao.org/d3s/msd/resources/find',
             events: {
-                END : "fx.catalog.query.end",
+                END: "fx.catalog.query.end",
                 EMPTY_RESPONSE: "fx.catalog.query.empty_response"
             }
         }, plugin;
@@ -46,29 +48,29 @@ define([
         if (typeof plugin.init !== "function") {
             throw new Error(o.error_prefix + " plugin for " + src.getName() + " does not have a public init() method.");
         } else {
-            plugin.init($.extend({component: src}, o));
+            plugin.init($.extend({ component: src }, o));
         }
 
         if (typeof callback !== "function") {
             throw new Error(o.error_prefix + " callback param is not a function");
         } else {
 
-            if (o.blankFilter){
+            if (o.blankFilter) {
                 this.getCustomBlankFilter(callback, context)
-            }  else {
+            } else {
                 this.performQuery(callback, context);
             }
 
         }
     };
 
-    Fx_catalog_bridge.prototype.getCustomBlankFilter = function (callback, context){
+    Fx_catalog_bridge.prototype.getCustomBlankFilter = function (callback, context) {
 
         var self = this;
 
         $.getJSON(o.blankFilter, function (data) {
 
-            plugin.init({blankFilter: data});
+            plugin.init({ blankFilter: data });
             self.performQuery(callback, context);
         })
 
@@ -76,15 +78,19 @@ define([
 
     Fx_catalog_bridge.prototype.performQuery = function (callback, context) {
 
+        var SERVICE_PREFIX = SERVICE_PREFIX = S.SERVICES_BASE_ADDRESS || DS.SERVICES_BASE_ADDRESS;
+        var url = SERVICE_PREFIX + "/resources/find";
+
         //Ask the plugin the filter, make the request and pass data to callback()
         $.ajax({
-            url: o.url,
+            //url: o.url,
+            url: url,
             type: 'post',
             contentType: 'application/json',
             dataType: 'json',
-            success: function (response, textStatus, jqXHR ) {
+            success: function (response, textStatus, jqXHR) {
 
-                if(jqXHR.status !== 204){
+                if (jqXHR.status !== 204) {
 
                     if (context) {
                         $.proxy(callback, context, response)();
@@ -94,14 +100,14 @@ define([
 
                 } else {
 
-                    amplify.publish( o.events.EMPTY_RESPONSE,  { });
+                    amplify.publish(o.events.EMPTY_RESPONSE, {});
 
                 }
 
             },
             data: JSON.stringify(plugin.getFilter()),
-            complete: function(){
-                amplify.publish( o.events.END,  { });
+            complete: function () {
+                amplify.publish(o.events.END, {});
 
 
             }
