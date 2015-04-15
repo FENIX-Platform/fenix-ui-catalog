@@ -2,8 +2,8 @@
 
 define([
     "jquery",
-    'fx-d-m/config/services',
-    'fx-d-m/config/services-default',
+    'fx-cat-br/config/services',
+    'fx-cat-br/config/services-default',
     "amplify"
 ], function ($, S, DS) {
 

@@ -13,6 +13,7 @@ define(function () {
             'fx-cat-br/start': './start',
             'fx-cat-br/utils': 'catalog/utils',
             'fx-cat-br/widgets': 'catalog/widgets',
+            'fx-cat-br/config': '../config',
 
             //Third party libs
             'amplify' : '{FENIX_CDN}/js/amplify/1.1.2/amplify.min',
