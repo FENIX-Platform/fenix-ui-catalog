@@ -1,6 +1,6 @@
 /*global define*/
 define([
-    'fx-d-m/config/services-default'
+    'fx-cat-br/config/services-default'
 ], function (servicesDefault) {
 
     'use strict';

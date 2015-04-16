@@ -2,6 +2,8 @@
 
 define(function () {
 
+    'use strict';
+
     var config = {
         paths: {
             'fx-cat-br/controllers': 'catalog/controllers',

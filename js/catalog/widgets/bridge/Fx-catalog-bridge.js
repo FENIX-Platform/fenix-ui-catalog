@@ -1,4 +1,4 @@
-/*global define */
+/*global define, amplify */
 
 define([
     "jquery",
@@ -6,6 +6,8 @@ define([
     'fx-cat-br/config/services-default',
     "amplify"
 ], function ($, S, DS) {
+
+    'use strict';
 
     var o = {},
         defaultOptions = {
@@ -42,7 +44,7 @@ define([
         }
 
         if (!plugin) {
-            throw new Error(o.error_prefix + " plugin not found.")
+            throw new Error(o.error_prefix + " plugin not found.");
         }
 
         if (typeof plugin.init !== "function") {
@@ -56,7 +58,7 @@ define([
         } else {
 
             if (o.blankFilter) {
-                this.getCustomBlankFilter(callback, context)
+                this.getCustomBlankFilter(callback, context);
             } else {
                 this.performQuery(callback, context);
             }
@@ -72,13 +74,13 @@ define([
 
             plugin.init({ blankFilter: data });
             self.performQuery(callback, context);
-        })
+        });
 
     };
 
     Fx_catalog_bridge.prototype.performQuery = function (callback, context) {
 
-        var SERVICE_PREFIX = SERVICE_PREFIX = S.SERVICES_BASE_ADDRESS || DS.SERVICES_BASE_ADDRESS;
+        var SERVICE_PREFIX = S.SERVICES_BASE_ADDRESS || DS.SERVICES_BASE_ADDRESS;
         var url = SERVICE_PREFIX + "/resources/find";
 
         //Ask the plugin the filter, make the request and pass data to callback()
@@ -95,21 +97,17 @@ define([
                     if (context) {
                         $.proxy(callback, context, response)();
                     } else {
-                        callback(response)
+                        callback(response);
                     }
 
                 } else {
-
                     amplify.publish(o.events.EMPTY_RESPONSE, {});
-
                 }
 
             },
             data: JSON.stringify(plugin.getFilter()),
             complete: function () {
                 amplify.publish(o.events.END, {});
-
-
             }
         });
     };
