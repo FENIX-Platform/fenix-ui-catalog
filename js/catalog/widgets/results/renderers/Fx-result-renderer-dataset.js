@@ -31,7 +31,7 @@ define([
 
         if (this.o.hasOwnProperty('version') && this.o.version !== null) {
 
-            $result.find(selectors.s_version).html(this.o.version);
+            $result.find(selectors.s_version).html( 'Dataset' );
         }
 
         if (this.o.hasOwnProperty('title') && this.o.title !== null) {
