@@ -67,7 +67,7 @@
         },
         "component": {
             "source": {
-                "url": "http://faostat3.fao.org/d3s2/v2/msd/choices/RepresentationType"
+                "url": "http://fenix.fao.org/d3s_fenix/msd/choices/RepresentationType"
             },
             "rendering": {
                 "displayMember": "label",
@@ -110,7 +110,7 @@
                 "id": "value",
                 "uid": "FAO_Period",
                 "version": "1.0",
-                "url": "http://faostat3.fao.org/d3s2/v2/msd/codes/filter"
+                "url": "http://fenix.fao.org/d3s_fenix/msd/codes/filter"
             },
             "rendering": {
                 "displayMember": "label",
@@ -153,7 +153,7 @@
                 "id": "value",
                 "uid": "GAUL_ReferenceArea",
                 "version": "1.0",
-                "url": "http://faostat3.fao.org/d3s2/v2/msd/codes/filter"
+                "url": "http://fenix.fao.org/d3s_fenix/msd/codes/filter"
             },
             "rendering": {
                 "displayMember": "label",
@@ -193,8 +193,8 @@
                     }
                 ],
                 "id": "value",
-                "uid": "CRS_purpose_codes",
-                "url": "http://faostat3.fao.org/d3s2/v2/msd/codes/filter"
+                "uid": "CSTAT_Core",
+                "url": "http://fenix.fao.org/d3s_fenix/msd/codes/filter"
             },
             "rendering": {
                 "displayMember": "label",
@@ -235,7 +235,7 @@
                 ],
                 "uid": "GAUL0",
                 "version": "2014",
-                "url": "http://faostat3.fao.org/d3s2/v2/msd/codes/filter"
+                "url": "http://fenix.fao.org/d3s_fenix/msd/codes/filter"
             },
             "rendering": {
                 "displayMember": "label",
@@ -264,7 +264,7 @@
         },
         "component": {
             "source": {
-                "url": "http://faostat3.fao.org/d3s2/v2/msd/choices/ResponsiblePartyRole"
+                "url": "http://fenix.fao.org/d3s_fenix/msd/choices/ResponsiblePartyRole"
             },
             "rendering": {
                 "displayMember": "label",
@@ -308,7 +308,7 @@
                 "id": "value",
                 "uid": "CL_CONF_STATUS",
                 "version": "1.0",
-                "url": "http://faostat3.fao.org/d3s2/v2/msd/codes/filter"
+                "url": "http://fenix.fao.org/d3s_fenix/msd/codes/filter"
             },
             "rendering": {
                 "displayMember": "label",

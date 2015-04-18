@@ -130,11 +130,14 @@ define([
                     else {
                         self.getChildren(e, node, cb);
                     }
-                }
+                },
+                "multiple": false,
+                "animation": 0,
+                "themes": {"stripes": true}
             },
-            themes: {
+           /* themes: {
                 icons: false
-            },
+            },*/
         "plugins": ["checkbox", "wholerow", "search"],
             "search": {
                 show_only_matches: true
