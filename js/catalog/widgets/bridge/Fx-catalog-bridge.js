@@ -2,10 +2,11 @@
 
 define([
     "jquery",
-    'fx-cat-br/config/services',
-    'fx-cat-br/config/services-default',
+    'fx-cat-br/config/config',
+    'fx-cat-br/config/config-default',
+
     "amplify"
-], function ($, S, DS) {
+], function ($, C, DC) {
 
     'use strict';
 
@@ -14,7 +15,7 @@ define([
             error_prefix: "Fx_catalog_bridge ERROR: ",
             //url: 'http://faostat3.fao.org/d3s2/v2/msd/resources/find/',
             //url: 'http://fenix.fao.org/d3s_dev/msd/resources/find',
-            //url: 'http://fenix.fao.org/d3s/msd/resources/find',
+            url: 'http://fenix.fao.org/d3s_fenix/msd/resources/find',
             events: {
                 END: "fx.catalog.query.end",
                 EMPTY_RESPONSE: "fx.catalog.query.empty_response"
@@ -79,8 +80,7 @@ define([
     };
 
     Fx_catalog_bridge.prototype.performQuery = function (callback, context) {
-
-        var SERVICE_PREFIX = S.SERVICES_BASE_ADDRESS || DS.SERVICES_BASE_ADDRESS;
+        var SERVICE_PREFIX = C.SERVICE_BASE_ADDRESS || DC.SERVICE_BASE_ADDRESS;
         var url = SERVICE_PREFIX + "/resources/find";
 
         //Ask the plugin the filter, make the request and pass data to callback()
@@ -111,7 +111,6 @@ define([
             }
         });
     };
-
 
 
     return Fx_catalog_bridge;
