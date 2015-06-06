@@ -4,7 +4,6 @@ define([
     "jquery",
     'fx-cat-br/config/config',
     'fx-cat-br/config/config-default',
-
     "amplify"
 ], function ($, C, DC) {
 
@@ -29,14 +28,14 @@ define([
     Fx_catalog_bridge.prototype.init = function (options) {
 
         //Merge options
-        $.extend(o, defaultOptions);
-        $.extend(o, options);
+        $.extend(true, o, defaultOptions, options);
 
         return this;
     };
 
-    Fx_catalog_bridge.prototype.query = function (src, callback, context) {
+    Fx_catalog_bridge.prototype.query = function (src, callback, cont) {
 
+        var context = cont || this;
 
         if (!window.Fx_catalog_bridge_plugins || typeof window.Fx_catalog_bridge_plugins !== "object") {
             throw new Error(o.error_prefix + " Fx_catalog_bridge_plugins plugins repository not valid.");

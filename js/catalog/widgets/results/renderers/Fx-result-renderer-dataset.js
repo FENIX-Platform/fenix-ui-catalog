@@ -1,8 +1,12 @@
+/*global amplify, define*/
+
 define([
     "jquery",
     "text!fx-cat-br/html/fx_result_fragments.html",
     'amplify'
 ], function ($, template) {
+
+    'use strict';
 
     //Default Result options
     var defaultOptions = {
@@ -18,6 +22,7 @@ define([
     }, $result;
 
     function Fx_catalog_result_render_dataset(options) {
+
         this.o = {};
         $.extend(this.o, options);
     }
@@ -67,13 +72,14 @@ define([
             for (key in actions) {
 
                 var $b = $('<button class="btn btn-default">' + actions[key].labels.EN + '</button>');
+
                 $b.on('click', function (e) {
                     //Listen to it within Fx-catalog-results-generator
                     //$(e.currentTarget).trigger(actions[key].event, [self.o]);
-                    amplify.publish('fx.widget.catalog.'+actions[key].event, self.o);
+                    amplify.publish('fx.widget.catalog.' + actions[key].event, self.o);
                 });
 
-                $result.find('.results-actions-container').prepend($b)
+                $result.find('.results-actions-container').prepend($b);
             }
         }
     };
@@ -85,7 +91,7 @@ define([
         $result = $(template).find(selectors.s_result).clone();
 
         if ($result.length === 0) {
-            throw new Error(o.error_prefix + " HTML fragment not found");
+            throw new Error(this.o.error_prefix + " HTML fragment not found");
         }
 
         $result.addClass("dataset");

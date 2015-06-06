@@ -5,6 +5,8 @@ define([
     'amplify'
 ], function ($) {
 
+    'use strict';
+
     var o = {
         events : {
             ANALYZE_SUB : 'clickResultAnalyze',
@@ -30,10 +32,10 @@ define([
     ResultsController.prototype.preValidation = function () {
 
         if (!this.grid) {
-            throw new Error("ResultsController: INVALID GRID ITEM.")
+            throw new Error("ResultsController: INVALID GRID ITEM.");
         }
         if (!this.resultsRenderer) {
-            throw new Error("ResultsController: INVALID RENDER ITEM.")
+            throw new Error("ResultsController: INVALID RENDER ITEM.");
         }
     };
 
@@ -43,15 +45,15 @@ define([
         this.renderComponents();
     };
 
-    ResultsController.prototype.addItems = function (response) {
+    ResultsController.prototype.addItems = function (obj) {
 
         this.grid.clear();
 
-        if (response) {
-            var items = response;
+        if (obj.results) {
+            var items = obj.results;
 
             for (var i = 0; i < items.length; i++) {
-                this.grid.addItems(this.resultsRenderer.getInstance(items[i]));
+                this.grid.addItems(this.resultsRenderer.getInstance(items[i], obj.filter));
             }
         }
     };

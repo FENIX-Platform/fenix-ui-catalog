@@ -1,8 +1,11 @@
 /*global define, amplify */
 
 define([
+    'jquery',
     "fx-cat-br/plugins/Fx-catalog-brigde-filter-plugin"
-], function (Plugin) {
+], function ($, Plugin) {
+
+    'use strict';
 
     var o = {
             name: 'fx-catalog-filter',
@@ -61,13 +64,13 @@ define([
     FilterController.prototype.preValidation = function () {
 
         if (!this.menu) {
-            throw new Error("FilterController: INVALID MENU ITEM.")
+            throw new Error("FilterController: INVALID MENU ITEM.");
         }
         if (!this.form) {
-            throw new Error("FilterController: INVALID FORM ITEM.")
+            throw new Error("FilterController: INVALID FORM ITEM.");
         }
         if (!this.submit) {
-            throw new Error("FilterController: INVALID SUBMIT ITEM.")
+            throw new Error("FilterController: INVALID SUBMIT ITEM.");
         }
 
     };
@@ -101,6 +104,12 @@ define([
         $(selectors.TOGGLE_BTN).off();
 
         $(this.submit).off('click', this.onSubmit);
+    };
+
+    FilterController.prototype.getD3PFilter = function () {
+        return {
+            hi : "I am the filter"
+        };
     };
 
     /* event callback */

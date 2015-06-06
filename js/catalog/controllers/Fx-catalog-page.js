@@ -8,6 +8,8 @@ define([
     'amplify'
 ], function ($, NProgress, PNotify, IntroJS) {
 
+    'use strict';
+
     var o = {
         events: {
             ANALYZE_SUB: 'resultAnalyze',
@@ -30,7 +32,7 @@ define([
 
         $('#how-does-it-work-btn').on('click', function (e) {
 
-            var intro = IntroJS();
+            var intro = new IntroJS();
 
             intro.setOptions({'showButtons': true, 'showBullets': false});
 
@@ -83,7 +85,7 @@ define([
 
     PageController.prototype.preValidation = function () {
         if (!this.filter) {
-            throw new Error("PAGE CONTROLLER: INVALID FILTER ITEM.")
+            throw new Error("PAGE CONTROLLER: INVALID FILTER ITEM.");
         }
     };
 
@@ -128,7 +130,11 @@ define([
     PageController.prototype.onSubmit = function () {
 
         NProgress.start();
-        this.bridge.query(this.filter, this.results.addItems, this.results);
+        this.bridge.query(this.filter, $.proxy(function ( response ){
+
+            this.results.addItems( { results : response, filter : this.filter.getD3PFilter() });
+
+            }, this), this.results);
         //this.filter.collapseFilter();
     };
 
