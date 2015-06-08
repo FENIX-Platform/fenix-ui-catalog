@@ -1,6 +1,8 @@
 /*global define */
 
-define(["fx-cat-br/controllers/Fx-catalog-page",
+define([
+        "jquery",
+        "fx-cat-br/controllers/Fx-catalog-main",
         "fx-cat-br/controllers/Fx-catalog-filter",
         "fx-cat-br/widgets/filter/Fx-catalog-collapsible-menu",
         "fx-cat-br/widgets/filter/Fx-catalog-modular-form",
@@ -13,7 +15,9 @@ define(["fx-cat-br/controllers/Fx-catalog-page",
         'fx-cat-br/widgets/storage/SessionStorage',
         "text!fx-cat-br/html/fx_catalog_structure.html"
     ],
-    function (Controller, FilterController, Menu, Form, Resume, FluidForm, Bridge, ResultController, ResultsRenderer, FilterableGrid, Storage, structure) {
+    function ($, Controller, FilterController, Menu, Form, Resume, FuidGrid, Bridge, ResultController, ResultsRenderer, FilterableGrid, Storage, structure) {
+
+        'use strict';
 
         var html_ids = {
             MAIN_CONTAINER: "#catalogContainer",
@@ -33,15 +37,15 @@ define(["fx-cat-br/controllers/Fx-catalog-page",
             $.extend(this.o, options);
 
             if (!this.o.hasOwnProperty('container')) {
-                throw 'Catalog needs a container!'
+                throw 'Catalog needs a container!';
             }
 
             $(this.o.container).html(structure);
 
-            this.pageController = new Controller();
+            this.mainController = new Controller();
 
             // Perform dependency injection by extending objects
-            $.extend(this.pageController, {
+            $.extend(this.mainController, {
                 filter: this.initFilter(),
                 bridge: this.initBridge(),
                 results: this.initResults(),
@@ -49,23 +53,25 @@ define(["fx-cat-br/controllers/Fx-catalog-page",
             });
 
             if (this.o.manualRender !== true) {
-                this.pageController.render();
+                this.mainController.render();
             }
 
-            return this.pageController;
+            return this.mainController;
         };
 
         Start.prototype.initFilter = function () {
 
-             this.filterController = new FilterController();
-                 var menu = new Menu(),
+            this.filterController = new FilterController();
+
+            var menu = new Menu(),
                 form = new Form(),
                 resume = new Resume(),
-                grid = new FluidForm();
+                grid = new FuidGrid();
 
             menu.init({
                 container: document.querySelector("#" + html_ids.MENU)
             });
+            
             form.init({
                 container: document.querySelector("#" + html_ids.FORM),
                 config: "json/fx-catalog-modular-form-config.json",
@@ -137,7 +143,7 @@ define(["fx-cat-br/controllers/Fx-catalog-page",
 
         Start.prototype.destroy = function () {
 
-            this.pageController.destroy();
+            this.mainController.destroy();
         };
 
         return Start;

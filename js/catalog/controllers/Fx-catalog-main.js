@@ -20,7 +20,7 @@ define([
         }
     };
 
-    function PageController() {
+    function MainController() {
 
       /*  //workaround for unbinding
         this.onSubmit = $.proxy(this.onSubmit, this);
@@ -28,7 +28,7 @@ define([
         this.onEmptyResponse = $.proxy(this.onEmptyResponse, this)*/
     }
 
-    PageController.prototype.initIntroduction = function () {
+    MainController.prototype.initIntroduction = function () {
 
         $('#how-does-it-work-btn').on('click', function (e) {
 
@@ -64,18 +64,18 @@ define([
     };
 
     //(injected)
-    PageController.prototype.storage = undefined;
+    MainController.prototype.storage = undefined;
 
     //(injected)
-    PageController.prototype.filter = undefined;
+    MainController.prototype.filter = undefined;
 
     //(injected)
-    PageController.prototype.bridge = undefined;
+    MainController.prototype.bridge = undefined;
 
     //(injected)
-    PageController.prototype.results = undefined;
+    MainController.prototype.results = undefined;
 
-    PageController.prototype.render = function () {
+    MainController.prototype.render = function () {
 
         this.preValidation();
         this.bindEventListeners();
@@ -83,13 +83,13 @@ define([
         this.initIntroduction();
     };
 
-    PageController.prototype.preValidation = function () {
+    MainController.prototype.preValidation = function () {
         if (!this.filter) {
             throw new Error("PAGE CONTROLLER: INVALID FILTER ITEM.");
         }
     };
 
-    PageController.prototype.bindEventListeners = function () {
+    MainController.prototype.bindEventListeners = function () {
 
         amplify.subscribe("fx.catalog.submit", this, this.onSubmit);
         amplify.subscribe("fx.catalog.query.end", this, this.onEndCatalogSearch);
@@ -107,7 +107,7 @@ define([
 
     };
 
-    PageController.prototype.unbindEventListeners = function () {
+    MainController.prototype.unbindEventListeners = function () {
 
         amplify.unsubscribe("fx.catalog.submit", this.onSubmit);
         amplify.unsubscribe("fx.catalog.query.end", this.onEndCatalogSearch);
@@ -127,7 +127,7 @@ define([
 
     /* event callback */
 
-    PageController.prototype.onSubmit = function () {
+    MainController.prototype.onSubmit = function () {
 
         NProgress.start();
         this.bridge.query(this.filter, $.proxy(function ( response ){
@@ -138,11 +138,11 @@ define([
         //this.filter.collapseFilter();
     };
 
-    PageController.prototype.onEndCatalogSearch = function () {
+    MainController.prototype.onEndCatalogSearch = function () {
         NProgress.done();
     };
 
-    PageController.prototype.onEmptyResponse = function () {
+    MainController.prototype.onEmptyResponse = function () {
 
         this.results.clear();
 
@@ -156,7 +156,7 @@ define([
         });
     };
 
-    PageController.prototype.onAnalyze = function (e, payload) {
+    MainController.prototype.onAnalyze = function (e, payload) {
 
         /*self.storage.getItem(o.storage.CATALOG, function (item) {
          var a = JSON.parse(item) || [];
@@ -170,12 +170,12 @@ define([
 
     /* end event callback */
 
-    PageController.prototype.renderComponents = function () {
+    MainController.prototype.renderComponents = function () {
         this.filter.render();
         this.results.render();
     };
 
-    PageController.prototype.destroy = function () {
+    MainController.prototype.destroy = function () {
 
         this.filter.destroy();
 
@@ -184,6 +184,6 @@ define([
         this.unbindEventListeners();
     };
 
-    return PageController;
+    return MainController;
 
 });
