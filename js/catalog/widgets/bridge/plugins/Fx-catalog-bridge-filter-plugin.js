@@ -1,10 +1,14 @@
+/*global define*/
+
 define([
     "jquery",
-    "text!fx-cat-br/json/fx-catalog-filter-mapping.json",
-    "text!fx-cat-br/json/fx-catalog-blank-filter.json"
+    "fx-cat-br/config/fx-catalog-filter-mapping",
+    "fx-cat-br/config/fx-catalog-blank-filter"
 ], function ($, map, emptyFilter) {
 
-    var o = { };
+    'use strict';
+
+    var o = {};
 
     function FilterPlugin(options) {
         $.extend(o, options);
@@ -19,20 +23,19 @@ define([
     };
 
     FilterPlugin.prototype.init = function (options) {
-        var self = this;
+
         //Merge options
         $.extend(o, options);
 
-        self.preValidation();
+        this.preValidation();
 
     };
 
     FilterPlugin.prototype.getFilter = function () {
 
-        var self = this;
-
         try {
-            return self.createJsonFilter(o.component.getValues(true))
+
+            return this.createJsonFilter(o.component.getValues(true));
         }
         catch (e) {
             throw new Error(e);
@@ -43,32 +46,35 @@ define([
     FilterPlugin.prototype.createJsonFilter = function (values) {
 
         var keys = Object.keys(values),
-            mapping = JSON.parse(map),
+            mapping = $.extend(true, {}, map),
             request, position;
 
-        if (o.blankFilter){
+        if (o.blankFilter) {
             request = o.blankFilter;
-        }else {
-            request = JSON.parse(emptyFilter);
+        } else {
+            request = $.extend(true, {}, emptyFilter);
+            console.log(request)
         }
 
         position = request;
 
         for (var i = 0; i < keys.length; i++) {
             if (values.hasOwnProperty(keys[i])) {
-                if (mapping.hasOwnProperty(keys[i])){
+                if (mapping.hasOwnProperty(keys[i])) {
 
 
-                    if (mapping[keys[i]].conversion) { values[keys[i]] = this.convertValue(values[keys[i]], mapping[keys[i]].conversion); }
+                    if (mapping[keys[i]].conversion) {
+                        values[keys[i]] = this.convertValue(values[keys[i]], mapping[keys[i]].conversion);
+                    }
 
                     /*
-                    For nested mapping
+                     For nested mapping
                      var path = mapping[keys[i]].path.split(".");
-                    for (var j = 0; j < path.length - 1; j++) { position = position[path[j]]; }
+                     for (var j = 0; j < path.length - 1; j++) { position = position[path[j]]; }
 
-                    position[path[ path.length - 1 ]] = values[keys[i]];
-                    position = request;
-                    */
+                     position[path[ path.length - 1 ]] = values[keys[i]];
+                     position = request;
+                     */
                     position[mapping[keys[i]].path] = values[keys[i]];
                     position = request;
 
@@ -79,16 +85,16 @@ define([
         return request;
     };
 
-    FilterPlugin.prototype.convertValue = function(values, rules ){
+    FilterPlugin.prototype.convertValue = function (values, rules) {
 
         var rulesKeys = Object.keys(rules);
 
-        for (var j=0; j < values.length; j ++){
+        for (var j = 0; j < values.length; j++) {
 
-            for (var i = 0; i < rulesKeys.length; i++){
-                if (rules.hasOwnProperty(rulesKeys[i])){
-                    if (values[j].hasOwnProperty(rulesKeys[i])){
-                        values[j][rules[rulesKeys[i]]] =  values[j][rulesKeys[i]];
+            for (var i = 0; i < rulesKeys.length; i++) {
+                if (rules.hasOwnProperty(rulesKeys[i])) {
+                    if (values[j].hasOwnProperty(rulesKeys[i])) {
+                        values[j][rules[rulesKeys[i]]] = values[j][rulesKeys[i]];
                         delete values[j][rulesKeys[i]];
                     }
                 }

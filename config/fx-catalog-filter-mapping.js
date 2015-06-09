@@ -1,4 +1,10 @@
-{
+/* global define */
+
+define(function () {
+
+'use strict';
+
+return {
     "uid": {
         "path" : "uid"
     },
@@ -28,3 +34,8 @@
     }
 
 }
+    ;
+
+});
+
+

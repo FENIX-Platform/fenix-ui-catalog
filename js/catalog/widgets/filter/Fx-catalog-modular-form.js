@@ -1,10 +1,15 @@
+/*global amplify, define*/
+
 define([
     "jquery",
     "fx-cat-br/utils/fenix-ui-creator",
-    'text!fx-cat-br/json/fx-catalog-modular-form-config.json',
+    'fx-cat-br/config/fx-catalog-modular-form-config',
+    'fx-cat-br/config/events',
     "fx-cat-br/widgets/Fx-widgets-commons",
     "amplify"
-], function ($, UiCreator, config, W_Commons) {
+], function ($, UiCreator, config, E, W_Commons) {
+
+    'use strict';
 
     var o = { },
         defaultOptions = {
@@ -105,7 +110,7 @@ define([
         $module.attr("data-module", module.module);
         $module.attr("data-size", "half");
         $header.append("<div class='" + o.css_classes.HANDLER + "'></div>");
-        $header.append("<div class='" + o.css_classes.LABEL + "'>" + cache.json[module.module]["label"][o.widget.lang] + "</div>");
+        $header.append("<div class='" + o.css_classes.LABEL + "'>" + cache.json[module.module].label[o.widget.lang] + "</div>");
 
         var $resize = $("<div class='" + o.css_classes.RESIZE + "'></div>");
         $resize.on("click", { module: $module.get(0), btn: $resize}, function (e) {
@@ -129,12 +134,11 @@ define([
 
         var $close_btn = $("<div class='" + o.css_classes.CLOSE_BTN + "'></div>")
             .on("click", { o: o }, function () {
-                amplify.publish(o.events.REMOVE_MODULE, { type: module.module, module: $module.get(0)})
-                //w_Commons.raiseCustomEvent(o.catalog, o.events.REMOVE_MODULE, { type: module.module, module: $module.get(0)});
+                amplify.publish(E.MODULE_REMOVE, { type: module.module, module: $module.get(0)});
 
                 for (var i = 0; i < modules.length; i++) {
 
-                    if (modules[i]["type"] === module.module) {
+                    if (modules[i].type === module.module) {
                         modules.splice(i, 1);
                     }
                 }
@@ -164,7 +168,8 @@ define([
 
         $.extend(o, options);
 
-        cache.json = JSON.parse(config);
+        cache.json = $.extend(true, {}, config);
+
         this.initStructure();
     };
 

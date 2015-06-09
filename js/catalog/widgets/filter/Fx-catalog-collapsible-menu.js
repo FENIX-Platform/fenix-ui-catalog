@@ -2,10 +2,11 @@
 define([
     "jquery",
     "fx-cat-br/widgets/Fx-widgets-commons",
-    'text!fx-cat-br/json/fx-catalog-collapsible-menu-config.json',
+    'fx-cat-br/config/fx-catalog-collapsible-menu-config',
+    'fx-cat-br/config/events',
     'bootstrap',
     'amplify'
-], function ($, W_Commons, conf) {
+], function ($, W_Commons, conf, E) {
 
     'use strict';
 
@@ -13,9 +14,6 @@ define([
         defaultOptions = {
             widget: {
                 lang: 'EN'
-            },
-            events: {
-                SELECT: 'fx.catalog.module.select'
             }
         };
 
@@ -38,7 +36,7 @@ define([
 
         $.extend(o, options);
 
-        cache.json = JSON.parse(conf);
+        cache.json = $.extend(true, {}, conf);
 
         this.initStructure();
 
@@ -133,7 +131,7 @@ define([
 
                     if ($btn.is(':disabled') === false) {
                         $btn.attr("disabled", "disabled");
-                        amplify.publish(o.events.SELECT, e.data.module);
+                        amplify.publish(E.MODULE_SELECT, e.data.module);
                     }
 
                 });

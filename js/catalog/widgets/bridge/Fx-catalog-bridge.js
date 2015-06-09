@@ -4,26 +4,18 @@ define([
     "jquery",
     'fx-cat-br/config/config',
     'fx-cat-br/config/config-default',
+    'fx-cat-br/config/events',
     "amplify"
-], function ($, C, DC) {
+], function ($, C, DC, E) {
 
     'use strict';
 
     var o = {},
         defaultOptions = {
-            error_prefix: "Fx_catalog_bridge ERROR: ",
-            //url: 'http://faostat3.fao.org/d3s2/v2/msd/resources/find/',
-            //url: 'http://fenix.fao.org/d3s_dev/msd/resources/find',
-            url: 'http://fenix.fao.org/d3s_fenix/msd/resources/find',
-            events: {
-                END: "fx.catalog.query.end",
-                EMPTY_RESPONSE: "fx.catalog.query.empty_response"
-            }
+            error_prefix: "Fx_catalog_bridge ERROR: "
         }, plugin;
 
-    function Fx_catalog_bridge() {
-
-    }
+    function Fx_catalog_bridge() { }
 
     Fx_catalog_bridge.prototype.init = function (options) {
 
@@ -73,13 +65,17 @@ define([
         $.getJSON(o.blankFilter, function (data) {
 
             plugin.init({ blankFilter: data });
+
             self.performQuery(callback, context);
+
         });
 
     };
 
     Fx_catalog_bridge.prototype.performQuery = function (callback, context) {
+
         var SERVICE_PREFIX = C.SERVICE_BASE_ADDRESS || DC.SERVICE_BASE_ADDRESS;
+
         var url = SERVICE_PREFIX + "/resources/find";
 
         //Ask the plugin the filter, make the request and pass data to callback()
@@ -100,17 +96,16 @@ define([
                     }
 
                 } else {
-                    amplify.publish(o.events.EMPTY_RESPONSE, {});
+                    amplify.publish(E.SEARCH_QUERY_EMPTY_RESPONSE, {});
                 }
 
             },
             data: JSON.stringify(plugin.getFilter()),
             complete: function () {
-                amplify.publish(o.events.END, {});
+                amplify.publish(E.SEARCH_QUERY_END, {});
             }
         });
     };
-
 
     return Fx_catalog_bridge;
 

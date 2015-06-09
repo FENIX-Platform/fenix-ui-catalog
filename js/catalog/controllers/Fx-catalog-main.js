@@ -5,16 +5,13 @@ define([
     'nprogress',
     'pnotify',
     'intro',
+    'fx-cat-br/config/events',
     'amplify'
-], function ($, NProgress, PNotify, IntroJS) {
+], function ($, NProgress, PNotify, IntroJS, E) {
 
     'use strict';
 
     var o = {
-        events: {
-            ANALYZE_SUB: 'resultAnalyze',
-            ANALYZE: 'analyze'
-        },
         storage: {
             CATALOG: 'fx.catalog'
         }
@@ -91,25 +88,25 @@ define([
 
     MainController.prototype.bindEventListeners = function () {
 
-        amplify.subscribe("fx.catalog.submit", this, this.onSubmit);
+        amplify.subscribe(E.SEARCH_SUBMIT, this, this.onSubmit);
 
-        amplify.subscribe("fx.catalog.query.end", this, this.onEndCatalogSearch);
+        amplify.subscribe(E.SEARCH_QUERY_END, this, this.onEndCatalogSearch);
 
-        amplify.subscribe("fx.catalog.query.empty_response", this, this.onEmptyResponse);
+        amplify.subscribe(E.SEARCH_QUERY_EMPTY_RESPONSE, this, this.onEmptyResponse);
 
-        amplify.subscribe(o.events.ANALYZE_SUB, this, this.onAnalyze);
+        amplify.subscribe(E.SEARCH_ANALYZE_SUB, this, this.onAnalyze);
 
     };
 
     MainController.prototype.unbindEventListeners = function () {
 
-        amplify.unsubscribe("fx.catalog.submit", this.onSubmit);
+        amplify.unsubscribe(E.SEARCH_SUBMIT, this.onSubmit);
 
-        amplify.unsubscribe("fx.catalog.query.end", this.onEndCatalogSearch);
+        amplify.unsubscribe(E.SEARCH_QUERY_END, this.onEndCatalogSearch);
 
-        amplify.unsubscribe("fx.catalog.query.empty_response", this.onEmptyResponse);
+        amplify.unsubscribe(E.SEARCH_QUERY_EMPTY_RESPONSE, this.onEmptyResponse);
 
-        amplify.unsubscribe(o.events.ANALYZE_SUB, this.onAnalyze);
+        amplify.unsubscribe(E.SEARCH_ANALYZE_SUB, this.onAnalyze);
 
     };
 
@@ -147,7 +144,7 @@ define([
 
     MainController.prototype.onAnalyze = function (e, payload) {
 
-        amplify.publish(o.events.ANALYZE, [payload]);
+        amplify.publish(E.SEARCH_ANALYZE, [payload]);
     };
 
     /* end event callback */

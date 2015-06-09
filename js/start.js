@@ -13,9 +13,11 @@ define([
         "fx-cat-br/widgets/results/Fx-catalog-results-generator",
         "fx-cat-br/structures/Fx-filterable-grid",
         'fx-cat-br/widgets/storage/SessionStorage',
-        "text!fx-cat-br/html/fx_catalog_structure.html"
+        "text!fx-cat-br/html/fx_catalog_structure.html",
+        'fx-cat-br/config/config',
+        'fx-cat-br/config/config-default'
     ],
-    function ($, Controller, FilterController, Menu, Form, Resume, FluidGrid, Bridge, ResultController, ResultsRenderer, FilterableGrid, Storage, structure) {
+    function ($, Controller, FilterController, Menu, Form, Resume, FluidGrid, Bridge, ResultController, ResultsRenderer, FilterableGrid, Storage, structure, C, DC) {
 
         'use strict';
 
@@ -69,12 +71,13 @@ define([
                 grid = new FluidGrid();
 
             menu.init({
-                container: document.querySelector("#" + html_ids.MENU)
+                container: document.querySelector("#" + html_ids.MENU),
+                config: C.MENU_CONFIG || DC.MENU_CONFIG
             });
             
             form.init({
                 container: document.querySelector("#" + html_ids.FORM),
-                config: "json/fx-catalog-modular-form-config.json",
+                config: C.FORM_CONFIG || DC.FORM_CONFIG,
                 catalog: document.querySelector("#" + html_ids.FORM)
             });
 

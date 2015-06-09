@@ -2,17 +2,14 @@
 
 define([
     'jquery',
+    "fx-cat-br/config/events",
     "fx-cat-br/plugins/Fx-catalog-bridge-filter-plugin"
-], function ($, Plugin) {
+], function ($, E, Plugin) {
 
     'use strict';
 
     var o = {
-        name: 'fx-catalog-filter',
-        events: {
-            SELECT: "fx.catalog.module.select",
-            REMOVE: "fx.catalog.module.remove"
-        }
+        name: 'fx-catalog-filter'
     };
 
     var s = {
@@ -77,9 +74,9 @@ define([
 
     FilterController.prototype.bindEventListeners = function () {
 
-        amplify.subscribe(o.events.SELECT, this, this.onItemSelect);
+        amplify.subscribe(E.MODULE_SELECT, this, this.onItemSelect);
 
-        amplify.subscribe(o.events.REMOVE, this, this.onItemRemove);
+        amplify.subscribe(E.MODULE_REMOVE, this, this.onItemRemove);
 
         $(s.TOGGLE_BTN).on('click', this.onToggleCatalog);
 
@@ -88,9 +85,9 @@ define([
 
     FilterController.prototype.unbindEventListeners = function () {
 
-        amplify.unsubscribe(o.events.SELECT, this.onItemSelect);
+        amplify.unsubscribe(E.MODULE_SELECT, this.onItemSelect);
 
-        amplify.unsubscribe(o.events.REMOVE, this.onItemRemove);
+        amplify.unsubscribe(E.MODULE_REMOVE, this.onItemRemove);
 
         $(s.TOGGLE_BTN).off();
 
@@ -152,7 +149,7 @@ define([
 
     FilterController.prototype.onSubmit = function () {
 
-        amplify.publish('fx.catalog.submit');
+        amplify.publish(E.SEARCH_SUBMIT);
     };
 
     /* end event callback */

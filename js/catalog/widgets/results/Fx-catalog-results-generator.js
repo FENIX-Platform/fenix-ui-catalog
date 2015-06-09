@@ -3,17 +3,11 @@ define([
     'jquery',
     "fx-cat-br/widgets/results/renderers/Fx-result-renderer-dataset",
     "fx-cat-br/widgets/results/renderers/Fx-result-renderer-layer",
+    "fx-cat-br/config/events",
     "amplify"
-], function ($, Dataset, Layer) {
+], function ($, Dataset, Layer, E) {
 
     'use strict';
-
-    var o = {
-        events : {
-            ANALYZE_SUB : "clickResultAnalyzeBtn",
-            ANALYZE : 'clickResultAnalyze'
-        }
-    };
 
     function Fx_catalog_results_generator(options) {
         this.o = options || {};
@@ -22,8 +16,8 @@ define([
 
     Fx_catalog_results_generator.prototype.initEventListeners = function(){
 
-        amplify.subscribe(o.events.ANALYZE_SUB, function (payload) {
-              amplify.publish(o.events.ANALYZE, [payload]);
+        amplify.subscribe(E.SEARCH_ANALYZE_SUB, function (payload) {
+              amplify.publish(E.SEARCH_ANALYZE, [payload]);
         });
 
     };

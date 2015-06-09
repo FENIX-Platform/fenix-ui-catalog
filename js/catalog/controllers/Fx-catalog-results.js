@@ -2,19 +2,11 @@
 
 define([
     'jquery',
+    'fx-cat-br/config/events',
     'amplify'
-], function ($) {
+], function ($, E) {
 
     'use strict';
-
-    var o = {
-        events : {
-            ANALYZE_SUB : 'clickResultAnalyze',
-            EDIT_METADATA_SUB : 'clickResultEditMetadata',
-            ANALYZE: 'resultAnalyze',
-            EDIT_METADATA : "resultEditMetadata"
-        }
-    };
 
     function ResultsController() {
     }
@@ -62,21 +54,17 @@ define([
         this.grid.clear();
     };
 
-    ResultsController.prototype.bindEventListeners = function(){
+    ResultsController.prototype.bindEventListeners = function() {
 
-        amplify.subscribe(o.events.ANALYZE_SUB, this, this.onAnalyze);
-        amplify.subscribe(o.events.EDIT_METADATA_SUB, this, this.onShowMetadata);
-/*
-        $('body').on(o.events.ANALYZE_SUB, this.onAnalyze);
-
-        $('body').on(o.events.EDIT_METADATA_SUB,  this.onShowMetadata);*/
+        amplify.subscribe(E.SEARCH_ANALYZE_SUB, this, this.onAnalyze);
+        amplify.subscribe(E.EDIT_METADATA_SUB, this, this.onShowMetadata);
     };
 
     /* event callback */
 
     ResultsController.prototype.onAnalyze = function (e, payload) {
         //Listen to it on Fx-catalog-page
-        $(e.currentTarget).trigger(o.events.ANALYZE, [payload]);
+        $(e.currentTarget).trigger(E.ANALYZE, [payload]);
     };
 
     ResultsController.prototype.onShowMetadata = function (e, payload) {
@@ -91,12 +79,10 @@ define([
 
     ResultsController.prototype.unbindEventListeners = function(){
 
-        amplify.unsubscribe(o.events.ANALYZE_SUB, this.onAnalyze);
-        amplify.unsubscribe(o.events.EDIT_METADATA_SUB, this.onShowMetadata);
-/*
-        $('body').off(o.events.ANALYZE_SUB);
+        amplify.unsubscribe(E.SEARCH_ANALYZE_SUB, this.onAnalyze);
 
-        $('body').off(o.events.EDIT_METADATA_SUB);*/
+        amplify.unsubscribe(E.EDIT_METADATA_SUB, this.onShowMetadata);
+
     };
 
     ResultsController.prototype.destroy = function () {
