@@ -23,14 +23,12 @@ define([
     function Fx_Catalog_Resume_Bar() {
 
         this.counter = 0;
-
     }
 
     Fx_Catalog_Resume_Bar.prototype.init = function (options) {
 
         //Merge options
-        $.extend(o, defaultOptions);
-        $.extend(o, options);
+        $.extend(o, defaultOptions, options);
     };
 
     Fx_Catalog_Resume_Bar.prototype.render = function () {
@@ -57,7 +55,6 @@ define([
 
         amplify.unsubscribe(E.MODULE_SELECT, this.onReady);
         amplify.unsubscribe(E.MODULE_REMOVE, this.onRemove);
-
     };
 
     Fx_Catalog_Resume_Bar.prototype.removeItem = function (item) {
@@ -65,6 +62,7 @@ define([
     };
 
     Fx_Catalog_Resume_Bar.prototype.addItem = function (item) {
+
         var module = this.findResumeItem(item.module);
 
         if (module.length !== 0) {

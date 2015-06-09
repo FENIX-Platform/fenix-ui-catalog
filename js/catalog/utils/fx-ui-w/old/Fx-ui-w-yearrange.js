@@ -1,7 +1,7 @@
 define(["jquery", "fx-cat-br/jqrangeslider"], function ($) {
 
     function Fx_ui_w_SimpleRange() {
-    };
+    }
 
     Fx_ui_w_SimpleRange.prototype.validate = function (e) {
 

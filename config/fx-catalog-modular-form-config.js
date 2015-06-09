@@ -8,7 +8,7 @@ define(function () {
 
         "uid": {
             "id": "fx-uid-id",
-            "type": "uid",
+            "type": "text",
             "container": "name-container",
             "cssclass": "name-class",
             "label": {
@@ -34,36 +34,20 @@ define(function () {
 
         "resourceType": {
             "id": "fx-resourcestype-id",
-            "type": "resourceType",
-            "container": "resourcestype-container",
-            "cssclass": "resourcestype",
+            "type": "enumeration",
             "label": {
                 "EN": "Resources Type",
                 "DE": "Suche",
                 "ES": "Búsqueda",
                 "FR": "Recherchet"
             },
-            "details": {
-                "cl": {
-                    "uid": "RepresentationType"
-                }
-            },
+
             "component": {
                 "source": {
-                    "url": "http://fenix.fao.org/d3s_fenix/msd/choices/RepresentationType"
-                },
-                "rendering": {
-                    "displayMember": "label",
-                    "valueMember": "value",
-                    "multiple": true,
-                    "width": "100%",
-                    "height": "100%"
+                    "uid": "RepresentationType"
                 }
             }
         },
-
-
-
 
         "referenceArea": {
             "id": "fx-referenceArea-id",
@@ -135,7 +119,7 @@ define(function () {
 
         "region": {
             "id": "fx-region-id",
-            "type": "region",
+            "type": "tree",
             "cssclass": "region-css",
             "container": "region-container",
             "label": {

@@ -25,9 +25,6 @@ define([
                 MODULE: 'fx-catalog-form-module',
                 RESIZE: "fx-catalog-modular-form-resize-btn",
                 LABEL: "fx-catalog-modular-form-label"
-            },
-            events: {
-                REMOVE_MODULE: "fx.catalog.module.remove"
             }
         }, uiCreator, w_Commons, cache = {}, modules = [];
 
@@ -91,8 +88,6 @@ define([
 
         modules.push(m);
 
-        console.log(cache.json[module.module])
-
         uiCreator.render({
             cssClass: "form-elements",
             container: "#" + id,
@@ -136,6 +131,7 @@ define([
 
         var $close_btn = $("<div class='" + o.css_classes.CLOSE_BTN + "'></div>")
             .on("click", { o: o }, function () {
+
                 amplify.publish(E.MODULE_REMOVE, { type: module.module, module: $module.get(0)});
 
                 for (var i = 0; i < modules.length; i++) {
@@ -177,9 +173,8 @@ define([
 
     Fx_catalog_modular_form.prototype.init = function (options) {
 
-        $.extend(o, defaultOptions);
+        $.extend(o, defaultOptions, options);
 
-        $.extend(o, options);
     };
 
     Fx_catalog_modular_form.prototype.destroy = function () {
