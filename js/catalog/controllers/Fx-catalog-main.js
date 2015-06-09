@@ -20,13 +20,7 @@ define([
         }
     };
 
-    function MainController() {
-
-      /*  //workaround for unbinding
-        this.onSubmit = $.proxy(this.onSubmit, this);
-        this.onEndCatalogSearch = $.proxy(this.onEndCatalogSearch, this);
-        this.onEmptyResponse = $.proxy(this.onEmptyResponse, this)*/
-    }
+    function MainController() { }
 
     MainController.prototype.initIntroduction = function () {
 
@@ -37,6 +31,7 @@ define([
             intro.setOptions({'showButtons': true, 'showBullets': false});
 
             intro.setOptions({
+
                 steps: [
                     {
                         intro: "Select an attribute",
@@ -78,13 +73,18 @@ define([
     MainController.prototype.render = function () {
 
         this.preValidation();
+
         this.bindEventListeners();
+
         this.renderComponents();
+
         this.initIntroduction();
     };
 
     MainController.prototype.preValidation = function () {
+
         if (!this.filter) {
+
             throw new Error("PAGE CONTROLLER: INVALID FILTER ITEM.");
         }
     };
@@ -92,36 +92,24 @@ define([
     MainController.prototype.bindEventListeners = function () {
 
         amplify.subscribe("fx.catalog.submit", this, this.onSubmit);
+
         amplify.subscribe("fx.catalog.query.end", this, this.onEndCatalogSearch);
+
         amplify.subscribe("fx.catalog.query.empty_response", this, this.onEmptyResponse);
+
         amplify.subscribe(o.events.ANALYZE_SUB, this, this.onAnalyze);
-
-/*        document.body.addEventListener("submit.catalog.fx", this.onSubmit );
-
-        document.body.addEventListener("end.query.catalog.fx", this.onEndCatalogSearch);
-
-        document.body.addEventListener("empty_response.query.catalog.fx", this.onEmptyResponse);
-
- $('body').on(o.events.ANALYZE_SUB, this.onAnalyze);*/
-
 
     };
 
     MainController.prototype.unbindEventListeners = function () {
 
         amplify.unsubscribe("fx.catalog.submit", this.onSubmit);
+
         amplify.unsubscribe("fx.catalog.query.end", this.onEndCatalogSearch);
+
         amplify.unsubscribe("fx.catalog.query.empty_response", this.onEmptyResponse);
+
         amplify.unsubscribe(o.events.ANALYZE_SUB, this.onAnalyze);
-
-       /* document.body.removeEventListener("submit.catalog.fx", this.onSubmit);
-
-        document.body.removeEventListener("end.query.catalog.fx", this.onEndCatalogSearch);
-
-        document.body.removeEventListener("empty_response.query.catalog.fx", this.onEmptyResponse);
-
-        $('body').off(o.events.ANALYZE_SUB);
-        */
 
     };
 
@@ -130,6 +118,7 @@ define([
     MainController.prototype.onSubmit = function () {
 
         NProgress.start();
+
         this.bridge.query(this.filter, $.proxy(function ( response ){
 
             this.results.addItems( { results : response, filter : this.filter.getD3PFilter() });
@@ -158,20 +147,15 @@ define([
 
     MainController.prototype.onAnalyze = function (e, payload) {
 
-        /*self.storage.getItem(o.storage.CATALOG, function (item) {
-         var a = JSON.parse(item) || [];
-         a.push({uid: payload.uid, version: payload.version});
-         self.storage.setItem(o.storage.CATALOG, JSON.stringify(a));
-         $(e.currentTarget).trigger(o.events.ANALYZE, [payload]);
-         });*/
-        //$(e.currentTarget).trigger(o.events.ANALYZE, [payload]);
         amplify.publish(o.events.ANALYZE, [payload]);
     };
 
     /* end event callback */
 
     MainController.prototype.renderComponents = function () {
+
         this.filter.render();
+
         this.results.render();
     };
 

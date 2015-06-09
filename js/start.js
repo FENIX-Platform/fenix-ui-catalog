@@ -15,7 +15,7 @@ define([
         'fx-cat-br/widgets/storage/SessionStorage',
         "text!fx-cat-br/html/fx_catalog_structure.html"
     ],
-    function ($, Controller, FilterController, Menu, Form, Resume, FuidGrid, Bridge, ResultController, ResultsRenderer, FilterableGrid, Storage, structure) {
+    function ($, Controller, FilterController, Menu, Form, Resume, FluidGrid, Bridge, ResultController, ResultsRenderer, FilterableGrid, Storage, structure) {
 
         'use strict';
 
@@ -37,7 +37,7 @@ define([
             $.extend(this.o, options);
 
             if (!this.o.hasOwnProperty('container')) {
-                throw 'Catalog needs a container!';
+                throw 'Catalog needs for a container!';
             }
 
             $(this.o.container).html(structure);
@@ -66,7 +66,7 @@ define([
             var menu = new Menu(),
                 form = new Form(),
                 resume = new Resume(),
-                grid = new FuidGrid();
+                grid = new FluidGrid();
 
             menu.init({
                 container: document.querySelector("#" + html_ids.MENU)

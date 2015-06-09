@@ -1,3 +1,4 @@
+/* global define, amplify */
 define([
     "jquery",
     "fx-cat-br/widgets/Fx-widgets-commons",
@@ -6,7 +7,9 @@ define([
     'amplify'
 ], function ($, W_Commons, conf) {
 
-    var o = { },
+    'use strict';
+
+    var o = {},
         defaultOptions = {
             widget: {
                 lang: 'EN'
@@ -27,14 +30,18 @@ define([
 
         //Merge options
         $.extend(o, defaultOptions);
+
         $.extend(o, options);
     };
 
     Fx_Catalog_Collapsible_Menu.prototype.render = function (options) {
+
         $.extend(o, options);
 
         cache.json = JSON.parse(conf);
+
         this.initStructure();
+
         this.renderMenu(cache.json);
 
     };
@@ -44,6 +51,7 @@ define([
         o.collapseId = "fx-collapse-" + w_Commons.getFenixUniqueId();
 
         $collapse = $('<div class="panel-group" id="accordion"></div>');
+
         $collapse.attr("id", o.collapseId);
 
         $(o.container).append($collapse);
@@ -57,13 +65,13 @@ define([
             var panels = json.panels;
 
             for (var i = 0; i < panels.length; i++) {
-                $collapse.append(this.buildPanel(panels[i]))
+                $collapse.append(this.buildPanel(panels[i]));
             }
 
-            $(o.container).append($collapse)
+            $(o.container).append($collapse);
 
         } else {
-            throw new Error("Fx_Catalog_Collapsible_Menu: no 'panels' attribute in config JSON.")
+            throw new Error("Fx_Catalog_Collapsible_Menu: no 'panels' attribute in config JSON.");
         }
     };
 
@@ -73,9 +81,11 @@ define([
             $p = $(document.createElement("DIV"));
 
         $p.addClass("panel");
+
         $p.addClass("panel-default");
 
         $p.append(this.buildPanelHeader(panel, id));
+
         $p.append(this.buildPanelBody(panel, id));
 
         return $p;
@@ -94,7 +104,7 @@ define([
         $a.attr("href", "#" + id);
 
         if (panel.hasOwnProperty("title")) {
-            $a.html(panel["title"][o.widget.lang]);
+            $a.html(panel.title[o.widget.lang]);
         }
 
         return $header.append($title.append($a.prepend($plus)).append($info));
@@ -110,21 +120,20 @@ define([
         var $body = $('<div class="panel-body"></div>');
 
         if (panel.hasOwnProperty("modules")) {
-            var modules = panel["modules"];
+            var modules = panel.modules;
 
             for (var j = 0; j < modules.length; j++) {
 
                 var $module = $("<div></div>"),
                     $btn = $('<button type="button" class="btn btn-default btn-block"></button>');
 
-                $btn.on('click', {module: modules[j] }, function (e) {
+                $btn.on('click', {module: modules[j]}, function (e) {
 
                     var $btn = $(this);
 
                     if ($btn.is(':disabled') === false) {
                         $btn.attr("disabled", "disabled");
                         amplify.publish(o.events.SELECT, e.data.module);
-                        //w_Commons.raiseCustomEvent(o.container, o.events.SELECT, e.data.module)
                     }
 
                 });
@@ -147,20 +156,23 @@ define([
                     $btn.append(modules[j].label[o.widget.lang]);
                 }
 
-                if (modules[j].hasOwnProperty("popover")) {
+                 /*
 
-                    /*                    console.log(modules[j]["popover"])
-                     var keys = Object.keys(modules[j]["popover"]);
+                 if (modules[j].hasOwnProperty("popover")) {
 
-                     for (var k = 0; k < keys.length; k++ ){
+                 console.log(modules[j]["popover"])
+                 var keys = Object.keys(modules[j]["popover"]);
 
-                     $btn.attr(keys[k], modules[j]["popover"][keys[k]])
-                     }*/
+                 for (var k = 0; k < keys.length; k++ ){
 
-                }
+                 $btn.attr(keys[k], modules[j]["popover"][keys[k]])
+                 }
+
+                 }
+                 */
 
                 $module.append($btn);
-                $body.append($module)
+                $body.append($module);
             }
         }
 
@@ -168,6 +180,7 @@ define([
     };
 
     Fx_Catalog_Collapsible_Menu.prototype.disable = function (module) {
+
         $(o.container).find("[data-module='" + module + "']").attr("disabled", "disabled");
     };
 
@@ -178,7 +191,7 @@ define([
 
     Fx_Catalog_Collapsible_Menu.prototype.destroy = function () {
 
-        $(o.container).find('button.btn.btn-default.btn-block').off()
+        $(o.container).find('button.btn.btn-default.btn-block').off();
 
     };
 
