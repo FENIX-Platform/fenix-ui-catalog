@@ -1,3 +1,5 @@
+/*global define*/
+
 /*
  * TODO:
  * Set lang dynamically
@@ -11,20 +13,22 @@ define([
     "jquery"
 ], function (require, $) {
 
+    'use strict';
+
     var errors = {
             UNKNOWN_TYPE: {EN: "FENIX UI Creator: Unknown widget type"},
-            CONTAINER_NOT_FOUND: { EN: "FENIX UI Creator: Impossible to find container"},
-            ELEMENTS_NOT_JSON: { EN: "FENIX UI Creator: Elements JSON file not valid"},
-            ELEMENTS_NOT_ARRAY: { EN: "FENIX UI Creator: Elements JSON file not an array"},
-            ELEM_NOT_ID: { EN: "FENIX UI Creator: Specify Id for each UI element"},
-            ELEM_NOT_COMP: { EN: "FENIX UI Creator: Specify Component for each UI element"},
-            ELEM_COMP_TYPE: { EN: "FENIX UI Creator: Component Type not valid"},
-            ELEM_NOT_SOURCE: { EN: "FENIX UI Creator: Specify source for each Component"},
-            ELEM_NOT_DATAFIELDS: { EN: "FENIX UI Creator: Specify Datafields for each Component"},
-            VALUES_NOT_READY: { EN: "FENIX UI Creator: Values Not Ready"},
-            VALIDATORS_NOT_VALID: { EN: "FENIX UI Creator: Validators not valid"},
-            DATE_FORMAT_ERROR: { EN: "FENIX UI Creator: Date format not valid"},
-            CONNECTION_FAIL: { EN: "FENIX UI Creator: Connection problems"}
+            CONTAINER_NOT_FOUND: {EN: "FENIX UI Creator: Impossible to find container"},
+            ELEMENTS_NOT_JSON: {EN: "FENIX UI Creator: Elements JSON file not valid"},
+            ELEMENTS_NOT_ARRAY: {EN: "FENIX UI Creator: Elements JSON file not an array"},
+            ELEM_NOT_ID: {EN: "FENIX UI Creator: Specify Id for each UI element"},
+            ELEM_NOT_COMP: {EN: "FENIX UI Creator: Specify Component for each UI element"},
+            ELEM_COMP_TYPE: {EN: "FENIX UI Creator: Component Type not valid"},
+            ELEM_NOT_SOURCE: {EN: "FENIX UI Creator: Specify source for each Component"},
+            ELEM_NOT_DATAFIELDS: {EN: "FENIX UI Creator: Specify Datafields for each Component"},
+            VALUES_NOT_READY: {EN: "FENIX UI Creator: Values Not Ready"},
+            VALIDATORS_NOT_VALID: {EN: "FENIX UI Creator: Validators not valid"},
+            DATE_FORMAT_ERROR: {EN: "FENIX UI Creator: Date format not valid"},
+            CONNECTION_FAIL: {EN: "FENIX UI Creator: Connection problems"}
         },
         lang = 'EN',
         valid;
@@ -37,8 +41,8 @@ define([
 
     //helper functions
     function handleError(e) {
-        throw new Error(errors[e][lang]);
         valid = false;
+        throw new Error(errors[e][lang]);
     }
 
     //Validation fns
@@ -139,7 +143,7 @@ define([
 
     //Public Component
     function Fenix_ui_creator(o) {
-         this.o = {};
+        this.o = {};
         $.extend(this.o, o);
     }
 
@@ -147,41 +151,41 @@ define([
 
         var result = {}, propertyErrors, property, validatorName, e;
 
-        if (o.validators) {
-            if (typeof o.validators !== "object") {
-                handleError("VALIDATORS_NOT_VALID");
-            }
-            else {
+        if (o.validators && typeof o.validators !== "object") {
 
-                //Loop over validations
-                for (property in o.validators) {
+            handleError("VALIDATORS_NOT_VALID");
 
-                    propertyErrors = { errors: {} };
+        } else {
 
-                    if (o.validators.hasOwnProperty(property)) {
+            //Loop over validations
+            for (property in o.validators) {
 
-                        for (validatorName in o.validators[property]) {
+                propertyErrors = {errors: {}};
 
-                            if (o.validators[property].hasOwnProperty(validatorName)) {
+                if (o.validators.hasOwnProperty(property)) {
 
-                                e = o.validators[property][validatorName](values[property]);
+                    for (validatorName in o.validators[property]) {
 
-                                if (e !== true) {
-                                    propertyErrors.errors[validatorName] = e;
-                                }
+                        if (o.validators[property].hasOwnProperty(validatorName)) {
 
+                            e = o.validators[property][validatorName](values[property]);
+
+                            if (e !== true) {
+                                propertyErrors.errors[validatorName] = e;
                             }
+
                         }
                     }
+                }
 
-                    if (Object.keys(propertyErrors.errors).length > 0) {
+                if (Object.keys(propertyErrors.errors).length > 0) {
 
-                        propertyErrors.value = values[property];
-                        result[property] = propertyErrors;
-                    }
+                    propertyErrors.value = values[property];
+                    result[property] = propertyErrors;
                 }
             }
         }
+
 
         return Object.keys(result).length === 0 ? null : result;
     };
@@ -198,12 +202,12 @@ define([
                 //Synch call of require
                 try {
 
-                    var module = require( self.o.plugin_folder + "Fx-ui-w-" + element.type),
-                        widget = new module();
+                    var Module = require(self.o.plugin_folder + "Fx-ui-w-" + element.type),
+                        widget = new Module();
                     result[element[self.o.result_key]] = widget.getValue(element);
 
                 } catch (e) {
-                    console.error(e)
+                    console.error(e);
                 }
             });
 
@@ -218,12 +222,13 @@ define([
 
                 //Synch call of require
                 try {
-                    var module = require( self.o.plugin_folder + "Fx-ui-w-" + element.type),
-                        widget = new module();
+                    var Module = require(self.o.plugin_folder + "Fx-ui-w-" + element.type),
+                        widget = new Module();
 
                     result[element.id] = widget.getValue(element);
                 } catch (e) {
-                    console.error(e)
+
+                    console.error(e);
                 }
 
             });

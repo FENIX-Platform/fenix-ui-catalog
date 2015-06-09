@@ -53,7 +53,6 @@ define([
             request = o.blankFilter;
         } else {
             request = $.extend(true, {}, emptyFilter);
-            console.log(request)
         }
 
         position = request;

@@ -95,7 +95,7 @@ define([
 
             $obj.remove();
 
-            amplify.publish(  E.MODULE_DESELECT + item.module, {value : obj.value} );
+            amplify.publish(  E.MODULE_DESELECT +'.'+ item.module, {value : obj.value} );
 
         });
 

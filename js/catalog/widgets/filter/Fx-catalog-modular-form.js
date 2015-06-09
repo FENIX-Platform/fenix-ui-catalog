@@ -91,6 +91,8 @@ define([
 
         modules.push(m);
 
+        console.log(cache.json[module.module])
+
         uiCreator.render({
             cssClass: "form-elements",
             container: "#" + id,
@@ -176,13 +178,16 @@ define([
     Fx_catalog_modular_form.prototype.init = function (options) {
 
         $.extend(o, defaultOptions);
+
         $.extend(o, options);
     };
 
     Fx_catalog_modular_form.prototype.destroy = function () {
 
         $("." + o.css_classes.RESIZE).off();
+
         $("." + o.css_classes.CLOSE_BTN).off();
+
         this.grid.destroy();
 
     };

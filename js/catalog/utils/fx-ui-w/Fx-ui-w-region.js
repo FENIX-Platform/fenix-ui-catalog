@@ -1,9 +1,13 @@
+/* global define*/
+
 define([
     "jquery",
     "fx-cat-br/widgets/Fx-widgets-commons",
     "jstree",
     "amplify"
 ], function ($, W_Commons) {
+
+    'use strict';
 
     var o = {
         lang: 'EN',
@@ -18,6 +22,7 @@ define([
     }
 
     Fx_ui_w_geographicExtent.prototype.validate = function (e) {
+
         if (!e.hasOwnProperty("source")) {
             throw new Error("ELEM_NOT_SOURCE");
         } else {
@@ -51,7 +56,7 @@ define([
             };
 
         if (o.component.source.version) {
-            body['version'] = o.component.source.version;
+            body.version= o.component.source.version;
         }
 
         $.ajax({
@@ -114,7 +119,7 @@ define([
 
         this.$treeContainer = $('<div class="jstree-holder"></div>');
         //this.$searchForm = $('<form id="s"><input type="search" id="q" /><input class="sel_all" type="button" value="sel all"><input class="desel_all" type="button" value="desel all"></form>');
-        this.$searchForm = $('<form id="s"><input type="search" id="q" class="form-control"  /></form>');
+        this.$searchForm = $('<form id="s"><input type="search" id="q" class="form-control" /></form>');
 
         this.$container = $(container);
         this.$container.append(this.$searchForm);

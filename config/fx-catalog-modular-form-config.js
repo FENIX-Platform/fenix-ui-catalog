@@ -5,6 +5,7 @@ define(function () {
     'use strict';
 
     return {
+
         "uid": {
             "id": "fx-uid-id",
             "type": "uid",
@@ -30,31 +31,7 @@ define(function () {
                 }
             }
         },
-        "version": {
-            "id": "fx-version-id",
-            "type": "version",
-            "container": "name-container",
-            "cssclass": "name-class",
-            "label": {
-                "EN": "Version",
-                "DE": "Suche",
-                "ES": "Búsqueda",
-                "FR": "Recherchet"
-            },
-            "component": {
-                "rendering": {
-                    "placeholder": {
-                        "EN": "Version",
-                        "DE": "Version",
-                        "ES": "Version",
-                        "FR": "Version"
-                    },
-                    "htmlattributes": {
-                        "className": "form-control"
-                    }
-                }
-            }
-        },
+
         "resourceType": {
             "id": "fx-resourcestype-id",
             "type": "resourceType",
@@ -84,133 +61,78 @@ define(function () {
                 }
             }
         },
-        "referencePeriod": {
-            "id": "fx-referencePeriod-id",
-            "type": "referencePeriod",
-            "cssclass": "fx-catalog-mod-timerseries",
-            "container": "referencePeriod-container",
-            "label": {
-                "EN": "Reference Range",
-                "ES": "Intervalo de tiempo",
-                "DE": "Zeitbereich",
-                "FR": "Intervalle de temps"
-            },
-            "details": {
-                "cl": {
-                    "uid": "FAO_Period",
-                    "version": "1.0"
-                }
-            },
-            "component": {
-                "source": {
-                    "datafields": [
-                        {
-                            "name": "label",
-                            "map": "title>EN"
-                        },
-                        {
-                            "name": "value",
-                            "map": "code"
-                        }
-                    ],
-                    "id": "value",
-                    "uid": "FAO_Period",
-                    "version": "1.0",
-                    "url": "http://fenix.fao.org/d3s_fenix/msd/codes/filter"
-                },
-                "rendering": {
-                    "displayMember": "label",
-                    "valueMember": "value",
-                    "multiple": true,
-                    "width": "100%",
-                    "height": "100%"
-                }
-            }
-        },
+
+
+
+
         "referenceArea": {
             "id": "fx-referenceArea-id",
-            "type": "referenceArea",
-            "cssclass": "fx-catalog-mod-timerseries",
-            "container": "referenceArea-container",
+            "type": "codes",
             "label": {
                 "EN": "Reference Area",
                 "ES": "Intervalo de tiempo",
                 "DE": "Zeitbereich",
                 "FR": "Intervalle de temps"
             },
-            "details": {
-                "cl": {
+            "component": {
+                "source": {
                     "uid": "GAUL_ReferenceArea",
                     "version": "1.0"
                 }
-            },
-            "component": {
-                "source": {
-                    "datafields": [
-                        {
-                            "name": "label",
-                            "map": "title>EN"
-                        },
-                        {
-                            "name": "value",
-                            "map": "code"
-                        }
-                    ],
-                    "id": "value",
-                    "uid": "GAUL_ReferenceArea",
-                    "version": "1.0",
-                    "url": "http://fenix.fao.org/d3s_fenix/msd/codes/filter"
-                },
-                "rendering": {
-                    "displayMember": "label",
-                    "valueMember": "value",
-                    "multiple": true,
-                    "width": "100%",
-                    "height": "100%"
-                }
             }
         },
+
         "sector": {
             "id": "fx-sector-id",
-            "type": "sector",
-            "cssclass": "fx-catalog-mod-timerseries",
-            "container": "sector-container",
+            "type": "codes",
             "label": {
                 "EN": "Sector",
                 "ES": "Intervalo de tiempo",
                 "DE": "Zeitbereich",
                 "FR": "Intervalle de temps"
             },
-            "details": {
-                "cl": {
-                    "uid": "UNECA_ClassificationOfActivities"
-                }
-            },
             "component": {
                 "source": {
-                    "datafields": [
-                        {
-                            "name": "label",
-                            "map": "title>EN"
-                        },
-                        {
-                            "name": "value",
-                            "map": "code"
-                        }
-                    ],
                     "id": "value",
-                    "uid": "CSTAT_Core",
-                    "url": "http://fenix.fao.org/d3s_fenix/msd/codes/filter"
-                },
-                "rendering": {
-                    "displayMember": "label",
-                    "valueMember": "value",
-                    "multiple": true,
-                    "width": "100%",
-                    "height": "100%"
+                    "uid": "CSTAT_Core"
                 }
             }
         },
+
+        "referencePeriod": {
+            "id": "fx-referencePeriod-id",
+            "type": "codes",
+            "label": {
+                "EN": "Reference Range",
+                "ES": "Intervalo de tiempo",
+                "DE": "Zeitbereich",
+                "FR": "Intervalle de temps"
+            },
+            "component": {
+                "source": {
+                    "uid": "FAO_Period",
+                    "version": "1.0"
+                }
+            }
+        },
+
+        "statusOfConfidentiality": {
+            "id": "fx-statusOfConfidentiality-id",
+            "type": "codes",
+            "label": {
+                "EN": "Status of Confidentiality",
+                "ES": "Intervalo de tiempo",
+                "DE": "Zeitbereich",
+                "FR": "Intervalle de temps"
+            },
+            "component": {
+                "source": {
+                    "uid": "CL_CONF_STATUS",
+                    "version": "1.0"
+                }
+            }
+        },
+
         "region": {
             "id": "fx-region-id",
             "type": "region",
@@ -251,7 +173,34 @@ define(function () {
                     "height": "100%"
                 }
             }
+        }
+
+/*        , "version": {
+            "id": "fx-version-id",
+            "type": "version",
+            "container": "name-container",
+            "cssclass": "name-class",
+            "label": {
+                "EN": "Version",
+                "DE": "Suche",
+                "ES": "Búsqueda",
+                "FR": "Recherchet"
+            },
+            "component": {
+                "rendering": {
+                    "placeholder": {
+                        "EN": "Version",
+                        "DE": "Version",
+                        "ES": "Version",
+                        "FR": "Version"
+                    },
+                    "htmlattributes": {
+                        "className": "form-control"
+                    }
+                }
+            }
         },
+
         "contact": {
             "id": "fx-contact-id",
             "type": "contact",
@@ -281,50 +230,7 @@ define(function () {
                 }
 
             }
-        },
-        "statusOfConfidentiality": {
-            "id": "fx-statusOfConfidentiality-id",
-            "type": "statusOfConfidentiality",
-            "cssclass": "fx-catalog-mod-timerseries",
-            "container": "statusOfConfidentiality-container",
-            "label": {
-                "EN": "Status of Confidentiality",
-                "ES": "Intervalo de tiempo",
-                "DE": "Zeitbereich",
-                "FR": "Intervalle de temps"
-            },
-            "details": {
-                "cl": {
-                    "uid": "CL_CONF_STATUS",
-                    "version": "1.0"
-                }
-            },
-            "component": {
-                "source": {
-                    "datafields": [
-                        {
-                            "name": "label",
-                            "map": "title>EN"
-                        },
-                        {
-                            "name": "value",
-                            "map": "code"
-                        }
-                    ],
-                    "id": "value",
-                    "uid": "CL_CONF_STATUS",
-                    "version": "1.0",
-                    "url": "http://fenix.fao.org/d3s_fenix/msd/codes/filter"
-                },
-                "rendering": {
-                    "displayMember": "label",
-                    "valueMember": "value",
-                    "multiple": true,
-                    "width": "100%",
-                    "height": "100%"
-                }
-            }
-        }
+        },*/
 
     };
 
