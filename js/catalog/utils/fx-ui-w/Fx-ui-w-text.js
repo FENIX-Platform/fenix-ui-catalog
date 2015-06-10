@@ -80,7 +80,7 @@ define([
     };
 
     Fx_ui_w_text.prototype.getValue = function (e) {
-        return { enumeration :  [$("#" + e.id + " > input").val()]};
+        return { enumeration :  [$("#" + e.id + "  input").val()]};
     };
 
     return Fx_ui_w_text;

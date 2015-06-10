@@ -10,6 +10,8 @@ define(function () {
         SERVICE_SAVE_METADATA: { service: "resources/metadata" },
         SERVICE_SAVE_DSD: { service: "resources/dsd" },
         SERVICE_SAVE_DATA: { service: "resources" },
-        SERVICE_RESOURCES_FIND: { service: "resources/find" }
+        SERVICE_RESOURCES_FIND: { service: "resources/find" } ,
+
+        SEARCH_PER_PAGE : 15
     };
 });

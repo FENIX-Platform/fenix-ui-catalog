@@ -28,9 +28,10 @@ define(function () {
             'jqwidgets': '{FENIX_CDN}/js/jqwidgets/3.1/jqx-light',
             'jstree': '{FENIX_CDN}/js/jstree/3.0.8/dist/jstree.min',
             'nprogress': '{FENIX_CDN}/js/nprogress/0.1.6/nprogress',
-            //'packery': '{FENIX_CDN}/js/packery/1.3.1/dist/packery.pkgd.min',
+            'handlebars': "{FENIX_CDN}/js/handlebars/2.0.0/handlebars",
             'packery': '{FENIX_CDN}/js/packery/dist/packery.pkgd.min',
-            'pnotify': '{FENIX_CDN}/js/pnotify/2.0.1/pnotify.core'
+            'pnotify': '{FENIX_CDN}/js/pnotify/2.0.1/pnotify.core',
+            'q' : '{FENIX_CDN}/js/q/1.1.2/q'
         },
         shim: {
             'bootstrap': {

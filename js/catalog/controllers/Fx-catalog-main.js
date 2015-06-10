@@ -116,10 +116,18 @@ define([
 
         NProgress.start();
 
+        /*
+        var self = this;
+        this.bridge.prepareQueryResources(this.filter);
+
+         this.bridge.getFirstPage().then(function ( response ) {
+            self.results.addItems( response );
+         });
+
+         */
+
         this.bridge.query(this.filter, $.proxy(function ( response ){
-
             this.results.addItems( { results : response, filter : this.filter.getD3PFilter() });
-
             }, this), this.results);
         //this.filter.collapseFilter();
     };

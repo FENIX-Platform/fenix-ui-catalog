@@ -2,23 +2,16 @@
 
 define([
     "jquery",
+    'handlebars',
     "text!fx-cat-br/html/fx_result_fragments.html",
     'amplify'
-], function ($, template) {
+], function ($, Handlebars, resultTemplate) {
 
     'use strict';
 
     //Default Result options
     var defaultOptions = {
         error_prefix: "FENIX Result dataset creation error: "
-    }, selectors = {
-        s_result: ".fenix-result",
-        s_desc_title: ".fx_result_description_title",
-        s_desc_source: ".fx_result_description_source",
-        s_desc_geo: ".fx_result_description_geograficalarea",
-        s_desc_period: ".fx_result_description_baseperiod",
-        s_uid: ".fx_result_uid",
-        s_version: '.fx_result_version'
     }, $result;
 
     function Fx_catalog_result_render_dataset(options) {
@@ -26,38 +19,6 @@ define([
         this.o = {};
         $.extend(this.o, options);
     }
-
-    Fx_catalog_result_render_dataset.prototype.initText = function () {
-
-        if (this.o.hasOwnProperty('uid') && this.o.uid !== null) {
-
-            $result.find(selectors.s_uid).html(this.o.uid);
-        }
-
-        if (this.o.hasOwnProperty('version') && this.o.version !== null) {
-
-            $result.find(selectors.s_version).html( 'Dataset' );
-        }
-
-        if (this.o.hasOwnProperty('title') && this.o.title !== null) {
-
-            if (this.o.title.hasOwnProperty('EN')) {
-                $result.find(selectors.s_desc_title).html(this.o.title['EN']);
-            } else {
-
-                var keys = Object.keys(this.o.title);
-
-                if (keys.length > 0) {
-                    $result.find(selectors.s_desc_title).html(this.o.title[keys[0]]);
-                }
-            }
-        }
-    };
-
-    Fx_catalog_result_render_dataset.prototype.initModal = function () {
-
-        $result.find("#myModalLabel").html(this.o.name);
-    };
 
     Fx_catalog_result_render_dataset.prototype.addActions = function () {
 
@@ -88,16 +49,13 @@ define([
 
         $.extend(this.o, defaultOptions);
 
-        $result = $(template).find(selectors.s_result).clone();
+        var template = Handlebars.compile(resultTemplate),
+            result = template(this.o);
 
-        if ($result.length === 0) {
-            throw new Error(this.o.error_prefix + " HTML fragment not found");
-        }
+        $result = $(result);
 
         $result.addClass("dataset");
 
-        this.initText();
-        this.initModal();
         this.addActions();
 
         return $result.get(0);

@@ -9,8 +9,6 @@ define(function () {
         "uid": {
             "id": "fx-uid-id",
             "type": "text",
-            "container": "name-container",
-            "cssclass": "name-class",
             "label": {
                 "EN": "Uid",
                 "DE": "Suche",

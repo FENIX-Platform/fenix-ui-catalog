@@ -31,9 +31,19 @@ define([
         }
     };
 
+    ResultsController.prototype.bindEventListeners = function() {
+
+        amplify.subscribe(E.SEARCH_ANALYZE_SUB, this, this.onAnalyze);
+
+        amplify.subscribe(E.EDIT_METADATA_SUB, this, this.onShowMetadata);
+    };
+
     ResultsController.prototype.render = function () {
+
         this.preValidation();
+
         this.bindEventListeners();
+
         this.renderComponents();
     };
 
@@ -54,22 +64,15 @@ define([
         this.grid.clear();
     };
 
-    ResultsController.prototype.bindEventListeners = function() {
-
-        amplify.subscribe(E.SEARCH_ANALYZE_SUB, this, this.onAnalyze);
-        amplify.subscribe(E.EDIT_METADATA_SUB, this, this.onShowMetadata);
-    };
-
     /* event callback */
 
     ResultsController.prototype.onAnalyze = function (e, payload) {
         //Listen to it on Fx-catalog-page
-        $(e.currentTarget).trigger(E.ANALYZE, [payload]);
+        $(e.currentTarget).trigger(E.SEARCH_ANALYZE, [payload]);
     };
 
     ResultsController.prototype.onShowMetadata = function (e, payload) {
         //Listen to it on Fx-catalog-page
-        //$(e.currentTarget).trigger(o.events.EDIT_METADATA, [payload]);
 
         var loc = './createdataset.html?resourceType=%rt&uid=%u'.replace("%rt", "dataset").replace("%u", payload.uid);
         document.location.href = loc;
