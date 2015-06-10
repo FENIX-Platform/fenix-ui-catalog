@@ -47,7 +47,7 @@ define([
                         self.getChildren(e, node, cb);
                     }
                 },
-                "multiple": false,
+                "multiple": true,
                 "animation": 0,
                 "themes": {"stripes": true}
             },
@@ -210,10 +210,8 @@ define([
     Fx_ui_w_codes.prototype.getValue = function (e) {
 
         var codes = $("#" + e.id).find('.jstree-holder').jstree(true).get_selected(),
-
-            uid = e.details.cl.uid,
-
-            version = e.details.cl.version;
+            uid = e.module.component.source.uid,
+            version = e.module.component.source.version;
 
         return {
             codes: [{

@@ -3,10 +3,12 @@
 define([
     "jquery",
     "fx-cat-br/widgets/Fx-widgets-commons",
+    "fx-cat-br/config/config",
+    "fx-cat-br/config/config-default",
     "fx-cat-br/config/events",
     "jstree",
     "amplify"
-], function ($, W_Commons, E) {
+], function ($, W_Commons, C, DC, E) {
 
     'use strict';
 
@@ -22,10 +24,6 @@ define([
 
         if (!e.hasOwnProperty("source")) {
             throw new Error("ELEM_NOT_SOURCE");
-        } else {
-            if (!e.source.hasOwnProperty("datafields")) {
-                throw new Error("ELEM_NOT_DATAFIELDS");
-            }
         }
 
         return true;
@@ -59,7 +57,7 @@ define([
         $.ajax({
             type: "POST",
             contentType: "application/json",
-            url: o.component.source.url,
+            url: (C.SERVICE_BASE_ADDRESS || DC.SERVICE_BASE_ADDRESS) + "/codes/filter",
             data: JSON.stringify(body),
             dataType: "json",
             success: function (data) {
@@ -90,7 +88,7 @@ define([
         $.ajax({
             type: "POST",
             contentType: "application/json",
-            url: o.component.source.url,
+            url: (C.SERVICE_BASE_ADDRESS || DC.SERVICE_BASE_ADDRESS) + "/codes/filter",
             data: JSON.stringify(body),
             dataType: "json",
             success: function (data) {
@@ -133,7 +131,7 @@ define([
                         self.getChildren(e, node, cb);
                     }
                 },
-                "multiple": false,
+                "multiple": true,
                 "animation": 0,
                 "themes": {"stripes": true}
             },
@@ -202,8 +200,9 @@ define([
     Fx_ui_w_geographicExtent.prototype.getValue = function (e) {
 
         var codes = $("#" + e.id).find('.jstree-holder').jstree(true).get_selected(),
-            uid = e.details.cl.uid,
-            version = e.details.cl.version;
+            uid = e.module.component.source.uid,
+            version = e.module.component.source.version;
+
 
         return {
             codes: [

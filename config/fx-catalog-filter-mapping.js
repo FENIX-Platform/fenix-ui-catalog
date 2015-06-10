@@ -33,8 +33,7 @@ return {
         "path" : "meAccessibility.seConfidentiality.confidentialityStatus"
     }
 
-}
-    ;
+};
 
 });
 

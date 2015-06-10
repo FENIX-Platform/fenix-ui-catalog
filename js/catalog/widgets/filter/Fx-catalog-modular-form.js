@@ -37,7 +37,7 @@ define([
         uiCreator = new UiCreator();
         uiCreator.init({
             plugin_folder: 'fx-cat-br/utils/fx-ui-w/',
-            result_key : 'type'
+            result_key : 'semantic'
         });
         w_Commons = new W_Commons();
     }
@@ -81,7 +81,12 @@ define([
         var c = $blank.find("." + o.css_classes.CONTENT);
 
         var id = "fx-catalog-module-" + w_Commons.getFenixUniqueId(),
-            m = {id: cache.json[module.module].id, type: module.module};
+            m = {   id: id,
+                    type: cache.json[module.module].type,
+                    semantic: module.module,
+                    module : cache.json[module.module]
+                };
+
         c.attr("id", id);
 
         if (cache.json[module.module].hasOwnProperty("details")){ m.details = cache.json[module.module].details; }
@@ -136,7 +141,7 @@ define([
 
                 for (var i = 0; i < modules.length; i++) {
 
-                    if (modules[i].type === module.module) {
+                    if (modules[i].semantic === module.module) {
                         modules.splice(i, 1);
                     }
                 }

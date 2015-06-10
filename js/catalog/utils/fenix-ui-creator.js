@@ -193,7 +193,8 @@ define([
     //Get Values
     Fenix_ui_creator.prototype.getValues = function (validate, externalElements) {
 
-        var result = {}, self = this;
+        var result = {},
+            self = this;
 
         if (externalElements) {
 
@@ -204,6 +205,7 @@ define([
 
                     var Module = require(self.o.plugin_folder + "Fx-ui-w-" + element.type),
                         widget = new Module();
+
                     result[element[self.o.result_key]] = widget.getValue(element);
 
                 } catch (e) {
@@ -225,7 +227,7 @@ define([
                     var Module = require(self.o.plugin_folder + "Fx-ui-w-" + element.type),
                         widget = new Module();
 
-                    result[element.id] = widget.getValue(element);
+                    result[element.semantic] = widget.getValue(element);
                 } catch (e) {
 
                     console.error(e);

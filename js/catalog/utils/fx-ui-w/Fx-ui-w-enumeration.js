@@ -24,8 +24,6 @@ define([
 
         var self = this;
 
-        o.container = container;
-
         o.module = e;
 
         this.$treeContainer = $('<div class="jstree-holder"></div>');
@@ -34,7 +32,9 @@ define([
 
         this.$container = $(container);
 
-        this.$container.append(this.$searchForm).append(this.$treeContainer);
+        this.$container.append(this.$searchForm);
+
+        this.$container.append(this.$treeContainer);
 
         this.$treeContainer.jstree({
 
@@ -165,17 +165,13 @@ define([
 
         var codes = $("#" + e.id).find('.jstree-holder').jstree(true).get_selected(),
 
-            uid = e.details.cl.uid,
+            uid = e.module.component.source.uid,
 
-            version = e.details.cl.version;
+            version = e.module.component.source.version;
 
-        return {
-            codes: [{
-                uid: uid,
-                version: version,
-                codes: codes
-            }]
-        };
+        return {enumeration : codes};
+
+
     };
 
     return Fx_ui_w_enumeration;

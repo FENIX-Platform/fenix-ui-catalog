@@ -80,7 +80,6 @@ define([
 
         //Ask the plugin the filter, make the request and pass data to callback()
         $.ajax({
-            //url: o.url,
             url: url,
             type: 'post',
             contentType: 'application/json',

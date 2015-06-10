@@ -12,15 +12,15 @@ define([
      lang : 'EN'
     }, w_commons;
 
-    function Fx_ui_w_Name() {
+    function Fx_ui_w_text() {
         w_commons = new W_Commons();
     }
 
-    Fx_ui_w_Name.prototype.validate = function (e) {
+    Fx_ui_w_text.prototype.validate = function (e) {
         return true;
     };
 
-    Fx_ui_w_Name.prototype.render = function (e, container) {
+    Fx_ui_w_text.prototype.render = function (e, container) {
 
         o.container = container;
 
@@ -64,7 +64,7 @@ define([
         this.bindEventListeners();
     };
 
-    Fx_ui_w_Name.prototype.bindEventListeners = function () {
+    Fx_ui_w_text.prototype.bindEventListeners = function () {
 
         var that = this;
 
@@ -75,13 +75,13 @@ define([
         }, false);
     };
 
-    Fx_ui_w_Name.prototype.deselectValue = function () {
+    Fx_ui_w_text.prototype.deselectValue = function () {
         $(o.container).find('input').val('');
     };
 
-    Fx_ui_w_Name.prototype.getValue = function (e) {
+    Fx_ui_w_text.prototype.getValue = function (e) {
         return { enumeration :  [$("#" + e.id + " > input").val()]};
     };
 
-    return Fx_ui_w_Name;
+    return Fx_ui_w_text;
 });

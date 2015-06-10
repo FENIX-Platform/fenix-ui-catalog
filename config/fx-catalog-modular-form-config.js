@@ -120,41 +120,15 @@ define(function () {
         "region": {
             "id": "fx-region-id",
             "type": "tree",
-            "cssclass": "region-css",
-            "container": "region-container",
             "label": {
                 "EN": "Region",
                 "ES": "ES List",
                 "FR": "FR List"
             },
-            "details": {
-                "cl": {
-                    "uid": "GAUL0",
-                    "version": "2014"
-                }
-            },
             "component": {
                 "source": {
-                    "datafields": [
-                        {
-                            "name": "label",
-                            "map": "title>EN"
-                        },
-                        {
-                            "name": "value",
-                            "map": "code"
-                        }
-                    ],
                     "uid": "GAUL0",
-                    "version": "2014",
-                    "url": "http://fenix.fao.org/d3s_fenix/msd/codes/filter"
-                },
-                "rendering": {
-                    "displayMember": "label",
-                    "valueMember": "value",
-                    "multiple": true,
-                    "width": "100%",
-                    "height": "100%"
+                    "version": "2014"
                 }
             }
         }
