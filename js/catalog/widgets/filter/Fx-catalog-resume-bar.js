@@ -48,7 +48,7 @@ define([
     };
 
     Fx_Catalog_Resume_Bar.prototype.onRemove = function (e){
-        this.removeItem(e.type);
+        this.removeItem(e.id);
     };
 
     Fx_Catalog_Resume_Bar.prototype.unbindEventListeners = function () {
@@ -63,7 +63,7 @@ define([
 
     Fx_Catalog_Resume_Bar.prototype.addItem = function (item) {
 
-        var module = this.findResumeItem(item.module);
+        var module = this.findResumeItem(item.id);
 
         if (module.length !== 0) {
             var $list = module.find('[data-role="list"]');
@@ -93,7 +93,7 @@ define([
 
             $obj.remove();
 
-            amplify.publish(  E.MODULE_DESELECT +'.'+ item.module, {value : obj.value} );
+            amplify.publish(  E.MODULE_DESELECT +'.'+ item.id, {value : obj.value} );
 
         });
 
@@ -106,26 +106,8 @@ define([
 
     Fx_Catalog_Resume_Bar.prototype.createResumeItem = function ( item ) {
 
-        var icon;
-
-        switch (item.module){
-            case "resourceType" : icon="fa fa-database fa-fw"; break;
-            case "uid" : icon="fa fa-slack fa-fw"; break;
-            case "unitOfMeasure" : icon="fa fa-arrows-h fa-fw"; break;
-            case "indicator" : icon="fa fa-archive fa-fw"; break;
-            case "item" : icon="fa fa-dot-circle-o fa-fw"; break;
-            case "coverageSector" : icon="fa fa-book fa-fw"; break;
-            case "referencePeriod" : icon="fa fa-clock-o fa-fw"; break;
-            case "basePeriod" : icon="fa fa-clock-o fa-fw"; break;
-            case "updatePeriodicity" : icon="fa fa-calendar fa-fw"; break;
-            case "region" : icon="fa fa-globe fa-fw"; break;
-            case "source" : icon="fa fa-user fa-fw"; break;
-            case "owner" : icon="fa fa-user fa-fw"; break;
-            case "provider" : icon="fa fa-user fa-fw"; break;
-        }
-
-        var $c = $('<div class="fx-resume-item-selected" data-module="' + item.module + '"></div>'),
-            $title = $('<div data-role="title" class="fx-resume-module-title"><em><i class=" ' + icon + '"></i>'+ item.module +'</em></div>'),
+        var $c = $('<div class="fx-resume-item-selected" data-module="' + item.id + '"></div>'),
+            $title = $('<div data-role="title" class="fx-resume-module-title"><em>'+ item.label +'</em></div>'),
             $list = $('<div class="fx-resume-module-list-holder"><div data-role="list" class="fx-resume-module-list"></div></div>');
 
         $c.append($title).append($list);

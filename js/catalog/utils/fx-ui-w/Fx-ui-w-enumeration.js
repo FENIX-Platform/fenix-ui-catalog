@@ -83,7 +83,8 @@ define([
             amplify.publish(E.MODULE_READY,
                 {
                     value: r,
-                    module: o.module.type
+                    id: o.module.id,
+                    label :  o.module.label.EN
                 });
         });
 
@@ -147,7 +148,7 @@ define([
 
         var that = this;
 
-        amplify.subscribe(E.MODULE_DESELECT + '.' + o.module.type, function (e) {
+        amplify.subscribe(E.MODULE_DESELECT + '.' + o.module.id, function (e) {
 
             that.deselectValue(e);
         });
@@ -163,11 +164,7 @@ define([
 
     Fx_ui_w_enumeration.prototype.getValue = function (e) {
 
-        var codes = $("#" + e.id).find('.jstree-holder').jstree(true).get_selected(),
-
-            uid = e.module.component.source.uid,
-
-            version = e.module.component.source.version;
+        var codes = $("#" + e.id).find('.jstree-holder').jstree(true).get_selected();
 
         return {enumeration : codes};
 

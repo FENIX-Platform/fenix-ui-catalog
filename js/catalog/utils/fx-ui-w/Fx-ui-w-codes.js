@@ -86,7 +86,8 @@ define([
             amplify.publish(E.MODULE_READY,
                 {
                     value: r,
-                    module: o.module.type
+                    id: o.module.id,
+                    label :  o.module.label.EN
                 });
         });
 
@@ -192,7 +193,7 @@ define([
 
         var that = this;
 
-        amplify.subscribe(E.MODULE_DESELECT + '.' + o.module.type, function (e) {
+        amplify.subscribe(E.MODULE_DESELECT + '.' + o.module.id, function (e) {
 
             that.deselectValue(e);
         });

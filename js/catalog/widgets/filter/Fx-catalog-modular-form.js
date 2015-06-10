@@ -137,7 +137,11 @@ define([
         var $close_btn = $("<div class='" + o.css_classes.CLOSE_BTN + "'></div>")
             .on("click", { o: o }, function () {
 
-                amplify.publish(E.MODULE_REMOVE, { type: module.module, module: $module.get(0)});
+                amplify.publish(E.MODULE_REMOVE, {
+                    id : cache.json[module.module].id,
+                    type: module.module,
+                    module: $module.get(0)
+                });
 
                 for (var i = 0; i < modules.length; i++) {
 
