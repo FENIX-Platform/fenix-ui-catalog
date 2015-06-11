@@ -51,6 +51,8 @@ define([
 
         this.preValidation();
 
+        this.initVariables();
+
         this.bindEventListeners();
 
         this.renderComponents();
@@ -72,15 +74,24 @@ define([
 
     };
 
+    FilterController.prototype.initVariables = function () {
+
+        this.$toggleBtn = $(s.TOGGLE_BTN);
+
+        this.$submit = $(this.submit);
+
+        this.$container = $(s.CONTAINER);
+    };
+
     FilterController.prototype.bindEventListeners = function () {
 
         amplify.subscribe(E.MODULE_SELECT, this, this.onItemSelect);
 
         amplify.subscribe(E.MODULE_REMOVE, this, this.onItemRemove);
 
-        $(s.TOGGLE_BTN).on('click', this.onToggleCatalog);
+        this.$toggleBtn.on('click', this.onToggleCatalog);
 
-        $(this.submit).on("click", this.onSubmit);
+        this.$submit.on("click", this.onSubmit);
     };
 
     FilterController.prototype.unbindEventListeners = function () {
@@ -89,9 +100,9 @@ define([
 
         amplify.unsubscribe(E.MODULE_REMOVE, this.onItemRemove);
 
-        $(s.TOGGLE_BTN).off();
+        this.$toggleBtn.off();
 
-        $(this.submit).off('click', this.onSubmit);
+        this.$submit.off('click', this.onSubmit);
     };
 
     FilterController.prototype.getD3PFilter = function () {
@@ -111,7 +122,7 @@ define([
 
             this.resume.hideCourtesyMessage();
 
-            $(this.submit).removeClass('disabled');
+            this.$submit.removeClass('disabled');
         }
 
         this.form.addItem(e);
@@ -130,19 +141,19 @@ define([
 
             this.resume.showCourtesyMessage();
 
-            $(this.submit).addClass('disabled');
+            this.$submit.addClass('disabled');
         }
     };
 
     FilterController.prototype.onToggleCatalog = function () {
 
-        if ($(s.CONTAINER).is(":visible")) {
+        if (this.$container.is(":visible")) {
 
-            $(s.CONTAINER).hide();
+            this.$container.hide();
 
         } else {
 
-            $(s.CONTAINER).show();
+            this.$container.show();
         }
 
     };

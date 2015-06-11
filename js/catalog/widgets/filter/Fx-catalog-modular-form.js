@@ -5,9 +5,11 @@ define([
     "fx-cat-br/utils/fenix-ui-creator",
     'fx-cat-br/config/fx-catalog-modular-form-config',
     'fx-cat-br/config/events',
+    "text!fx-cat-br/html/filter/blank_module.html",
     "fx-cat-br/widgets/Fx-widgets-commons",
+    'handlebars',
     "amplify"
-], function ($, UiCreator, config, E, W_Commons) {
+], function ($, UiCreator, config, E, ModuleTemplate, W_Commons, Handlebars) {
 
     'use strict';
 
@@ -105,37 +107,39 @@ define([
 
         var self = this;
 
-        var $module = $("<div class='" + o.css_classes.MODULE + "'></div>"),
-            $header = $("<div class='" + o.css_classes.HEADER + "'></div>"),
-            $holder = $("<div class='" + o.css_classes.HOLDER + "'></div>");
+        var template = Handlebars.compile(ModuleTemplate);
 
-        $module.attr("data-module", module.module);
-        $module.attr("data-size", "half");
-        $header.append("<div class='" + o.css_classes.HANDLER + "'></div>");
-        $header.append("<div class='" + o.css_classes.LABEL + "'>" + cache.json[module.module].label[o.widget.lang] + "</div>");
+        var context = {
+            dataModule: module.module,
+            label: cache.json[module.module].label[o.widget.lang],
+            contentId: ""
+        };
 
-        var $resize = $("<div class='" + o.css_classes.RESIZE + "'></div>");
-        $resize.on("click", { module: $module.get(0), btn: $resize}, function (e) {
+        var $module = $(template(context)),
+            $resizeBtn = $module.find( o.css_classes.RESIZE),
+            $close_btn = $module.find( o.css_classes.CLOSE_BTN);
 
-            if ($(e.data.module).attr("data-size") === 'half') {
-                $(e.data.module).attr("data-size", "full");
-                $(e.data.btn).css({
+
+        $resizeBtn.on("click", function (e) {
+
+            if ($html.attr("data-size") === 'half') {
+               $module.attr("data-size", "full");
+                $resizeBtn.css({
                     "background-position": "-30px -15px"
                 });
 
             } else {
-                $(e.data.module).attr("data-size", "half");
-                $(e.data.btn).css({
+               $module .attr("data-size", "half");
+                $resizeBtn.css({
                     "background-position": "-30px 0"
                 });
             }
 
             self.grid.resize(e.data.module);
         });
-        $header.append($resize);
 
-        var $close_btn = $("<div class='" + o.css_classes.CLOSE_BTN + "'></div>")
-            .on("click", { o: o }, function () {
+
+        $close_btn.on("click", { o: o }, function () {
 
                 amplify.publish(E.MODULE_REMOVE, {
                     id : cache.json[module.module].id,
@@ -152,12 +156,8 @@ define([
 
             });
 
-        $header.append($close_btn);
-        $module.append($holder);
-        $holder.append($header);
-        $holder.append("<div class='" + o.css_classes.CONTENT + "'></div>");
 
-        $(o.container).append($module);
+        $(o.container).append($module );
 
         return $module;
     };

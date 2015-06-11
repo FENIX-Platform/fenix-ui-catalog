@@ -4,9 +4,11 @@ define([
     "fx-cat-br/widgets/Fx-widgets-commons",
     'fx-cat-br/config/fx-catalog-collapsible-menu-config',
     'fx-cat-br/config/events',
+    "text!fx-cat-br/html/filter/menu.html",
+    'handlebars',
     'bootstrap',
     'amplify'
-], function ($, W_Commons, conf, E) {
+], function ($, W_Commons, conf, E, MenuTemplate, Handlebars) {
 
     'use strict';
 
@@ -27,9 +29,13 @@ define([
     Fx_Catalog_Collapsible_Menu.prototype.init = function (options) {
 
         //Merge options
-        $.extend(o, defaultOptions);
+        $.extend(o, defaultOptions, options);
 
-        $.extend(o, options);
+    };
+
+    Fx_Catalog_Collapsible_Menu.prototype.initVariables = function () {
+
+        this.$container = $(o.container);
     };
 
     Fx_Catalog_Collapsible_Menu.prototype.render = function (options) {
@@ -38,9 +44,11 @@ define([
 
         cache.json = $.extend(true, {}, conf);
 
+        this.initVariables();
+
         this.initStructure();
 
-        this.renderMenu(cache.json);
+        this.renderMenu();
 
     };
 
@@ -52,21 +60,21 @@ define([
 
         $collapse.attr("id", o.collapseId);
 
-        $(o.container).append($collapse);
+        this.$container.append($collapse);
 
     };
 
-    Fx_Catalog_Collapsible_Menu.prototype.renderMenu = function (json) {
+    Fx_Catalog_Collapsible_Menu.prototype.renderMenu = function () {
 
-        if (json.hasOwnProperty("panels")) {
+        if (cache.json.hasOwnProperty("panels")) {
 
-            var panels = json.panels;
+            var panels = cache.json.panels;
 
             for (var i = 0; i < panels.length; i++) {
                 $collapse.append(this.buildPanel(panels[i]));
             }
 
-            $(o.container).append($collapse);
+            this.$container.append($collapse);
 
         } else {
             throw new Error("Fx_Catalog_Collapsible_Menu: no 'panels' attribute in config JSON.");
@@ -91,21 +99,13 @@ define([
 
     Fx_Catalog_Collapsible_Menu.prototype.buildPanelHeader = function (panel, id) {
 
-        //Init header
-        var $header = $('<div class="panel-heading"></div>'),
-            $title = $('<h4 class="panel-title fx-menu-category-title"></h4>'),
-            $a = $('<a data-toggle="collapse"></a>'),
-            $info = $('<span class="fx-panel-info"></span>'),
-            $plus = $('<span class="fx-panel-plus"></span>');
+        var template = Handlebars.compile(MenuTemplate);
+        var context = {href: '#' + id,
+            parent : o.collapseId,
+            title: panel.title[o.widget.lang]
+        };
 
-        $a.attr("data-parent", "#" + o.collapseId);
-        $a.attr("href", "#" + id);
-
-        if (panel.hasOwnProperty("title")) {
-            $a.html(panel.title[o.widget.lang]);
-        }
-
-        return $header.append($title.append($a.prepend($plus)).append($info));
+        return $(template(context));
 
     };
 
@@ -179,17 +179,17 @@ define([
 
     Fx_Catalog_Collapsible_Menu.prototype.disable = function (module) {
 
-        $(o.container).find("[data-module='" + module + "']").attr("disabled", "disabled");
+        this.$container.find("[data-module='" + module + "']").attr("disabled", "disabled");
     };
 
     Fx_Catalog_Collapsible_Menu.prototype.activate = function (module) {
 
-        $(o.container).find("[data-module='" + module + "']").removeAttr("disabled");
+        this.$container.find("[data-module='" + module + "']").removeAttr("disabled");
     };
 
     Fx_Catalog_Collapsible_Menu.prototype.destroy = function () {
 
-        $(o.container).find('button.btn.btn-default.btn-block').off();
+        this.$container.find('button.btn.btn-default.btn-block').off();
 
     };
 
