@@ -18,15 +18,13 @@ define([
             widget: {
                 lang: 'EN'
             },
-            css_classes: {
-                HOLDER: "fx-catalog-modular-form-holder",
-                HEADER: "fx-catalog-modular-form-header",
-                HANDLER: "fx-catalog-modular-form-handler",
-                CONTENT: "fx-catalog-modular-form-content",
-                CLOSE_BTN: "fx-catalog-modular-form-close-btn",
-                MODULE: 'fx-catalog-form-module',
-                RESIZE: "fx-catalog-modular-form-resize-btn",
-                LABEL: "fx-catalog-modular-form-label"
+            s: {
+
+                CONTENT: ".fx-catalog-modular-form-content",
+                CLOSE_BTN: ".fx-catalog-modular-form-close-btn",
+
+                RESIZE: ".fx-catalog-modular-form-resize-btn"
+
             }
         }, uiCreator, w_Commons, cache = {}, modules = [];
 
@@ -80,7 +78,7 @@ define([
 
     Fx_catalog_modular_form.prototype.renderModule = function ($blank, module) {
 
-        var c = $blank.find("." + o.css_classes.CONTENT);
+        var c = $blank.find( o.s.CONTENT);
 
         var id = "fx-catalog-module-" + w_Commons.getFenixUniqueId(),
             m = {   id: id,
@@ -111,19 +109,17 @@ define([
 
         var context = {
             dataModule: module.module,
-            label: cache.json[module.module].label[o.widget.lang],
-            contentId: ""
+            label: cache.json[module.module].label[o.widget.lang]
         };
 
         var $module = $(template(context)),
-            $resizeBtn = $module.find( o.css_classes.RESIZE),
-            $close_btn = $module.find( o.css_classes.CLOSE_BTN);
-
+            $resizeBtn = $module.find( o.s.RESIZE),
+            $close_btn = $module.find( o.s.CLOSE_BTN);
 
         $resizeBtn.on("click", function (e) {
 
-            if ($html.attr("data-size") === 'half') {
-               $module.attr("data-size", "full");
+            if ($module.attr("data-size") === 'half') {
+                $module.attr("data-size", "full");
                 $resizeBtn.css({
                     "background-position": "-30px -15px"
                 });
@@ -135,7 +131,7 @@ define([
                 });
             }
 
-            self.grid.resize(e.data.module);
+            self.grid.resize($module);
         });
 
 

@@ -125,7 +125,7 @@ define(function () {
             },
             "component": {
                 "source": {
-                    "uid": "GAUL0",
+                    "uid": "GAUL",
                     "version": "2014"
                 }
             }

@@ -55,7 +55,7 @@ define([
             });
 
             if (this.o.manualRender !== true) {
-                this.mainController.render();
+                this.mainController.render(this.o);
             }
 
             return this.mainController;

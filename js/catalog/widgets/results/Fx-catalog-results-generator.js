@@ -17,7 +17,8 @@ define([
     Fx_catalog_results_generator.prototype.initEventListeners = function(){
 
         amplify.subscribe(E.SEARCH_ANALYZE_SUB, function (payload) {
-              amplify.publish(E.SEARCH_ANALYZE, [payload]);
+                console.log(payload)
+              amplify.publish(E.SEARCH_ANALYZE, payload);
         });
 
     };

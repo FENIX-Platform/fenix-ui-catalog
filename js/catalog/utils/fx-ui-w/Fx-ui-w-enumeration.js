@@ -2,22 +2,21 @@
 
 define([
     "jquery",
-    "fx-cat-br/widgets/Fx-widgets-commons",
     "fx-cat-br/config/config",
     "fx-cat-br/config/config-default",
     "fx-cat-br/config/events",
     "jstree",
     "amplify"
-], function ($, W_Commons, C, DC, E) {
+], function ($, C, DC, E) {
 
     'use strict';
 
     var o = {
         lang: 'EN'
-    }, w_commons;
+    };
 
     function Fx_ui_w_enumeration() {
-        w_commons = new W_Commons();
+
     }
 
     Fx_ui_w_enumeration.prototype.render = function (e, container) {

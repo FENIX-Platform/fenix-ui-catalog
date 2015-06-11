@@ -2,23 +2,20 @@
 
 define([
     "jquery",
-    "fx-cat-br/widgets/Fx-widgets-commons",
     "fx-cat-br/config/config",
     "fx-cat-br/config/config-default",
     "fx-cat-br/config/events",
     "jstree",
     "amplify"
-], function ($, W_Commons, C, DC, E) {
+], function ($, C, DC, E) {
 
     'use strict';
 
     var o = {
         lang: 'EN'
-    }, w_commons;
+    } ;
 
-    function Fx_ui_w_geographicExtent() {
-        w_commons = new W_Commons();
-    }
+    function Fx_ui_w_geographicExtent() { }
 
     Fx_ui_w_geographicExtent.prototype.validate = function (e) {
 
@@ -113,7 +110,6 @@ define([
         o.module = e;
 
         this.$treeContainer = $('<div class="jstree-holder"></div>');
-        //this.$searchForm = $('<form id="s"><input type="search" id="q" /><input class="sel_all" type="button" value="sel all"><input class="desel_all" type="button" value="desel all"></form>');
         this.$searchForm = $('<form id="s"><input type="search" id="q" class="form-control" /></form>');
 
         this.$container = $(container);

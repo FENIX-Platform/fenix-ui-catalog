@@ -16,8 +16,7 @@ define([
 
     function Fx_catalog_result_render_dataset(options) {
 
-        this.o = {};
-        $.extend(this.o, options);
+        this.o = $.extend(true, {}, options);
     }
 
     Fx_catalog_result_render_dataset.prototype.addActions = function () {
@@ -34,9 +33,7 @@ define([
 
                 var $b = $('<button class="btn btn-default">' + actions[key].labels.EN + '</button>');
 
-                $b.on('click', function (e) {
-                    //Listen to it within Fx-catalog-results-generator
-                    //$(e.currentTarget).trigger(actions[key].event, [self.o]);
+                $b.on('click', function () {
                     amplify.publish('fx.widget.catalog.' + actions[key].event, self.o);
                 });
 
@@ -46,8 +43,6 @@ define([
     };
 
     Fx_catalog_result_render_dataset.prototype.getHtml = function () {
-
-        $.extend(this.o, defaultOptions);
 
         var template = Handlebars.compile(resultTemplate),
             result = template(this.o);

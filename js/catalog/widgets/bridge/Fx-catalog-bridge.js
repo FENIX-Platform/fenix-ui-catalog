@@ -153,30 +153,32 @@ define([
 
         var url = SERVICE_PREFIX + "/resources/find";
 
+        var filter  = plugin.getFilter();
+
         //Ask the plugin the filter, make the request and pass data to callback()
         $.ajax({
             url: url,
             type: 'post',
             contentType: 'application/json',
             dataType: 'json',
+            data: JSON.stringify(filter),
             success: function (response, textStatus, jqXHR) {
 
                 if (jqXHR.status !== 204) {
 
                     if (context) {
-                        $.proxy(callback, context, response)();
+                        $.proxy(callback, context, {results : response, filter: filter })();
                     } else {
                         callback(response);
                     }
 
                 } else {
-                    amplify.publish(E.SEARCH_QUERY_EMPTY_RESPONSE, {});
+                    amplify.publish(E.SEARCH_QUERY_EMPTY_RESPONSE,  {results : [], filter: filter });
                 }
 
             },
-            data: JSON.stringify(plugin.getFilter()),
             complete: function () {
-                amplify.publish(E.SEARCH_QUERY_END, {});
+                amplify.publish(E.SEARCH_QUERY_END);
             }
         });
     };

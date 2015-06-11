@@ -1,22 +1,19 @@
 /*global define, amplify*/
 define([
     "jquery",
-    "fx-cat-br/widgets/Fx-widgets-commons",
     "fx-cat-br/config/events",
     "amplify"
-], function ($, W_Commons, E) {
+], function ($, E) {
 
     'use strict';
 
     var o = {
      lang : 'EN'
-    }, w_commons;
+    };
 
-    function Fx_ui_w_text() {
-        w_commons = new W_Commons();
-    }
+    function Fx_ui_w_text() {}
 
-    Fx_ui_w_text.prototype.validate = function (e) {
+    Fx_ui_w_text.prototype.validate = function () {
         return true;
     };
 
@@ -50,11 +47,13 @@ define([
 
         }
 
-        $(text).on('keyup', {w_commons : w_commons, type: o.module.type }, function(e){
+        $(text).on('keyup', function(){
 
             amplify.publish(E.MODULE_READY,
                 { value : [{label: $(o.container).find("input").val()}],
-                    module:  e.data.type });
+                    id: o.module.id,
+                    label :  o.module.label.EN
+                });
 
 
         });

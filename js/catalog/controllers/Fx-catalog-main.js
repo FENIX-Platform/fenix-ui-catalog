@@ -127,9 +127,11 @@ define([
          */
 
         this.bridge.query(this.filter, $.proxy(function ( response ){
-            this.results.addItems( { results : response, filter : this.filter.getD3PFilter() });
+            this.results.addItems( response );
+            //this.filter.collapseFilter();
             }, this), this.results);
-        //this.filter.collapseFilter();
+
+
     };
 
     MainController.prototype.onEndCatalogSearch = function () {
