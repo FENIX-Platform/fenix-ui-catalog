@@ -75,7 +75,6 @@ define(function () {
             },
             "component": {
                 "source": {
-                    "id": "value",
                     "uid": "CSTAT_Core"
                 }
             }
