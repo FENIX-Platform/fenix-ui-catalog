@@ -102,12 +102,13 @@ define([
         });
     };
 
-    Fx_ui_w_geographicExtent.prototype.render = function (e, container) {
+    Fx_ui_w_geographicExtent.prototype.render = function (e, container, opts) {
 
         var self = this;
 
         o.container = container;
         o.module = e;
+        o.options = opts;
 
         this.$treeContainer = $('<div class="jstree-holder"></div>');
         this.$searchForm = $('<form id="s"><input type="search" id="q" class="form-control" /></form>');

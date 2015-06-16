@@ -137,7 +137,7 @@ define([
             document.querySelector(container).appendChild(div);
         }
 
-        widget.render(e, div);
+        widget.render(e, div, o);
 
     }
 

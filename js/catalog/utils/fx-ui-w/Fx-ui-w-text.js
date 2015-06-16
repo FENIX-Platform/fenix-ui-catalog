@@ -17,11 +17,13 @@ define([
         return true;
     };
 
-    Fx_ui_w_text.prototype.render = function (e, container) {
+    Fx_ui_w_text.prototype.render = function (e, container, opts) {
 
         o.container = container;
 
         o.module = e;
+
+        o.options = opts;
 
         var text = document.createElement('INPUT');
 
@@ -34,7 +36,7 @@ define([
                 if (e.component.rendering.placeholder.hasOwnProperty(o.lang)) {
                     text.setAttribute("placeholder", e.component.rendering.placeholder[o.lang]);
                 } else {
-                    text.setAttribute("placeholder", e.component.rendering.placeholder['EN']);
+                    text.setAttribute("placeholder", e.component.rendering.placeholder.EN);
                 }
             }
         }
@@ -52,9 +54,9 @@ define([
             amplify.publish(E.MODULE_READY,
                 { value : [{label: $(o.container).find("input").val()}],
                     id: o.module.id,
-                    label :  o.module.label.EN
+                    label :  o.module.label.EN,
+                    options : o.options
                 });
-
 
         });
 
@@ -67,14 +69,15 @@ define([
 
         var that = this;
 
-        amplify.subscribe(E.MODULE_DESELECT+ '.' +o.module.type, function (e) {
+        amplify.subscribe(E.MODULE_DESELECT+ '.' + o.module.id, function (e) {
 
-            that.deselectValue(e.detail);
+            that.deselectValue(e);
 
-        }, false);
+        });
     };
 
     Fx_ui_w_text.prototype.deselectValue = function () {
+
         $(o.container).find('input').val('');
     };
 

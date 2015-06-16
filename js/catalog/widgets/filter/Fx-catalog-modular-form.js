@@ -13,23 +13,21 @@ define([
 
     'use strict';
 
-    var o = { },
+    var o = {},
         defaultOptions = {
             widget: {
                 lang: 'EN'
             },
             s: {
-
                 CONTENT: ".fx-catalog-modular-form-content",
                 CLOSE_BTN: ".fx-catalog-modular-form-close-btn",
-
                 RESIZE: ".fx-catalog-modular-form-resize-btn"
 
             }
         }, uiCreator, w_Commons, cache = {}, modules = [];
 
     var s = {
-       HINTS_CONTAINER: '.fx-catalog-welcome'
+        HINTS_CONTAINER: '.fx-catalog-welcome'
     };
 
     function Fx_catalog_modular_form() {
@@ -37,7 +35,7 @@ define([
         uiCreator = new UiCreator();
         uiCreator.init({
             plugin_folder: 'fx-cat-br/utils/fx-ui-w/',
-            result_key : 'semantic'
+            result_key: 'semantic'
         });
         w_Commons = new W_Commons();
     }
@@ -49,23 +47,23 @@ define([
         this.grid.removeItem(item);
     };
 
-    Fx_catalog_modular_form.prototype.getElementsCounts = function (){
+    Fx_catalog_modular_form.prototype.getElementsCounts = function () {
         return this.grid.getElementsCounts();
     };
 
-    Fx_catalog_modular_form.prototype.hideCourtesyMessage = function(){
+    Fx_catalog_modular_form.prototype.hideCourtesyMessage = function () {
         $(s.HINTS_CONTAINER).fadeOut(200);
     };
 
-    Fx_catalog_modular_form.prototype.showCourtesyMessage = function(){
+    Fx_catalog_modular_form.prototype.showCourtesyMessage = function () {
         $(s.HINTS_CONTAINER).fadeIn();
     };
 
     /*
-    * @param module: obj.
-    * The obj used to configure the collapsible menu. The attribute module.module
-    * is used to discriminate what widgets must be rendered
-    * */
+     * @param module: obj.
+     * The obj used to configure the collapsible menu. The attribute module.module
+     * is used to discriminate what widgets must be rendered
+     * */
     Fx_catalog_modular_form.prototype.addItem = function (module) {
 
         var blank = this.getBlankModule(module);
@@ -78,24 +76,29 @@ define([
 
     Fx_catalog_modular_form.prototype.renderModule = function ($blank, module) {
 
-        var c = $blank.find( o.s.CONTENT);
+        var c = $blank.find(o.s.CONTENT);
 
         var id = "fx-catalog-module-" + w_Commons.getFenixUniqueId(),
-            m = {   id: id,
-                    type: cache.json[module.module].type,
-                    semantic: module.module,
-                    module : cache.json[module.module]
-                };
+            m = {
+                id: id,
+                type: cache.json[module.module].type,
+                semantic: module.module,
+                module: cache.json[module.module]
+            };
 
         c.attr("id", id);
 
-        if (cache.json[module.module].hasOwnProperty("details")){ m.details = cache.json[module.module].details; }
+        if (cache.json[module.module].hasOwnProperty("details")) {
+            m.details = cache.json[module.module].details;
+        }
 
         modules.push(m);
 
         uiCreator.render({
             cssClass: "form-elements",
             container: "#" + id,
+            module: $blank,
+            type: module.module,
             elements: JSON.stringify([cache.json[module.module]])
         });
 
@@ -113,8 +116,8 @@ define([
         };
 
         var $module = $(template(context)),
-            $resizeBtn = $module.find( o.s.RESIZE),
-            $close_btn = $module.find( o.s.CLOSE_BTN);
+            $resizeBtn = $module.find(o.s.RESIZE),
+            $close_btn = $module.find(o.s.CLOSE_BTN);
 
         $resizeBtn.on("click", function (e) {
 
@@ -125,7 +128,7 @@ define([
                 });
 
             } else {
-               $module .attr("data-size", "half");
+                $module.attr("data-size", "half");
                 $resizeBtn.css({
                     "background-position": "-30px 0"
                 });
@@ -135,25 +138,18 @@ define([
         });
 
 
-        $close_btn.on("click", { o: o }, function () {
+        $close_btn.on("click", function () {
 
-                amplify.publish(E.MODULE_REMOVE, {
-                    id : cache.json[module.module].id,
-                    type: module.module,
-                    module: $module.get(0)
-                });
-
-                for (var i = 0; i < modules.length; i++) {
-
-                    if (modules[i].semantic === module.module) {
-                        modules.splice(i, 1);
-                    }
-                }
-
+            amplify.publish(E.MODULE_REMOVE, {
+                id: cache.json[module.module].id,
+                type: module.module,
+                module: $module.get(0)
             });
 
+        });
 
-        $(o.container).append($module );
+
+        $(o.container).append($module);
 
         return $module;
     };
@@ -173,7 +169,22 @@ define([
 
         cache.json = $.extend(true, {}, config);
 
+        this.bindEventListeners();
+
         this.initStructure();
+    };
+
+    Fx_catalog_modular_form.prototype.bindEventListeners = function () {
+
+        amplify.subscribe(E.MODULE_REMOVE, function (e) {
+
+            for (var i = 0; i < modules.length; i++) {
+                if (modules[i].semantic === e.type) {
+                    modules.splice(i, 1);
+                }
+            }
+        });
+
     };
 
     Fx_catalog_modular_form.prototype.init = function (options) {

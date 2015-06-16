@@ -19,11 +19,13 @@ define([
 
     }
 
-    Fx_ui_w_enumeration.prototype.render = function (e, container) {
+    Fx_ui_w_enumeration.prototype.render = function (e, container, opts) {
 
         var self = this;
 
         o.module = e;
+
+        o.options = opts;
 
         this.$treeContainer = $('<div class="jstree-holder"></div>');
 
@@ -83,7 +85,8 @@ define([
                 {
                     value: r,
                     id: o.module.id,
-                    label :  o.module.label.EN
+                    label :  o.module.label.EN,
+                    options : o.options
                 });
         });
 

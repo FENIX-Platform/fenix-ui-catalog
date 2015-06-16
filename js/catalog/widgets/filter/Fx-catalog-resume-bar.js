@@ -87,17 +87,36 @@ define([
 
         var $obj = $('<div class="fx-resume-list-obj"></div>'),
             $close = $('<div class="fx-resume-obj-close"></div>'),
-            $value = $('<div class="fx-resume-obj-value">'+obj.label+'</div>');
+            $value = $('<div class="fx-resume-obj-value">'+obj.label+'</div>'),
+            self = this;
+
 
         $close.on('click', function () {
 
             $obj.remove();
 
-            amplify.publish(  E.MODULE_DESELECT +'.'+ item.id, {value : obj.value} );
+            amplify.publish( E.MODULE_DESELECT +'.'+ item.id, {value : obj.value} );
+
+            if ( self.getTagsAmount(item) === 0 ) {
+
+                amplify.publish( E.MODULE_REMOVE,  {
+                    id : item.id,
+                    type : item.options.type,
+                    module: item.options.module
+                } );
+            }
 
         });
 
         return $obj.append($close).append($value);
+    };
+
+    Fx_Catalog_Resume_Bar.prototype.getTagsAmount = function ( item ) {
+
+        var module = this.findResumeItem(item.id);
+
+        return module.length !== 0 ? module.find('[data-role="list"]').children().length : 0;
+
     };
 
     Fx_Catalog_Resume_Bar.prototype.findResumeItem = function (module) {

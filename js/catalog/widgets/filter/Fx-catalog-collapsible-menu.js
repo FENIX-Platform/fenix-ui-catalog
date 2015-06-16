@@ -100,8 +100,9 @@ define([
     Fx_Catalog_Collapsible_Menu.prototype.buildPanelHeader = function (panel, id) {
 
         var template = Handlebars.compile(MenuTemplate);
-        var context = {href: '#' + id,
-            parent : o.collapseId,
+        var context = {
+            href: '#' + id,
+            parent :  '#' + o.collapseId,
             title: panel.title[o.widget.lang]
         };
 
