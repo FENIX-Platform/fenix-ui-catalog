@@ -56,26 +56,37 @@ define([
         if (typeof callback !== "function") {
             throw new Error(o.error_prefix + " callback param is not a function");
         } else {
-
+            //Daniele:allow passig configurations from the main config files
+            /*
             if (o.blankFilter) {
                 this.getCustomBlankFilter(callback, context);
             } else {
                 this.performQuery(callback, context);
             }
-
+            */
+            this.getCustomBlankFilter(callback, context);
         }
     };
 
+    //Daniele: Always call the getCustomBlankFilter, merge it with the global config then perform the query
     Fx_catalog_bridge.prototype.getCustomBlankFilter = function (callback, context) {
 
         var self = this;
 
-        $.getJSON(o.blankFilter, function (data) {
+        var blankF = C.CATALOG_BLANK_FILTER || DC.CATALOG_BLANK_FILTER;
+        blankF = blankF || o.blankFilter;
 
-            plugin.init({ blankFilter: data });
-            self.performQuery(callback, context);
-        });
+        //$.getJSON(o.blankFilter, function (data) {
+        if (blankF) {
+            $.getJSON(blankF, function (data) {
 
+                plugin.init({ blankFilter: data });
+                self.performQuery(callback, context);
+            });
+        }
+        else {
+            this.performQuery(callback, context);
+        }
     };
 
     Fx_catalog_bridge.prototype.performQuery = function (callback, context) {
