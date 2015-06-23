@@ -195,9 +195,9 @@ define([
 
     Fx_catalog_modular_form.prototype.destroy = function () {
 
-        $("." + o.css_classes.RESIZE).off();
+        $("." + o.s.RESIZE).off();
 
-        $("." + o.css_classes.CLOSE_BTN).off();
+        $("." + o.s.CLOSE_BTN).off();
 
         this.grid.destroy();
 

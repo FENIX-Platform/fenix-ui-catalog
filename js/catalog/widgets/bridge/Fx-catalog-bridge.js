@@ -160,7 +160,7 @@ define([
 
         var SERVICE_PREFIX = C.SERVICE_BASE_ADDRESS || DC.SERVICE_BASE_ADDRESS;
 
-        var url = SERVICE_PREFIX + "/resources/find";
+        var url = SERVICE_PREFIX + "/resources/find?full=true";
 
         var filter  = plugin.getFilter();
 

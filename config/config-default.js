@@ -5,7 +5,7 @@ define(function () {
 
     return {
 
-        SERVICE_BASE_ADDRESS: "http://fenix.fao.org/d3s_fenix/msd",
+        SERVICE_BASE_ADDRESS: "http://fenix.fao.org/d3s/msd",
         SERVICE_GET_DATA_METADATA: { service: "resources", queryParams: { full: true, dsd: true } },
         SERVICE_SAVE_METADATA: { service: "resources/metadata" },
         SERVICE_SAVE_DSD: { service: "resources/dsd" },

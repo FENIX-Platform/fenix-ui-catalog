@@ -53,7 +53,7 @@ define([
 
     Fx_Catalog_Resume_Bar.prototype.unbindEventListeners = function () {
 
-        amplify.unsubscribe(E.MODULE_SELECT, this.onReady);
+        amplify.unsubscribe(E.MODULE_READY, this.onReady);
         amplify.unsubscribe(E.MODULE_REMOVE, this.onRemove);
     };
 
