@@ -7,11 +7,13 @@ define([
     'draggabilly'
 ], function ($, W_Commons, Packery, Draggabilly) {
 
+    'use strict';
+
     var defaultOptions = {
             css: {
                 FIT: "fit"
-            }}
-        , w_Commons;
+            }
+        }, w_Commons;
 
     function Fx_Fluid_Grid() {
         this.o = { };
@@ -84,15 +86,15 @@ define([
     Fx_Fluid_Grid.prototype.preValidation = function () {
 
         if (!w_Commons.isElement(this.o.container)) {
-            throw new Error("Fluid Grid: INVALID_CONTAINER.")
+            throw new Error("Fluid Grid: INVALID_CONTAINER.");
         }
 
         if (!this.o.hasOwnProperty("config")) {
-            throw new Error("Fluid Grid: NO CONFIG")
+            throw new Error("Fluid Grid: NO CONFIG");
         }
 
         if (!this.o.drag.hasOwnProperty("handle")) {
-            throw new Error("Fluid Grid: NO HANDLER SELECTOR")
+            throw new Error("Fluid Grid: NO HANDLER SELECTOR");
         }
 
     };
