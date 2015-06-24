@@ -15,9 +15,10 @@ define([
         'fx-cat-br/widgets/storage/SessionStorage',
         "text!fx-cat-br/html/fx_catalog_structure.html",
         'fx-cat-br/config/config',
-        'fx-cat-br/config/config-default'
+        'fx-cat-br/config/config-default',
+        'handlebars'
     ],
-    function ($, Controller, FilterController, Menu, Form, Resume, FluidGrid, Bridge, ResultController, ResultsRenderer, FilterableGrid, Storage, structure, C, DC) {
+    function ($, Controller, FilterController, Menu, Form, Resume, FluidGrid, Bridge, ResultController, ResultsRenderer, FilterableGrid, Storage, structure, C, DC, Handlebars) {
 
         'use strict';
 
@@ -32,6 +33,14 @@ define([
 
         function Start(o) {
             this.o = o || {};
+
+            Handlebars.registerHelper('ifCond', function(v1, v2, options) {
+                if(v1 === v2) {
+                    return options.fn(this);
+                }
+                return options.inverse(this);
+            });
+
         }
 
         Start.prototype.init = function (options) {

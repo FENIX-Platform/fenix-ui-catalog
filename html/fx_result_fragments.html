@@ -1,7 +1,7 @@
 <div class="fenix-result row">
 
     <div class="fx_result_icon col-xs-1">
-        <img class="fx_result_icon_img" src='css/img/database60.png' class="img-responsive img-rounded"
+        <img src='css/img/database60.png' class="img-responsive img-rounded"
              alt="Result icon">
     </div>
 
@@ -9,7 +9,16 @@
         <div class="fx_result_description_title"> {{ title.EN }}</div>
         <br>
 
-        <div class="fx_result_uid">{{ uid }} </div>
+        <span class="fx_result_uid">{{ uid }} </span>
+
+        {{#each contacts}}
+
+            {{#ifCond this.role 'distributor' }}
+                <span> - <b>{{this.organization.EN}}</b></span>
+                {{else}}
+            {{/ifCond}}
+
+        {{/each}}
 
     </div>
 
