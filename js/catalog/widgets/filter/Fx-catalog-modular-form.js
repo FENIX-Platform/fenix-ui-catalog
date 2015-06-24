@@ -194,13 +194,10 @@ define([
     };
 
     Fx_catalog_modular_form.prototype.destroy = function () {
-
-        $("." + o.s.RESIZE).off();
-
-        $("." + o.s.CLOSE_BTN).off();
+        $("." + s.RESIZE).off();
+        $("." + s.CLOSE_BTN).off();
 
         this.grid.destroy();
-
     };
 
     return Fx_catalog_modular_form;
