@@ -13,12 +13,28 @@
 
         {{#each contacts}}
 
-            {{#ifCond this.role 'distributor' }}
-                <span> - <b>{{this.organization.EN}}</b></span>
-                {{else}}
-            {{/ifCond}}
+        {{#ifCond this.role 'distributor' }}
+        <span> - <b>{{this.organization.EN}}</b></span>
+        {{else}}
+        {{/ifCond}}
 
         {{/each}}
+
+        {{#if meContent }}
+
+        {{#if meContent.seCoverage }}
+
+        {{#if meContent.seCoverage.coverageGeographic }}
+
+        {{#each meContent.seCoverage.coverageGeographic.codes}}
+
+        <span> - <i>{{this.label.EN }} </i></span>
+
+        {{/each}}
+
+        {{/if}}
+        {{/if}}
+        {{/if}}
 
     </div>
 

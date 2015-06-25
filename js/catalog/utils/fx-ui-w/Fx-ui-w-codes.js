@@ -87,8 +87,8 @@ define([
                 {
                     value: r,
                     id: o.module.id,
-                    label :  o.module.label.EN,
-                    options : o.options
+                    label: o.module.label.EN,
+                    options: o.options
                 });
         });
 
@@ -128,11 +128,17 @@ define([
     Fx_ui_w_codes.prototype.getFirstCall = function (o, cb) {
 
         var self = this,
+            body;
+
+        if (o.component.config) {
+            body = $.extend(true, {uid: o.component.source.uid}, o.component.config);
+        } else {
             body = {
                 uid: o.component.source.uid,
                 level: 1,
                 levels: 1
             };
+        }
 
         if (o.component.source.version) {
             body.version = o.component.source.version;
@@ -225,4 +231,5 @@ define([
     };
 
     return Fx_ui_w_codes;
-});
+})
+;

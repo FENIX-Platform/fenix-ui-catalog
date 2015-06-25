@@ -75,7 +75,11 @@ define(function () {
             },
             "component": {
                 "source": {
-                    "uid": "CSTAT_Core"
+                    "uid": "UNECA_ClassificationOfActivities"
+                },
+                "config" : {
+                    "level" : 2,
+                    "levels" : 1
                 }
             }
         },
@@ -124,7 +128,7 @@ define(function () {
             },
             "component": {
                 "source": {
-                    "uid": "GAUL",
+                    "uid": "GAUL0",
                     "version": "2014"
                 }
             }
