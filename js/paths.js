@@ -5,16 +5,17 @@ define(function () {
     'use strict';
 
     var config = {
+
         paths: {
-            'fx-cat-br/controllers': 'catalog/controllers',
+            'fx-cat-br/controllers': './controllers',
             'fx-cat-br/html': '../html',
             'fx-cat-br/js': './',
             'fx-cat-br/json': '../json',
-            'fx-cat-br/plugins': 'catalog/widgets/bridge/plugins',
+            'fx-cat-br/plugins': './widgets/bridge/plugins',
             'fx-cat-br/structures': 'structures',
             'fx-cat-br/start': './start',
-            'fx-cat-br/utils': 'catalog/utils',
-            'fx-cat-br/widgets': 'catalog/widgets',
+            'fx-cat-br/utils': './utils',
+            'fx-cat-br/widgets': './widgets',
 
             'fx-cat-br/config': '../config',
 

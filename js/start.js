@@ -7,18 +7,17 @@ define([
         "fx-cat-br/widgets/filter/Fx-catalog-collapsible-menu",
         "fx-cat-br/widgets/filter/Fx-catalog-modular-form",
         "fx-cat-br/widgets/filter/Fx-catalog-resume-bar",
-        "fx-cat-br/structures/Fx-fluid-grid",
+        "fx-common/structures/fx-fluid-grid",
         "fx-cat-br/widgets/bridge/Fx-catalog-bridge",
         "fx-cat-br/controllers/Fx-catalog-results",
         "fx-cat-br/widgets/results/Fx-catalog-results-generator",
-        "fx-cat-br/structures/Fx-filterable-grid",
         'fx-cat-br/widgets/storage/SessionStorage',
         "text!fx-cat-br/html/fx_catalog_structure.html",
         'fx-cat-br/config/config',
         'fx-cat-br/config/config-default',
         'handlebars'
     ],
-    function ($, Controller, FilterController, Menu, Form, Resume, FluidGrid, Bridge, ResultController, ResultsRenderer, FilterableGrid, Storage, structure, C, DC, Handlebars) {
+    function ($, Controller, FilterController, Menu, Form, Resume, FluidGrid, Bridge, ResultController, ResultsRenderer, Storage, structure, C, DC, Handlebars) {
 
         'use strict';
 
@@ -99,7 +98,9 @@ define([
                 config: {
                     itemSelector: '.fx-catalog-form-module',
                     columnWidth: '.fx-catalog-form-module',
-                    rowHeight: 0
+                    rowHeight: '.fx-catalog-form-module',
+                    percentPosition: true
+
                 }
             });
 
@@ -134,14 +135,17 @@ define([
         Start.prototype.initResults = function () {
 
             var resultsController = new ResultController(),
-                grid = new FilterableGrid(),
+                grid = new FluidGrid(),
                 renderer = new ResultsRenderer(this.o.results || {});
 
             grid.init({
                 container: document.querySelector("#" + html_ids.RESULT),
-                isotope: {
+                config: {
                     itemSelector: '.fenix-result',
-                    layoutMode: 'fitRows'
+                    columnWidth: '.fenix-result',
+                    rowHeight:  '.fenix-result',
+                    //transitionDuration: 0,
+                    percentPosition: true
                 }
             });
 

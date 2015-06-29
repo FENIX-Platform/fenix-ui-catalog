@@ -55,7 +55,7 @@ define([
             var items = obj.results;
 
             for (var i = 0; i < items.length; i++) {
-                this.grid.addItems(this.resultsRenderer.getInstance(items[i], obj.filter));
+                this.grid.addItem(this.resultsRenderer.getInstance(items[i], obj.filter));
             }
         }
     };
