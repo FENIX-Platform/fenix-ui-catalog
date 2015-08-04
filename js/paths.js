@@ -25,7 +25,7 @@ define(function () {
             'draggabilly': '{FENIX_CDN}/js/draggabilly/dist/draggabilly.pkgd.min',
             'intro': '{FENIX_CDN}/js/introjs/1.0.0/intro',
             'isotope': '{FENIX_CDN}/js/isotope/2.1.0/dist/isotope.pkgd.min',
-            'jquery': '{FENIX_CDN}/js/jquery/dist/jquery.min',
+            'jquery': '{FENIX_CDN}/js/jquery/2.1.1/jquery.min',
             'jqwidgets': '{FENIX_CDN}/js/jqwidgets/3.1/jqx-light',
             'jstree': '{FENIX_CDN}/js/jstree/3.0.8/dist/jstree.min',
             'nprogress': '{FENIX_CDN}/js/nprogress/0.1.6/nprogress',
