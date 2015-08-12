@@ -10,8 +10,12 @@
 
 define([
     "require",
-    "jquery"
-], function (require, $) {
+    "jquery",
+    'fx-cat-br/config/config',
+    'fx-cat-br/config/config-default'
+], function (require, $, C,DC) {
+
+    console.log(C, DC)
 
     'use strict';
 
@@ -202,8 +206,8 @@ define([
 
                 //Synch call of require
                 try {
-
-                    var Module = require(self.o.plugin_folder + "Fx-ui-w-" + element.type),
+                    var plugin_folder = C.PLUGIN_FOLDER_PATH || DC.PLUGIN_FOLDER_PATH
+                    var Module = require(plugin_folder + "Fx-ui-w-" + element.type),
                         widget = new Module();
 
                     result[element[self.o.result_key]] = widget.getValue(element);
@@ -224,7 +228,8 @@ define([
 
                 //Synch call of require
                 try {
-                    var Module = require(self.o.plugin_folder + "Fx-ui-w-" + element.type),
+                    var plugin_folder = C.PLUGIN_FOLDER_PATH || DC.PLUGIN_FOLDER_PATH
+                    var Module = require(plugin_folder + "Fx-ui-w-" + element.type),
                         widget = new Module();
 
                     result[element.semantic] = widget.getValue(element);
@@ -259,8 +264,11 @@ define([
             elems = JSON.parse(o.elements);
 
             $(elems).each(function (index, element) {
+                debugger;
 
-                var widgetCreator = self.o.plugin_folder + "Fx-ui-w-" + element.type;
+                var plugin_folder = C.PLUGIN_FOLDER_PATH || DC.PLUGIN_FOLDER_PATH
+
+                var widgetCreator = plugin_folder + "Fx-ui-w-" + element.type;
 
                 require([widgetCreator], function (Widget) {
                     valid = true;

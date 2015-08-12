@@ -13,6 +13,8 @@ define(function () {
         SERVICE_RESOURCES_FIND: { service: "resources/find" } ,
 
 
+        PLUGIN_FOLDER_PATH : "fx-cat-br/utils/fx-ui-w/",
+
         SEARCH_PER_PAGE : 15
     };
 });
