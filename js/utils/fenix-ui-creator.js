@@ -207,7 +207,10 @@ define([
                 //Synch call of require
                 try {
                     var plugin_folder = C.PLUGIN_FOLDER_PATH || DC.PLUGIN_FOLDER_PATH
-                    var Module = require(plugin_folder + "Fx-ui-w-" + element.type),
+                    var plugin_name = (C.PLUGIN_FOLDER_PATH)? element.id: element.type;
+
+                    var widgetSource = plugin_folder + "Fx-ui-w-" + plugin_name;
+                    var Module = require(widgetSource),
                         widget = new Module();
 
                     result[element[self.o.result_key]] = widget.getValue(element);
@@ -229,7 +232,10 @@ define([
                 //Synch call of require
                 try {
                     var plugin_folder = C.PLUGIN_FOLDER_PATH || DC.PLUGIN_FOLDER_PATH
-                    var Module = require(plugin_folder + "Fx-ui-w-" + element.type),
+                    var plugin_name = (C.PLUGIN_FOLDER_PATH)? element.id: element.type;
+
+                    var widgetSource = plugin_folder + "Fx-ui-w-" + plugin_name;
+                    var Module = require(widgetSource),
                         widget = new Module();
 
                     result[element.semantic] = widget.getValue(element);
@@ -267,10 +273,11 @@ define([
                 debugger;
 
                 var plugin_folder = C.PLUGIN_FOLDER_PATH || DC.PLUGIN_FOLDER_PATH
+                var plugin_name = (C.PLUGIN_FOLDER_PATH)? element.id: element.type;
 
-                var widgetCreator = plugin_folder + "Fx-ui-w-" + element.type;
+                var widgetSource = plugin_folder + "Fx-ui-w-" + plugin_name;
 
-                require([widgetCreator], function (Widget) {
+                require([widgetSource], function (Widget) {
                     valid = true;
                     var widget = new Widget();
 
