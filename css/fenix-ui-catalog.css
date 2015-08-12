@@ -77,7 +77,7 @@
   top: 0;
   height: 15px;
   width: 15px;
-  background: url("img/fenix-catalog-sprite-small.svg") no-repeat -90px 0;
+  background: url("./css/img/fenix-catalog-sprite-small.svg") no-repeat -90px 0;
   background-size: 150px 30px; }
 
 .fx-catalog-mod-timerseries {
@@ -136,30 +136,3 @@
       border-radius: 3px; }
     .fx-catalog-toolbar .fx-widget-stack-btns input {
       margin-left: 33px; }
-
-/*================= Packry =================*/
-.fx-analysis-item {
-  width: 50%;
-  z-index: 200;
-  /* Veify correct z.index */ }
-
-.fx-analysis-item.fit {
-  width: 100%; }
-
-/*================= Overlay =================*/
-/* Please review */
-#overlay {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  width: 0;
-  height: 0;
-  overflow: hidden;
-  background-color: rgba(255, 255, 255, 0.9);
-  padding-top: 50px;
-  z-index: 500;
-  overflow-y: scroll; }
-  #overlay .overlay-content {
-    height: 100%; }
-    #overlay .overlay-content #catalogContainer {
-      height: 100%; }

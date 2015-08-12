@@ -2,10 +2,10 @@
 
 define(function () {
 
-    'use strict';
+'use strict';
 
-    return {
+return {
 
-    };
+};
 
 });

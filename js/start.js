@@ -1,19 +1,25 @@
 /*global define */
 
-define(["fx-cat-br/controllers/Fx-catalog-page",
+define([
+        "jquery",
+        "fx-cat-br/controllers/Fx-catalog-main",
         "fx-cat-br/controllers/Fx-catalog-filter",
         "fx-cat-br/widgets/filter/Fx-catalog-collapsible-menu",
         "fx-cat-br/widgets/filter/Fx-catalog-modular-form",
         "fx-cat-br/widgets/filter/Fx-catalog-resume-bar",
-        "fx-cat-br/structures/Fx-fluid-grid",
+        "fx-common/structures/fx-fluid-grid",
         "fx-cat-br/widgets/bridge/Fx-catalog-bridge",
         "fx-cat-br/controllers/Fx-catalog-results",
         "fx-cat-br/widgets/results/Fx-catalog-results-generator",
-        "fx-cat-br/structures/Fx-filterable-grid",
         'fx-cat-br/widgets/storage/SessionStorage',
-        "text!fx-cat-br/html/fx_catalog_structure.html"
+        "text!fx-cat-br/html/fx_catalog_structure.html",
+        'fx-cat-br/config/config',
+        'fx-cat-br/config/config-default',
+        'handlebars'
     ],
-    function (Controller, FilterController, Menu, Form, Resume, FluidForm, Bridge, ResultController, ResultsRenderer, FilterableGrid, Storage, structure) {
+    function ($, Controller, FilterController, Menu, Form, Resume, FluidGrid, Bridge, ResultController, ResultsRenderer, Storage, structure, C, DC, Handlebars) {
+
+        'use strict';
 
         var html_ids = {
             MAIN_CONTAINER: "#catalogContainer",
@@ -26,6 +32,14 @@ define(["fx-cat-br/controllers/Fx-catalog-page",
 
         function Start(o) {
             this.o = o || {};
+
+            Handlebars.registerHelper('ifCond', function(v1, v2, options) {
+                if(v1 === v2) {
+                    return options.fn(this);
+                }
+                return options.inverse(this);
+            });
+
         }
 
         Start.prototype.init = function (options) {
@@ -33,15 +47,15 @@ define(["fx-cat-br/controllers/Fx-catalog-page",
             $.extend(this.o, options);
 
             if (!this.o.hasOwnProperty('container')) {
-                throw 'Catalog needs a container!'
+                throw 'Catalog needs for a container!';
             }
 
             $(this.o.container).html(structure);
 
-            this.pageController = new Controller();
+            this.mainController = new Controller();
 
             // Perform dependency injection by extending objects
-            $.extend(this.pageController, {
+            $.extend(this.mainController, {
                 filter: this.initFilter(),
                 bridge: this.initBridge(),
                 results: this.initResults(),
@@ -49,26 +63,29 @@ define(["fx-cat-br/controllers/Fx-catalog-page",
             });
 
             if (this.o.manualRender !== true) {
-                this.pageController.render();
+                this.mainController.render(this.o);
             }
 
-            return this.pageController;
+            return this.mainController;
         };
 
         Start.prototype.initFilter = function () {
 
-             this.filterController = new FilterController();
-                 var menu = new Menu(),
+            this.filterController = new FilterController();
+
+            var menu = new Menu(),
                 form = new Form(),
                 resume = new Resume(),
-                grid = new FluidForm();
+                grid = new FluidGrid();
 
             menu.init({
-                container: document.querySelector("#" + html_ids.MENU)
+                container: document.querySelector("#" + html_ids.MENU),
+                config: C.MENU_CONFIG || DC.MENU_CONFIG
             });
+            
             form.init({
                 container: document.querySelector("#" + html_ids.FORM),
-                config: "json/fx-catalog-modular-form-config.json",
+                config: C.FORM_CONFIG || DC.FORM_CONFIG,
                 catalog: document.querySelector("#" + html_ids.FORM)
             });
 
@@ -81,7 +98,9 @@ define(["fx-cat-br/controllers/Fx-catalog-page",
                 config: {
                     itemSelector: '.fx-catalog-form-module',
                     columnWidth: '.fx-catalog-form-module',
-                    rowHeight: 0
+                    rowHeight: '.fx-catalog-form-module',
+                    percentPosition: true
+
                 }
             });
 
@@ -116,14 +135,17 @@ define(["fx-cat-br/controllers/Fx-catalog-page",
         Start.prototype.initResults = function () {
 
             var resultsController = new ResultController(),
-                grid = new FilterableGrid(),
+                grid = new FluidGrid(),
                 renderer = new ResultsRenderer(this.o.results || {});
 
             grid.init({
                 container: document.querySelector("#" + html_ids.RESULT),
-                isotope: {
+                config: {
                     itemSelector: '.fenix-result',
-                    layoutMode: 'fitRows'
+                    columnWidth: '.fenix-result',
+                    rowHeight:  '.fenix-result',
+                    //transitionDuration: 0,
+                    percentPosition: true
                 }
             });
 
@@ -137,7 +159,7 @@ define(["fx-cat-br/controllers/Fx-catalog-page",
 
         Start.prototype.destroy = function () {
 
-            this.pageController.destroy();
+            this.mainController.destroy();
         };
 
         return Start;
