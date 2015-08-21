@@ -15,8 +15,6 @@ define([
     'fx-cat-br/config/config-default'
 ], function (require, $, C,DC) {
 
-    console.log(C, DC)
-
     'use strict';
 
     var errors = {
