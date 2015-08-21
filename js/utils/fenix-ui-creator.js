@@ -269,7 +269,6 @@ define([
             elems = JSON.parse(o.elements);
 
             $(elems).each(function (index, element) {
-                debugger;
 
                 var plugin_folder = C.PLUGIN_FOLDER_PATH || DC.PLUGIN_FOLDER_PATH
                 var plugin_name = (C.PLUGIN_FOLDER_PATH)? element.id: element.type;
