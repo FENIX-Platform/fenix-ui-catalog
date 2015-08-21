@@ -34,7 +34,9 @@ define([
 
         uiCreator = new UiCreator();
         uiCreator.init({
+/*
             plugin_folder: 'fx-cat-br/utils/fx-ui-w/',
+*/
             result_key: 'semantic'
         });
         w_Commons = new W_Commons();
@@ -66,7 +68,9 @@ define([
      * */
     Fx_catalog_modular_form.prototype.addItem = function (module) {
 
+        console.log('addItem : catalog modular form')
         var blank = this.getBlankModule(module);
+        debugger;
 
         this.grid.addItem(blank.get(0));
 

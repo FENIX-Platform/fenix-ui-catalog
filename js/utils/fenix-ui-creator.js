@@ -51,6 +51,7 @@ define([
     function inputValidation(o) {
 
         //Existing container
+        debugger;
         if (!document.querySelector(o.container)) {
             handleError("CONTAINER_NOT_FOUND");
             return;
@@ -268,6 +269,7 @@ define([
             elems = JSON.parse(o.elements);
 
             $(elems).each(function (index, element) {
+                debugger;
 
                 var plugin_folder = C.PLUGIN_FOLDER_PATH || DC.PLUGIN_FOLDER_PATH
                 var plugin_name = (C.PLUGIN_FOLDER_PATH)? element.id: element.type;
