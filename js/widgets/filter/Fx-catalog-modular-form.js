@@ -70,7 +70,6 @@ define([
 
         console.log('addItem : catalog modular form')
         var blank = this.getBlankModule(module);
-        debugger;
 
         this.grid.addItem(blank.get(0));
 

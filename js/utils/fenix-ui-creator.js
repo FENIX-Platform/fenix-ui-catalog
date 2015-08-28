@@ -51,7 +51,6 @@ define([
     function inputValidation(o) {
 
         //Existing container
-        debugger;
         if (!document.querySelector(o.container)) {
             handleError("CONTAINER_NOT_FOUND");
             return;
