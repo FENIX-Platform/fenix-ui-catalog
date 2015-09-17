@@ -2,6 +2,8 @@
 
 define([
     "jquery",
+    "fx-cat-br/config/config",
+    "fx-cat-br/config/config-default",
     "fx-cat-br/utils/fenix-ui-creator",
     'fx-cat-br/config/fx-catalog-modular-form-config',
     'fx-cat-br/config/events',
@@ -9,7 +11,7 @@ define([
     "fx-cat-br/widgets/Fx-widgets-commons",
     'handlebars',
     "amplify"
-], function ($, UiCreator, config, E, ModuleTemplate, W_Commons, Handlebars) {
+], function ($, C, DC, UiCreator, config, E, ModuleTemplate, W_Commons, Handlebars) {
 
     'use strict';
 
@@ -34,7 +36,7 @@ define([
 
         uiCreator = new UiCreator();
         uiCreator.init({
-            plugin_folder: 'fx-cat-br/utils/fx-ui-w/',
+            plugin_folder: C.FX_UI_CREATOR_PLUGIN_FOLDER || DC.FX_UI_CREATOR_PLUGIN_FOLDER,
             result_key: 'semantic'
         });
         w_Commons = new W_Commons();
