@@ -205,7 +205,7 @@ define([
                 //Synch call of require
                 try {
                     var plugin_folder = C.PLUGIN_FOLDER_PATH || DC.PLUGIN_FOLDER_PATH
-                    var plugin_name = (C.PLUGIN_FOLDER_PATH)? element.id: element.type;
+                    var plugin_name = element.type;
 
                     var widgetSource = plugin_folder + "Fx-ui-w-" + plugin_name;
                     var Module = require(widgetSource),
@@ -270,7 +270,7 @@ define([
             $(elems).each(function (index, element) {
 
                 var plugin_folder = C.PLUGIN_FOLDER_PATH || DC.PLUGIN_FOLDER_PATH
-                var plugin_name = (C.PLUGIN_FOLDER_PATH)? element.id: element.type;
+                var plugin_name = element.type;
 
                 var widgetSource = plugin_folder + "Fx-ui-w-" + plugin_name;
 

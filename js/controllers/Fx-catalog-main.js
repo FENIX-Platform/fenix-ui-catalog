@@ -127,6 +127,8 @@ define([
          */
 
         this.bridge.query(this.filter, $.proxy(function ( response ){
+
+            console.log(response)
             this.results.addItems( response );
             //this.filter.collapseFilter();
             }, this), this.results);

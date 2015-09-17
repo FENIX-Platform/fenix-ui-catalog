@@ -68,7 +68,6 @@ define([
      * */
     Fx_catalog_modular_form.prototype.addItem = function (module) {
 
-        console.log('addItem : catalog modular form')
         var blank = this.getBlankModule(module);
 
         this.grid.addItem(blank.get(0));
@@ -158,6 +157,7 @@ define([
     };
 
     Fx_catalog_modular_form.prototype.getValues = function (boolean) {
+
         return uiCreator.getValues(boolean, modules);
     };
 
