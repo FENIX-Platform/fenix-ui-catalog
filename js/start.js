@@ -143,7 +143,7 @@ define([
                 config: {
                     itemSelector: '.fenix-result',
                     columnWidth: '.fenix-result',
-                    rowHeight:  '.fenix-result',
+                    rowHeight:  100,
                     //transitionDuration: 0,
                     percentPosition: true
                 }
