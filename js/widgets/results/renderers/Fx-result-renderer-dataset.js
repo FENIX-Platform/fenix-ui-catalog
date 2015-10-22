@@ -33,11 +33,11 @@ define([
 
                 var $b = $('<button class="btn btn-default">' + actions[key].labels.EN + '</button>');
 
-                $b.on('click', function () {
-                    amplify.publish('fx.widget.catalog.' + actions[key].event, self.o);
+                $b.on('click', {event : actions[key].event, payload :self.o}, function (e) {
+                    amplify.publish('fx.widget.catalog.' + e.data.event,  e.data.payload);
                 });
 
-                $result.find('.results-actions-container').prepend($b);
+                $result.find('.results-actions-container').prepend($b.clone(true));
             }
         }
     };
