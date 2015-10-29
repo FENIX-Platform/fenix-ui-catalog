@@ -1,107 +1,69 @@
-/* Analysis Host */
-/* Imports */
-/* Fenix UI  DSD Editor  CSS - Colors */
-/* Fenix Colors */
-/* Specials */
-/* Fenix UI  DSD Editor  CSS - Mixins */
-/* CSS TRANSFORMS */
-/* CSS TRANSITION */
-/* 3D flow */
-/* Blurred */
-/* Color Mixins */
-/* Animations */
-/* Host CSS */
-html, body {
-  height: 100%; }
+/*
+Syntax error: Undefined variable: "$fenix-text".
+        on line 31 of host.scss
 
-body {
-  padding-top: 0px; }
+26:   margin-top: 20px;
+27: }
+28: 
+29: .fx-analysis-page-title{
+30:   font-weight: 100;
+31:   color: $fenix-text;
+32: }
+33: .fx-analysis-page-description{
+34:   color: $fenix-text;
+35: }
+36: 
 
-#overlay .closeOverlay {
-  height: 35px;
-  width: 35px;
-  background: url("img/icons-sprite.png") no-repeat -595px 0px;
-  border: none; }
-
-#fx-catalog-results {
-  margin-top: 20px; }
-
-.fx-analysis-page-title {
-  font-weight: 100;
-  color: #666666; }
-
-.fx-analysis-page-description {
-  color: #666666; }
-
-.well {
-  background-color: transparent;
-  border: none;
-  -webkit-box-shadow: 0 0 0 white;
-  -moz-box-shadow: 0 0 0 white;
-  box-shadow: 0 0 0 white; }
-
-.fx-catalog-toolbar {
-  color: #666666; }
-  .fx-catalog-toolbar .fx-widget-stack-btns {
-    text-align: right; }
-    .fx-catalog-toolbar .fx-widget-stack-btns em {
-      font-style: normal;
-      background-color: #666666;
-      width: 30px;
-      height: 20px;
-      display: inline-block;
-      color: white;
-      text-align: center;
-      -webkit-border-radius: 3px;
-      -moz-border-radius: 3px;
-      -ms-border-radius: 3px;
-      border-radius: 3px; }
-    .fx-catalog-toolbar .fx-widget-stack-btns input {
-      margin-left: 33px; }
-
-.btn {
-  background-color: transparent;
-  color: #666666;
-  border-color: #666666; }
-  .btn:hover {
-    background-color: transparent;
-    color: #666666;
-    border-color: #666666; }
-  .btn:active {
-    background-color: #666666;
-    color: white;
-    border-color: #666666;
-    -webkit-box-shadow: 0 0 0 white;
-    -moz-box-shadow: 0 0 0 white;
-    box-shadow: 0 0 0 white; }
-
-/*================= Packry =================*/
-.fx-analysis-item {
-  width: 50%;
-  z-index: 200;
-  /* Veify correct z.index */ }
-
-.fx-analysis-item.fit {
-  width: 100%; }
-
-/*================= Overlay =================*/
-/* Please review */
-#overlay {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  width: 0;
-  height: 0;
-  overflow: hidden;
-  background-color: rgba(255, 255, 255, 0.9);
-  padding-top: 0px;
-  z-index: 500;
-  overflow-y: scroll; }
-  #overlay .overlay-content {
-    height: 100%; }
-    #overlay .overlay-content #catalogContainer {
-      height: 100%; }
-
-.closeOverlay {
-  position: absolute;
-  right: 0; }
+Backtrace:
+host.scss:31
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.8/lib/sass/script/tree/variable.rb:49:in `_perform'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.8/lib/sass/script/tree/node.rb:50:in `perform'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.8/lib/sass/tree/visitors/perform.rb:366:in `visit_prop'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.8/lib/sass/tree/visitors/base.rb:36:in `visit'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.8/lib/sass/tree/visitors/perform.rb:152:in `block in visit'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.8/lib/sass/stack.rb:79:in `block in with_base'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.8/lib/sass/stack.rb:121:in `with_frame'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.8/lib/sass/stack.rb:79:in `with_base'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.8/lib/sass/tree/visitors/perform.rb:152:in `visit'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.8/lib/sass/tree/visitors/perform.rb:389:in `block (2 levels) in visit_rule'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.8/lib/sass/tree/visitors/perform.rb:389:in `map'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.8/lib/sass/tree/visitors/perform.rb:389:in `block in visit_rule'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.8/lib/sass/tree/visitors/perform.rb:173:in `with_environment'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.8/lib/sass/tree/visitors/perform.rb:387:in `visit_rule'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.8/lib/sass/tree/visitors/base.rb:36:in `visit'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.8/lib/sass/tree/visitors/perform.rb:152:in `block in visit'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.8/lib/sass/stack.rb:79:in `block in with_base'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.8/lib/sass/stack.rb:121:in `with_frame'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.8/lib/sass/stack.rb:79:in `with_base'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.8/lib/sass/tree/visitors/perform.rb:152:in `visit'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.8/lib/sass/tree/visitors/base.rb:52:in `block in visit_children'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.8/lib/sass/tree/visitors/base.rb:52:in `map'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.8/lib/sass/tree/visitors/base.rb:52:in `visit_children'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.8/lib/sass/tree/visitors/perform.rb:161:in `block in visit_children'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.8/lib/sass/tree/visitors/perform.rb:173:in `with_environment'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.8/lib/sass/tree/visitors/perform.rb:160:in `visit_children'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.8/lib/sass/tree/visitors/base.rb:36:in `block in visit'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.8/lib/sass/tree/visitors/perform.rb:180:in `visit_root'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.8/lib/sass/tree/visitors/base.rb:36:in `visit'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.8/lib/sass/tree/visitors/perform.rb:151:in `visit'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.8/lib/sass/tree/visitors/perform.rb:8:in `visit'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.8/lib/sass/tree/root_node.rb:36:in `css_tree'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.8/lib/sass/tree/root_node.rb:20:in `render'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.8/lib/sass/engine.rb:274:in `render'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.8/lib/sass/plugin/compiler.rb:378:in `update_stylesheet'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.8/lib/sass/plugin/compiler.rb:189:in `block in update_stylesheets'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.8/lib/sass/plugin/compiler.rb:186:in `each'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.8/lib/sass/plugin/compiler.rb:186:in `update_stylesheets'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.8/lib/sass/plugin.rb:82:in `update_stylesheets'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.8/lib/sass/exec.rb:489:in `watch_or_update'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.8/lib/sass/exec.rb:346:in `process_result'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.8/lib/sass/exec.rb:43:in `parse'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.8/lib/sass/exec.rb:22:in `parse!'
+/Library/Ruby/Gems/2.0.0/gems/sass-3.3.8/bin/scss:13:in `<top (required)>'
+/usr/bin/scss:23:in `load'
+/usr/bin/scss:23:in `<main>'
+*/
+body:before {
+  white-space: pre;
+  font-family: monospace;
+  content: "Syntax error: Undefined variable: \"$fenix-text\".\A         on line 31 of host.scss\A \A 26:   margin-top: 20px;\A 27: }\A 28: \A 29: .fx-analysis-page-title{\A 30:   font-weight: 100;\A 31:   color: $fenix-text;\A 32: }\A 33: .fx-analysis-page-description{\A 34:   color: $fenix-text;\A 35: }\A 36: "; }

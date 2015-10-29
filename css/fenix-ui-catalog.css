@@ -1,118 +1,5 @@
-/* Fenix UI  DSD Editor  CSS
-PUT THIS AFTER BOOTSTRAP */
-/* Fenix UI  DSD Editor  CSS - Mixins */
-/* CSS TRANSFORMS */
-/* CSS TRANSITION */
-/* 3D flow */
-/* Blurred */
-/* Color Mixins */
-/* Animations */
-/* Fenix UI  DSD Editor  CSS - Colors */
-/* Fenix Colors */
-/* Specials */
-/* Fenix Typography */
-body {
-  color: #666666;
-  font: normal normal 300 14px/normal "Roboto Condensed"; }
-
-a {
-  color: #0076ff; }
-
-.navbar-default .navbar-nav > li > a {
-  color: #666666; }
-
-.dropdown-menu > li > a {
-  font-weight: 300;
-  color: #666666; }
-
-h1 small, h2 small, h3 small, h4 small, h5 small, h6 small, .h1 small, .h2 small, .h3 small, .h4 small, .h5 small, .h6 small, h1 .small, h2 .small, h3 .small, h4 .small, h5 .small, h6 .small, .h1 .small, .h2 .small, .h3 .small, .h4 .small, .h5 .small, .h6 .small {
-  font-weight: 100;
-  color: #0076ff; }
-
-h1, h2, h3, h4 {
-  font-family: Roboto;
-  font-weight: 100; }
-
-h1 {
-  font-size: 32px; }
-
-h2 {
-  font-size: 26px; }
-
-h3 {
-  font-size: 20px; }
-
-h4 {
-  font-family: "Roboto Condensed"; }
-
-/*  FENIX COMMONS */
-body {
-  background-color: white;
-  font: normal normal 300 14px/normal "Roboto Condensed"; }
-
-/* Reset Jqwidget content font */
-.jqx-widget, .jqx-widget-content, .jqx-fill-state-normal {
-  font: normal normal 300 14px/normal "Roboto Condensed"; }
-
-.fx-validation {
-  -webkit-transition: all 0.3s ease 0s;
-  -moz-transition: all 0.3s ease 0s;
-  -ms-transition: all 0.3s ease 0s;
-  -o-transition: all 0.3s ease 0s;
-  transition: all 0.3s ease 0s; }
-
-.fx-red-cell {
-  background-color: orangered;
-  color: white; }
-
-.obj-box, .obj-box-radius10, .fx-catalog-modular-form-holder {
-  -moz-border-bottom-colors: none;
-  -moz-border-left-colors: none;
-  -moz-border-right-colors: none;
-  -moz-border-top-colors: none;
-  background-color: #FFFFFF;
-  border-color: #D8D8D8;
-  border-image: none;
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  -ms-border-radius: 3px;
-  border-radius: 3px;
-  border-style: solid;
-  border-width: 1px 1px 2px;
-  margin: 10px 0 20px;
-  padding: 20px;
-  width: auto; }
-
-.obj-box-radius10 {
-  -webkit-border-radius: 10px;
-  -moz-border-radius: 10px;
-  -ms-border-radius: 10px;
-  border-radius: 10px; }
-
-.fx-bullet-number {
-  display: block;
-  float: left;
-  font-size: 15px;
-  height: 20px;
-  width: 20px;
-  line-height: 20px;
-  text-align: center;
-  font-style: normal;
-  background-color: #0076ff;
-  -webkit-border-radius: 100%;
-  -moz-border-radius: 100%;
-  -ms-border-radius: 100%;
-  border-radius: 100%;
-  color: white;
-  margin-right: 10px; }
-
+/* Fenix - Catalog Component */
 /* Fenix UI Catalog */
-#fx-catalog-modular-menu .panel-title {
-  font-weight: 400; }
-#fx-catalog-modular-menu .panel-body .btn {
-  background-color: transparent;
-  font-weight: 300; }
-
 .fx-catalog-welcome {
   text-align: center;
   max-width: 300px;
@@ -120,9 +7,7 @@ body {
   left: 50%;
   top: 50%;
   -ms-transform: translate(-50%, -50%);
-  /* IE 9 */
   -webkit-transform: translate(-50%, -50%);
-  /* Chrome, Safari, Opera */
   transform: translate(-50%, -50%); }
   .fx-catalog-welcome .catalog-ico {
     height: 50px;
@@ -130,76 +15,16 @@ body {
   .fx-catalog-welcome h1 {
     margin-top: 10px; }
 
-.fx-catalog-hints {
-  background-color: #f8f8f8;
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  text-align: center;
-  padding: 10px;
-  padding-left: 80px;
-  padding-right: 80px; }
-  .fx-catalog-hints .col-xs-3 {
-    position: relative;
-    top: 50%;
-    -ms-transform: translateY(-50%);
-    /* IE 9 */
-    -webkit-transform: translateY(-50%);
-    /* Chrome, Safari, Opera */
-    transform: translateY(-50%); }
-  .fx-catalog-hints img {
-    position: relative;
-    left: 50%;
-    -ms-transform: translateX(-50%);
-    /* IE 9 */
-    -webkit-transform: translateX(-50%);
-    /* Chrome, Safari, Opera */
-    transform: translateX(-50%); }
-  .fx-catalog-hints h3 {
-    margin-top: 0;
-    font-size: 14px;
-    font-weight: 300;
-    color: white;
-    border: 1px solid #666666;
-    display: inline-block;
-    width: 25px;
-    height: 25px;
-    padding-top: 4px;
-    text-align: center;
-    -webkit-border-radius: 100%;
-    -moz-border-radius: 100%;
-    -ms-border-radius: 100%;
-    border-radius: 100%; }
-  .fx-catalog-hints h4 {
-    margin-top: 0;
-    margin-bottom: 2px;
-    color: #4c647f;
-    font-size: 14px;
-    text-transform: uppercase; }
-  .fx-catalog-hints p {
-    color: #666666;
-    font-size: 12px;
-    margin-bottom: 2px; }
-  .fx-catalog-hints button {
-    padding-top: 0px;
-    padding-bottom: 2px;
-    font-size: 10px; }
-
 /* Packery */
 .fx-catalog-form-module {
   width: 50%;
   border: 10px solid #f8f8f8; }
-
-.fx-catalog-modular-form-holder {
-  padding: 5px;
-  margin: 0; }
 
 .fx-catalog-form-module.fit {
   width: 100%; }
 
 .fx_result_description_title {
   text-transform: uppercase;
-  font-weight: bold;
   display: inline; }
 
 .fx_result_description_source {
@@ -216,43 +41,24 @@ body {
 .fenix-result {
   width: 100%;
   background-color: white;
-  border: 1px solid #E3E3E3;
-  border-radius: 4px;
+  border: 1px solid #d8d8d8;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  -ms-border-radius: 0;
+  border-radius: 0;
   margin-bottom: 20px;
   min-height: 20px;
   padding: 19px 0 16px 19px; }
 
-/* ====== NEW*/
 /*========= HEADER =========*/
 .fx-catalog-header {
   text-align: center;
   background-color: #f8f8f8; }
   .fx-catalog-header em {
-    font-style: normal;
-    font-family: Roboto;
-    font-weight: 400;
-    font-size: 10px; }
+    font: normal normal 400 10px/normal "Roboto"; }
 
 .fx-catalog-header-btn {
   cursor: pointer; }
-
-.fx-catalog-header-btn-close:after {
-  position: absolute;
-  content: "";
-  height: 15px;
-  width: 15px;
-  background: url("icons/fenix-catalog-sprite-small.png") no-repeat -105px 0;
-  cursor: pointer;
-  top: 3px; }
-
-.fx-catalog-header-btn-settings:after {
-  position: absolute;
-  content: "";
-  height: 15px;
-  width: 15px;
-  background: url("icons/fenix-catalog-sprite-small.png") no-repeat -120px 0;
-  cursor: pointer;
-  top: 3px; }
 
 /*========= FILTER CONTAINER =========*/
 .fx-catalog-modular-filter-container {
@@ -266,245 +72,24 @@ body {
   padding: 0;
   min-height: 250px; }
 
-/*.fx-catalog-modular-menu-container:after {*/
-/*position: absolute;*/
-/*content: "";*/
-/*height: 900px;*/
-/*width: 20px;*/
-/*background-color: #f3f3f3;*/
-/*top: 0;*/
-/*right: -14px;*/
-/*}*/
-.fx-catalog-modular-menu-container .btn-default:hover {
-  background-color: #e1dfda; }
-
-.panel-default:last-child {
-  border-bottom-width: 0px !important; }
-
-#fx-catalog-modular-menu .panel-group {
-  margin-bottom: 0px; }
-
-#fx-catalog-modular-menu .panel-heading {
-  background-color: #f8f8f8;
-  -webkit-border-radius: 0;
-  border-radius: 0; }
-
-#fx-catalog-modular-menu .panel {
-  -webkit-border-radius: 0;
-  border-radius: 0;
-  background-color: transparent;
-  border: none; }
-
-#fx-catalog-modular-menu .panel-default {
-  -webkit-box-shadow: none;
-  box-shadow: none;
-  border-bottom: 1px solid #e5e5e5; }
-
-#fx-catalog-modular-menu .panel-default button {
-  border: none; }
-
-.fx-menu-category-title {
-  position: relative; }
-
-.fx-menu-category-title a {
-  padding-left: 35px;
-  text-transform: uppercase;
-  text-decoration: none;
-  color: #666666; }
-
 .fx-catalog-modular-menu-category-plus {
   position: absolute;
   top: 0;
   height: 15px;
   width: 15px;
-  background: url("icons/fenix-catalog-sprite-small.png") no-repeat -90px 0; }
-
-.fx-catalog-modular-menu-category-info {
-  position: absolute;
-  top: 0;
-  right: 0;
-  height: 15px;
-  width: 15px;
-  background: url("icons/fenix-catalog-sprite-small.png") no-repeat 0 0; }
-
-#fx-catalog-modular-menu .panel-body, #fx-catalog-modular-menu button {
-  color: #6e6e6e; }
-
-#fx-catalog-modular-menu button {
-  border-color: white;
-  text-align: left; }
-
-#fx-catalog-modular-menu button span {
-  margin-right: 10px; }
-
-/*========= FORM =========*/
-.fx-catalog-modular-form-wrapper {
-  padding-right: 0;
-  /*overflow: hidden;*/
-  min-height: 250px;
-  position: relative;
-  background-color: #f8f8f8; }
-
-.fx-catalog-form-module {
-  /*padding: 7px;  */
-  /*border: 0;   */ }
-
-.fx-catalog-modular-form-header {
-  position: relative;
-  height: 30px; }
-
-.fx-catalog-modular-form-handler {
-  position: absolute;
-  left: 7px;
-  top: 7px;
-  height: 15px;
-  width: 15px;
-  background: url("icons/fenix-catalog-sprite-small.png") no-repeat -15px 0;
-  cursor: pointer; }
-
-.fx-catalog-modular-form-close-btn {
-  position: absolute;
-  top: 7px;
-  right: 7px;
-  height: 15px;
-  width: 15px;
-  background: url("icons/fenix-catalog-sprite-small.png") no-repeat -45px 0;
-  cursor: pointer; }
-
-.fx-catalog-modular-form-resize-btn {
-  position: absolute;
-  top: 7px;
-  right: 28px;
-  height: 15px;
-  width: 15px;
-  background: url("icons/fenix-catalog-sprite-small.png") no-repeat -30px 0;
-  cursor: pointer; }
-
-.fx-catalog-modular-form-label {
-  position: absolute;
-  top: 4px;
-  left: 30px;
-  font-weight: 300; }
-
-.fx-catalog-modular-form-content {
-  padding: 10px 10px 10px 10px;
-  height: 100px; }
+  background: url("./css/img/fenix-catalog-sprite-small.svg") no-repeat -90px 0;
+  background-size: 150px 30px; }
 
 .fx-catalog-mod-timerseries {
   top: 25px; }
 
-/*========= RESUME BAR =========*/
-.fx-catalog-resume-bar {
-  padding-right: 150px;
-  background-color: #f8f8f8;
+.region-css {
+  height: 100%;
   position: relative; }
 
-#fx-catalog-resume {
-  background-color: white; }
-
-.fx-catalog-resume-title {
-  color: #0076ff;
-  padding-left: 15px;
-  padding-top: 5px;
-  font-style: normal;
-  font-family: Roboto;
-  font-weight: 400;
-  font-size: 10px; }
-
-.fx-catalog-resume-noitem {
-  padding-left: 15px;
-  position: absolute; }
-
-#fx-catalog-submit-btn {
-  color: white;
-  text-transform: uppercase;
-  background-color: #0076ff;
-  width: 150px;
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  -webkit-border-radius: 0;
-  -moz-border-radius: 0;
-  border-radius: 0;
-  border: 0;
-  -ms-transform: translateY(0);
-  /* IE 9 */
-  -webkit-transform: translateY(0);
-  /* Chrome, Safari, Opera */
-  transform: translateY(0); }
-  #fx-catalog-submit-btn.disabled {
-    background-color: #dddddd;
-    opacity: 1;
-    -ms-transform: translateY(32px);
-    /* IE 9 */
-    -webkit-transform: translateY(32px);
-    /* Chrome, Safari, Opera */
-    transform: translateY(32px); }
-
-.fx-catalog-resume-bar-help {
-  position: absolute;
-  height: 25px;
-  width: 25px;
-  top: 7px;
-  background: url("icons/fenix-catalog-sprite.png") no-repeat 0px 0; }
-
-.fx-catalog-resume-bar-text {
-  position: absolute;
-  top: 9px;
-  left: 215px;
-  /* Sistemare questo */ }
-
-.fx-catalog-resume-bar-arrow {
-  position: absolute;
-  height: 25px;
-  width: 25px;
-  background: url("icons/fenix-catalog-sprite-small.png") no-repeat -135px 0;
-  top: 12px;
-  left: 288px;
-  /* Sistemare questo */ }
-
-.fx-resume-item-selected {
-  position: relative;
-  border-top: 5px solid white;
-  border-bottom: 5px solid white; }
-  .fx-resume-item-selected .fx-resume-module-title {
-    display: inline-block;
-    width: 20%;
-    padding-left: 15px; }
-    .fx-resume-item-selected .fx-resume-module-title em {
-      font-family: Roboto;
-      color: #0076ff;
-      font-weight: 400;
-      font-size: 12px;
-      font-style: normal;
-      position: absolute;
-      top: 0; }
-  .fx-resume-item-selected .fx-resume-module-list-holder {
-    display: inline-block;
-    max-width: 80%;
-    padding-right: 15px; }
-    .fx-resume-item-selected .fx-resume-module-list-holder .fx-resume-module-list {
-      display: inline-block;
-      -webkit-border-radius: 3px;
-      -moz-border-radius: 3px;
-      -ms-border-radius: 3px;
-      border-radius: 3px;
-      border: 1px solid #666666; }
-
-.fx-catalog-resume-obj-close {
-  display: inline-block;
-  height: 15px;
-  width: 15px;
-  background: url("icons/fenix-catalog-sprite-small.png") no-repeat -45px 0;
-  cursor: pointer;
-  position: relative;
-  top: 3px; }
-
-.fx-catalog-resume-list-obj {
-  display: inline-block; }
-  .fx-catalog-resume-list-obj .fx-catalog-resume-obj-value {
-    display: inline;
-    margin-right: 7px; }
+.jstree-holder {
+  height: 209px;
+  overflow-y: auto; }
 
 /*========= RESULTS */
 /*========= COMMONS =========*/
@@ -514,18 +99,42 @@ body {
 .fx_result_icon_img {
   width: 42px; }
 
-/* HELP */
-.introjs-helperNumberLayer {
-  border: 2px solid white;
-  background: none;
-  background-color: #0076ff;
-  font-family: Roboto;
-  -webkit-box-shadow: none;
-  -moz-box-shadow: none;
-  box-shadow: none;
-  text-shadow: none;
-  padding: 0;
-  font-weight: normal;
-  line-height: normal;
-  left: -25px;
-  top: -20; }
+/* Analysis Host */
+/* Host CSS */
+#fx-catalog-results {
+  margin-top: 20px; }
+
+.fx-analysis-page-title {
+  font-weight: 100;
+  color: #666666; }
+
+.fx-analysis-page-description {
+  color: #666666; }
+
+.well {
+  background-color: transparent;
+  border: none;
+  -webkit-box-shadow: 0 0 0 white;
+  -moz-box-shadow: 0 0 0 white;
+  box-shadow: 0 0 0 white; }
+
+.fx-catalog-toolbar {
+  color: #666666; }
+  .fx-catalog-toolbar .fx-widget-stack-btns {
+    text-align: right; }
+    .fx-catalog-toolbar .fx-widget-stack-btns em {
+      font-style: normal;
+      background-color: #666666;
+      width: 30px;
+      height: 20px;
+      display: inline-block;
+      color: white;
+      text-align: center;
+      -webkit-border-radius: 3px;
+      -moz-border-radius: 3px;
+      -ms-border-radius: 3px;
+      border-radius: 3px; }
+    .fx-catalog-toolbar .fx-widget-stack-btns input {
+      margin-left: 33px; }
+
+/*# sourceMappingURL=fenix-ui-catalog.css.map */

@@ -1,81 +1,51 @@
 /*global requirejs, define*/
 
-define(function() {
+define(function () {
 
-    //Define it as string : string
-    //Explicit jquery path!  Don't use a prefix for it
-    var paths = {
-        'fx-cat-br/controllers': "catalog/controllers",
-        'fx-cat-br/js': "./",
-        'fx-cat-br/utils' : 'catalog/utils',
-        'fx-cat-br/json': "../json",
-        'fx-cat-br/catalog': "catalog",
-        'fx-cat-br/widgets': "catalog/widgets",
-        'fx-cat-br/plugins': "catalog/widgets/bridge/plugins",
-        'fx-cat-br/structures': "structures",
-        'fx-cat-br/html': "../html",
-        'fx-cat-br/start' : './start',
-        'jquery': '../node_modules/jquery/dist/jquery.min',
-        'pnotify' : 'lib/pnotify',
-        'jqwidgets': "http://fenixapps.fao.org/repository/js/jqwidgets/3.1/jqx-all",
-        'jqueryui': "http://code.jquery.com/ui/1.10.3/jquery-ui.min",
-        'nprogress' : '../node_modules/nprogress/nprogress',
-        'intro' : '../node_modules/intro.js/minified/intro.min',
-        'bootstrap': '../node_modules/bootstrap/dist/js/bootstrap.min',
-        'isotope' : "lib/isotope",
-        'packery' : '../node_modules/packery/dist/packery.pkgd.min',
-        'draggabilly' : '../node_modules/draggabilly/dist/draggabilly.pkgd.min',
-        'jstree' : '../node_modules/jstree/dist/jstree.min',
-        'jqrangeslider' : 'lib/jqrangeslider'
-    };
+    'use strict';
 
-    var exports = {};
+    var config = {
 
-    exports.initialize = function(baseUrl, overridePaths, callback) {
+        paths: {
+            'fx-cat-br/controllers': './controllers',
+            'fx-cat-br/html': '../html',
+            'fx-cat-br/js': './',
+            'fx-cat-br/json': '../json',
+            'fx-cat-br/plugins': './widgets/bridge/plugins',
+            'fx-cat-br/structures': 'structures',
+            'fx-cat-br/start': './start',
+            'fx-cat-br/utils': './utils',
+            'fx-cat-br/widgets': './widgets',
 
-        if(!overridePaths) {
-            overridePaths = {};
-        }
+            'fx-cat-br/config': '../config',
 
-        if(baseUrl && baseUrl[baseUrl.length - 1] != '/') {
-            baseUrl = baseUrl + '/';
-        }
-
-        var fullpaths = {};
-
-        for(var path in paths) {
-            // Don't add baseUrl to anything that looks like a full URL like 'http://...' or anything that begins with a forward slash
-            if(paths[path].match(/^(?:.*:\/\/|\/)/)) {
-                fullpaths[path] = paths[path];
-            }
-            else {
-                fullpaths[path] = baseUrl + paths[path];
-            }
-        }
-
-        var config = {
-            paths: fullpaths,
+            //Third party libs
+            'amplify' : '{FENIX_CDN}/js/amplify/1.1.2/amplify.min',
+            'bootstrap': '{FENIX_CDN}/js/bootstrap/3.2/js/bootstrap.min',
+            'draggabilly': '{FENIX_CDN}/js/draggabilly/dist/draggabilly.pkgd.min',
+            'intro': '{FENIX_CDN}/js/introjs/1.0.0/intro',
+            'isotope': '{FENIX_CDN}/js/isotope/2.1.0/dist/isotope.pkgd.min',
+            'jquery': '{FENIX_CDN}/js/jquery/2.1.1/jquery.min',
+            'jqwidgets': '{FENIX_CDN}/js/jqwidgets/3.1/jqx-light',
+            'jstree': '{FENIX_CDN}/js/jstree/3.0.8/dist/jstree.min',
+            'nprogress': '{FENIX_CDN}/js/nprogress/0.1.6/nprogress',
+            'handlebars': "{FENIX_CDN}/js/handlebars/2.0.0/handlebars",
+            'packery': '{FENIX_CDN}/js/packery/dist/packery.pkgd.min',
+            'pnotify': '{FENIX_CDN}/js/pnotify/2.0.1/pnotify.core',
+            'q' : '{FENIX_CDN}/js/q/1.1.2/q'
+        },
+        shim: {
+            'bootstrap': {
+                deps: ['jquery']
+            },
             shim: {
-                "jqrangeslider": {
-                    deps: ["jquery", "jqueryui"]
-                },
-                "bootstrap": {
-                    deps: ["jquery"]
+                "amplify": {
+                    deps: ["jquery"],
+                    exports: "amplify"
                 }
             }
-        };
-
-        for(var pathName in overridePaths) {
-            config.paths[pathName] = overridePaths[pathName];
-        }
-
-        requirejs.config( config );
-
-        // Do anything else you need to do such as defining more functions for exports
-        if(callback) {
-            callback();
         }
     };
 
-    return exports;
+    return config;
 });

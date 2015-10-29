@@ -1,0 +1,42 @@
+/* Analysis Host */
+/* Host CSS */
+
+
+#fx-catalog-results{
+  margin-top: 20px;
+}
+
+.fx-analysis-page-title{
+  font-weight: 100;
+  color: $fenix-text;
+}
+.fx-analysis-page-description{
+  color: $fenix-text;
+}
+
+.well {
+  background-color: transparent;
+  border: none;
+  @include fx-box-shadow(0, 0, 0, white);
+
+}
+
+.fx-catalog-toolbar{
+  color: $fenix-text;
+  .fx-widget-stack-btns{
+    text-align: right;
+    em{
+      font-style: normal;
+      background-color: $fenix-text;
+      width: 30px;
+      height: 20px;
+      display: inline-block;
+      color: white;
+      text-align: center;
+      @include fx-border-radius(3px)
+    }
+    input {
+      margin-left: 33px;
+    }
+  }
+}

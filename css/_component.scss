@@ -1,17 +1,5 @@
 /* Fenix UI Catalog */
 
-#fx-catalog-modular-menu{
-  .panel-title{
-    font-weight:400;
-  }
-
-   .panel-body{
-      .btn{
-        background-color: transparent;
-        font-weight:300;
-      }
-   }
-}
 
 .fx-catalog-welcome{
   text-align: center;
@@ -32,69 +20,7 @@
 
 }
 
-
-
-.fx-catalog-hints {
-  background-color: $fenix-light-bg;
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  text-align: center;
-  padding: 10px;
-  padding-left: 80px;
-  padding-right: 80px;
-
-  .col-xs-3{
-    position: relative;
-    top: 50%;
-    @include fx-transfor-me(translateY(-50%));
-  }
-
-  img{
-    position: relative;
-    left: 50%;
-    @include fx-transfor-me(translateX(-50%));
-  }
-
-  h3{
-    margin-top: 0;
-    font-size: 14px;
-    font-weight: 300;
-    color: white;
-    border: 1px solid $fenix-text;
-    display: inline-block;
-    width: 25px;
-    height: 25px;
-    padding-top: 4px;
-    text-align: center;
-    @include fx-border-radius(100%);
-  }
-
-  h4{
-    margin-top: 0;
-    margin-bottom: 2px;
-    color: $fenix-dark-blue;
-    font-size: 14px;
-    text-transform: uppercase;
-  }
-
-  p{
-    color: $fenix-text;
-    font-size: 12px;
-    margin-bottom: 2px;
-  }
-
-  button{
-    padding-top: 0px;
-    padding-bottom: 2px;
-    font-size: 10px;
-  }
-
-}
-
 /* Packery */
-
-
 
 .fx-catalog-form-module {
   //margin: 10px 0 20px;
@@ -103,25 +29,19 @@
 
 }
 
-.fx-catalog-modular-form-holder{
-  @extend .obj-box;
-  padding: 5px;
-  margin: 0;
-}
-
 .fx-catalog-form-module.fit {
   width: 100%;
 }
 
 .fx_result_description_title {
   text-transform: uppercase;
-  font-weight: bold;
   display: inline;
+  //color: $fx-secondary-color;
 }
 
 .fx_result_description_source {
   display: inline;
-  color: #999999;
+  color: $fenix-secondary-text;
 }
 
 .fx_result_description_source:before {
@@ -140,8 +60,8 @@
 .fenix-result {
   width: 100%;
   background-color: white;
-  border: 1px solid #E3E3E3;
-  border-radius: 4px;
+  border: 1px solid $fenix-hr;
+  @include fx-border-radius($fx-border-radius);
   margin-bottom: 20px;
   min-height: 20px;
   padding: 19px 0 16px 19px;
@@ -150,8 +70,6 @@
 
 
 
-
-/* ====== NEW*/
 /*========= HEADER =========*/
 
 .fx-catalog-header {
@@ -159,38 +77,15 @@
   background-color:$fenix-light-bg;
 
   em {
-    font-style: normal;
-    font-family: Roboto;
-    font-weight: 400;
-    font-size:10px;
+    font: $fx-text-smalltitle-normal;
   }
 }
-
-
 
 .fx-catalog-header-btn {
   cursor: pointer;
 }
 
-.fx-catalog-header-btn-close:after {
-  position: absolute;
-  content: "";
-  height: 15px;
-  width: 15px;
-  background: url("icons/fenix-catalog-sprite-small.png") no-repeat -105px 0;
-  cursor: pointer;
-  top: 3px;
-}
 
-.fx-catalog-header-btn-settings:after {
-  position: absolute;
-  content: "";
-  height: 15px;
-  width: 15px;
-  background: url("icons/fenix-catalog-sprite-small.png") no-repeat -120px 0;
-  cursor: pointer;
-  top: 3px;
-}
 
 /*========= FILTER CONTAINER =========*/
 .fx-catalog-modular-filter-container {
@@ -206,316 +101,30 @@
   min-height: 250px;
 }
 
-/*.fx-catalog-modular-menu-container:after {*/
-/*position: absolute;*/
-/*content: "";*/
-/*height: 900px;*/
-/*width: 20px;*/
-/*background-color: #f3f3f3;*/
-/*top: 0;*/
-/*right: -14px;*/
-/*}*/
 
-.fx-catalog-modular-menu-container .btn-default:hover {
-  background-color: #e1dfda;
-}
-
-.panel-default:last-child {
-  border-bottom-width: 0px !important;
-}
-
-#fx-catalog-modular-menu .panel-group {
-  margin-bottom: 0px;
-}
-
-#fx-catalog-modular-menu .panel-heading {
-  background-color:  $fenix-light-bg;
-  -webkit-border-radius: 0;
-  border-radius: 0;
-}
-
-#fx-catalog-modular-menu .panel {
-  -webkit-border-radius: 0;
-  border-radius: 0;
-  background-color: transparent;
-  border: none;
-}
-
-#fx-catalog-modular-menu .panel-default {
-  -webkit-box-shadow: none;
-  box-shadow: none;
-  border-bottom: 1px solid #e5e5e5;
-}
-
-#fx-catalog-modular-menu .panel-default button {
-  border: none;
-}
-
-.fx-menu-category-title {
-  position: relative;
-}
-
-.fx-menu-category-title a {
-  padding-left: 35px;
-  text-transform: uppercase;
-  text-decoration: none;
-  color: #666666;
-}
 
 .fx-catalog-modular-menu-category-plus {
   position: absolute;
   top: 0;
-  height: 15px;
-  width: 15px;
-  background: url("icons/fenix-catalog-sprite-small.png") no-repeat -90px 0;
-
+  @include fx-small-icons(-90px, 0);
 }
 
-.fx-catalog-modular-menu-category-info {
-  position: absolute;
-  top: 0;
-  right: 0;
-  height: 15px;
-  width: 15px;
-  background: url("icons/fenix-catalog-sprite-small.png") no-repeat 0 0;
-}
-
-#fx-catalog-modular-menu .panel-body, #fx-catalog-modular-menu button {
-  color: #6e6e6e;
-}
-
-#fx-catalog-modular-menu button {
-  border-color: white;
-  text-align: left;
-}
-
-#fx-catalog-modular-menu button span {
-  margin-right: 10px;
-}
-
-/*========= FORM =========*/
-.fx-catalog-modular-form-wrapper {
-  padding-right: 0;
-  /*overflow: hidden;*/
-  min-height: 250px;
-  position: relative;
-  background-color:$fenix-light-bg;
-}
-
-.fx-catalog-modular-form-container {
-
-}
-
-.fx-catalog-form-module {
-  /*padding: 7px;  */
-  /*border: 0;   */
-//  min-height: 200px;
-  //background-color: white;
-}
-
-.fx-catalog-modular-form-header {
-  position: relative;
-  height: 30px;
-}
-
-.fx-catalog-modular-form-handler {
-  position: absolute;
-  left: 7px;
-  top: 7px;
-  height: 15px;
-  width: 15px;
-  background: url("icons/fenix-catalog-sprite-small.png") no-repeat -15px 0;
-  cursor: pointer;
-}
-
-.fx-catalog-modular-form-close-btn {
-  position: absolute;
-  top: 7px;
-  right: 7px;
-  height: 15px;
-  width: 15px;
-  background: url("icons/fenix-catalog-sprite-small.png") no-repeat -45px 0;
-  cursor: pointer;
-}
-
-.fx-catalog-modular-form-resize-btn {
-  position: absolute;
-  top: 7px;
-  right: 28px;
-  height: 15px;
-  width: 15px;
-  background: url("icons/fenix-catalog-sprite-small.png") no-repeat -30px 0;
-  cursor: pointer;
-}
-
-.fx-catalog-modular-form-label {
-  position: absolute;
-  top: 4px;
-  left: 30px;
-  font-weight: 300;
-}
-
-.fx-catalog-modular-form-content {
-  padding: 10px 10px 10px 10px;
-  height: 100px;
-}
 
 .fx-catalog-mod-timerseries {
   top: 25px;
 }
 
-/*========= RESUME BAR =========*/
-.fx-catalog-resume-bar {
-  padding-right:150px;
-  background-color: $fenix-light-bg;
-  position: relative;
-}
 
-#fx-catalog-resume {
-  background-color:white;
+.region-css {
+  height: 100%;
+  position: relative; }
 
-}
-
-.fx-catalog-resume-title{
-  color: $fx-cool-blue;
-  padding-left: 15px;
-  padding-top: 5px;
-  font-style: normal;
-  font-family: Roboto;
-  font-weight: 400;
-  font-size:10px;
-}
-
-.fx-catalog-resume-noitem{
-  padding-left: 15px;
-  position: absolute;
-}
-
-#fx-catalog-submit-btn {
-  color: white;
-  text-transform: uppercase;
-  background-color: $fx-cool-blue;
-  width: 150px;
-  position: absolute;
-  bottom: 0;
-  right: 0;
-
-
-  -webkit-border-radius: 0;
-  -moz-border-radius:0;
-  border-radius:0;
-  border: 0;
-
- @include fx-transfor-me(translateY(0));
-
-//  &:after {
-//
-//    content: "";
-//    position: absolute;
-//    width: 150px;
-//    height: 15px;
-//    top: 100%;
-//    left: 0;
-//    background: url("img/search-btn-arrow.svg") no-repeat -0px 0;
-//    background-size: 150px 15px;
-//  }
-
-  &.disabled {
-    background-color: $fenix-light-gray;
-    opacity: 1;
-    @include fx-transfor-me(translateY(32px));
-//    &:after {
-//      background: url("img/search-btn-arrow-disabled.svg") no-repeat -0px 0;
-//    }
-  }
-
+.jstree-holder {
+  height: 209px;
+  overflow-y: auto;
 }
 
 
-.fx-catalog-resume-bar-help {
-  position: absolute;
-  height: 25px;
-  width: 25px;
-  top: 7px;
-  background: url("icons/fenix-catalog-sprite.png") no-repeat -0px 0;
-}
-
-.fx-catalog-resume-bar-text {
-  position: absolute;
-  top: 9px;
-  left: 215px; /* Sistemare questo */
-}
-
-.fx-catalog-resume-bar-arrow {
-  position: absolute;
-  height: 25px;
-  width: 25px;
-  background: url("icons/fenix-catalog-sprite-small.png") no-repeat -135px 0;
-  top: 12px;
-  left: 288px; /* Sistemare questo */
-}
-
-.fx-resume-item-selected{
-  position:relative;
-  border-top: 5px solid white;
-  border-bottom: 5px solid white;
-
-  .fx-resume-module-title{
-    display: inline-block;
-    width: 20%;
-    padding-left: 15px;
-
-    em{
-      font-family: Roboto;
-      color: $fx-cool-blue;
-      font-weight: 400;
-      font-size: 12px;
-      font-style: normal;
-      position: absolute;
-      top: 0;
-    }
-
-  }
-
-  .fx-resume-module-list-holder{
-    display: inline-block;
-    max-width: 80%;
-    padding-right: 15px;
-
-    .fx-resume-module-list{
-      display: inline-block;
-      @include fx-border-radius(3px);
-      border: 1px solid $fenix-text;
-
-    }
-
-  }
-
-}
-
-
-.fx-catalog-resume-obj-close{
-  display: inline-block;
-  height: 15px;
-  width: 15px;
-  background: url("icons/fenix-catalog-sprite-small.png") no-repeat -45px 0;
-  cursor: pointer;
-  position: relative;
-  top: 3px;
-}
-
-.fx-catalog-resume-list-obj{
-  display:inline-block;
-
-  .fx-catalog-resume-obj-value{
-    display: inline;
-    margin-right:7px ;
-  }
-
-  .fx-resume-item-selected i{
-
-  }
-}
 
 
 /*========= RESULTS */
@@ -531,20 +140,3 @@
   width: 42px;
 }
 
-/* HELP */
-
-.introjs-helperNumberLayer{
-  border: 2px solid white;
-  background: none;
-  background-color: $fx-cool-blue;
-  font-family: Roboto;
-  -webkit-box-shadow:none;
-  -moz-box-shadow:none;
-  box-shadow:none;
-  text-shadow: none;
-  padding: 0;
-  font-weight: normal;
-  line-height: normal;
-  left: -25px;
-  top:-20;
-}
