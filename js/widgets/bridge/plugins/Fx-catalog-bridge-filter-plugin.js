@@ -34,7 +34,6 @@ define([
     FilterPlugin.prototype.getFilter = function () {
 
         try {
-
             return this.createJsonFilter(o.component.getValues(true));
         }
         catch (e) {

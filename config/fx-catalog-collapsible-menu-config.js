@@ -8,28 +8,6 @@ define(function () {
         "panels": [
             {
                 "title": {
-                    "EN": "IDENTIFICATION"
-                },
-                "popover": {
-                    "data-container": "body",
-                    "data-toggle": "popover",
-                    "data-placement": "left",
-                    "data-content": "Vivamus sagittis lacus vel augue laoreet rutrum faucibus.",
-                    "data-trigger": "hover"
-
-                },
-                "modules": [
-                    {
-                        "module": "uid",
-                        "label": {
-                            "EN": "Uid"
-                        },
-                        "icon": "fa fa-slack fa-lg fa-fw"
-                    }
-                ]
-            },
-            {
-                "title": {
                     "EN": "CONTENT"
                 },
                 "popover": {
@@ -65,7 +43,7 @@ define(function () {
                     {
                         "module": "sector",
                         "label": {
-                            "EN": "Sector"
+                            "EN": "Data Domain"
                         },
                         "icon": "fa fa-clock-o fa-lg fa-fw"
                     },
@@ -80,7 +58,7 @@ define(function () {
             },
             {
                 "title": {
-                    "EN": "Accessibility"
+                    "EN": "ACCESSIBILITY"
                 },
                 "popover": {
                     "data-container": "body",
@@ -97,6 +75,28 @@ define(function () {
                             "EN": "Status of Confidentiality"
                         },
                         "icon": "fa fa-globe fa-lg fa-fw"
+                    }
+                ]
+            },
+            {
+                "title": {
+                    "EN": "SEARCH BY ID"
+                },
+                "popover": {
+                    "data-container": "body",
+                    "data-toggle": "popover",
+                    "data-placement": "left",
+                    "data-content": "Vivamus sagittis lacus vel augue laoreet rutrum faucibus.",
+                    "data-trigger": "hover"
+
+                },
+                "modules": [
+                    {
+                        "module": "uid",
+                        "label": {
+                            "EN": "Uid"
+                        },
+                        "icon": "fa fa-slack fa-lg fa-fw"
                     }
                 ]
             }

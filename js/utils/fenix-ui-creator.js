@@ -10,8 +10,10 @@
 
 define([
     "require",
-    "jquery"
-], function (require, $) {
+    "jquery",
+    'fx-cat-br/config/config',
+    'fx-cat-br/config/config-default'
+], function (require, $, C,DC) {
 
     'use strict';
 
@@ -202,8 +204,11 @@ define([
 
                 //Synch call of require
                 try {
+                    var plugin_folder = C.PLUGIN_FOLDER_PATH || DC.PLUGIN_FOLDER_PATH
+                    var plugin_name = element.type;
 
-                    var Module = require(self.o.plugin_folder + "Fx-ui-w-" + element.type),
+                    var widgetSource = plugin_folder + "Fx-ui-w-" + plugin_name;
+                    var Module = require(widgetSource),
                         widget = new Module();
 
                     result[element[self.o.result_key]] = widget.getValue(element);
@@ -224,7 +229,11 @@ define([
 
                 //Synch call of require
                 try {
-                    var Module = require(self.o.plugin_folder + "Fx-ui-w-" + element.type),
+                    var plugin_folder = C.PLUGIN_FOLDER_PATH || DC.PLUGIN_FOLDER_PATH
+                    var plugin_name = (C.PLUGIN_FOLDER_PATH)? element.id: element.type;
+
+                    var widgetSource = plugin_folder + "Fx-ui-w-" + plugin_name;
+                    var Module = require(widgetSource),
                         widget = new Module();
 
                     result[element.semantic] = widget.getValue(element);
@@ -260,9 +269,12 @@ define([
 
             $(elems).each(function (index, element) {
 
-                var widgetCreator = self.o.plugin_folder + "Fx-ui-w-" + element.type;
+                var plugin_folder = C.PLUGIN_FOLDER_PATH || DC.PLUGIN_FOLDER_PATH
+                var plugin_name = element.type;
 
-                require([widgetCreator], function (Widget) {
+                var widgetSource = plugin_folder + "Fx-ui-w-" + plugin_name;
+
+                require([widgetSource], function (Widget) {
                     valid = true;
                     var widget = new Widget();
 

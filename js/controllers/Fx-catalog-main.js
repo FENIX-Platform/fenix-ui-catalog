@@ -17,7 +17,8 @@ define([
         }
     };
 
-    function MainController() { }
+    function MainController() {
+    }
 
     MainController.prototype.initIntroduction = function () {
 
@@ -117,19 +118,20 @@ define([
         NProgress.start();
 
         /*
-        var self = this;
-        this.bridge.prepareQueryResources(this.filter);
+         var self = this;
+         this.bridge.prepareQueryResources(this.filter);
 
          this.bridge.getFirstPage().then(function ( response ) {
-            self.results.addItems( response );
+         self.results.addItems( response );
          });
 
          */
 
-        this.bridge.query(this.filter, $.proxy(function ( response ){
-            this.results.addItems( response );
+        this.bridge.query(this.filter, $.proxy(function (response) {
+
+            this.results.addItems(response);
             //this.filter.collapseFilter();
-            }, this), this.results);
+        }, this), this.results);
 
 
     };

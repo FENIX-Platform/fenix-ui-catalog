@@ -27,6 +27,7 @@ define([
 
         o.options = opts;
 
+
         this.$treeContainer = $('<div class="jstree-holder"></div>');
 
         this.$searchForm = $('<form onSubmit="return false"><input type="search" data-role="search" class="form-control"  /></form>');
@@ -37,12 +38,21 @@ define([
 
         this.$container.append(this.$treeContainer);
 
-        this.$treeContainer.jstree({
+        var overrideConf = o.module.component.config || {};
+
+        this.$treeContainer.jstree($.extend(true, {
 
             'core': {
                 'data': function (node, cb) {
+
                     if (node.id === "#") {
-                        self.getFirstCall(e, cb);
+
+                        if (o.module.component.source.data){
+                            self.printData(o.module.component.source.data, cb);
+
+                        } else {
+                            self.getFirstCall(e, cb);
+                        }
                     }
                 },
                 "multiple": false,
@@ -53,7 +63,7 @@ define([
             "search": {
                 show_only_matches: true
             }
-        });
+        }, overrideConf));
 
         var to = false;
 
@@ -124,6 +134,10 @@ define([
         return r;
     };
 
+    Fx_ui_w_enumeration.prototype.printData = function (data, cb) {
+        cb(this.processData(data));
+    };
+
     Fx_ui_w_enumeration.prototype.getFirstCall = function (o, cb) {
 
         var self = this;
@@ -151,7 +165,6 @@ define([
         var that = this;
 
         amplify.subscribe(E.MODULE_DESELECT + '.' + o.module.id, function (e) {
-
             that.deselectValue(e);
         });
 
@@ -169,7 +182,6 @@ define([
         var codes = $("#" + e.id).find('.jstree-holder').jstree(true).get_selected();
 
         return {enumeration : codes};
-
 
     };
 
