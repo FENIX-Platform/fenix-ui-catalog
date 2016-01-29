@@ -47,7 +47,6 @@
   -ms-border-radius: 0;
   border-radius: 0;
   margin-bottom: 20px;
-  min-height: 20px;
   padding: 19px 0 16px 19px; }
 
 /*========= HEADER =========*/
@@ -136,5 +135,3 @@
       border-radius: 3px; }
     .fx-catalog-toolbar .fx-widget-stack-btns input {
       margin-left: 33px; }
-
-/*# sourceMappingURL=fenix-ui-catalog.css.map */
