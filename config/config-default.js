@@ -5,8 +5,6 @@ define(function () {
 
     return {
 
-        FX_UI_CREATOR_PLUGIN_FOLDER : 'fx-cat-br/utils/fx-ui-w/',
-
         SERVICE_BASE_ADDRESS: "http://fenix.fao.org/d3s/msd",
         SERVICE_GET_DATA_METADATA: { service: "resources", queryParams: { full: true, dsd: true } },
         SERVICE_SAVE_METADATA: { service: "resources/metadata" },

@@ -37,7 +37,7 @@ define(function () {
                 "EN": "Resources Type",
                 "DE": "Suche",
                 "ES": "Búsqueda",
-                "FR": "Chercher"
+                "FR": "Recherchet"
             },
 
             "component": {
