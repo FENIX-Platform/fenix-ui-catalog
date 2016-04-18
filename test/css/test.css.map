@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAAA,aAAa;ACAb,YAAY;AAEZ,mBAAoB;EAClB,OAAO,EAAE,MAAM;;AAGjB,YAAY;EACV,MAAM,EAAE,KAAK;EACb,QAAQ,EAAE,IAAI",
+"sources": ["../../src/css/_catalog.scss","../../../fenix-ui-filter/src/css/_filter.scss"],
+"names": [],
+"file": "test.css"
+}
