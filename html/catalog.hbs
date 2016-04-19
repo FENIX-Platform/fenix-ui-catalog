@@ -1,6 +1,6 @@
 <div>
 
-    <div data-role="catalog">
+    <div data-role="catalog" class="fx-catalog">
         <div class="row">
             <div class="col-xs-3">
 
@@ -32,7 +32,6 @@
                                     {{/each}}
 
                                 </ul>
-
                             </div>
                         </div>
 
@@ -50,9 +49,7 @@
         </div>
 
         <div class="row">
-            <div class="col-xs-12" data-role="summary">
-                SUMMARY
-            </div>
+            <div class="col-xs-12" data-role="summary"></div>
         </div>
 
         <div class="row">
@@ -61,6 +58,41 @@
                 <button data-role="reset" class="btn btn-default pull-right" disabled> {{ reset_button }}</button>
             </div>
         </div>
+
+        <div class="row">
+            <div class="col-xs-12">
+                <div data-role="bottom" data-status>
+
+                    <div data-content="error">
+                        Oh snap!
+                    </div>
+
+                    <div data-content="ready">
+                        <div data-role="results-container"></div>
+                    </div>
+
+                    <div data-content="loading" class="text-center">
+                        <span class="loading loading-48"></span>loading
+                    </div>
+
+                    <div data-content="empty">
+                        Empty
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div data-role="results">
+
+        <ul class="list-unstyled">
+            {{#each results}}
+                <li>{{ this.uid }} </li>
+            {{/each}}
+        </ul>
+
+
     </div>
 
 </div>

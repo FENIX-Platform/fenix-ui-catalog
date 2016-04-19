@@ -32,7 +32,8 @@ define([
     Test.prototype._renderStandard = function () {
 
         var catalog = this.createCatalog({
-            $el: s.STANDARD
+            $el: s.STANDARD,
+            defaultSelectors: ['resourceType']
         });
     };
 

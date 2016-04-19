@@ -1,4 +1,16 @@
 /* Catalog */
+.fx-catalog [data-content] {
+  display: none;
+  height: 100%; }
+.fx-catalog [data-status="ready"] [data-content="ready"] {
+  display: block; }
+.fx-catalog [data-status="error"] [data-content="error"] {
+  display: block; }
+.fx-catalog [data-status="loading"] [data-content="loading"] {
+  display: block; }
+.fx-catalog [data-status="empty"] [data-content="empty"] {
+  display: block; }
+
 /* Filter */
 .selector-header h4 {
   display: inline; }

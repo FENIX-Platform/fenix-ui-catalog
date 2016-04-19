@@ -5,26 +5,26 @@ define(function () {
 
     return [
         {
-            label: "Category",
-            
-            items: [
-                {label: "Label 1", selector : "range"},
-                {label: "Label 2", selector : "time"}
-            ]
-        },
-        {
-            label: "Category 2",
+            id: "content",
             opened : true,
             items: [
-                {label: "Label 12", selector : "compare"},
-                {label: "Label 22", selector : "recipient"}
+                { selector : "resourceType"},
+                { selector : "referencePeriod"},
+                { selector : "referenceArea"},
+                { selector : "dataDomain"},
+                { selector : "region"}
             ]
         },
         {
-            label: "Category 3",
+            id: "accessibility",
             items: [
-                {label: "Label 123", selector : "donor"},
-                {label: "Label 223", selector : "delivery"}
+                {selector : "statusOfConfidentiality"}
+            ]
+        },
+        {
+            id: "search_by_id",
+            items: [
+                { selector : "uid"}
             ]
         }
     ]

@@ -28,16 +28,21 @@ define([
         FILTER: "[data-role='filter']",
         SUMMARY: "[data-role='summary']",
         SUBMIT_BUTTON: "[data-role='submit']",
-        RESET_BUTTON: "[data-role='reset']"
+        RESET_BUTTON: "[data-role='reset']",
+        BOTTOM: "[data-role='bottom']",
+        RESULTS_CONTAINER: "[data-role='results-container']",
+        RESULTS: "[data-role='results']"
     };
 
     function Catalog(o) {
         log.info("FENIX catalog");
         log.info(o);
 
-        $.extend(true, this, o, CD, C);
+        $.extend(true, this, {initial: o}, CD, C);
 
         this._registerHandlebarsHelpers();
+
+        this._parseInput();
 
         var valid = this._validateInput();
 
@@ -105,6 +110,13 @@ define([
         return this;
     };
 
+    Catalog.prototype._parseInput = function () {
+
+        this.id = this.initial.id;
+        this.$el = this.initial.$el;
+        this.defaultSelectors = this.initial.defaultSelectors || [];
+    };
+
     Catalog.prototype._validateInput = function () {
 
         var valid = true,
@@ -154,11 +166,13 @@ define([
 
         var groups = _.map(MenuConfig, _.bind(function (group) {
 
+            window.fx_catalog_menu_groups >= 0 ? window.fx_catalog_menu_groups++ : window.fx_catalog_menu_groups = 0;
+
             //Add menu id
             group.menuId = this.id;
+            group.label = i18nLabels[group.id] || "Missing group title " + String(window.fx_catalog_menu_groups);
 
             //Add dynamic group id
-            window.fx_catalog_menu_groups >= 0 ? window.fx_catalog_menu_groups++ : window.fx_catalog_menu_groups = 0;
             group.id = this.id + "-group-" + String(window.fx_catalog_menu_groups);
             group.opened = !!group.opened;
 
@@ -169,6 +183,8 @@ define([
                 window.fx_catalog_menu_items >= 0 ? window.fx_catalog_menu_items++ : window.fx_catalog_menu_items = 0;
                 item.id = this.id + "-item-" + String(window.fx_catalog_menu_items);
                 item.disabled = !!item.disabled;
+
+                item.label = i18nLabels[item.selector] || "Missing item title: " + item.selector;
 
             }, this));
 
@@ -191,6 +207,8 @@ define([
         this.$submit = this.$el.find(s.SUBMIT_BUTTON);
         this.$reset = this.$el.find(s.RESET_BUTTON);
 
+        this.current = {};
+
     };
 
     Catalog.prototype._enableMenuItem = function (selector) {
@@ -206,7 +224,6 @@ define([
     Catalog.prototype._getMenuItemBySelector = function (selector) {
 
         return this.$items.filter("[data-selector='" + selector + "']");
-
     };
 
     Catalog.prototype._bindEventListeners = function () {
@@ -218,16 +235,22 @@ define([
 
             var selector = $(e.target).data("selector");
 
-            self._disableMenuItem(selector);
+            self.selectSelector(selector)
 
-            self._addSelector(selector);
+
         });
 
         this.$submit.on("click", _.bind(this._onSubmitClick, this));
 
         this.$reset.on("click", _.bind(this._onResetClick, this));
 
-        this.filter.on('ready', _.bind(this._unlock, this));
+        this.filter.on('ready', _.bind(function () {
+
+            this._unlock();
+
+            this._selectDefaultSelectors();
+
+        }, this));
 
         this.filter.on('remove', _.bind(function (item) {
             this._enableMenuItem(item.id);
@@ -235,6 +258,22 @@ define([
 
 
         //amplify.subscribe(this._getEventName(EVT.SELECTORS_ITEM_SELECT), this, this._onSelectorItemSelect);
+    };
+
+    Catalog.prototype._selectDefaultSelectors = function () {
+        var self = this;
+        _.each(this.defaultSelectors, function (s) {
+            self.selectSelector(s);
+        });
+
+    };
+
+    Catalog.prototype.selectSelector = function (selector) {
+
+        this._disableMenuItem(selector);
+
+        this._addSelector(selector);
+
     };
 
     Catalog.prototype._unlock = function () {
@@ -249,12 +288,7 @@ define([
 
     Catalog.prototype._addSelector = function (selector) {
 
-        if (!$.isFunction(this.filter.add)){
-            log.error("Filter.add is not a fn()");
-            return;
-        }
-
-        if (!SelectorsRegistry.hasOwnProperty(selector)){
+        if (!SelectorsRegistry.hasOwnProperty(selector)) {
             log.error("Impossible to find selector in registry: " + selector);
             return;
         }
@@ -262,11 +296,25 @@ define([
         var config = {};
         config[selector] = $.extend(true, {}, SelectorsRegistry[selector]);
 
-        this.filter.add(config);
+        if (!config[selector].template) {
+            config[selector].template = {};
+        }
+
+        config[selector].template.title = i18nLabels[selector] || "Missing title";
+
+        this.filter.add($.extend(true, {}, config));
     };
 
     Catalog.prototype._onSubmitClick = function () {
-        alert("submit")
+
+        if (this.filter && !$.isFunction(this.filter.getValues)) {
+            log.error("Filter.getValues is not a fn()");
+            return;
+        }
+
+        this.current.values = this.filter.getValues("catalog");
+
+        this._search();
     };
 
     Catalog.prototype._onResetClick = function () {
@@ -283,59 +331,73 @@ define([
 
         this.filter = new Filter({
             $el: s.FILTER,
-            summary$el: s.SUMMARY
+            summary$el: s.SUMMARY,
+            //summaryRender : function (item ){ return " -> " + item.code; },
+            common: {
+                template: {
+                    hideHeader: false,
+                    hideRemoveButton: false
+                },
+                selector: {
+                    hideFooter: true
+                },
+                className: "col-xs-6"
+            }
         });
     };
 
     //Request
 
-    Catalog.prototype._createPromise = function (obj) {
+    Catalog.prototype._search = function () {
 
         var self = this,
-            body = obj,
-            key = this._getCodelistCacheKey(obj);
+            body = this.current.values;
 
-        return this._getPromise(body).then(function (result) {
+        this._setBottomStatus("loading");
 
-            if (typeof result === 'undefined') {
-                log.error("Code List loaded returned empty! id: " + key);
-                log.warn('Add placeholder code list');
+        this._lock();
 
-                self._storeCodelist(body, [{
-                    code: "fake_code",
-                    leaf: true,
-                    level: 1,
-                    rid: "fake_rid",
-                    title: {
-                        EN: "EMPTY_CODE_LIST :'("
-                    }
-                }]);
+        this._getPromise(body).then(
+            _.bind(this._renderResults, this),
+            function (e) {
+                self._setBottomStatus("error");
+                log.error(e);
+                self._unlock();
+            });
 
-            } else {
-                log.info("Code List loaded successfully for: " + key);
-                self._storeCodelist(body, result);
-            }
+    };
 
-        }, function (r) {
+    Catalog.prototype._setBottomStatus = function (status) {
 
-            log.error(r);
-        });
+        this.$el.find(s.BOTTOM).attr('data-status', status);
     };
 
     Catalog.prototype._getPromise = function (body) {
 
         return Q($.ajax({
-            url: CD.SERVER + CD.CODELIST_SERVICE + CD.CODES_POSTFIX,
+            url: CD.SERVER + CD.FILTER_SERVICE + '?' + CD.FILTER_QUERY_PARAMS,
             type: "POST",
             contentType: "application/json",
             data: JSON.stringify(body),
             dataType: 'json'
         }));
+    };
 
+    Catalog.prototype._renderResults = function (data) {
+
+        this._setBottomStatus('ready');
+
+        this._unlock();
+
+        //render template
+        var template = Handlebars.compile($(Templates).find(s.RESULTS)[0].outerHTML),
+            model = $.extend(true, {}, i18nLabels, {results: data}),
+            $html = $(template(model));
+
+        this.$el.find(s.RESULTS_CONTAINER).html($html);
     };
 
     // Handlers
-
 
     Catalog.prototype._getEventName = function (evt) {
 

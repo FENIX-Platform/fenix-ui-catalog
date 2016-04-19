@@ -1,1 +1,22 @@
 /* Catalog */
+
+.fx-catalog {
+
+  [data-content] {
+    display: none;
+    height: 100%;
+  }
+
+  //show only the status only correspondent tab content
+  $statuses: "ready" "error" "loading" "empty";
+
+  @each $status in $statuses {
+
+    [data-status="#{$status}"] {
+
+      [data-content="#{$status}"] {
+        display: block;
+      }
+    }
+  }
+}
