@@ -144,6 +144,7 @@ define([
         this.$el = this.initial.$el;
         this.defaultSelectors = this.initial.defaultSelectors || [];
         this.actions = this.initial.actions || C.RESULT_ACTIONS || CD.RESULT_ACTIONS;
+        this.baseFilter = this.initial.baseFilter || {};
 
     };
 
@@ -290,8 +291,6 @@ define([
 
             this._unlock();
 
-            this._selectDefaultSelectors();
-
         }, this));
 
         this.filter.on('remove', _.bind(function (item) {
@@ -305,14 +304,6 @@ define([
         amplify.subscribe(this._getEventName("select"), this, this._onSelectResult);
         amplify.subscribe(this._getEventName("download"), this, this._onDownloadResult);
         amplify.subscribe(this._getEventName("view"), this, this._onViewResult);
-    };
-
-    Catalog.prototype._selectDefaultSelectors = function () {
-        var self = this;
-        _.each(this.defaultSelectors, function (s) {
-            self.selectSelector(s);
-        });
-
     };
 
     Catalog.prototype.selectSelector = function (selector) {
@@ -335,6 +326,13 @@ define([
 
     Catalog.prototype._addSelector = function (selector) {
 
+        var config = this._getSelectorConfiguration(selector);
+
+        this.filter.add(config);
+    };
+
+    Catalog.prototype._getSelectorConfiguration = function (selector) {
+
         if (!SelectorsRegistry.hasOwnProperty(selector)) {
             log.error("Impossible to find selector in registry: " + selector);
             return;
@@ -349,7 +347,8 @@ define([
 
         config[selector].template.title = i18nLabels[selector] || "Missing title";
 
-        this.filter.add($.extend(true, {}, config));
+        return $.extend(true, {}, config);
+
     };
 
     Catalog.prototype._onSubmitClick = function () {
@@ -394,6 +393,7 @@ define([
 
         this.filter = new Filter({
             $el: s.FILTER,
+            items: this._getDefaultSelectors(),
             summary$el: s.SUMMARY,
             //summaryRender : function (item ){ return " -> " + item.code; },
             common: {
@@ -407,6 +407,19 @@ define([
                 className: "col-xs-6"
             }
         });
+    };
+
+    Catalog.prototype._getDefaultSelectors = function () {
+
+        var self = this,
+            items = {};
+
+        _.each(this.defaultSelectors, function (selector) {
+            items = $.extend(true, {}, items, self._getSelectorConfiguration(selector));
+        });
+
+        return items;
+
     };
 
     //Request
@@ -445,7 +458,7 @@ define([
             url: serviceProvider + filterService + queryParams(body),
             type: "POST",
             contentType: "application/json",
-            data: JSON.stringify(body),
+            data: JSON.stringify($.extend(true, {}, this.baseFilter, body)),
             dataType: 'json'
         }));
 
