@@ -10,6 +10,8 @@
   display: block; }
 .fx-catalog [data-status="empty"] [data-content="empty"] {
   display: block; }
+.fx-catalog [data-status="intro"] [data-content="intro"] {
+  display: block; }
 
 /* Filter */
 .selector-header h4 {

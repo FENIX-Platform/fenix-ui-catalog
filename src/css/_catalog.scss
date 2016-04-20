@@ -8,7 +8,7 @@
   }
 
   //show only the status only correspondent tab content
-  $statuses: "ready" "error" "loading" "empty";
+  $statuses: "ready" "error" "loading" "empty" "intro";
 
   @each $status in $statuses {
 

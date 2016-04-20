@@ -18,7 +18,15 @@ define(function () {
         
         content : "Content",
         search_by_id : "Search by id",
-        accessibility : "Accessibility"
+        accessibility : "Accessibility",
+
+        action_select : "Select",
+        action_download : "Download",
+        action_view : "View",
+
+        //Errors
+        request : "Request error",
+        empty_values : "Empty selection"
 
     }
 });

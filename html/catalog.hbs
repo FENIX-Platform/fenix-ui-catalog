@@ -1,6 +1,7 @@
 <div>
 
     <div data-role="catalog" class="fx-catalog">
+        <!-- Filter -->
         <div class="row">
             <div class="col-xs-3">
 
@@ -48,10 +49,12 @@
             </div>
         </div>
 
+        <!-- Summary -->
         <div class="row">
             <div class="col-xs-12" data-role="summary"></div>
         </div>
 
+        <!-- Buttons -->
         <div class="row">
             <div class="col-xs-12">
                 <button data-role="submit" class="btn btn-default pull-right" disabled> {{ submit_button }}</button>
@@ -59,9 +62,17 @@
             </div>
         </div>
 
+        <!-- Errors -->
         <div class="row">
             <div class="col-xs-12">
-                <div data-role="bottom" data-status>
+                <div data-role="error-container" class="alert alert-danger" role="alert"></div>
+            </div>
+        </div>
+
+        <!-- Bottom -->
+        <div class="row">
+            <div class="col-xs-12">
+                <div data-role="bottom" data-status="intro">
 
                     <div data-content="error">
                         Oh snap!
@@ -69,6 +80,7 @@
 
                     <div data-content="ready">
                         <div data-role="results-container"></div>
+                        <div data-role="pagination" class="text-center"></div>
                     </div>
 
                     <div data-content="loading" class="text-center">
@@ -79,20 +91,25 @@
                         Empty
                     </div>
 
+                    <div data-content="intro">
+                        This is the intro
+                    </div>
+
                 </div>
             </div>
         </div>
     </div>
 
-    <div data-role="results">
+    <ul class="list-unstyled" data-role="results">
+        {{#each results}}
 
-        <ul class="list-unstyled">
-            {{#each results}}
-                <li>{{ this.uid }} </li>
-            {{/each}}
-        </ul>
+            <li data-role="result">{{ this.uid }}
 
+                {{#each ../actions}}
+                    <button class="btn btn-default" data-action="{{action}}" data-rid="{{../rid}}" > {{label}} </button>
+                {{/each}}
+            </li>
 
-    </div>
-
+        {{/each}}
+    </ul>
 </div>

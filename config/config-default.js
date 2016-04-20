@@ -9,8 +9,13 @@ define(function () {
     return {
 
         SERVER: SERVER,
-        FILTER_SERVICE : "d3s_dev/msd/resources/find",
-        FILTER_QUERY_PARAMS : "full=true"
+        SERVICE_PROVIDER : SERVER + "d3s_dev/",
+        FILTER_SERVICE : "msd/resources/find",
+        
+        PER_PAGE : 10,
+
+        RESULT_ACTIONS : ['select']
+        
     }
 
 });

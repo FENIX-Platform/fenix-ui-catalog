@@ -7,5 +7,9 @@ define(function () {
 
     return {
 
+        select : prefix + 'select',
+        view : prefix + 'view',
+        download : prefix + 'download'
+
     };
 });

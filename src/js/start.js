@@ -14,6 +14,7 @@ define([
     'fx-filter/start',
     'q',
     'handlebars',
+    'jquery.bootpage',
     'amplify',
     'bootstrap'
 ], function ($, _, log, ERR, EVT, C, CD, MenuConfig, SelectorsRegistry, Templates, i18nLabels, Filter, Q, Handlebars) {
@@ -31,7 +32,10 @@ define([
         RESET_BUTTON: "[data-role='reset']",
         BOTTOM: "[data-role='bottom']",
         RESULTS_CONTAINER: "[data-role='results-container']",
-        RESULTS: "[data-role='results']"
+        RESULTS: "[data-role='results']",
+        RESULT: "[data-role='result']",
+        PAGINATION: "[data-role='pagination']",
+        ERROR_CONTAINER: "[data-role='error-container']"
     };
 
     function Catalog(o) {
@@ -49,6 +53,10 @@ define([
         if (valid === true) {
 
             this._attach();
+
+            this._hideError();
+
+            this._setBottomStatus('intro');
 
             this._initVariables();
 
@@ -70,7 +78,27 @@ define([
      */
     Catalog.prototype.reset = function () {
 
+        this._resetResults();
+
+        this._hideError();
+
+        if (this.filter && !$.isFunction(this.filter.clear)) {
+            log.error("Filter.clear is not a fn()");
+
+            return;
+        }
+
+        this.filter.clear();
+
         log.info("Catalog reset");
+    };
+
+    Catalog.prototype._resetResults = function () {
+
+        this._setBottomStatus('intro');
+
+        this._unbindResultsEventListeners();
+
     };
 
     /**
@@ -115,6 +143,8 @@ define([
         this.id = this.initial.id;
         this.$el = this.initial.$el;
         this.defaultSelectors = this.initial.defaultSelectors || [];
+        this.actions = this.initial.actions || C.RESULT_ACTIONS || CD.RESULT_ACTIONS;
+
     };
 
     Catalog.prototype._validateInput = function () {
@@ -208,6 +238,17 @@ define([
         this.$reset = this.$el.find(s.RESET_BUTTON);
 
         this.current = {};
+        this.current.perPage = C.PER_PAGE || CD.PER_PAGE;
+        this.current.page = 0;
+
+        this.actions = this.actions.map(_.bind(function (value) {
+
+            return {
+                label: i18nLabels['action_' + value] || "Missing action label [" + value + "]",
+                action: value
+            }
+
+        }, this));
 
     };
 
@@ -235,8 +276,9 @@ define([
 
             var selector = $(e.target).data("selector");
 
-            self.selectSelector(selector)
+            self.selectSelector(selector);
 
+            self._hideError();
 
         });
 
@@ -256,8 +298,13 @@ define([
             this._enableMenuItem(item.id);
         }, this));
 
+        this.filter.on('change', _.bind(function () {
+            this._hideError();
+        }, this));
 
-        //amplify.subscribe(this._getEventName(EVT.SELECTORS_ITEM_SELECT), this, this._onSelectorItemSelect);
+        amplify.subscribe(this._getEventName("select"), this, this._onSelectResult);
+        amplify.subscribe(this._getEventName("download"), this, this._onDownloadResult);
+        amplify.subscribe(this._getEventName("view"), this, this._onViewResult);
     };
 
     Catalog.prototype._selectDefaultSelectors = function () {
@@ -307,6 +354,8 @@ define([
 
     Catalog.prototype._onSubmitClick = function () {
 
+        this._hideError();
+
         if (this.filter && !$.isFunction(this.filter.getValues)) {
             log.error("Filter.getValues is not a fn()");
             return;
@@ -314,17 +363,31 @@ define([
 
         this.current.values = this.filter.getValues("catalog");
 
-        this._search();
+        var valid = this._validateQuery();
+
+        if (valid === true) {
+            this._search();
+        } else {
+            this._showError(valid);
+        }
+
+    };
+
+    Catalog.prototype._validateQuery = function () {
+
+        var valid = true,
+            errors = [];
+
+        if ($.isEmptyObject(this.current.values)) {
+            errors.push(ERR.empty_values)
+        }
+
+        return errors.length > 0 ? errors : valid;
     };
 
     Catalog.prototype._onResetClick = function () {
-        if (this.filter && !$.isFunction(this.filter.clear)) {
-            log.error("Filter.clear is not a fn()");
 
-            return;
-        }
-
-        this.filter.clear();
+        this.reset();
     };
 
     Catalog.prototype._initFilter = function () {
@@ -363,6 +426,7 @@ define([
                 self._setBottomStatus("error");
                 log.error(e);
                 self._unlock();
+                self._showError(ERR.request);
             });
 
     };
@@ -374,34 +438,129 @@ define([
 
     Catalog.prototype._getPromise = function (body) {
 
+        var serviceProvider = C.SERVICE_PROVIDER || CD.SERVICE_PROVIDER,
+            filterService = C.FILTER_SERVICE || CD.FILTER_SERVICE;
+
         return Q($.ajax({
-            url: CD.SERVER + CD.FILTER_SERVICE + '?' + CD.FILTER_QUERY_PARAMS,
+            url: serviceProvider + filterService + queryParams(body),
             type: "POST",
             contentType: "application/json",
             data: JSON.stringify(body),
             dataType: 'json'
         }));
+
+        function queryParams(body) {
+
+            //return '?full=true&page=' + body.page + '&perPage=' + body.perPage;
+            return '?full=true';
+
+        }
     };
 
     Catalog.prototype._renderResults = function (data) {
+
+        this.current.data = data;
 
         this._setBottomStatus('ready');
 
         this._unlock();
 
+        this._updatePagination();
+
+        this._renderPerPage();
+
+    };
+
+    Catalog.prototype._updatePagination = function () {
+
+        var self = this;
+
+        this.$el.find(s.PAGINATION).bootpag({
+            total: Math.ceil(this.current.data.length / this.current.perPage),
+            maxVisible: 5
+        }).on("page", function (event, num) {
+
+            self.current.page = num - 1;
+
+            self._renderPerPage();
+        });
+    };
+
+    Catalog.prototype._renderPerPage = function () {
+
+        var from = this.current.page * this.current.perPage,
+            to = ( this.current.page * this.current.perPage ) + this.current.perPage,
+            result = this.current.data.slice(from, to);
+
+        //unbind events listeners
+        this._unbindResultsEventListeners();
+
         //render template
         var template = Handlebars.compile($(Templates).find(s.RESULTS)[0].outerHTML),
-            model = $.extend(true, {}, i18nLabels, {results: data}),
+            model = $.extend(true, {}, i18nLabels, {results: result, actions: this.actions}),
             $html = $(template(model));
 
+        //bind events listeners
+        this._bindResultsEventListeners($html);
+
         this.$el.find(s.RESULTS_CONTAINER).html($html);
+
+    };
+
+    Catalog.prototype._unbindResultsEventListeners = function () {
+        this.$el.find(s.RESULT).find("[data-action]").off();
+    };
+
+    Catalog.prototype._bindResultsEventListeners = function ($html) {
+
+        var self = this;
+
+        $html.find("[data-action]").each(function () {
+
+            var $this = $(this),
+                action = $this.data("action"),
+                event = self._getEventName(action),
+                rid = $this.data("rid");
+
+            $this.on("click", {event: event, catalog: self, rid: rid}, function (e) {
+                e.preventDefault();
+
+                log.info("Raise event: " + e.data.event);
+
+                var model = _.findWhere(self.current.data, {rid: rid});
+
+                amplify.publish(event, {target: this, catalog: e.data.catalog, rid: rid, model: model});
+
+            });
+        });
     };
 
     // Handlers
 
-    Catalog.prototype._getEventName = function (evt) {
+    Catalog.prototype._onSelectResult = function (payload) {
 
-        return this.id.concat(evt);
+        this._trigger('select', payload);
+
+        console.log(payload)
+
+    };
+
+    Catalog.prototype._onDownloadResult = function (payload) {
+
+        this._trigger('select', payload);
+
+    };
+
+    Catalog.prototype._onViewResult = function (payload) {
+
+        this._trigger('select', payload);
+    };
+
+    Catalog.prototype._getEventName = function (evt, excludeId) {
+
+        var baseEvent = EVT[evt] ? EVT[evt] : evt;
+
+        return excludeId === true ? baseEvent : baseEvent + "." + this.id;
     };
 
     //disposition
@@ -413,7 +572,9 @@ define([
 
         this.$reset.off();
 
-        //amplify.unsubscribe(this._getEventName(EVT.SELECTOR_READY), this._onSelectorReady);
+        amplify.unsubscribe(this._getEventName("select"), this._onSelectResult);
+        amplify.unsubscribe(this._getEventName("download"), this._onDownloadResult);
+        amplify.unsubscribe(this._getEventName("view"), this._onViewResult);
 
     };
 
@@ -430,6 +591,16 @@ define([
             return opened === true ? 'in' : '';
         });
 
+    };
+
+    Catalog.prototype._showError = function (err) {
+
+        this.$el.find(s.ERROR_CONTAINER).show().html(ERR[err]);
+    };
+
+    Catalog.prototype._hideError = function () {
+
+        this.$el.find(s.ERROR_CONTAINER).hide();
     };
 
     return Catalog;
