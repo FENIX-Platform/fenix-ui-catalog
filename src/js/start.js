@@ -483,7 +483,13 @@ define([
 
         this._unlock();
 
-        this._updatePagination();
+        if (this.current.data.length > this.current.perPage ) {
+            this.$el.find(s.PAGINATION).show();
+            this._updatePagination();
+
+        } else{
+            this.$el.find(s.PAGINATION).hide();
+        }
 
         this._renderPerPage();
 
