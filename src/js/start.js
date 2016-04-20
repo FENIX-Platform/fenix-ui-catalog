@@ -50,6 +50,8 @@ define([
 
         var valid = this._validateInput();
 
+        log.info("Catalog has valid input? " + JSON.stringify(valid));
+
         if (valid === true) {
 
             this._attach();
@@ -93,26 +95,10 @@ define([
         log.info("Catalog reset");
     };
 
-    Catalog.prototype._resetResults = function () {
-
-        this._setBottomStatus('intro');
-
-        this._unbindResultsEventListeners();
-
-    };
-
-    /**
-     * Clear the filter from all selectors
-     * @return {null}
-     */
-    Catalog.prototype.clear = function () {
-
-        log.info("Catalog " + this.id + " cleared successfully");
-    };
 
     /**
      * pub/sub
-     * @return {Object} filter instance
+     * @return {Object} catalog instance
      */
     Catalog.prototype.on = function (channel, fn) {
         if (!this.channels[channel]) {
@@ -120,6 +106,19 @@ define([
         }
         this.channels[channel].push({context: this, callback: fn});
         return this;
+    };
+
+    /**
+     * Dispose
+     * @return {null}
+     */
+    Catalog.prototype.dispose = function () {
+
+        //unbind event listeners
+        this._unbindEventListeners();
+
+        log.info("Catalog disposed successfully");
+
     };
 
     // end API
@@ -190,6 +189,8 @@ define([
             $html = $(template($.extend(true, {}, i18nLabels, this._createMenuConfiguration())));
 
         this.$el.html($html);
+
+        log.info("template attached successfully");
 
     };
 
@@ -277,6 +278,8 @@ define([
 
             var selector = $(e.target).data("selector");
 
+            log.info("Select selector: " + selector);
+
             self.selectSelector(selector);
 
             self._hideError();
@@ -289,15 +292,22 @@ define([
 
         this.filter.on('ready', _.bind(function () {
 
+            log.info("Filter is ready");
+
             this._unlock();
 
         }, this));
 
         this.filter.on('remove', _.bind(function (item) {
+
+            log.info("Remove from filter: " + item.id);
+
             this._enableMenuItem(item.id);
         }, this));
 
         this.filter.on('change', _.bind(function () {
+            log.info("Change from filter");
+
             this._hideError();
         }, this));
 
@@ -378,7 +388,8 @@ define([
             errors = [];
 
         if ($.isEmptyObject(this.current.values)) {
-            errors.push(ERR.empty_values)
+            errors.push(ERR.empty_values);
+            log.error(ERR.empty_values);
         }
 
         return errors.length > 0 ? errors : valid;
@@ -390,6 +401,8 @@ define([
     };
 
     Catalog.prototype._initFilter = function () {
+
+        log.info("Filter instantiation");
 
         this.filter = new Filter({
             $el: s.FILTER,
@@ -407,6 +420,8 @@ define([
                 className: "col-xs-6"
             }
         });
+
+
     };
 
     Catalog.prototype._getDefaultSelectors = function () {
@@ -418,7 +433,17 @@ define([
             items = $.extend(true, {}, items, self._getSelectorConfiguration(selector));
         });
 
+        log.info("Default items: " + JSON.stringify(items));
+
         return items;
+
+    };
+
+    Catalog.prototype._resetResults = function () {
+
+        this._setBottomStatus('intro');
+
+        this._unbindResultsEventListeners();
 
     };
 
@@ -446,7 +471,10 @@ define([
 
     Catalog.prototype._setBottomStatus = function (status) {
 
+        log.info("Set status to: " + status);
+
         this.$el.find(s.BOTTOM).attr('data-status', status);
+
     };
 
     Catalog.prototype._getPromise = function (body) {
@@ -538,7 +566,7 @@ define([
             $this.on("click", {event: event, catalog: self, rid: rid}, function (e) {
                 e.preventDefault();
 
-                log.info("Raise event: " + e.data.event);
+                log.info("Result raise event: " + e.data.event);
 
                 var model = _.findWhere(self.current.data, {rid: rid});
 
@@ -552,21 +580,25 @@ define([
 
     Catalog.prototype._onSelectResult = function (payload) {
 
-        this._trigger('select', payload);
+        log.info("Select result: " + JSON.stringify(payload));
 
-        console.log(payload)
+        this._trigger('select', payload);
 
     };
 
     Catalog.prototype._onDownloadResult = function (payload) {
 
-        this._trigger('select', payload);
+        log.info("Download result: " + JSON.stringify(payload));
+
+        this._trigger('download', payload);
 
     };
 
     Catalog.prototype._onViewResult = function (payload) {
 
-        this._trigger('select', payload);
+        log.info("View result: " + JSON.stringify(payload));
+
+        this._trigger('view', payload);
     };
 
     Catalog.prototype._getEventName = function (evt, excludeId) {
@@ -577,6 +609,7 @@ define([
     };
 
     //disposition
+
     Catalog.prototype._unbindEventListeners = function () {
 
         this.$items.off();
@@ -591,13 +624,6 @@ define([
 
     };
 
-    Catalog.prototype.dispose = function () {
-
-        //unbind event listeners
-        this._unbindEventListeners();
-
-    };
-
     Catalog.prototype._registerHandlebarsHelpers = function () {
 
         Handlebars.registerHelper('isOpened', function (opened) {
@@ -608,7 +634,13 @@ define([
 
     Catalog.prototype._showError = function (err) {
 
-        this.$el.find(s.ERROR_CONTAINER).show().html(ERR[err]);
+        _.each(err, _.bind(function ( e ) {
+
+            var $li = $("<li>"+i18nLabels[e]+"</li>");
+
+            this.$el.find(s.ERROR_CONTAINER).show().append($li);
+
+        }, this));
     };
 
     Catalog.prototype._hideError = function () {
