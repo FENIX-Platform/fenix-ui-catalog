@@ -12,12 +12,13 @@ define([
     'text!fx-catalog/html/catalog.hbs',
     'i18n!fx-catalog/nls/catalog',
     'fx-filter/start',
+    "fx-common/json-menu",
     'q',
     'handlebars',
     'jquery.bootpage',
     'amplify',
     'bootstrap'
-], function ($, _, log, ERR, EVT, C, CD, MenuConfig, SelectorsRegistry, Templates, i18nLabels, Filter, Q, Handlebars) {
+], function ($, _, log, ERR, EVT, C, CD, MenuConfig, SelectorsRegistry, Templates, i18nLabels, Filter, JsonMenu, Q, Handlebars) {
 
     'use strict';
 
@@ -28,8 +29,6 @@ define([
         MENU_ITEMS: "[data-role='menu-item']",
         FILTER: "[data-role='filter']",
         SUMMARY: "[data-role='summary']",
-        SUBMIT_BUTTON: "[data-role='submit']",
-        RESET_BUTTON: "[data-role='reset']",
         BOTTOM: "[data-role='bottom']",
         RESULTS_CONTAINER: "[data-role='results-container']",
         RESULTS: "[data-role='results']",
@@ -62,7 +61,7 @@ define([
 
             this._initVariables();
 
-            this._initFilter();
+            this._initComponents();
 
             this._bindEventListeners();
 
@@ -94,7 +93,6 @@ define([
 
         log.info("Catalog reset");
     };
-
 
     /**
      * pub/sub
@@ -186,45 +184,24 @@ define([
     Catalog.prototype._attach = function () {
 
         var template = Handlebars.compile($(Templates).find(s.CATALOG)[0].outerHTML),
-            $html = $(template($.extend(true, {}, i18nLabels, this._createMenuConfiguration())));
+            $html = $(template($.extend(true, {}, i18nLabels)));
 
         this.$el.html($html);
 
+        //render menu
+
+        this.menu = new JsonMenu({
+            el: this.$el.find(s.MENU),
+            model: MenuConfig.map(function ( item ){
+
+                item.label = i18nLabels[item.i18n] || "Missing label: " + item.id;
+
+                return item;
+            })
+        });
+
         log.info("template attached successfully");
 
-    };
-
-    Catalog.prototype._createMenuConfiguration = function () {
-
-        var groups = _.map(MenuConfig, _.bind(function (group) {
-
-            window.fx_catalog_menu_groups >= 0 ? window.fx_catalog_menu_groups++ : window.fx_catalog_menu_groups = 0;
-
-            //Add menu id
-            group.menuId = this.id;
-            group.label = i18nLabels[group.id] || "Missing group title " + String(window.fx_catalog_menu_groups);
-
-            //Add dynamic group id
-            group.id = this.id + "-group-" + String(window.fx_catalog_menu_groups);
-            group.opened = !!group.opened;
-
-            //Iterate over group's items
-            _.map(group.items, _.bind(function (item) {
-
-                //Add dynamic item id
-                window.fx_catalog_menu_items >= 0 ? window.fx_catalog_menu_items++ : window.fx_catalog_menu_items = 0;
-                item.id = this.id + "-item-" + String(window.fx_catalog_menu_items);
-                item.disabled = !!item.disabled;
-
-                item.label = i18nLabels[item.selector] || "Missing item title: " + item.selector;
-
-            }, this));
-
-            return group;
-
-        }, this));
-
-        return {menuId: this.id, groups: groups};
     };
 
     Catalog.prototype._initVariables = function () {
@@ -235,9 +212,6 @@ define([
         //menu
         this.$menu = this.$el.find(s.MENU);
         this.$items = this.$menu.find(s.MENU_ITEMS);
-
-        this.$submit = this.$el.find(s.SUBMIT_BUTTON);
-        this.$reset = this.$el.find(s.RESET_BUTTON);
 
         this.current = {};
         this.current.perPage = C.PER_PAGE || CD.PER_PAGE;
@@ -256,24 +230,20 @@ define([
 
     Catalog.prototype._enableMenuItem = function (selector) {
 
-        this._getMenuItemBySelector(selector).attr("disabled", false);
+        this.menu.enableItem(selector);
     };
 
     Catalog.prototype._disableMenuItem = function (selector) {
 
-        this._getMenuItemBySelector(selector).attr("disabled", true);
-    };
+        this.menu.disableItem(selector);
 
-    Catalog.prototype._getMenuItemBySelector = function (selector) {
-
-        return this.$items.filter("[data-selector='" + selector + "']");
     };
 
     Catalog.prototype._bindEventListeners = function () {
 
         var self = this;
 
-        this.$items.on("click", function (e) {
+        this.$el.find("[data-action='selector']").on("click", function (e) {
             e.preventDefault();
 
             var selector = $(e.target).data("selector");
@@ -286,15 +256,13 @@ define([
 
         });
 
-        this.$submit.on("click", _.bind(this._onSubmitClick, this));
-
-        this.$reset.on("click", _.bind(this._onResetClick, this));
-
         this.filter.on('ready', _.bind(function () {
 
             log.info("Filter is ready");
 
             this._unlock();
+
+            this._refreshResults();
 
         }, this));
 
@@ -303,12 +271,17 @@ define([
             log.info("Remove from filter: " + item.id);
 
             this._enableMenuItem(item.id);
+
+            this._refreshResults();
+
         }, this));
 
         this.filter.on('change', _.bind(function () {
             log.info("Change from filter");
 
-            this._hideError();
+            this._refreshResults();
+
+            //this._hideError();
         }, this));
 
         amplify.subscribe(this._getEventName("select"), this, this._onSelectResult);
@@ -324,15 +297,9 @@ define([
 
     };
 
-    Catalog.prototype._unlock = function () {
-        this.$submit.attr("disabled", false);
-        this.$reset.attr("disabled", false);
-    };
+    Catalog.prototype._unlock = function () { };
 
-    Catalog.prototype._lock = function () {
-        this.$submit.attr("disabled", true);
-        this.$reset.attr("disabled", true);
-    };
+    Catalog.prototype._lock = function () { };
 
     Catalog.prototype._addSelector = function (selector) {
 
@@ -361,9 +328,7 @@ define([
 
     };
 
-    Catalog.prototype._onSubmitClick = function () {
-
-        this._hideError();
+    Catalog.prototype._refreshResults = function () {
 
         if (this.filter && !$.isFunction(this.filter.getValues)) {
             log.error("Filter.getValues is not a fn()");
@@ -376,10 +341,16 @@ define([
 
         if (valid === true) {
             this._search();
+            this._hideError();
         } else {
-            this._showError(valid);
-        }
 
+            if (Array.isArray(valid) && valid[0] === ERR.empty_values) {
+                this._setBottomStatus("intro")
+            }
+            else {
+                this._showError(valid);
+            }
+        }
     };
 
     Catalog.prototype._validateQuery = function () {
@@ -390,17 +361,13 @@ define([
         if ($.isEmptyObject(this.current.values)) {
             errors.push(ERR.empty_values);
             log.error(ERR.empty_values);
+            return errors;
         }
 
         return errors.length > 0 ? errors : valid;
     };
 
-    Catalog.prototype._onResetClick = function () {
-
-        this.reset();
-    };
-
-    Catalog.prototype._initFilter = function () {
+    Catalog.prototype._initComponents = function () {
 
         log.info("Filter instantiation");
 
@@ -408,6 +375,8 @@ define([
             $el: s.FILTER,
             items: this._getDefaultSelectors(),
             summary$el: s.SUMMARY,
+            direction : "prepend",
+            ensureAtLeast : 1,
             //summaryRender : function (item ){ return " -> " + item.code; },
             common: {
                 template: {
@@ -421,6 +390,9 @@ define([
             }
         });
 
+        _.each(this.defaultSelectors, _.bind(function (selector) {
+            this._disableMenuItem(selector);
+        }, this));
 
     };
 
@@ -501,6 +473,11 @@ define([
     Catalog.prototype._renderResults = function (data) {
 
         this.current.data = data;
+
+        if (!this.current.data) {
+            this._setBottomStatus("empty");
+            return;
+        }
 
         this._setBottomStatus('ready');
 
@@ -612,11 +589,7 @@ define([
 
     Catalog.prototype._unbindEventListeners = function () {
 
-        this.$items.off();
-
-        this.$submit.off();
-
-        this.$reset.off();
+        this.$el.find('[data-action]').off();
 
         amplify.unsubscribe(this._getEventName("select"), this._onSelectResult);
         amplify.unsubscribe(this._getEventName("download"), this._onDownloadResult);
@@ -637,10 +610,10 @@ define([
         _.each(err, _.bind(function ( e ) {
 
             var $li = $("<li>"+i18nLabels[e]+"</li>");
-
-            this.$el.find(s.ERROR_CONTAINER).show().append($li);
+            this.$el.find(s.ERROR_CONTAINER).show().html($li);
 
         }, this));
+
     };
 
     Catalog.prototype._hideError = function () {

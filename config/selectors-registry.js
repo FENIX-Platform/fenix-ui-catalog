@@ -7,7 +7,7 @@ define(function () {
 
         resourceType: {
 
-            className : "col-xs-6",
+            className : "col-xs-12",
 
             enumeration : {
                 uid: "RepresentationType"
@@ -32,7 +32,7 @@ define(function () {
 
         referencePeriod: {
 
-            className : "col-xs-6",
+            className : "col-xs-12",
 
             cl : {
                 uid: "FAO_Period",
@@ -56,7 +56,7 @@ define(function () {
 
         referenceArea: {
 
-            className : "col-xs-6",
+            className : "col-xs-12",
 
             cl : {
                 uid: "GAUL_ReferenceArea",
@@ -80,7 +80,7 @@ define(function () {
         
         dataDomain: {
 
-            className : "col-xs-6",
+            className : "col-xs-12",
 
             cl : {
                 uid: "UNECA_ClassificationOfActivities",
@@ -106,7 +106,7 @@ define(function () {
 
         region: {
 
-            className : "col-xs-6",
+            className : "col-xs-12",
 
             cl : {
                 uid: "GAUL0",
@@ -130,7 +130,7 @@ define(function () {
 
         statusOfConfidentiality: {
 
-            className : "col-xs-6",
+            className : "col-xs-12",
 
             cl : {
                 uid: "CL_CONF_STATUS",
@@ -155,7 +155,7 @@ define(function () {
 
         uid: {
 
-            className : "col-xs-6",
+            className : "col-xs-12",
 
             selector : {
                 id : "input",

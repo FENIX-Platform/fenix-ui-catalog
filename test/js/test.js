@@ -33,8 +33,10 @@ define([
 
         var catalog = this.createCatalog({
             $el: s.STANDARD,
-            defaultSelectors: ['resourceType', 'region'],
-            //baseFilter : { danie : "dss"}
+            defaultSelectors: ['region', 'resourceType' ],
+            //id : "my_id"
+            //actions: ["download", 'view'],
+            //baseFilter : { test : "test"}
         });
     };
 

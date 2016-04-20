@@ -1,50 +1,54 @@
 <div>
 
     <div data-role="catalog" class="fx-catalog">
+
+        <div data-role="menu" class="dropdown">
+            <a href="" class="btn dropdown-toggle" data-toggle="dropdown">
+                <span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
+            </a>
+        </div>
+
         <!-- Filter -->
         <div class="row">
+
             <div class="col-xs-3">
-
-                <!-- Menu -->
-                <div class="panel-group" data-role="menu" id="{{ menuId }}">
-
-                    {{#each groups}}
-
-                        <div class="panel panel-default">
-
-                            <div class="panel-heading">
-                                <h4 class="panel-title">
-                                    <a data-toggle="collapse" data-parent="#{{ this.menuId }}" href="#{{ this.id }}">
-                                        {{ this.label }}</a>
-                                </h4>
-                            </div>
-
-                            <div id="{{ this.id  }}" class="panel-collapse collapse {{isOpened opened}}">
-
-                                <ul class="list-group panel-body">
-
-                                    {{#each items}}
-                                        <li class="list-group-item">
-                                            <button class="btn btn-default" data-role="menu-item"
-                                                    data-selector="{{ selector }}">
-                                                {{ label }}
-                                            </button>
-                                        </li>
-                                    {{/each}}
-
-                                </ul>
-                            </div>
-                        </div>
-
-                    {{/each}}
-
-                </div>
-
-            </div>
-            <div class="col-xs-9">
 
                 <!-- Filter -->
                 <div data-role="filter"></div>
+
+            </div>
+
+            <div class="col-xs-9">
+
+                <!-- Bottom -->
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div data-role="bottom" data-status="intro">
+
+                            <div data-content="error">
+                                Oh snap!
+                            </div>
+
+                            <div data-content="ready">
+                                <div data-role="results-container"></div>
+                                <div data-role="pagination" class="text-center"></div>
+                            </div>
+
+                            <div data-content="loading" class="text-center">
+                                <span class="loading loading-48"></span>loading
+                            </div>
+
+                            <div data-content="empty">
+                                Empty
+                            </div>
+
+                            <div data-content="intro">
+                                This is the intro
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
 
             </div>
         </div>
@@ -54,14 +58,6 @@
             <div class="col-xs-12" data-role="summary"></div>
         </div>
 
-        <!-- Buttons -->
-        <div class="row">
-            <div class="col-xs-12">
-                <button data-role="submit" class="btn btn-default pull-right" disabled> {{ submit_button }}</button>
-                <button data-role="reset" class="btn btn-default pull-right" disabled> {{ reset_button }}</button>
-            </div>
-        </div>
-
         <!-- Errors -->
         <div class="row">
             <div class="col-xs-12">
@@ -69,35 +65,6 @@
             </div>
         </div>
 
-        <!-- Bottom -->
-        <div class="row">
-            <div class="col-xs-12">
-                <div data-role="bottom" data-status="intro">
-
-                    <div data-content="error">
-                        Oh snap!
-                    </div>
-
-                    <div data-content="ready">
-                        <div data-role="results-container"></div>
-                        <div data-role="pagination" class="text-center"></div>
-                    </div>
-
-                    <div data-content="loading" class="text-center">
-                        <span class="loading loading-48"></span>loading
-                    </div>
-
-                    <div data-content="empty">
-                        Empty
-                    </div>
-
-                    <div data-content="intro">
-                        This is the intro
-                    </div>
-
-                </div>
-            </div>
-        </div>
     </div>
 
     <ul class="list-unstyled" data-role="results">
@@ -106,7 +73,7 @@
             <li data-role="result">{{ this.uid }}
 
                 {{#each ../actions}}
-                    <button class="btn btn-default" data-action="{{action}}" data-rid="{{../rid}}" > {{label}} </button>
+                    <button class="btn btn-default" data-action="{{action}}" data-rid="{{../rid}}"> {{label}} </button>
                 {{/each}}
             </li>
 
