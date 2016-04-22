@@ -13,12 +13,12 @@ define([
     'i18n!fx-catalog/nls/catalog',
     'fx-filter/start',
     "fx-common/json-menu",
-    'q',
+    "fx-common/bridge",
     'handlebars',
     'bootstrap-table',
     'amplify',
     'bootstrap'
-], function ($, _, log, ERR, EVT, C, CD, MenuConfig, SelectorsRegistry, Templates, i18nLabels, Filter, JsonMenu, Q, Handlebars) {
+], function ($, _, log, ERR, EVT, C, CD, MenuConfig, SelectorsRegistry, Templates, i18nLabels, Filter, JsonMenu, Bridge, Handlebars) {
 
     'use strict';
 
@@ -231,7 +231,6 @@ define([
         }, this));
 
 
-
     };
 
     Catalog.prototype._enableMenuItem = function (selector) {
@@ -416,7 +415,7 @@ define([
 
         var columns = [],
             self = this;
-        _.each(this.tableColumns, function ( c ) {
+        _.each(this.tableColumns, function (c) {
 
             columns.push({
                 field: c,
@@ -427,7 +426,7 @@ define([
         });
 
         //Add actions column
-        columns.push( {
+        columns.push({
             formatter: function (value, row) {
 
                 var template = Handlebars.compile($(Templates).find(s.ACTIONS)[0].outerHTML),
@@ -475,7 +474,12 @@ define([
 
         this._lock();
 
-        this._getPromise(body).then(
+        Bridge.find({
+            body: $.extend(true, {}, this.baseFilter, body),
+            params: {
+                full: true
+            }
+        }).then(
             _.bind(this._renderResults, this),
             function (e) {
                 self._setBottomStatus("error");
@@ -492,27 +496,6 @@ define([
 
         this.$el.find(s.BOTTOM).attr('data-status', status);
 
-    };
-
-    Catalog.prototype._getPromise = function (body) {
-
-        var serviceProvider = C.SERVICE_PROVIDER || CD.SERVICE_PROVIDER,
-            filterService = C.FILTER_SERVICE || CD.FILTER_SERVICE;
-
-        return Q($.ajax({
-            url: serviceProvider + filterService + queryParams(body),
-            type: "POST",
-            contentType: "application/json",
-            data: JSON.stringify($.extend(true, {}, this.baseFilter, body)),
-            dataType: 'json'
-        }));
-
-        function queryParams(body) {
-
-            //return '?full=true&page=' + body.page + '&perPage=' + body.perPage;
-            return '?full=true';
-
-        }
     };
 
     Catalog.prototype._renderResults = function (data) {
@@ -539,7 +522,6 @@ define([
         this.$el.find(s.RESULTS).bootstrapTable('load', this.current.data);
 
         this._bindResultsEventListeners();
-
 
     };
 
