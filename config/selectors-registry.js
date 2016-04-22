@@ -14,7 +14,7 @@ define(function () {
             },
 
             selector : {
-                id : "tree",
+                id : "dropdown",
                 hideSummary : true,
                 default : ['dataset']
             },
@@ -40,7 +40,7 @@ define(function () {
             },
 
             selector : {
-                id : "tree",
+                id : "dropdown",
                 hideSummary : true
             },
 
@@ -64,7 +64,7 @@ define(function () {
             },
 
             selector : {
-                id : "tree",
+                id : "dropdown",
                 hideSummary : true
             },
 
@@ -77,7 +77,7 @@ define(function () {
                 metadataAttribute: "meContent.seReferencePopulation.referenceArea"
             }
         },
-        
+
         dataDomain: {
 
             className : "col-xs-12",
@@ -89,7 +89,7 @@ define(function () {
             },
 
             selector : {
-                id : "tree",
+                id : "dropdown",
                 hideSummary : true
             },
 
@@ -114,7 +114,7 @@ define(function () {
             },
 
             selector : {
-                id : "tree",
+                id : "dropdown",
                 hideSummary : true
             },
 
@@ -138,7 +138,7 @@ define(function () {
             },
 
             selector : {
-                id : "tree",
+                id : "dropdown",
                 hideSummary : true
             },
 

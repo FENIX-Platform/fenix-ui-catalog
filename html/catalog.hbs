@@ -11,14 +11,14 @@
         <!-- Filter -->
         <div class="row">
 
-            <div class="col-xs-3">
+            <div class="col-xs-4">
 
                 <!-- Filter -->
                 <div data-role="filter"></div>
 
             </div>
 
-            <div class="col-xs-9">
+            <div class="col-xs-8">
 
                 <!-- Bottom -->
                 <div class="row">
@@ -30,7 +30,9 @@
                             </div>
 
                             <div data-content="ready">
-                                <div data-role="results-container"></div>
+                                <div data-role="results-container">
+                                    <table data-role="results"></table>
+                                </div>
                                 <div data-role="pagination" class="text-center"></div>
                             </div>
 
@@ -67,16 +69,12 @@
 
     </div>
 
-    <ul class="list-unstyled" data-role="results">
-        {{#each results}}
+    <div data-role="actions">
 
-            <li data-role="result">{{ this.uid }}
-
-                {{#each ../actions}}
-                    <button class="btn btn-default" data-action="{{action}}" data-rid="{{../rid}}"> {{label}} </button>
-                {{/each}}
-            </li>
-
+        {{#each actions}}
+            <button class="btn btn-default" data-action="{{action}}" data-rid="{{../rid}}"> {{label}} </button>
         {{/each}}
-    </ul>
+
+    </div>
+
 </div>

@@ -18,7 +18,7 @@ define(function () {
             text: '{FENIX_CDN}/js/requirejs/plugins/text/2.0.12/text',
             bootstrap : "{FENIX_CDN}/js/bootstrap/3.3.4/js/bootstrap.min",
             q: '{FENIX_CDN}/js/q/1.1.2/q',
-            "jquery.bootpage" : '{FENIX_CDN}/js/jquery.bootpag/1.0.7/jquery.bootpage.min'
+            "bootstrap-table" : '{FENIX_CDN}/js/bootstrap-table/1.10.1/dist/bootstrap-table.min'
         },
 
         shim: {
@@ -34,7 +34,7 @@ define(function () {
             handlebars: {
                 exports: 'Handlebars'
             },
-            "jquery.bootpage" : {
+            "bootstrap-table" : {
                 deps : ['jquery', 'bootstrap']
             }
         }

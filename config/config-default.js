@@ -12,9 +12,10 @@ define(function () {
         SERVICE_PROVIDER : SERVER + "d3s_dev/",
         FILTER_SERVICE : "msd/resources/find",
         
-        PER_PAGE : 15,
+        PER_PAGE : 10,
 
-        RESULT_ACTIONS : ['select']
+        RESULT_ACTIONS : ['select'],
+        TABLE_COLUMNS : ["uid"]
         
     }
 

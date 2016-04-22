@@ -15,7 +15,7 @@ define([
     "fx-common/json-menu",
     'q',
     'handlebars',
-    'jquery.bootpage',
+    'bootstrap-table',
     'amplify',
     'bootstrap'
 ], function ($, _, log, ERR, EVT, C, CD, MenuConfig, SelectorsRegistry, Templates, i18nLabels, Filter, JsonMenu, Q, Handlebars) {
@@ -34,7 +34,8 @@ define([
         RESULTS: "[data-role='results']",
         RESULT: "[data-role='result']",
         PAGINATION: "[data-role='pagination']",
-        ERROR_CONTAINER: "[data-role='error-container']"
+        ERROR_CONTAINER: "[data-role='error-container']",
+        ACTIONS: "[data-role='actions']"
     };
 
     function Catalog(o) {
@@ -115,6 +116,8 @@ define([
         //unbind event listeners
         this._unbindEventListeners();
 
+        this.$el.find(s.RESULTS).bootstrapTable('destroy');
+
         log.info("Catalog disposed successfully");
 
     };
@@ -142,6 +145,7 @@ define([
         this.defaultSelectors = this.initial.defaultSelectors || [];
         this.actions = this.initial.actions || C.RESULT_ACTIONS || CD.RESULT_ACTIONS;
         this.baseFilter = this.initial.baseFilter || {};
+        this.tableColumns = this.initial.tableColumns || C.TABLE_COLUMNS || CD.TABLE_COLUMNS;
 
     };
 
@@ -192,7 +196,7 @@ define([
 
         this.menu = new JsonMenu({
             el: this.$el.find(s.MENU),
-            model: MenuConfig.map(function ( item ){
+            model: MenuConfig.map(function (item) {
 
                 item.label = i18nLabels[item.i18n] || "Missing label: " + item.id;
 
@@ -225,6 +229,8 @@ define([
             }
 
         }, this));
+
+
 
     };
 
@@ -297,9 +303,11 @@ define([
 
     };
 
-    Catalog.prototype._unlock = function () { };
+    Catalog.prototype._unlock = function () {
+    };
 
-    Catalog.prototype._lock = function () { };
+    Catalog.prototype._lock = function () {
+    };
 
     Catalog.prototype._addSelector = function (selector) {
 
@@ -335,7 +343,8 @@ define([
             return;
         }
 
-        this.current.values = this.filter.getValues("catalog");
+        this.current.values = this.filter.getValues();
+        this.current.filter = this.filter.getValues("catalog");
 
         var valid = this._validateQuery();
 
@@ -358,7 +367,7 @@ define([
         var valid = true,
             errors = [];
 
-        if ($.isEmptyObject(this.current.values)) {
+        if ($.isEmptyObject(this.current.filter)) {
             errors.push(ERR.empty_values);
             log.error(ERR.empty_values);
             return errors;
@@ -374,9 +383,9 @@ define([
         this.filter = new Filter({
             $el: s.FILTER,
             items: this._getDefaultSelectors(),
-            summary$el: s.SUMMARY,
-            direction : "prepend",
-            ensureAtLeast : 1,
+            //summary$el: s.SUMMARY,
+            direction: "prepend",
+            ensureAtLeast: 1,
             //summaryRender : function (item ){ return " -> " + item.code; },
             common: {
                 template: {
@@ -394,6 +403,42 @@ define([
             this._disableMenuItem(selector);
         }, this));
 
+        this.$el.find(s.RESULTS).bootstrapTable({
+            pagination: true,
+            pageSize: this.current.perPage,
+            pageList: [],
+            columns: this._createTableColumnsConfiguration()
+        });
+
+    };
+
+    Catalog.prototype._createTableColumnsConfiguration = function () {
+
+        var columns = [],
+            self = this;
+        _.each(this.tableColumns, function ( c ) {
+
+            columns.push({
+                field: c,
+                title: i18nLabels[c] || "Missing label: " + c,
+                sortable: true
+            });
+
+        });
+
+        //Add actions column
+        columns.push( {
+            formatter: function (value, row) {
+
+                var template = Handlebars.compile($(Templates).find(s.ACTIONS)[0].outerHTML),
+                    model = $.extend(true, {}, i18nLabels, row, {actions: self.actions}),
+                    $html = $(template(model));
+
+                return $html[0].outerHTML
+            }
+        });
+
+        return columns;
     };
 
     Catalog.prototype._getDefaultSelectors = function () {
@@ -424,7 +469,7 @@ define([
     Catalog.prototype._search = function () {
 
         var self = this,
-            body = this.current.values;
+            body = this.current.filter;
 
         this._setBottomStatus("loading");
 
@@ -483,77 +528,49 @@ define([
 
         this._unlock();
 
-        if (this.current.data.length > this.current.perPage ) {
-            this.$el.find(s.PAGINATION).show();
-            this._updatePagination();
-
-        } else{
-            this.$el.find(s.PAGINATION).hide();
-        }
-
-        this._renderPerPage();
+        this._renderTable();
 
     };
 
-    Catalog.prototype._updatePagination = function () {
+    Catalog.prototype._renderTable = function () {
 
-        var self = this;
-
-        this.$el.find(s.PAGINATION).bootpag({
-            total: Math.ceil(this.current.data.length / this.current.perPage),
-            maxVisible: 5
-        }).on("page", function (event, num) {
-
-            self.current.page = num - 1;
-
-            self._renderPerPage();
-        });
-    };
-
-    Catalog.prototype._renderPerPage = function () {
-
-        var from = this.current.page * this.current.perPage,
-            to = ( this.current.page * this.current.perPage ) + this.current.perPage,
-            result = this.current.data.slice(from, to);
-
-        //unbind events listeners
         this._unbindResultsEventListeners();
 
-        //render template
-        var template = Handlebars.compile($(Templates).find(s.RESULTS)[0].outerHTML),
-            model = $.extend(true, {}, i18nLabels, {results: result, actions: this.actions}),
-            $html = $(template(model));
+        this.$el.find(s.RESULTS).bootstrapTable('load', this.current.data);
 
-        //bind events listeners
-        this._bindResultsEventListeners($html);
+        this._bindResultsEventListeners();
 
-        this.$el.find(s.RESULTS_CONTAINER).html($html);
 
     };
 
     Catalog.prototype._unbindResultsEventListeners = function () {
-        this.$el.find(s.RESULT).find("[data-action]").off();
+        this.$el.find(s.RESULTS).find("[data-action]").off();
     };
 
-    Catalog.prototype._bindResultsEventListeners = function ($html) {
+    Catalog.prototype._bindResultsEventListeners = function () {
 
         var self = this;
 
-        $html.find("[data-action]").each(function () {
+        this.$el.find(s.RESULTS).find("[data-action]").each(function () {
 
             var $this = $(this),
                 action = $this.data("action"),
                 event = self._getEventName(action),
                 rid = $this.data("rid");
 
-            $this.on("click", {event: event, catalog: self, rid: rid}, function (e) {
+            $this.on("click", {
+                event: event,
+                rid: rid,
+                values: self.current.values,
+                filter: self.current.filter
+            }, function (e) {
                 e.preventDefault();
 
                 log.info("Result raise event: " + e.data.event);
 
                 var model = _.findWhere(self.current.data, {rid: rid});
 
-                amplify.publish(event, {target: this, catalog: e.data.catalog, rid: rid, model: model});
+                amplify.publish(event, {rid: rid, model: model, filter: e.data.filter, values: e.data.values});
 
             });
         });
@@ -613,9 +630,9 @@ define([
 
     Catalog.prototype._showError = function (err) {
 
-        _.each(err, _.bind(function ( e ) {
+        _.each(err, _.bind(function (e) {
 
-            var $li = $("<li>"+i18nLabels[e]+"</li>");
+            var $li = $("<li>" + i18nLabels[e] + "</li>");
             this.$el.find(s.ERROR_CONTAINER).show().html($li);
 
         }, this));
