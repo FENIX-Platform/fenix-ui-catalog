@@ -1,3 +1,4 @@
+/* Fenix Common CSS */
 .dropdown-submenu {
   position: relative; }
 
@@ -126,12 +127,69 @@
   100% {
     transform: rotate(360deg); } }
 /* Filter */
-.selector-header h4 {
-  display: inline; }
+.selector-header {
+  padding: 10px 0; }
+  .selector-header h1, .selector-header h2, .selector-header h3, .selector-header h4, .selector-header h5 {
+    margin: 0;
+    margin-top: 2px; }
 
+.fx-enabled-switch {
+  position: relative;
+  top: 2px; }
+
+.selector-footer [data-role="summary"] {
+  margin: 0; }
+
+.truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; }
+
+[data-code] {
+  display: inline-block;
+  cursor: pointer;
+  margin: 0 3px 3px 0;
+  padding: 1px 3px;
+  background-color: #efefef;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  border-radius: 3px; }
+
+.code-brk {
+  font-family: "Lucida Console", Monaco, monospace;
+  font-size: 10px;
+  color: #999999; }
+
+/* Tree */
 .tree-holder {
   height: 150px;
   overflow: auto; }
+
+.fx-tree-search {
+  margin-bottom: 5px; }
+
+.fx-tree-buttons {
+  margin-bottom: 5px; }
+
+/* Range Slider */
+.irs-bar, .irs-bar-edge, .irs-line {
+  height: 5px;
+  top: 37px; }
+
+.irs-bar, .irs-bar-edge {
+  background: #0076ff; }
+
+.irs-line {
+  background: #dddddd;
+  border-color: transparent; }
+
+.irs-slider {
+  background: white; }
+
+.irs-from, .irs-to, .irs-single {
+  background: transparent;
+  color: #0076ff; }
 
 /* Catalog */
 .fx-catalog [data-content] {
@@ -147,5 +205,3 @@
   display: block; }
 .fx-catalog [data-status="intro"] [data-content="intro"] {
   display: block; }
-
-/*# sourceMappingURL=test.css.map */
