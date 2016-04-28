@@ -1,0 +1,140 @@
+/* Fenix - Catalog Component */
+/* Fenix UI Catalog */
+.fx-catalog-welcome {
+  text-align: center;
+  max-width: 300px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -ms-transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%); }
+  .fx-catalog-welcome .catalog-ico {
+    height: 50px;
+    width: 50px; }
+  .fx-catalog-welcome h1 {
+    margin-top: 10px; }
+
+/* Packery */
+.fx-catalog-form-module {
+  width: 50%;
+  border: 10px solid #f8f8f8; }
+
+.fx-catalog-form-module.fit {
+  width: 100%; }
+
+.fx_result_description_title {
+  text-transform: uppercase;
+  display: inline; }
+
+.fx_result_description_source {
+  display: inline;
+  color: #999999; }
+
+.fx_result_description_source:before {
+  content: "-"; }
+
+.fx_result_description_baseperiod {
+  font-style: italic;
+  font-size: 10px; }
+
+.fenix-result {
+  width: 100%;
+  background-color: white;
+  border: 1px solid #d8d8d8;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  -ms-border-radius: 0;
+  border-radius: 0;
+  margin-bottom: 20px;
+  min-height: 20px;
+  padding: 19px 0 16px 19px; }
+
+/*========= HEADER =========*/
+.fx-catalog-header {
+  text-align: center;
+  background-color: #f8f8f8; }
+  .fx-catalog-header em {
+    font: normal normal 400 10px/normal "Roboto"; }
+
+.fx-catalog-header-btn {
+  cursor: pointer; }
+
+/*========= FILTER CONTAINER =========*/
+.fx-catalog-modular-filter-container {
+  background-color: #f8f8f8;
+  min-height: 250px;
+  overflow: hidden; }
+
+/*========= MODULAR MENU =========*/
+.fx-catalog-modular-menu-container {
+  background-color: #f8f8f8;
+  padding: 0;
+  min-height: 250px; }
+
+.fx-catalog-modular-menu-category-plus {
+  position: absolute;
+  top: 0;
+  height: 15px;
+  width: 15px;
+  background: url(".//css/img/fenix-catalog-sprite-small.svg") no-repeat -90px 0;
+  background-size: 150px 30px; }
+
+.fx-catalog-mod-timerseries {
+  top: 25px; }
+
+.region-css {
+  height: 100%;
+  position: relative; }
+
+.jstree-holder {
+  height: 209px;
+  overflow-y: auto; }
+
+/*========= RESULTS */
+/*========= COMMONS =========*/
+.fx_horegon {
+  display: inline; }
+
+.fx_result_icon_img {
+  width: 42px; }
+
+/* Analysis Host */
+/* Host CSS */
+#fx-catalog-results {
+  margin-top: 20px; }
+
+.fx-analysis-page-title {
+  font-weight: 100;
+  color: #666666; }
+
+.fx-analysis-page-description {
+  color: #666666; }
+
+.well {
+  background-color: transparent;
+  border: none;
+  -webkit-box-shadow: 0 0 0 white;
+  -moz-box-shadow: 0 0 0 white;
+  box-shadow: 0 0 0 white; }
+
+.fx-catalog-toolbar {
+  color: #666666; }
+  .fx-catalog-toolbar .fx-widget-stack-btns {
+    text-align: right; }
+    .fx-catalog-toolbar .fx-widget-stack-btns em {
+      font-style: normal;
+      background-color: #666666;
+      width: 30px;
+      height: 20px;
+      display: inline-block;
+      color: white;
+      text-align: center;
+      -webkit-border-radius: 3px;
+      -moz-border-radius: 3px;
+      -ms-border-radius: 3px;
+      border-radius: 3px; }
+    .fx-catalog-toolbar .fx-widget-stack-btns input {
+      margin-left: 33px; }
+
+/*# sourceMappingURL=fenix-ui-catalog.css.map */
