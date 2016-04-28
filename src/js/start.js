@@ -612,6 +612,10 @@ define([
 
     Catalog.prototype._showError = function (err) {
 
+        if (!Array.isArray(err)) {
+            err = [err];
+        }
+
         _.each(err, _.bind(function (e) {
 
             var $li = $("<li>" + i18nLabels[e] + "</li>");
