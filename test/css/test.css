@@ -1,4 +1,5 @@
 /* Fenix Common CSS */
+/*#0076ff*/
 /* Boostrap Queries */
 .dropdown-submenu {
   position: relative; }
@@ -128,11 +129,13 @@
   100% {
     transform: rotate(360deg); } }
 /* Fenix Icons */
-.fx-icon, [data-selector-time] .bootstrap-datetimepicker-widget table thead tr:first-child th:hover {
+.fx-icon, [data-selector-time] [data-action="previous"] span, [data-selector-time] [data-action="next"] span {
   height: 15px;
   width: 15px;
   display: inline-block;
-  background: url("../../../fenix-ui-common//css/img/fenix-catalog-sprite-small.svg") 150px 30px no-repeat; }
+  background-image: url("../../../fenix-ui-common//css/img/fenix-catalog-sprite-small.svg");
+  background-repeat: no-repeat;
+  background-size: 150px 30px; }
 
 .fx-icon-close {
   background-position: 0 -15px; }
@@ -224,8 +227,15 @@
   height: 5px;
   top: 37px; }
 
+.irs-bar {
+  border-top: 1px solid red;
+  border-bottom: 1px solid red; }
+
+.irs-bar-edge {
+  border: 1px solid red; }
+
 .irs-bar, .irs-bar-edge {
-  background: #0076ff; }
+  background: red; }
 
 .irs-line {
   background: #dddddd;
@@ -239,51 +249,53 @@
 
 .irs-from, .irs-to, .irs-single {
   background: transparent;
-  color: #0076ff; }
+  color: red; }
 
 /* Time */
 .time-selector-icon {
   font-size: 20px; }
 
 [data-selector-time] .day.active {
-  background-color: #0076ff; }
+  background-color: red; }
   [data-selector-time] .day.active:hover {
-    background-color: #407bbf; }
+    background-color: #bf4040; }
 [data-selector-time] .day.today:before {
-  border-bottom-color: #0076ff; }
+  border-bottom-color: red; }
+[data-selector-time] .month.active {
+  background-color: red; }
+[data-selector-time] .year.active {
+  background-color: red; }
 [data-selector-time] .fx-time-addon {
   font-size: 24px;
   padding: 2px 8px;
-  color: #0076ff; }
+  color: red; }
 [data-selector-time] [data-action="incrementHours"], [data-selector-time] [data-action="decrementHours"], [data-selector-time] [data-action="incrementMinutes"], [data-selector-time] [data-action="decrementMinutes"] {
   font-size: 24px;
-  color: #0076ff; }
-[data-selector-time] .bootstrap-datetimepicker-widget table thead tr:first-child th:hover {
-  background: none !important; }
-[data-selector-time] [data-action="previous"], [data-selector-time] [data-action="next"] {
-  background: url("../../../fenix-ui-common//css/img/fenix-catalog-sprite-small.svg") 150px 30px no-repeat;
-  display: block;
-  height: 15px;
-  width: 15px;
-  position: relative;
-  left: 10px;
-  top: 5px; }
-  [data-selector-time] [data-action="previous"]:hover, [data-selector-time] [data-action="next"]:hover {
-    background-color: #dddddd !important;
-    background: url("../../../fenix-ui-common//css/img/fenix-catalog-sprite-small.svg") 150px 30px no-repeat; }
-  [data-selector-time] [data-action="previous"] span:before, [data-selector-time] [data-action="next"] span:before {
-    content: none; }
-[data-selector-time] [data-action="next"] {
+  color: red; }
+[data-selector-time] [data-action="previous"] span:before, [data-selector-time] [data-action="next"] span:before {
+  content: none; }
+[data-selector-time] [data-action="next"] span {
   background-position: -135px 0; }
-[data-selector-time] [data-action="previous"] {
+[data-selector-time] [data-action="previous"] span {
   background-position: -135px -15px; }
 [data-selector-time] [data-action="togglePicker"] {
   padding: 0; }
   [data-selector-time] [data-action="togglePicker"] span {
     font-size: 24px;
-    color: #0076ff;
+    color: red;
     line-height: 35px !important;
     height: auto !important; }
+
+/* Sortable */
+.filter-sortable-list .list-item {
+  cursor: pointer;
+  margin: 3px;
+  padding: 1px 3px;
+  background-color: #efefef;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  border-radius: 3px; }
 
 /* Catalog */
 .fx-catalog [data-content] {
