@@ -174,7 +174,7 @@
 
 .fx-selector-title {
   display: inline-block;
-  max-width: 55%; }
+  max-width: 40%; }
 
 .fx-enabled-switch {
   position: relative;
@@ -206,7 +206,7 @@
 
 /* Buttons */
 .btn-default {
-  color: #333333; }
+  color: #333; }
 
 /* Tree */
 .tree-holder {
@@ -220,7 +220,7 @@
   margin-bottom: 5px; }
 
 .jstree-anchor, .jstree-anchor:link, .jstree-anchor:visited, .jstree-anchor:hover, .jstree-anchor:active {
-  color: #333333; }
+  color: #333; }
 
 /* Range Slider */
 .irs-bar, .irs-bar-edge, .irs-line {
@@ -228,14 +228,14 @@
   top: 37px; }
 
 .irs-bar {
-  border-top: 1px solid red;
-  border-bottom: 1px solid red; }
+  border-top: 1px solid #0076ff;
+  border-bottom: 1px solid #0076ff; }
 
 .irs-bar-edge {
-  border: 1px solid red; }
+  border: 1px solid #0076ff; }
 
 .irs-bar, .irs-bar-edge {
-  background: red; }
+  background: #0076ff; }
 
 .irs-line {
   background: #dddddd;
@@ -249,29 +249,29 @@
 
 .irs-from, .irs-to, .irs-single {
   background: transparent;
-  color: red; }
+  color: #0076ff; }
 
 /* Time */
 .time-selector-icon {
   font-size: 20px; }
 
 [data-selector-time] .day.active {
-  background-color: red; }
+  background-color: #0076ff; }
   [data-selector-time] .day.active:hover {
-    background-color: #bf4040; }
+    background-color: #407bbf; }
 [data-selector-time] .day.today:before {
-  border-bottom-color: red; }
+  border-bottom-color: #0076ff; }
 [data-selector-time] .month.active {
-  background-color: red; }
+  background-color: #0076ff; }
 [data-selector-time] .year.active {
-  background-color: red; }
+  background-color: #0076ff; }
 [data-selector-time] .fx-time-addon {
   font-size: 24px;
   padding: 2px 8px;
-  color: red; }
+  color: #0076ff; }
 [data-selector-time] [data-action="incrementHours"], [data-selector-time] [data-action="decrementHours"], [data-selector-time] [data-action="incrementMinutes"], [data-selector-time] [data-action="decrementMinutes"] {
   font-size: 24px;
-  color: red; }
+  color: #0076ff; }
 [data-selector-time] [data-action="previous"] span:before, [data-selector-time] [data-action="next"] span:before {
   content: none; }
 [data-selector-time] [data-action="next"] span {
@@ -282,7 +282,7 @@
   padding: 0; }
   [data-selector-time] [data-action="togglePicker"] span {
     font-size: 24px;
-    color: red;
+    color: #0076ff;
     line-height: 35px !important;
     height: auto !important; }
 
@@ -296,6 +296,11 @@
   -moz-border-radius: 3px;
   -ms-border-radius: 3px;
   border-radius: 3px; }
+
+[data-group] ul {
+  position: relative;
+  min-height: 50px;
+  background-color: #f2f2f2; }
 
 /* Catalog */
 .fx-catalog [data-content] {
@@ -311,3 +316,5 @@
   display: block; }
 .fx-catalog [data-status="intro"] [data-content="intro"] {
   display: block; }
+
+/*# sourceMappingURL=test.css.map */
