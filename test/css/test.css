@@ -298,9 +298,18 @@
   border-radius: 3px; }
 
 [data-group] ul {
-  position: relative;
   min-height: 50px;
-  background-color: #f2f2f2; }
+  padding: 6px 12px;
+  -webkit-box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.075);
+  -moz-box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.075);
+  box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.075);
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  border-radius: 4px;
+  background-color: white;
+  background-image: none;
+  border: 1px solid #d8d8d8; }
 
 /* Catalog */
 .fx-catalog [data-content] {
