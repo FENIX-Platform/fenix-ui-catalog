@@ -166,11 +166,11 @@
     [data-selector] .controller, [data-semantic] .controller {
       opacity: 0;
       pointer-events: none;
-      -webkit-transition: all 0.3s ease 0.3s;
-      -moz-transition: all 0.3s ease 0.3s;
-      -ms-transition: all 0.3s ease 0.3s;
-      -o-transition: all 0.3s ease 0.3s;
-      transition: all 0.3s ease 0.3s; }
+      -webkit-transition: all 0.3s ease 0.2s;
+      -moz-transition: all 0.3s ease 0.2s;
+      -ms-transition: all 0.3s ease 0.2s;
+      -o-transition: all 0.3s ease 0.2s;
+      transition: all 0.3s ease 0.2s; }
     [data-selector]:hover .controller, [data-semantic]:hover .controller {
       opacity: 1;
       pointer-events: auto; } }
