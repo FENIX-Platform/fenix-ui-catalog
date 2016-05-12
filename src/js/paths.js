@@ -3,7 +3,7 @@ define(function () {
     var config = {
 
         paths: {
-            'fx-catalog/start': './start',
+            'fx-catalog/start': './catalog',
             'fx-catalog/html': '../../html',
             'fx-catalog/js': './',
             'fx-catalog/config' :  '../../config',
