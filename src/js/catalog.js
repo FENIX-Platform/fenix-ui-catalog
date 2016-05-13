@@ -380,7 +380,7 @@ define([
         log.info("Filter instantiation");
 
         this.filter = new Filter({
-            $el: s.FILTER,
+            el: s.FILTER,
             items: this._getDefaultSelectors(),
             //summary$el: s.SUMMARY,
             direction: "prepend",
