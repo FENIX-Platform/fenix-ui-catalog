@@ -10,7 +10,9 @@ define(function () {
 
         result_actions : ['select'],
         
-        table_columns : ["uid"]
+        table_columns : ["uid"],
+
+        searchThrottleTimeout : 500
         
     }
 

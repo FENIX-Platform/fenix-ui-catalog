@@ -146,7 +146,7 @@ define([
         this.actions = this.initial.actions || C.result_actions || CD.result_actions;
         this.baseFilter = this.initial.baseFilter || {};
         this.tableColumns = this.initial.tableColumns || C.table_columns || CD.table_columns;
-
+        this.environment = this.initial.environment;
     };
 
     Catalog.prototype._validateInput = function () {
@@ -230,6 +230,11 @@ define([
 
         }, this));
 
+        this.bridge = new Bridge({
+            environment : this.environment
+        });
+
+        this.searchThrottleTimeout = C.searchThrottleTimeout || CD.searchThrottleTimeout;
 
     };
 
@@ -281,18 +286,21 @@ define([
 
         }, this));
 
-        this.filter.on('change', _.bind(function () {
-
-            log.info("Change from filter");
-
-            this._refreshResults();
-
-            //this._hideError();
-        }, this));
+        this.filter.on('change', _.bind(_.throttle(this.onFilterChangeEvent, this.searchThrottleTimeout), this));
 
         amplify.subscribe(this._getEventName("select"), this, this._onSelectResult);
         amplify.subscribe(this._getEventName("download"), this, this._onDownloadResult);
         amplify.subscribe(this._getEventName("view"), this, this._onViewResult);
+    };
+
+    Catalog.prototype.onFilterChangeEvent = function () {
+
+        log.info("Change from filter");
+
+        this._refreshResults();
+
+        //this._hideError();
+
     };
 
     Catalog.prototype.selectSelector = function (selector) {
@@ -387,6 +395,7 @@ define([
             //summary$el: s.SUMMARY,
             direction: "prepend",
             ensureAtLeast: 1,
+            environment : this.environment,
             //summaryRender : function (item ){ return " -> " + item.code; },
             common: {
                 template: {
@@ -480,19 +489,26 @@ define([
 
         this.reqeust_id = "fx-request-id-" + window.fx_req_id;
 
-        Bridge.find({
+        this.bridge.find({
             body: $.extend(true, {}, this.baseFilter, body),
             params: {
                 full: true
             }
         }).then(
             _.bind(this._renderResults, this, "fx-request-id-" + window.fx_req_id),
-            function (e) {
-                self._setBottomStatus("error");
-                log.error(e);
-                self._unlock();
-                self._showError(ERR.request);
-            });
+            _.bind(function (requestId, e) {
+
+                if (this.reqeust_id !== requestId) {
+                    log.warn("Abort result rendering because it is not the last request");
+                    return;
+                }
+
+                this._setBottomStatus("error");
+                this.error(e);
+                this._unlock();
+                this._showError(ERR.request);
+
+            }, this, "fx-request-id-" + window.fx_req_id));
 
     };
 
