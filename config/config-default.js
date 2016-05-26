@@ -12,7 +12,7 @@ define(function () {
         
         table_columns : ["uid"],
 
-        searchThrottleTimeout : 500
+        searchThrottleTimeout : 5000
         
     }
 
