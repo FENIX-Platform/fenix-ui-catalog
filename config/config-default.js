@@ -6,10 +6,11 @@ define(function () {
 
     return {
 
-        PER_PAGE : 10,
+        per_page : 10,
 
-        RESULT_ACTIONS : ['select'],
-        TABLE_COLUMNS : ["uid"]
+        result_actions : ['select'],
+        
+        table_columns : ["uid"]
         
     }
 

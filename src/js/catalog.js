@@ -143,9 +143,9 @@ define([
         this.id = this.initial.id;
         this.$el = this.initial.$el;
         this.defaultSelectors = this.initial.defaultSelectors || [];
-        this.actions = this.initial.actions || C.RESULT_ACTIONS || CD.RESULT_ACTIONS;
+        this.actions = this.initial.actions || C.result_actions || CD.result_actions;
         this.baseFilter = this.initial.baseFilter || {};
-        this.tableColumns = this.initial.tableColumns || C.TABLE_COLUMNS || CD.TABLE_COLUMNS;
+        this.tableColumns = this.initial.tableColumns || C.table_columns || CD.table_columns;
 
     };
 
@@ -218,7 +218,7 @@ define([
         this.$items = this.$menu.find(s.MENU_ITEMS);
 
         this.current = {};
-        this.current.perPage = C.PER_PAGE || CD.PER_PAGE;
+        this.current.perPage = C.per_page || CD.per_page;
         this.current.page = 0;
 
         this.actions = this.actions.map(_.bind(function (value) {
@@ -282,6 +282,7 @@ define([
         }, this));
 
         this.filter.on('change', _.bind(function () {
+
             log.info("Change from filter");
 
             this._refreshResults();
@@ -343,6 +344,7 @@ define([
         }
 
         this.current.values = this.filter.getValues();
+
         this.current.filter = this.filter.getValues("catalog");
 
         var valid = this._validateQuery();
@@ -474,13 +476,17 @@ define([
 
         this._lock();
 
+        window.fx_req_id >= 0 ? window.fx_req_id++ : window.fx_req_id = 0;
+
+        this.reqeust_id = "fx-request-id-" + window.fx_req_id;
+
         Bridge.find({
             body: $.extend(true, {}, this.baseFilter, body),
             params: {
                 full: true
             }
         }).then(
-            _.bind(this._renderResults, this),
+            _.bind(this._renderResults, this, "fx-request-id-" + window.fx_req_id),
             function (e) {
                 self._setBottomStatus("error");
                 log.error(e);
@@ -498,7 +504,12 @@ define([
 
     };
 
-    Catalog.prototype._renderResults = function (data) {
+    Catalog.prototype._renderResults = function (requestId, data) {
+
+        if (this.reqeust_id !== requestId) {
+            log.warn("Abort result rendering because it is not the last request");
+            return;
+        }
 
         this.current.data = data;
 
