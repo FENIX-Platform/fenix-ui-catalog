@@ -143,17 +143,37 @@ $cat-cmd-right-width: 50px;
   .modal-content{
     @include fx-no-border-radius;
     @include fx-no-border
-
-
-
-
   }
+
 
   .modal-body{
 
     padding: 0 15px;
 
   }
+
+  .modal-lg{
+
+
+    @media screen and (min-width: $screen-sm) {
+      width: 750px;
+    }
+
+    @media screen and (min-width: $screen-md) {
+      width: 850px;
+    }
+
+    @media screen and (min-width: $screen-lg) {
+      width: 950px;
+    }
+
+
+
+
+
+  }
+
+
 
 }
 

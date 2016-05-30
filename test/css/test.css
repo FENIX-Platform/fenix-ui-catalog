@@ -652,6 +652,15 @@ input[type="radio"]:disabled + label {
   border: none; }
 .catalog-modal .modal-body {
   padding: 0 15px; }
+@media screen and (min-width: 768px) {
+  .catalog-modal .modal-lg {
+    width: 750px; } }
+@media screen and (min-width: 992px) {
+  .catalog-modal .modal-lg {
+    width: 850px; } }
+@media screen and (min-width: 1200px) {
+  .catalog-modal .modal-lg {
+    width: 950px; } }
 
 .cat-toolbar {
   padding: 0; }
