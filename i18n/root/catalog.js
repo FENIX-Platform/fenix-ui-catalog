@@ -19,6 +19,7 @@ define(function () {
         source : "Source",
         last_update : "Last update",
         periodicity : "Periodicity",
+        contextSystem : "Context system",
 
         content : "Content",
         search_by_id : "Search by id",

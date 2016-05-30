@@ -7,7 +7,6 @@ define(function () {
 
         resourceType: {
 
-
             enumeration : {
                 uid: "RepresentationType"
             },
@@ -31,7 +30,6 @@ define(function () {
 
         referencePeriod: {
 
-
             cl : {
                 uid: "FAO_Period",
                 version: "1.0"
@@ -54,7 +52,6 @@ define(function () {
 
         referenceArea: {
 
-
             cl : {
                 uid: "GAUL_ReferenceArea",
                 version: "1.0"
@@ -76,7 +73,6 @@ define(function () {
         },
 
         dataDomain: {
-
 
             cl : {
                 uid: "UNECA_ClassificationOfActivities",
@@ -162,8 +158,26 @@ define(function () {
                 metadataAttribute: "uid"
             }
 
-        }
+        },
 
+        contextSystem : {
+
+            selector : {
+                id : "dropdown",
+                source : [{value : "uneca", label : "UNECA"}],
+                default : ["uneca"],
+                hideSummary : true
+            },
+
+            template : {
+                hideRemoveButton : false
+            },
+
+            format : {
+                output : "enumeration",
+                metadataAttribute: "dsd.contextSystem"
+            }
+        }
     }
 
 });

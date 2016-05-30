@@ -348,7 +348,7 @@ define([
             config[selector].template = {};
         }
 
-        config[selector].template.title = i18nLabels[selector] || "Missing title";
+        config[selector].template.title = i18nLabels[selector] || "Missing title [" + selector + "]";
 
         return $.extend(true, {}, config);
 

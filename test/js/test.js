@@ -33,7 +33,7 @@ define([
 
         var catalog = this.createCatalog({
             $el: s.STANDARD,
-            defaultSelectors: ['region', 'resourceType', 'uid'],
+            defaultSelectors: ['resourceType', 'contextSystem', 'uid'],
             environment: "distribution"
             //id : "my_id"
             //actions: ["download", 'view'],
