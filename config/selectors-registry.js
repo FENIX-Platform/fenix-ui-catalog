@@ -76,7 +76,7 @@ define(function () {
         },
 
         dataDomain: {
-            
+
 
             cl : {
                 uid: "UNECA_ClassificationOfActivities",
