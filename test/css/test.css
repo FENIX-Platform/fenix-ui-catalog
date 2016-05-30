@@ -225,7 +225,7 @@
 
 /* Buttons */
 .btn-default {
-  color: #333; }
+  color: #333333; }
 
 [data-role="remove"].btn-round {
   position: relative;
@@ -243,7 +243,7 @@
   margin-bottom: 5px; }
 
 .jstree-anchor, .jstree-anchor:link, .jstree-anchor:visited, .jstree-anchor:hover, .jstree-anchor:active {
-  color: #333; }
+  color: #333333; }
 
 /* Range Slider */
 .irs-bar, .irs-bar-edge, .irs-line {
@@ -338,7 +338,7 @@
 .fx-tabs .nav-tabs {
   border: 0; }
   .fx-tabs .nav-tabs > li > a {
-    color: #333;
+    color: #333333;
     border-color: transparent; }
     .fx-tabs .nav-tabs > li > a:hover, .fx-tabs .nav-tabs > li > a:focus {
       border-color: transparent;
@@ -429,7 +429,7 @@ input[type="button"]::-moz-focus-inner {
 
 /* Fenix - Js tree */
 .jstree-default .jstree-search {
-  color: #333;
+  color: #333333;
   font-weight: 300;
   font-style: normal; }
 .jstree-default .jstree-node:not(.jstree-open) {
@@ -451,7 +451,7 @@ input[type="button"]::-moz-focus-inner {
 
 .jstree-default .jstree-wholerow-hovered {
   background: none;
-  background-color: #e6f1ff; }
+  background-color: #e5f1ff; }
 
 .jstree-default .jstree-disabled.jstree-clicked {
   background: none;
@@ -724,4 +724,15 @@ input[type="radio"]:disabled + label {
     margin-bottom: 5px;
     text-align: center; }
 
-/*# sourceMappingURL=test.css.map */
+[data-role="results"] [data-action="select"].btn-default {
+  color: #fff;
+  background-color: #337ab7;
+  border-color: #2e6da4; }
+  [data-role="results"] [data-action="select"].btn-default:hover {
+    color: #fff;
+    background-color: #286090;
+    border-color: #204d74; }
+  [data-role="results"] [data-action="select"].btn-default:focus {
+    color: #fff;
+    background-color: #286090;
+    border-color: #122b40; }

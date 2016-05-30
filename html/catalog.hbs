@@ -42,34 +42,32 @@
 
                         <!-- Bottom -->
 
-                                <div data-role="bottom" data-status="intro">
+                        <div data-role="bottom" data-status="intro">
 
-                                    <div data-content="error">
-                                        Oh snap!
-                                    </div>
+                            <div data-content="error">
+                                Oh snap!
+                            </div>
 
-                                    <div data-content="ready">
-                                        <div data-role="results-container">
-                                            <table data-role="results"></table>
-                                        </div>
-                                        <div data-role="pagination" class="text-center"></div>
-                                    </div>
-
-                                    <div data-content="loading" class="text-center">
-                                        <span class="loading loading-48"></span>
-                                    </div>
-
-                                    <div data-content="empty">
-                                        Empty
-                                    </div>
-
-                                    <div data-content="intro">
-                                        This is the intro
-                                    </div>
-
+                            <div data-content="ready">
+                                <div data-role="results-container">
+                                    <table data-role="results"></table>
                                 </div>
+                                <div data-role="pagination" class="text-center"></div>
+                            </div>
 
+                            <div data-content="loading" class="text-center">
+                                <span class="loading loading-48"></span>
+                            </div>
 
+                            <div data-content="empty">
+                                Empty
+                            </div>
+
+                            <div data-content="intro">
+                                This is the intro
+                            </div>
+
+                        </div>
 
 
                     </div>
@@ -99,14 +97,16 @@
 
     <div data-role="actions">
 
-        <div class="btn-group" role="group">
-
+        <div class="btn-group btn-group-justified" role="group">
             {{#each actions}}
-                <button class="btn btn-default" data-action="{{action}}" data-rid="{{../rid}}"> {{label}} </button>
+                <div class="btn-group" role="group">
+                    <button class="btn btn-default" data-action="{{action}}" data-rid="{{../rid}}"> {{label}} </button>
+                </div>
             {{/each}}
 
         </div>
-
     </div>
+
+</div>
 
 </div>
