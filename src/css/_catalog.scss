@@ -1,5 +1,7 @@
 /* Catalog */
-
+$catalog-gray-color: #e0e0e0;
+$cmd-left-width: 50px;
+$cmd-right-width: 50px;
 
 
 .fx-catalog {
@@ -21,4 +23,102 @@
       }
     }
   }
+}
+
+
+
+
+.catalog-modal{
+
+  .modal-content{
+    @include fx-no-border-radius;
+    @include fx-no-border
+  }
+
+
+
+}
+
+
+.cat-toolbar {
+
+  //background-color: white;
+  //border-bottom: 1px solid $catalog-gray-color;
+
+
+  .cat-btn-left {
+    width: $cmd-left-width;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  .cat-btn-right {
+    width: $cmd-right-width;
+    position: absolute;
+    top: 0;
+    right: 0;
+    text-align: right;
+    font-size: 0; /* Avoid space between elements with display inline */
+
+    button {
+      float: none; /* Avoid 1px bug on the right in md resolution */
+      margin-left: 0 !important; /* Avoid 1px bug of the bootstrap's btn-group */
+      display: inline-block;
+
+      &[data-action="flip"] {
+        background-color: $catalog-gray-color;
+      }
+
+      &:last-child {
+        margin-right: 0; /* Remove margin from the last child of btn-group */
+      }
+
+    }
+
+  }
+
+  button {
+    border: 0;
+    background-color: transparent;
+    font-size: 16px;
+    padding: 1px 10px 0 10px;
+    @include fx-no-border-radius;
+
+    &.active, &:active {
+
+    }
+
+    &.focus, &:focus {
+
+    }
+
+    &[disabled] {
+      background-color: transparent;
+      border: 0;
+      opacity: 1;
+
+      span {
+        opacity: 0.35;
+      }
+
+    }
+
+    &:hover {
+      border: 0;
+      border-color: transparent;
+      background-color: $catalog-gray-color;
+      color: $fx-cool-blue;
+
+    }
+
+  }
+
+  .catalog-title {
+    color: $fx-cool-blue;
+    margin-top: 5px;
+    margin-bottom: 5px;
+
+  }
+
 }

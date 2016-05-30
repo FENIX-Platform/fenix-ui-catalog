@@ -563,4 +563,88 @@ input[type="radio"]:disabled + label {
 .fx-catalog [data-status="intro"] [data-content="intro"] {
   display: block; }
 
+.catalog-modal .modal-content {
+  -moz-border-radius-topleft: 0;
+  -webkit-border-top-left-radius: 0;
+  border-top-left-radius: 0;
+  -moz-border-radius-topright: 0;
+  -webkit-border-top-right-radius: 0;
+  border-top-right-radius: 0;
+  -moz-border-radius-bottomright: 0;
+  -webkit-border-bottom-right-radius: 0;
+  border-bottom-right-radius: 0;
+  -moz-border-radius-bottomleft: 0;
+  -webkit-border-bottom-left-radius: 0;
+  border-bottom-left-radius: 0;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  -ms-border-radius: 0;
+  border-radius: 0;
+  border-top: none;
+  border-right: none;
+  border-bottom: none;
+  border-left: none;
+  border: none; }
+
+.cat-toolbar .cat-btn-left {
+  width: 50px;
+  position: absolute;
+  top: 0;
+  left: 0; }
+.cat-toolbar .cat-btn-right {
+  width: 50px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  text-align: right;
+  font-size: 0;
+  /* Avoid space between elements with display inline */ }
+  .cat-toolbar .cat-btn-right button {
+    float: none;
+    /* Avoid 1px bug on the right in md resolution */
+    margin-left: 0 !important;
+    /* Avoid 1px bug of the bootstrap's btn-group */
+    display: inline-block; }
+    .cat-toolbar .cat-btn-right button[data-action="flip"] {
+      background-color: #e0e0e0; }
+    .cat-toolbar .cat-btn-right button:last-child {
+      margin-right: 0;
+      /* Remove margin from the last child of btn-group */ }
+.cat-toolbar button {
+  border: 0;
+  background-color: transparent;
+  font-size: 16px;
+  padding: 1px 10px 0 10px;
+  -moz-border-radius-topleft: 0;
+  -webkit-border-top-left-radius: 0;
+  border-top-left-radius: 0;
+  -moz-border-radius-topright: 0;
+  -webkit-border-top-right-radius: 0;
+  border-top-right-radius: 0;
+  -moz-border-radius-bottomright: 0;
+  -webkit-border-bottom-right-radius: 0;
+  border-bottom-right-radius: 0;
+  -moz-border-radius-bottomleft: 0;
+  -webkit-border-bottom-left-radius: 0;
+  border-bottom-left-radius: 0;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  -ms-border-radius: 0;
+  border-radius: 0; }
+  .cat-toolbar button[disabled] {
+    background-color: transparent;
+    border: 0;
+    opacity: 1; }
+    .cat-toolbar button[disabled] span {
+      opacity: 0.35; }
+  .cat-toolbar button:hover {
+    border: 0;
+    border-color: transparent;
+    background-color: #e0e0e0;
+    color: #0076ff; }
+.cat-toolbar .catalog-title {
+  color: #0076ff;
+  margin-top: 5px;
+  margin-bottom: 5px; }
+
 /*# sourceMappingURL=test.css.map */

@@ -2,63 +2,90 @@
 
     <div data-role="catalog" class="fx-catalog">
 
-        <div data-role="menu" class="dropdown">
-            <a href="" class="btn dropdown-toggle" data-toggle="dropdown">
-                <span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
-            </a>
-        </div>
+        <div class="modal-header clearfix cat-toolbar">
 
-        <!-- Filter -->
-        <div class="row">
 
-            <div class="col-xs-4">
+            <div data-role="menu" class="dropdown cat-btn-left">
+                <button class="btn btn-default" type="button" data-toggle="dropdown" aria-expanded="false">
+                    <span class="icojam_preview_list"></span>
+                </button>
+            </div>
+            <h4 class="catalog-title truncate">Open a resource</h4>
+            <!--<button type="button" class="close cat-btn-left" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>-->
 
-                <!-- Filter -->
-                <div data-role="filter"></div>
-
+            <div class="cat-btn-right">
+                <button data-dismiss="modal" aria-label="Close" class="btn btn-default" type="button">
+                    <span class="icojam_button_delete_1"></span>
+                </button>
             </div>
 
-            <div class="col-xs-8">
 
-                <!-- Bottom -->
-                <div class="row">
-                    <div class="col-xs-12">
-                        <div data-role="bottom" data-status="intro">
+        </div>
 
-                            <div data-content="error">
-                                Oh snap!
-                            </div>
 
-                            <div data-content="ready">
-                                <div data-role="results-container">
-                                    <table data-role="results"></table>
-                                </div>
-                                <div data-role="pagination" class="text-center"></div>
-                            </div>
+        <div class="modal-body">
+            <!-- Filter -->
+            <div class="row">
 
-                            <div data-content="loading" class="text-center">
-                                <span class="loading loading-48"></span>
-                            </div>
+                <div class="col-xs-4">
 
-                            <div data-content="empty">
-                                Empty
-                            </div>
+                    <!-- Filter -->
+                    <div data-role="filter"></div>
 
-                            <div data-content="intro">
-                                This is the intro
-                            </div>
-
-                        </div>
-                    </div>
                 </div>
 
+                <div class="col-xs-8">
+
+                    <!-- Bottom -->
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div data-role="bottom" data-status="intro">
+
+                                <div data-content="error">
+                                    Oh snap!
+                                </div>
+
+                                <div data-content="ready">
+                                    <div data-role="results-container">
+                                        <table data-role="results"></table>
+                                    </div>
+                                    <div data-role="pagination" class="text-center"></div>
+                                </div>
+
+                                <div data-content="loading" class="text-center">
+                                    <span class="loading loading-48"></span>
+                                </div>
+
+                                <div data-content="empty">
+                                    Empty
+                                </div>
+
+                                <div data-content="intro">
+                                    This is the intro
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
             </div>
+
         </div>
 
-        <!-- Summary -->
-        <div class="row">
-            <div class="col-xs-12" data-role="summary"></div>
+        <div class="modal-footer">
+            <!-- Summary -->
+            <div class="row">
+                <div class="col-xs-12" data-role="summary"></div>
+            </div>
+
         </div>
+
+
+
+
+
+
 
         <!-- Errors -->
         <div class="row">
