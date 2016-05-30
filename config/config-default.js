@@ -8,7 +8,7 @@ define(function () {
 
         per_page : 10,
 
-        result_actions : ['select'], //'metadata', 'view', 'download'
+        result_actions : ['select', 'metadata', 'download'], //'metadata', 'view', 'download'
 
         table_columns : {
           title: {

@@ -71,9 +71,13 @@
 
     <div data-role="actions">
 
-        {{#each actions}}
-            <button class="btn btn-default" data-action="{{action}}" data-rid="{{../rid}}"> {{label}} </button>
-        {{/each}}
+        <div class="btn-group" role="group">
+
+            {{#each actions}}
+                <button class="btn btn-default" data-action="{{action}}" data-rid="{{../rid}}"> {{label}} </button>
+            {{/each}}
+
+        </div>
 
     </div>
 
