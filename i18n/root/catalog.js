@@ -14,8 +14,12 @@ define(function () {
         dataDomain: "Data Domain",
         statusOfConfidentiality: "Status of Confidentiality",
         uid: "Uid",
+        title : "Title",
         region : "Region",
-        
+        source : "Source",
+        last_update : "Last update",
+        periodicity : "Periodicity",
+
         content : "Content",
         search_by_id : "Search by id",
         accessibility : "Accessibility",
@@ -23,6 +27,7 @@ define(function () {
         action_select : "Select",
         action_download : "Download",
         action_view : "View",
+        action_metadata : "Metadata",
 
         //Errors
         request : "Request error",

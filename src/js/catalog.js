@@ -14,11 +14,13 @@ define([
     'fx-filter/start',
     "fx-common/json-menu",
     "fx-common/bridge",
+    "fx-common/utils",
     'handlebars',
+    "moment",
     'bootstrap-table',
     'amplify',
     'bootstrap'
-], function ($, _, log, ERR, EVT, C, CD, MenuConfig, SelectorsRegistry, Templates, i18nLabels, Filter, JsonMenu, Bridge, Handlebars) {
+], function ($, _, log, ERR, EVT, C, CD, MenuConfig, SelectorsRegistry, Templates, i18nLabels, Filter, JsonMenu, Bridge, Utils, Handlebars, Moment) {
 
     'use strict';
 
@@ -147,6 +149,9 @@ define([
         this.baseFilter = this.initial.baseFilter || {};
         this.tableColumns = this.initial.tableColumns || C.table_columns || CD.table_columns;
         this.environment = this.initial.environment;
+        this.lang = this.initial.lang || "EN";
+        this.lang = this.lang.toUpperCase();
+
     };
 
     Catalog.prototype._validateInput = function () {
@@ -236,6 +241,10 @@ define([
 
         this.searchThrottleTimeout = C.searchThrottleTimeout || CD.searchThrottleTimeout;
 
+        Moment.locale(this.lang);
+
+        this.dateFormat = C.dateFormat || CD.dateFormat;
+
     };
 
     Catalog.prototype._enableMenuItem = function (selector) {
@@ -291,6 +300,7 @@ define([
         amplify.subscribe(this._getEventName("select"), this, this._onSelectResult);
         amplify.subscribe(this._getEventName("download"), this, this._onDownloadResult);
         amplify.subscribe(this._getEventName("view"), this, this._onViewResult);
+        amplify.subscribe(this._getEventName("metadata"), this, this._onMetadataResult);
     };
 
     Catalog.prototype.onFilterChangeEvent = function () {
@@ -424,9 +434,10 @@ define([
 
     Catalog.prototype._createTableColumnsConfiguration = function () {
 
-        var columns = [],
+        var tableColumns = Object.keys(this.tableColumns),
+            columns = [],
             self = this;
-        _.each(this.tableColumns, function (c) {
+        _.each(tableColumns, function (c) {
 
             columns.push({
                 field: c,
@@ -478,8 +489,7 @@ define([
 
     Catalog.prototype._search = function () {
 
-        var self = this,
-            body = this.current.filter;
+        var body = this.current.filter;
 
         this._setBottomStatus("loading");
 
@@ -527,7 +537,7 @@ define([
             return;
         }
 
-        this.current.data = data;
+        this.current.data = this._parseData(data);
 
         if (!this.current.data) {
             this._setBottomStatus("empty");
@@ -540,6 +550,69 @@ define([
 
         this._renderTable();
 
+    };
+
+    Catalog.prototype._parseData = function (d) {
+
+        var data =[];
+
+        _.each(d, _.bind(function ( record ) {
+
+            data.push(this._parseRecord(record));
+
+        }, this));
+
+        return data;
+    };
+
+    Catalog.prototype._parseRecord = function (record) {
+
+        var result = {};
+
+        _.each(this.tableColumns, _.bind(function (col, id){
+            result[id] = this._getColumnValue(record, $.extend(true, {id :id}, col));
+        }, this));
+
+        return result;
+    };
+
+    Catalog.prototype._getColumnValue = function (record, col) {
+
+        var label,
+            path = col.path ? col.path : col.id,
+            metadataValue = Utils.getNestedProperty(path, record) || {},
+            type = col.type || "";
+
+        switch(type.toLowerCase()) {
+            case "i18n":
+                var i18nLabel = this._getI18nLabel(metadataValue);
+                label = i18nLabel ? i18nLabel : metadataValue;
+                break;
+            case "source":
+
+                var owner = _.findWhere(metadataValue, {role :"owner"}) || {},
+                    organization = owner.organization,
+                    pointOfContact = owner.pointOfContact ? owner.pointOfContact  : "",
+                    organizationI18nLabel = this._getI18nLabel(organization);
+
+                label = organizationI18nLabel ? organizationI18nLabel + " - " : "";
+                label += pointOfContact;
+
+                break;
+            case "epoch":
+                label =  new Moment(metadataValue).format(this.dateFormat);
+                break;
+            case "code":
+
+                var code = (Array.isArray(metadataValue.codes) && metadataValue.codes.length > 0) ? metadataValue.codes[0] : {};
+                label = this._getI18nLabel(code.label);
+
+                break;
+            default : label = metadataValue;
+
+        }
+
+        return label ? label : null;
     };
 
     Catalog.prototype._renderTable = function () {
@@ -610,6 +683,13 @@ define([
         this._trigger('view', payload);
     };
 
+    Catalog.prototype._onMetadataResult = function (payload) {
+
+        log.info("Metadata result: " + JSON.stringify(payload));
+
+        this._trigger('metadata', payload);
+    };
+
     Catalog.prototype._getEventName = function (evt, excludeId) {
 
         var baseEvent = EVT[evt] ? EVT[evt] : evt;
@@ -626,6 +706,7 @@ define([
         amplify.unsubscribe(this._getEventName("select"), this._onSelectResult);
         amplify.unsubscribe(this._getEventName("download"), this._onDownloadResult);
         amplify.unsubscribe(this._getEventName("view"), this._onViewResult);
+        amplify.unsubscribe(this._getEventName("metadata"), this._onMetadataResult);
 
     };
 
@@ -655,6 +736,12 @@ define([
     Catalog.prototype._hideError = function () {
 
         this.$el.find(s.ERROR_CONTAINER).hide();
+    };
+
+    Catalog.prototype._getI18nLabel = function ( obj ) {
+
+        return typeof obj === "object" ? obj[this.lang] : null;
+
     };
 
     return Catalog;
