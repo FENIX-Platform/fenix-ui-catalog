@@ -549,19 +549,84 @@ input[type="radio"]:disabled + label {
     opacity: 0.4; }
 
 /* Catalog */
-.fx-catalog [data-content] {
-  display: none;
-  height: 100%; }
-.fx-catalog [data-status="ready"] [data-content="ready"] {
-  display: block; }
-.fx-catalog [data-status="error"] [data-content="error"] {
-  display: block; }
-.fx-catalog [data-status="loading"] [data-content="loading"] {
-  display: block; }
-.fx-catalog [data-status="empty"] [data-content="empty"] {
-  display: block; }
-.fx-catalog [data-status="intro"] [data-content="intro"] {
-  display: block; }
+.fx-catalog {
+  /* Hovered */ }
+  .fx-catalog [data-content] {
+    display: none;
+    height: 100%; }
+  .fx-catalog [data-status="ready"] [data-content="ready"] {
+    display: block; }
+  .fx-catalog [data-status="error"] [data-content="error"] {
+    display: block; }
+  .fx-catalog [data-status="loading"] [data-content="loading"] {
+    display: block; }
+  .fx-catalog [data-status="empty"] [data-content="empty"] {
+    display: block; }
+  .fx-catalog [data-status="intro"] [data-content="intro"] {
+    display: block; }
+  .fx-catalog .cat-title {
+    margin-left: 50px;
+    margin-right: 50px; }
+  .fx-catalog .cat-btn-left, .fx-catalog .cat-btn-right {
+    opacity: 1;
+    pointer-events: auto; }
+  @media screen and (min-width: 768px) {
+    .fx-catalog .cat-btn-left, .fx-catalog .cat-btn-right {
+      opacity: 0;
+      pointer-events: none;
+      -webkit-transition: all 0.3s ease 0.2s;
+      -moz-transition: all 0.3s ease 0.2s;
+      -ms-transition: all 0.3s ease 0.2s;
+      -o-transition: all 0.3s ease 0.2s;
+      transition: all 0.3s ease 0.2s; }
+    .fx-catalog .cat-title {
+      margin-left: 15px;
+      margin-right: 15px;
+      -webkit-transition: all 0.3s ease 0.2s;
+      -moz-transition: all 0.3s ease 0.2s;
+      -ms-transition: all 0.3s ease 0.2s;
+      -o-transition: all 0.3s ease 0.2s;
+      transition: all 0.3s ease 0.2s; }
+    .fx-catalog:hover .cat-btn-left, .fx-catalog:hover .cat-btn-right {
+      opacity: 1;
+      pointer-events: auto; }
+    .fx-catalog:hover .cat-title {
+      margin-left: 50px;
+      margin-right: 50px; } }
+
+.cat-sidebar {
+  background-color: #efefef;
+  overflow-y: scroll; }
+  .cat-sidebar .cat-filter-container {
+    padding-bottom: 25px; }
+
+.cat-results .th-inner {
+  font-weight: normal;
+  font-size: 12px; }
+.cat-results .fixed-table-body {
+  margin: 0 -15px; }
+.cat-results .fixed-table-container {
+  -moz-border-radius-topleft: 0;
+  -webkit-border-top-left-radius: 0;
+  border-top-left-radius: 0;
+  -moz-border-radius-topright: 0;
+  -webkit-border-top-right-radius: 0;
+  border-top-right-radius: 0;
+  -moz-border-radius-bottomright: 0;
+  -webkit-border-bottom-right-radius: 0;
+  border-bottom-right-radius: 0;
+  -moz-border-radius-bottomleft: 0;
+  -webkit-border-bottom-left-radius: 0;
+  border-bottom-left-radius: 0;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  -ms-border-radius: 0;
+  border-radius: 0;
+  border-top: none;
+  border-right: none;
+  border-bottom: none;
+  border-left: none;
+  border: none; }
 
 .catalog-modal .modal-content {
   -moz-border-radius-topleft: 0;
@@ -585,66 +650,69 @@ input[type="radio"]:disabled + label {
   border-bottom: none;
   border-left: none;
   border: none; }
+.catalog-modal .modal-body {
+  padding: 0 15px; }
 
-.cat-toolbar .cat-btn-left {
-  width: 50px;
-  position: absolute;
-  top: 0;
-  left: 0; }
-.cat-toolbar .cat-btn-right {
-  width: 50px;
-  position: absolute;
-  top: 0;
-  right: 0;
-  text-align: right;
-  font-size: 0;
-  /* Avoid space between elements with display inline */ }
-  .cat-toolbar .cat-btn-right button {
-    float: none;
-    /* Avoid 1px bug on the right in md resolution */
-    margin-left: 0 !important;
-    /* Avoid 1px bug of the bootstrap's btn-group */
-    display: inline-block; }
-    .cat-toolbar .cat-btn-right button[data-action="flip"] {
-      background-color: #e0e0e0; }
-    .cat-toolbar .cat-btn-right button:last-child {
-      margin-right: 0;
-      /* Remove margin from the last child of btn-group */ }
-.cat-toolbar button {
-  border: 0;
-  background-color: transparent;
-  font-size: 16px;
-  padding: 1px 10px 0 10px;
-  -moz-border-radius-topleft: 0;
-  -webkit-border-top-left-radius: 0;
-  border-top-left-radius: 0;
-  -moz-border-radius-topright: 0;
-  -webkit-border-top-right-radius: 0;
-  border-top-right-radius: 0;
-  -moz-border-radius-bottomright: 0;
-  -webkit-border-bottom-right-radius: 0;
-  border-bottom-right-radius: 0;
-  -moz-border-radius-bottomleft: 0;
-  -webkit-border-bottom-left-radius: 0;
-  border-bottom-left-radius: 0;
-  -webkit-border-radius: 0;
-  -moz-border-radius: 0;
-  -ms-border-radius: 0;
-  border-radius: 0; }
-  .cat-toolbar button[disabled] {
+.cat-toolbar {
+  padding: 0; }
+  .cat-toolbar .cat-btn-left {
+    width: 50px;
+    position: absolute;
+    top: 0;
+    left: 0; }
+  .cat-toolbar .cat-btn-right {
+    width: 50px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    text-align: right;
+    font-size: 0;
+    /* Avoid space between elements with display inline */ }
+    .cat-toolbar .cat-btn-right button {
+      float: none;
+      /* Avoid 1px bug on the right in md resolution */
+      margin-left: 0 !important;
+      /* Avoid 1px bug of the bootstrap's btn-group */
+      display: inline-block; }
+      .cat-toolbar .cat-btn-right button:last-child {
+        margin-right: 0;
+        /* Remove margin from the last child of btn-group */ }
+  .cat-toolbar button {
+    border: 0;
     background-color: transparent;
-    border: 0;
-    opacity: 1; }
-    .cat-toolbar button[disabled] span {
-      opacity: 0.35; }
-  .cat-toolbar button:hover {
-    border: 0;
-    border-color: transparent;
-    background-color: #e0e0e0;
-    color: #0076ff; }
-.cat-toolbar .catalog-title {
-  color: #0076ff;
-  margin-top: 5px;
-  margin-bottom: 5px; }
+    font-size: 16px;
+    padding: 1px 10px 0 10px;
+    -moz-border-radius-topleft: 0;
+    -webkit-border-top-left-radius: 0;
+    border-top-left-radius: 0;
+    -moz-border-radius-topright: 0;
+    -webkit-border-top-right-radius: 0;
+    border-top-right-radius: 0;
+    -moz-border-radius-bottomright: 0;
+    -webkit-border-bottom-right-radius: 0;
+    border-bottom-right-radius: 0;
+    -moz-border-radius-bottomleft: 0;
+    -webkit-border-bottom-left-radius: 0;
+    border-bottom-left-radius: 0;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    -ms-border-radius: 0;
+    border-radius: 0; }
+    .cat-toolbar button[disabled] {
+      background-color: transparent;
+      border: 0;
+      opacity: 1; }
+      .cat-toolbar button[disabled] span {
+        opacity: 0.35; }
+    .cat-toolbar button:hover {
+      border: 0;
+      border-color: transparent;
+      background-color: #e0e0e0;
+      color: #0076ff; }
+  .cat-toolbar .cat-title {
+    color: #0076ff;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    text-align: center; }
 
 /*# sourceMappingURL=test.css.map */

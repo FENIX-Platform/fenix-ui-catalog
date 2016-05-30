@@ -1,7 +1,8 @@
 /* Catalog */
-$catalog-gray-color: #e0e0e0;
-$cmd-left-width: 50px;
-$cmd-right-width: 50px;
+$catalog-head-color: #e0e0e0;
+$catalog-side-color: #efefef;
+$cat-cmd-left-width: 50px;
+$cat-cmd-right-width: 50px;
 
 
 .fx-catalog {
@@ -23,7 +24,116 @@ $cmd-right-width: 50px;
       }
     }
   }
+
+
+  /* Hovered */
+
+  .cat-title {
+    margin-left: $cat-cmd-left-width;
+    margin-right: $cat-cmd-right-width;
+  }
+
+
+  .cat-btn-left, .cat-btn-right {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  @media screen and (min-width: $screen-sm) {
+
+    & {
+
+
+
+      .cat-btn-left, .cat-btn-right {
+          opacity: 0;
+          pointer-events: none;
+          @include animate(0.3s, 0.2s);
+        }
+
+        .cat-title {
+          margin-left: 15px;
+          margin-right: 15px;
+          @include animate(0.3s, 0.2s);
+        }
+
+
+
+    }
+
+    &:hover {
+
+
+
+      .cat-btn-left, .cat-btn-right {
+          opacity: 1;
+          pointer-events: auto;
+        }
+
+        .cat-title {
+          margin-left: $cat-cmd-left-width;
+          margin-right: $cat-cmd-right-width;
+        }
+
+
+
+    }
+
+  }
+
+  @media screen and (min-width: $screen-md) {
+
+  }
+  @media screen and (min-width: $screen-lg) {
+
+  }
+
+
+
+
+
+
 }
+
+
+
+.cat-sidebar{
+  background-color: $catalog-side-color;
+  overflow-y: scroll;
+
+
+  .cat-filter-container{
+    padding-bottom: 25px;
+
+  }
+
+}
+
+.cat-results{
+
+  .th-inner{
+    font-weight: normal;
+    font-size: 12px;
+  }
+
+
+  .fixed-table-body{
+
+    margin: 0 -15px;
+
+
+  }
+
+  .fixed-table-container{
+    @include fx-no-border-radius;
+    @include fx-no-border;
+
+  }
+
+}
+
+
+
 
 
 
@@ -33,28 +143,38 @@ $cmd-right-width: 50px;
   .modal-content{
     @include fx-no-border-radius;
     @include fx-no-border
+
+
+
+
   }
 
+  .modal-body{
 
+    padding: 0 15px;
+
+  }
 
 }
 
 
 .cat-toolbar {
 
-  //background-color: white;
-  //border-bottom: 1px solid $catalog-gray-color;
+  padding: 0;
+
+  //background-color: $catalog-head-color;
+  //@include fx-no-border;
 
 
   .cat-btn-left {
-    width: $cmd-left-width;
+    width: $cat-cmd-left-width;
     position: absolute;
     top: 0;
     left: 0;
   }
 
   .cat-btn-right {
-    width: $cmd-right-width;
+    width: $cat-cmd-right-width;
     position: absolute;
     top: 0;
     right: 0;
@@ -66,9 +186,6 @@ $cmd-right-width: 50px;
       margin-left: 0 !important; /* Avoid 1px bug of the bootstrap's btn-group */
       display: inline-block;
 
-      &[data-action="flip"] {
-        background-color: $catalog-gray-color;
-      }
 
       &:last-child {
         margin-right: 0; /* Remove margin from the last child of btn-group */
@@ -107,18 +224,19 @@ $cmd-right-width: 50px;
     &:hover {
       border: 0;
       border-color: transparent;
-      background-color: $catalog-gray-color;
+      background-color: $catalog-head-color;
       color: $fx-cool-blue;
 
     }
 
   }
 
-  .catalog-title {
+
+  .cat-title {
     color: $fx-cool-blue;
     margin-top: 5px;
     margin-bottom: 5px;
-
+    text-align: center;
   }
 
 }

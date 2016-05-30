@@ -4,13 +4,15 @@
 
         <div class="modal-header clearfix cat-toolbar">
 
-
-            <div data-role="menu" class="dropdown cat-btn-left">
-                <button class="btn btn-default" type="button" data-toggle="dropdown" aria-expanded="false">
-                    <span class="icojam_preview_list"></span>
-                </button>
+            <div class="cat-btn-left">
+                <div data-role="menu" class="dropdown">
+                    <button class="btn btn-default" type="button" data-toggle="dropdown" aria-expanded="false">
+                        <span class="icojam_preview_list"></span>
+                    </button>
+                </div>
             </div>
-            <h4 class="catalog-title truncate">Open a resource</h4>
+
+            <h6 class="cat-title truncate">Open a resource</h6>
             <!--<button type="button" class="close cat-btn-left" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>-->
 
             <div class="cat-btn-right">
@@ -27,45 +29,49 @@
             <!-- Filter -->
             <div class="row">
 
-                <div class="col-xs-4">
+                <div class="row-height">
 
-                    <!-- Filter -->
-                    <div data-role="filter"></div>
+                    <div class="col-sm-4 col-sm-height col-top cat-sidebar">
 
-                </div>
+                        <!-- Filter -->
+                        <div data-role="filter" class="cat-filter-container"></div>
 
-                <div class="col-xs-8">
+                    </div>
 
-                    <!-- Bottom -->
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <div data-role="bottom" data-status="intro">
+                    <div class="col-sm-8 col-sm-height col-top cat-results">
 
-                                <div data-content="error">
-                                    Oh snap!
-                                </div>
+                        <!-- Bottom -->
 
-                                <div data-content="ready">
-                                    <div data-role="results-container">
-                                        <table data-role="results"></table>
+                                <div data-role="bottom" data-status="intro">
+
+                                    <div data-content="error">
+                                        Oh snap!
                                     </div>
-                                    <div data-role="pagination" class="text-center"></div>
+
+                                    <div data-content="ready">
+                                        <div data-role="results-container">
+                                            <table data-role="results"></table>
+                                        </div>
+                                        <div data-role="pagination" class="text-center"></div>
+                                    </div>
+
+                                    <div data-content="loading" class="text-center">
+                                        <span class="loading loading-48"></span>
+                                    </div>
+
+                                    <div data-content="empty">
+                                        Empty
+                                    </div>
+
+                                    <div data-content="intro">
+                                        This is the intro
+                                    </div>
+
                                 </div>
 
-                                <div data-content="loading" class="text-center">
-                                    <span class="loading loading-48"></span>
-                                </div>
 
-                                <div data-content="empty">
-                                    Empty
-                                </div>
 
-                                <div data-content="intro">
-                                    This is the intro
-                                </div>
 
-                            </div>
-                        </div>
                     </div>
 
                 </div>
@@ -80,11 +86,6 @@
             </div>
 
         </div>
-
-
-
-
-
 
 
         <!-- Errors -->
