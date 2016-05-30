@@ -203,7 +203,7 @@ define([
             el: this.$el.find(s.MENU),
             model: MenuConfig.map(function (item) {
 
-                item.label = i18nLabels[item.i18n] || "Missing label: " + item.id;
+                item.label = i18nLabels[item.i18n] || "Missing label [" + item.id + "]";
 
                 return item;
             })
@@ -236,7 +236,7 @@ define([
         }, this));
 
         this.bridge = new Bridge({
-            environment : this.environment
+            environment: this.environment
         });
 
         this.searchThrottleTimeout = C.searchThrottleTimeout || CD.searchThrottleTimeout;
@@ -405,7 +405,7 @@ define([
             //summary$el: s.SUMMARY,
             direction: "prepend",
             ensureAtLeast: 1,
-            environment : this.environment,
+            environment: this.environment,
             //summaryRender : function (item ){ return " -> " + item.code; },
             common: {
                 template: {
@@ -414,8 +414,7 @@ define([
                 },
                 selector: {
                     hideFooter: true
-                },
-                className: "col-xs-6"
+                }
             }
         });
 
@@ -437,14 +436,20 @@ define([
         var tableColumns = Object.keys(this.tableColumns),
             columns = [],
             self = this;
+
         _.each(tableColumns, function (c) {
 
             columns.push({
                 field: c,
-                title: i18nLabels[c] || "Missing label: " + c,
+                title: i18nLabels[c] || "Missing label [" + c + "]",
                 sortable: true
             });
 
+        });
+
+        columns.push({
+            field: "rid",
+            visible: false
         });
 
         //Add actions column
@@ -537,7 +542,8 @@ define([
             return;
         }
 
-        this.current.data = this._parseData(data);
+        this.current.data = data;
+        this.current.model = this._parseData(this.current.data);
 
         if (!this.current.data) {
             this._setBottomStatus("empty");
@@ -554,9 +560,9 @@ define([
 
     Catalog.prototype._parseData = function (d) {
 
-        var data =[];
+        var data = [];
 
-        _.each(d, _.bind(function ( record ) {
+        _.each(d, _.bind(function (record) {
 
             data.push(this._parseRecord(record));
 
@@ -569,30 +575,34 @@ define([
 
         var result = {};
 
-        _.each(this.tableColumns, _.bind(function (col, id){
-            result[id] = this._getColumnValue(record, $.extend(true, {id :id}, col));
+        _.each(this.tableColumns, _.bind(function (col, id) {
+            result[id] = this._getColumnValue(record, $.extend(true, {id: id}, col));
         }, this));
+
+        //add rid to model
+        result["rid"] = this._getColumnValue(record, $.extend(true, {id: "rid"}, {}));
 
         return result;
     };
 
     Catalog.prototype._getColumnValue = function (record, col) {
 
+
         var label,
             path = col.path ? col.path : col.id,
             metadataValue = Utils.getNestedProperty(path, record) || {},
             type = col.type || "";
 
-        switch(type.toLowerCase()) {
+        switch (type.toLowerCase()) {
             case "i18n":
                 var i18nLabel = this._getI18nLabel(metadataValue);
                 label = i18nLabel ? i18nLabel : metadataValue;
                 break;
             case "source":
 
-                var owner = _.findWhere(metadataValue, {role :"owner"}) || {},
+                var owner = _.findWhere(metadataValue, {role: "owner"}) || {},
                     organization = owner.organization,
-                    pointOfContact = owner.pointOfContact ? owner.pointOfContact  : "",
+                    pointOfContact = owner.pointOfContact ? owner.pointOfContact : "",
                     organizationI18nLabel = this._getI18nLabel(organization);
 
                 label = organizationI18nLabel ? organizationI18nLabel + " - " : "";
@@ -600,7 +610,8 @@ define([
 
                 break;
             case "epoch":
-                label =  new Moment(metadataValue).format(this.dateFormat);
+
+                label = new Moment(metadataValue).format(this.dateFormat);
                 break;
             case "code":
 
@@ -608,7 +619,8 @@ define([
                 label = this._getI18nLabel(code.label);
 
                 break;
-            default : label = metadataValue;
+            default :
+                label = metadataValue;
 
         }
 
@@ -619,7 +631,7 @@ define([
 
         this._unbindResultsEventListeners();
 
-        this.$el.find(s.RESULTS).bootstrapTable('load', this.current.data);
+        this.$el.find(s.RESULTS).bootstrapTable('load', this.current.model);
 
         this._bindResultsEventListeners();
 
@@ -738,7 +750,7 @@ define([
         this.$el.find(s.ERROR_CONTAINER).hide();
     };
 
-    Catalog.prototype._getI18nLabel = function ( obj ) {
+    Catalog.prototype._getI18nLabel = function (obj) {
 
         return typeof obj === "object" ? obj[this.lang] : null;
 
