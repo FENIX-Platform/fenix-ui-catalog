@@ -151,6 +151,8 @@ define([
         this.environment = this.initial.environment;
         this.lang = this.initial.lang || "EN";
         this.lang = this.lang.toUpperCase();
+        
+        this.selectorRegistry = $.extend(true, {}, SelectorsRegistry, this.initial.selectorRegistry);
 
     };
 
@@ -336,13 +338,13 @@ define([
 
     Catalog.prototype._getSelectorConfiguration = function (selector) {
 
-        if (!SelectorsRegistry.hasOwnProperty(selector)) {
+        if (!this.selectorRegistry .hasOwnProperty(selector)) {
             log.error("Impossible to find selector in registry: " + selector);
             return;
         }
 
         var config = {};
-        config[selector] = $.extend(true, {}, SelectorsRegistry[selector]);
+        config[selector] = $.extend(true, {}, this.selectorRegistry [selector]);
 
         if (!config[selector].template) {
             config[selector].template = {};

@@ -33,8 +33,31 @@ define([
 
         var catalog = this.createCatalog({
             $el: s.STANDARD,
-            defaultSelectors: ['resourceType', 'contextSystem', 'uid'],
-            environment: "distribution"
+            defaultSelectors: ['resourceType', 'contextSystem'],
+            environment: "distribution",
+            selectorRegistry : {
+                contextSystem : {
+                    selector : {
+                        id : "dropdown",
+                        source : [
+                            {value : "cstat_mdg", label : "CountrySTAT Madagascar"},
+                            {value : "uneca", label : "UNECA"}
+                        ],
+                        default : ["cstat_mdg"],
+                        hideSummary : true
+                    },
+
+                    template : {
+                        hideRemoveButton : false
+                    },
+
+                    format : {
+                        output : "enumeration",
+                        metadataAttribute: "dsd.contextSystem"
+                    }
+                }
+
+            }
             //id : "my_id"
             //actions: ["download", 'view'],
             //baseFilter : { test : "test"}
