@@ -1,4 +1,4 @@
-/* global define */
+/*global define*/
 
 define(function () {
 
@@ -6,6 +6,6 @@ define(function () {
 
     return {
 
-    };
+    }
 
 });
