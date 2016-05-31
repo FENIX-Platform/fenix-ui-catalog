@@ -5,13 +5,13 @@ define(function () {
 
     return [
         {
-            url: "#",
+            url: "",
             parent_id: "-1",
             id: "1",
             i18n: "content"
         },
         {
-            url: "#",
+            url: "",
             parent_id: "1",
             i18n: "resourceType",
             id: "11",
@@ -21,7 +21,17 @@ define(function () {
             }
         },
         {
-            url: "#",
+            url: "",
+            parent_id: "1",
+            i18n: "contextSystem",
+            id: "13",
+            a_attrs: {
+                "data-action": "selector",
+                "data-selector": "contextSystem"
+            }
+        },
+        {
+            url: "",
             parent_id: "1",
             i18n: "referencePeriod",
             id: "12",
@@ -31,7 +41,7 @@ define(function () {
             }
         },
         {
-            url: "#",
+            url: "",
             parent_id: "1",
             i18n: "referenceArea",
             id: "13",
@@ -41,7 +51,7 @@ define(function () {
             }
         },
         {
-            url: "#",
+            url: "",
             parent_id: "1",
             i18n: "dataDomain",
             id: "14",
@@ -51,7 +61,7 @@ define(function () {
             }
         },
         {
-            url: "#",
+            url: "",
             parent_id: "1",
             i18n: "region",
             id: "15",
@@ -61,13 +71,13 @@ define(function () {
             }
         },
         {
-            url: "#",
+            url: "",
             parent_id: "-1",
             i18n: "accessibility",
             id: "2"
         },
         {
-            url: "#",
+            url: "",
             parent_id: "2",
             i18n: "statusOfConfidentiality",
             id: "21",
@@ -77,13 +87,13 @@ define(function () {
             }
         },
         {
-            url: "#",
+            url: "",
             parent_id: "-1",
             i18n: "search_by_id",
             id: "3"
         },
         {
-            url: "#",
+            url: "",
             parent_id: "3",
             i18n: "uid",
             id: "23",
