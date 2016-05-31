@@ -426,7 +426,19 @@ define([
             pagination: true,
             pageSize: this.current.perPage,
             pageList: [],
-            columns: this._createTableColumnsConfiguration()
+            columns: this._createTableColumnsConfiguration(),
+            onPageChange : _.bind(function(){
+                this._unbindResultsEventListeners();
+                this._bindResultsEventListeners()
+            }, this),
+            onSort: _.bind(function(){
+
+                window.setTimeout(_.bind(function(){
+                    this._unbindResultsEventListeners();
+                    this._bindResultsEventListeners()
+                }, this),100)
+
+        }, this)
         });
 
     };
