@@ -35,7 +35,7 @@ define([
             $el: s.STANDARD,
             defaultSelectors: ['resourceType', 'contextSystem'],
             environment: "distribution",
-            selectorRegistry : {
+            selectorsRegistry : {
                 contextSystem : {
                     selector : {
                         id : "dropdown",
