@@ -142,10 +142,10 @@ define([
 
     Catalog.prototype._parseInput = function () {
 
-        this.id = this.initial.id;
         this.$el = this.initial.$el;
-        this.defaultSelectors = this.initial.defaultSelectors || [];
+        this.defaultSelectors = this.initial.defaultSelectors || C.defaultSelectors || CD.defaultSelectors;
         this.actions = this.initial.actions || C.result_actions || CD.result_actions;
+        this.selectorsRegistry = $.extend(true, {}, SelectorsRegistry, this.initial.selectorsRegistry);
         this.baseFilter = this.initial.baseFilter || {};
         this.tableColumns = this.initial.tableColumns || C.table_columns || CD.table_columns;
         this.environment = this.initial.environment;
@@ -168,7 +168,6 @@ define([
 
             log.warn("Impossible to find catalog id. Set auto id to: " + this.id);
         }
-
 
         if (!this.$el) {
             errors.push({code: ERR.MISSING_CONTAINER});
@@ -336,13 +335,13 @@ define([
 
     Catalog.prototype._getSelectorConfiguration = function (selector) {
 
-        if (!SelectorsRegistry.hasOwnProperty(selector)) {
+        if (!this.selectorsRegistry.hasOwnProperty(selector)) {
             log.error("Impossible to find selector in registry: " + selector);
             return;
         }
 
         var config = {};
-        config[selector] = $.extend(true, {}, SelectorsRegistry[selector]);
+        config[selector] = $.extend(true, {}, this.selectorsRegistry[selector]);
 
         if (!config[selector].template) {
             config[selector].template = {};
@@ -426,19 +425,7 @@ define([
             pagination: true,
             pageSize: this.current.perPage,
             pageList: [],
-            columns: this._createTableColumnsConfiguration(),
-            onPageChange : _.bind(function(){
-                this._unbindResultsEventListeners();
-                this._bindResultsEventListeners()
-            }, this),
-            onSort: _.bind(function(){
-
-                window.setTimeout(_.bind(function(){
-                    this._unbindResultsEventListeners();
-                    this._bindResultsEventListeners()
-                }, this),100)
-
-        }, this)
+            columns: this._createTableColumnsConfiguration()
         });
 
     };

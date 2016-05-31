@@ -6,6 +6,9 @@
 
 $fx-ui-common: '../../../fenix-ui-common/';
 
+@import '../../../fenix-ui-common/css/base/fx-typography';
+@import '../../../fenix-ui-common/css/base/fx-fonts-import';
+
 
 @import '../../../fenix-ui-common/css/utils/fx-mixins';
 @import '../../../fenix-ui-common/css/components/fx-dropdown';
