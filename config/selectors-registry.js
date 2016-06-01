@@ -14,7 +14,11 @@ define(function () {
             selector : {
                 id : "dropdown",
                 hideSummary : true,
-                default : ['dataset']
+                default : ['dataset'],
+                config : {
+                    plugins: ['remove_button'],
+                    mode: 'multi'
+                }
             },
 
             template : {
