@@ -598,16 +598,16 @@ define([
 
     Catalog.prototype._getColumnValue = function (record, col) {
 
-
         var label,
             path = col.path ? col.path : col.id,
             metadataValue = Utils.getNestedProperty(path, record) || {},
-            type = col.type || "";
+            type = col.type || "",
+            i18nLabel;
 
         switch (type.toLowerCase()) {
             case "i18n":
-                var i18nLabel = this._getI18nLabel(metadataValue);
-                label = i18nLabel ? i18nLabel : metadataValue;
+                i18nLabel = this._getI18nLabel(metadataValue);
+                label = i18nLabel ? i18nLabel : " ";
                 break;
             case "source":
 
@@ -616,7 +616,7 @@ define([
                     pointOfContact = owner.pointOfContact ? owner.pointOfContact : "",
                     organizationI18nLabel = this._getI18nLabel(organization);
 
-                label = organizationI18nLabel ? organizationI18nLabel + " - " : "";
+                label = organizationI18nLabel ? organizationI18nLabel + " - " : " ";
                 label += pointOfContact;
 
                 break;
@@ -627,7 +627,9 @@ define([
             case "code":
 
                 var code = (Array.isArray(metadataValue.codes) && metadataValue.codes.length > 0) ? metadataValue.codes[0] : {};
-                label = this._getI18nLabel(code.label);
+
+                i18nLabel = this._getI18nLabel(code.label);
+                label = i18nLabel ? i18nLabel : " ";
 
                 break;
             default :

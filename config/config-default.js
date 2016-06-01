@@ -23,7 +23,6 @@ define(function () {
                 path : "meMaintenance.seUpdate.updateDate",
                 type : "epoch"
             },
-
             region : {
                 path: "meContent.seCoverage.coverageGeographic",
                 type: "code"
