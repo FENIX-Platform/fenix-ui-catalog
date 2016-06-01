@@ -5797,8 +5797,7 @@ input[type="radio"]:disabled + label {
       margin-right: 50px; } }
 
 .cat-sidebar {
-  background-color: #efefef;
-  overflow-y: scroll; }
+  background-color: #efefef; }
   .cat-sidebar .cat-filter-container {
     padding-bottom: 25px; }
 
@@ -5829,6 +5828,10 @@ input[type="radio"]:disabled + label {
   border-bottom: none;
   border-left: none;
   border: none; }
+.cat-results .cat-statuses-holder {
+  height: 100%; }
+  .cat-results .cat-statuses-holder .loading {
+    margin-top: 20px; }
 
 .catalog-modal .modal-content {
   -moz-border-radius-topleft: 0;

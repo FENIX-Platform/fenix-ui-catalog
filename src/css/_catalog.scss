@@ -99,7 +99,7 @@ $cat-cmd-right-width: 50px;
 
 .cat-sidebar{
   background-color: $catalog-side-color;
-  overflow-y: scroll;
+  //overflow-y: scroll;
 
 
   .cat-filter-container{
@@ -127,6 +127,16 @@ $cat-cmd-right-width: 50px;
   .fixed-table-container{
     @include fx-no-border-radius;
     @include fx-no-border;
+
+  }
+
+  .cat-statuses-holder{
+    height: 100%;
+
+
+    .loading{
+      margin-top: 20px;
+    }
 
   }
 
