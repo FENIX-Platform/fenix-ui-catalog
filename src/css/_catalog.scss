@@ -261,29 +261,57 @@ $cat-cmd-right-width: 50px;
 
 }
 
+// This is the standard primary btn of Bootstrap, the one below is the customized one
+
+//[data-role="results"]{
+//
+//
+//  [data-action="select"].btn-default {
+//    color: #fff;
+//    background-color: #337ab7;
+//    border-color: #2e6da4;
+//
+//    &:hover {
+//      color: #fff;
+//      background-color: #286090;
+//      border-color: #204d74;
+//    }
+//
+//    &:focus {
+//      color: #fff;
+//      background-color: #286090;
+//      border-color: #122b40;
+//    }
+//
+//  }
+//
+//}
+
+
 [data-role="results"]{
 
 
   [data-action="select"].btn-default {
-    color: #fff;
-    background-color: #337ab7;
-    border-color: #2e6da4;
+    color: white;
+    border-color: darken($fx-cool-blue, 10%);
+    background-color: $fx-cool-blue;
 
     &:hover {
-      color: #fff;
-      background-color: #286090;
-      border-color: #204d74;
+      color: white;
+      border-color: darken($fx-cool-blue, 10%);
+      background-color: darken($fx-cool-blue, 5%);
     }
 
     &:focus {
-      color: #fff;
-      background-color: #286090;
-      border-color: #122b40;
+      color: white;
+      border-color: darken($fx-cool-blue, 20%);
+      background-color: darken($fx-cool-blue, 15%);
     }
 
   }
 
 }
+
 
 
 

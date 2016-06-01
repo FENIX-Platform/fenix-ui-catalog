@@ -5928,16 +5928,16 @@ input[type="radio"]:disabled + label {
     text-align: center; }
 
 [data-role="results"] [data-action="select"].btn-default {
-  color: #fff;
-  background-color: #337ab7;
-  border-color: #2e6da4; }
+  color: white;
+  border-color: #005ecc;
+  background-color: #0076ff; }
   [data-role="results"] [data-action="select"].btn-default:hover {
-    color: #fff;
-    background-color: #286090;
-    border-color: #204d74; }
+    color: white;
+    border-color: #005ecc;
+    background-color: #006ae6; }
   [data-role="results"] [data-action="select"].btn-default:focus {
-    color: #fff;
-    background-color: #286090;
-    border-color: #122b40; }
+    color: white;
+    border-color: #004799;
+    background-color: #0053b3; }
 
 /*# sourceMappingURL=test.css.map */
