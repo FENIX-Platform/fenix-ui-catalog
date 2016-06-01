@@ -169,8 +169,7 @@ define(function () {
 
             selector : {
                 id : "input",
-                type : "text",
-                default : ['UNECA_Education']
+                type : "text"
             },
 
             template : {
