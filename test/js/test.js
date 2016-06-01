@@ -45,7 +45,11 @@ define([
                             {value : "uneca", label : "UNECA"}
                         ],
                         default : ["cstat_mdg"],
-                        hideSummary : true
+                        hideSummary : true,
+                        config : {
+                            plugins: ['remove_button'],
+                            mode: 'multi'
+                        }
                     },
 
                     template : {

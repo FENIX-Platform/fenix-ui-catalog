@@ -41,7 +41,11 @@ define(function () {
 
             selector : {
                 id : "dropdown",
-                hideSummary : true
+                hideSummary : true,
+                config : {
+                    plugins: ['remove_button'],
+                    mode: 'multi'
+                }
             },
 
             template : {
@@ -63,7 +67,11 @@ define(function () {
 
             selector : {
                 id : "dropdown",
-                hideSummary : true
+                hideSummary : true,
+                config : {
+                    plugins: ['remove_button'],
+                    mode: 'multi'
+                }
             },
 
             template : {
@@ -86,7 +94,11 @@ define(function () {
 
             selector : {
                 id : "dropdown",
-                hideSummary : true
+                hideSummary : true,
+                config : {
+                    plugins: ['remove_button'],
+                    mode: 'multi'
+                }
             },
 
             template : {
@@ -109,7 +121,11 @@ define(function () {
 
             selector : {
                 id : "dropdown",
-                hideSummary : true
+                hideSummary : true,
+                config : {
+                    plugins: ['remove_button'],
+                    mode: 'multi'
+                }
             },
 
             template : {
@@ -131,7 +147,11 @@ define(function () {
 
             selector : {
                 id : "dropdown",
-                hideSummary : true
+                hideSummary : true,
+                config : {
+                    plugins: ['remove_button'],
+                    mode: 'multi'
+                }
             },
 
             template : {
@@ -170,7 +190,11 @@ define(function () {
                 id : "dropdown",
                 source : [{value : "uneca", label : "UNECA"}],
                 default : ["uneca"],
-                hideSummary : true
+                hideSummary : true,
+                config : {
+                    plugins: ['remove_button'],
+                    mode: 'multi'
+                }
             },
 
             template : {
