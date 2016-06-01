@@ -11,7 +11,8 @@ define([
     var s = {
             STANDARD: "#standard"
         },
-        catalogs = [];
+        catalogs = [],
+        environment = "production";
 
     function Test() {
     }
@@ -34,7 +35,7 @@ define([
         var catalog = this.createCatalog({
             $el: s.STANDARD,
             defaultSelectors: ['resourceType', 'contextSystem'],
-            environment: "distribution",
+            environment: environment,
             selectorsRegistry : {
                 contextSystem : {
                     selector : {
