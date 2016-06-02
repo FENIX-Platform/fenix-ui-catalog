@@ -458,17 +458,21 @@ define([
 
         });
 
+        // add rid
         columns.push({
             field: "rid",
             visible: false
         });
+
+        var resourceTypeColumn = _.findWhere(columns, {field : "resourceType"}) || {};
+        resourceTypeColumn.visible = false;
 
         //Add actions column
         columns.push({
             formatter: function (value, row) {
 
                 var template = Handlebars.compile($(Templates).find(s.ACTIONS)[0].outerHTML),
-                    model = $.extend(true, {}, i18nLabels, row, {actions: self.actions}),
+                    model = $.extend(true, {}, i18nLabels, row, {actions: self._getActions(row)}),
                     $html = $(template(model));
 
                 return $html[0].outerHTML
@@ -476,6 +480,20 @@ define([
         });
 
         return columns;
+    };
+
+    Catalog.prototype._getActions = function ( row ) {
+
+        var excluded = C.excluded_action || CD.excluded_action || {},
+            to_exclude = excluded[row.resourceType] || [],
+            actions = this.actions;
+
+        _.each(to_exclude, function ( excl ) {
+            actions = _.reject(actions, {action : excl})
+        });
+
+        return actions;
+
     };
 
     Catalog.prototype._getDefaultSelectors = function () {
@@ -604,6 +622,7 @@ define([
             type = col.type || "",
             i18nLabel;
 
+
         switch (type.toLowerCase()) {
             case "i18n":
                 i18nLabel = this._getI18nLabel(metadataValue);
@@ -634,6 +653,7 @@ define([
 
                 break;
             default :
+
                 label = metadataValue;
 
         }

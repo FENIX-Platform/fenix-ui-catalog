@@ -10,8 +10,13 @@ define(function () {
 
         result_actions : ['select'], //'metadata', 'view', 'download'
 
+        excluded_action : {
+            dataset : [],
+            geographic : ['download']
+        },
+
         table_columns : {
-          title: {
+            title: {
                 path : "title",
                 type: "i18n"
             },
@@ -27,7 +32,14 @@ define(function () {
                 path: "meContent.seCoverage.coverageGeographic",
                 type: "code"
             },
-           /* periodicity : {
+            resourceType : {
+                path: "meContent.resourceRepresentationType"
+            },
+            /*
+            rid : {
+                path: "rid"
+            },
+           periodicity : {
                 path: "meContent.seReferencePopulation.referencePeriod",
                 type: "code"
             }*/
