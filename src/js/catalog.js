@@ -616,7 +616,7 @@ define([
 
     Catalog.prototype._getColumnValue = function (record, col) {
 
-        var label,
+        var label = " ",
             path = col.path ? col.path : col.id,
             metadataValue = Utils.getNestedProperty(path, record) || {},
             type = col.type || "",
@@ -632,12 +632,15 @@ define([
 
                 var owner = _.findWhere(metadataValue, {role: "owner"}) || {},
                     organization = owner.organization,
-                    pointOfContact = owner.pointOfContact ? owner.pointOfContact : "",
-                    organizationI18nLabel = this._getI18nLabel(organization);
+                    pointOfContact = owner.pointOfContact,
+                    organizationI18nLabel = this._getI18nLabel(organization),
+                    bothPopulated = organizationI18nLabel && pointOfContact;
 
-                label = organizationI18nLabel ? organizationI18nLabel : " ";
+                label += organizationI18nLabel ? organizationI18nLabel : "";
 
-                label += pointOfContact ? " - " + pointOfContact : " ";
+                label += bothPopulated ? " - " : "";
+
+                label += pointOfContact ? + pointOfContact : "";
 
                 break;
             case "epoch":
