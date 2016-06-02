@@ -616,8 +616,9 @@ define([
                     pointOfContact = owner.pointOfContact ? owner.pointOfContact : "",
                     organizationI18nLabel = this._getI18nLabel(organization);
 
-                label = organizationI18nLabel ? organizationI18nLabel + " - " : " ";
-                label += pointOfContact;
+                label = organizationI18nLabel ? organizationI18nLabel : " ";
+
+                label += pointOfContact ? " - " + pointOfContact : " ";
 
                 break;
             case "epoch":
