@@ -5751,6 +5751,15 @@ input[type="radio"]:disabled + label {
     opacity: 0.4; }
 
 /* Catalog */
+.fx-catalog .btn-fx-catalog-filters {
+  margin-left: 0;
+  margin-bottom: 0; }
+  .fx-catalog .btn-fx-catalog-filters span[class^="icojam_"] {
+    color: white;
+    font-size: 20px;
+    position: relative;
+    top: 3px; }
+
 .fx-catalog {
   /* Hovered */ }
   .fx-catalog [data-content] {
@@ -5774,7 +5783,6 @@ input[type="radio"]:disabled + label {
     pointer-events: auto; }
   @media screen and (min-width: 768px) {
     .fx-catalog .cat-btn-left, .fx-catalog .cat-btn-right {
-      opacity: 0;
       pointer-events: none;
       -webkit-transition: all 0.3s ease 0.2s;
       -moz-transition: all 0.3s ease 0.2s;

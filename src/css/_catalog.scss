@@ -4,6 +4,26 @@ $catalog-side-color: #efefef;
 $cat-cmd-left-width: 50px;
 $cat-cmd-right-width: 50px;
 
+.fx-catalog{
+
+  .btn-fx-catalog-filters {
+
+    margin-left: 0;
+    margin-bottom: 0;
+
+    span[class^="icojam_"] {
+
+      color: white;
+      font-size: 20px;
+      position: relative;
+      top: 3px;
+
+    }
+
+  }
+
+}
+
 
 .fx-catalog {
 
@@ -46,7 +66,7 @@ $cat-cmd-right-width: 50px;
 
 
       .cat-btn-left, .cat-btn-right {
-          opacity: 0;
+          //opacity: 0;
           pointer-events: none;
           @include animate(0.3s, 0.2s);
         }
