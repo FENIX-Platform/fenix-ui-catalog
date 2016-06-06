@@ -142,7 +142,8 @@ define([
 
     Catalog.prototype._parseInput = function () {
 
-        this.$el = this.initial.$el;
+        this.$el = $(this.initial.el);
+        this.cache = this.initial.cache;
         this.defaultSelectors = this.initial.defaultSelectors || C.defaultSelectors || CD.defaultSelectors;
         this.actions = this.initial.actions || C.result_actions || CD.result_actions;
         this.selectorsRegistry = $.extend(true, {}, SelectorsRegistry, this.initial.selectorsRegistry);
@@ -235,7 +236,8 @@ define([
         }, this));
 
         this.bridge = new Bridge({
-            environment: this.environment
+            environment: this.environment,
+            cache : this.cache
         });
 
         this.searchThrottleTimeout = C.searchThrottleTimeout || CD.searchThrottleTimeout;
@@ -403,6 +405,7 @@ define([
             items: this._getDefaultSelectors(),
             //summary$el: s.SUMMARY,
             direction: "prepend",
+            cache : this.cache,
             ensureAtLeast: 1,
             environment: this.environment,
             //summaryRender : function (item ){ return " -> " + item.code; },
