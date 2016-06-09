@@ -378,8 +378,6 @@ define([
 
     Catalog.prototype._prepareSearch = function () {
 
-        this._setBottomStatus("ready");
-
         if (this.filter && !$.isFunction(this.filter.getValues)) {
             log.error("Filter.getValues is not a fn()");
             return;
