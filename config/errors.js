@@ -8,7 +8,8 @@ define(function ( ) {
     return {
 
         request : prefix + "request",
-        empty_values : prefix + "empty_values"
+        empty_values : prefix + "empty_values",
+        missing_container : prefix + "missing_container"
 
     };
 });

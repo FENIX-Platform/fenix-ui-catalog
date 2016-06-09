@@ -171,7 +171,7 @@ define([
         }
 
         if (!this.$el) {
-            errors.push({code: ERR.MISSING_CONTAINER});
+            errors.push({code: ERR.missing_container});
 
             log.warn("Impossible to find filter container");
         }
@@ -180,8 +180,8 @@ define([
 
         //Check if $el exist
         if (this.$el.length === 0) {
-
-            errors.push({code: ERR.MISSING_CONTAINER});
+            
+            errors.push({code: ERR.missing_container});
 
             log.warn("Impossible to find box container");
 
