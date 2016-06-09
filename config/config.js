@@ -39,7 +39,7 @@ define(function () {
             }
         },
 
-        searchThrottleTimeout : 5000,
+        searchTimeoutInterval : 1000,
 
         dateFormat: 'YYYY MMM DD',
 

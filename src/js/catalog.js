@@ -154,6 +154,7 @@ define([
         this.perPage = C.perPage || 10;
         this.menuExcludedItems = this.initial.menuExcludedItems || C.menuExcludedItems;
         this.d3pFindParams = this.initial.d3pFindParams || C.d3pFindParams;
+        this.searchTimeoutInterval =  this.initial.searchTimeoutInterval || C.searchTimeoutInterval;
 
     };
 
@@ -243,11 +244,11 @@ define([
             cache: this.cache
         });
 
-        this.searchThrottleTimeout = C.searchThrottleTimeout;
-
         Moment.locale(this.lang);
 
         this.dateFormat = C.dateFormat;
+
+        this.searchTimeout = false;
 
     };
 
@@ -299,7 +300,9 @@ define([
 
         }, this));
 
-        this.filter.on('change', _.bind(_.throttle(this.onFilterChangeEvent, this.searchThrottleTimeout), this));
+        this.filter.on('change', function () {
+            self.onFilterChangeEvent();
+        });
 
         amplify.subscribe(this._getEventName("select"), this, this._onSelectResult);
         amplify.subscribe(this._getEventName("download"), this, this._onDownloadResult);
@@ -312,8 +315,6 @@ define([
         log.info("Change from filter");
 
         this._refreshResults();
-
-        //this._hideError();
 
     };
 
@@ -360,6 +361,25 @@ define([
 
     Catalog.prototype._refreshResults = function () {
 
+        log.info("Refresh catalog results");
+
+        this._setBottomStatus("loading");
+
+        if (this.searchTimeout) {
+            clearTimeout(this.searchTimeout);
+            log.info("Abort search timeout");
+        }
+
+        this.searchTimeout = window.setTimeout(_.bind(function () {
+            this._prepareSearch();
+        }, this), this.searchTimeoutInterval);
+
+    };
+
+    Catalog.prototype._prepareSearch = function () {
+
+        this._setBottomStatus("ready");
+
         if (this.filter && !$.isFunction(this.filter.getValues)) {
             log.error("Filter.getValues is not a fn()");
             return;
@@ -378,8 +398,7 @@ define([
 
             if (Array.isArray(valid) && valid[0] === ERR.empty_values) {
                 this._setBottomStatus("intro")
-            }
-            else {
+            } else {
                 this._showError(valid);
             }
         }
@@ -530,8 +549,6 @@ define([
     Catalog.prototype._search = function () {
 
         var body = this.current.filter;
-
-        this._setBottomStatus("loading");
 
         this._lock();
 
