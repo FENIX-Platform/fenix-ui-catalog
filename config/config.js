@@ -45,7 +45,7 @@ define(function () {
 
         d3pFindParams : {
             full: true,
-            order : "meMaintenance.seUpdate.updateDate" //order by last update
+            order : "meMaintenance.seUpdate.updateDate:desc" //order by last update
         }
 
     }
