@@ -6,7 +6,6 @@ define([
     'fx-catalog/config/errors',
     'fx-catalog/config/events',
     'fx-catalog/config/config',
-    'fx-catalog/config/config-default',
     'fx-catalog/config/menu-config',
     'fx-catalog/config/selectors-registry',
     'text!fx-catalog/html/catalog.hbs',
@@ -20,7 +19,7 @@ define([
     'bootstrap-table',
     'amplify',
     'bootstrap'
-], function ($, _, log, ERR, EVT, C, CD, MenuConfig, SelectorsRegistry, Templates, i18nLabels, Filter, JsonMenu, Bridge, Utils, Handlebars, Moment) {
+], function ($, _, log, ERR, EVT, C, MenuConfig, SelectorsRegistry, Templates, i18nLabels, Filter, JsonMenu, Bridge, Utils, Handlebars, Moment) {
 
     'use strict';
 
@@ -44,7 +43,7 @@ define([
         log.info("FENIX catalog");
         log.info(o);
 
-        $.extend(true, this, {initial: o}, CD, C);
+        $.extend(true, this, {initial: o}, C);
 
         this._registerHandlebarsHelpers();
 
@@ -144,14 +143,17 @@ define([
 
         this.$el = $(this.initial.el);
         this.cache = this.initial.cache;
-        this.defaultSelectors = this.initial.defaultSelectors || C.defaultSelectors || CD.defaultSelectors;
-        this.actions = this.initial.actions || C.result_actions || CD.result_actions;
+        this.defaultSelectors = this.initial.defaultSelectors || C.defaultSelectors;
+        this.actions = this.initial.actions || C.resultActions;
         this.selectorsRegistry = $.extend(true, {}, SelectorsRegistry, this.initial.selectorsRegistry);
         this.baseFilter = this.initial.baseFilter || {};
-        this.tableColumns = this.initial.tableColumns || C.table_columns || CD.table_columns;
+        this.tableColumns = this.initial.tableColumns || C.tableColumns;
         this.environment = this.initial.environment;
         this.lang = this.initial.lang || "EN";
         this.lang = this.lang.toUpperCase();
+        this.perPage = C.perPage || 10;
+        this.menuExcludedItems = this.initial.menuExcludedItems || C.menuExcludedItems;
+        this.d3pFindParams = this.initial.d3pFindParams || C.d3pFindParams;
 
     };
 
@@ -180,7 +182,7 @@ define([
 
         //Check if $el exist
         if (this.$el.length === 0) {
-            
+
             errors.push({code: ERR.missing_container});
 
             log.warn("Impossible to find box container");
@@ -198,12 +200,13 @@ define([
         this.$el.html($html);
 
         //render menu
-
         this.menu = new JsonMenu({
             el: this.$el.find(s.MENU),
-            model: MenuConfig.map(function (item) {
+            exclude : this.menuExcludedItems,
+            model: MenuConfig
+                .map(function (item) {
 
-                item.label = i18nLabels[item.i18n] || "Missing label [" + item.id + "]";
+                item.label = i18nLabels[item.id] || "Missing label [" + item.id + "]";
 
                 return item;
             })
@@ -223,7 +226,7 @@ define([
         this.$items = this.$menu.find(s.MENU_ITEMS);
 
         this.current = {};
-        this.current.perPage = C.per_page || CD.per_page;
+        this.current.perPage = this.perPage;
         this.current.page = 0;
 
         this.actions = this.actions.map(_.bind(function (value) {
@@ -237,14 +240,14 @@ define([
 
         this.bridge = new Bridge({
             environment: this.environment,
-            cache : this.cache
+            cache: this.cache
         });
 
-        this.searchThrottleTimeout = C.searchThrottleTimeout || CD.searchThrottleTimeout;
+        this.searchThrottleTimeout = C.searchThrottleTimeout;
 
         Moment.locale(this.lang);
 
-        this.dateFormat = C.dateFormat || CD.dateFormat;
+        this.dateFormat = C.dateFormat;
 
     };
 
@@ -364,7 +367,7 @@ define([
 
         this.current.values = this.filter.getValues();
 
-        this.current.filter = this.filter.getValues("catalog");
+        this.current.filter = $.extend(true, {}, this.baseFilter, this.filter.getValues("catalog"));
 
         var valid = this._validateQuery();
 
@@ -405,7 +408,7 @@ define([
             items: this._getDefaultSelectors(),
             //summary$el: s.SUMMARY,
             direction: "prepend",
-            cache : this.cache,
+            cache: this.cache,
             ensureAtLeast: 1,
             environment: this.environment,
             //summaryRender : function (item ){ return " -> " + item.code; },
@@ -429,16 +432,16 @@ define([
             pageSize: this.current.perPage,
             pageList: [],
             columns: this._createTableColumnsConfiguration(),
-            onPageChange : _.bind(function(){
+            onPageChange: _.bind(function () {
                 this._unbindResultsEventListeners();
                 this._bindResultsEventListeners()
             }, this),
-            onSort: _.bind(function(){
+            onSort: _.bind(function () {
 
-                window.setTimeout(_.bind(function(){
+                window.setTimeout(_.bind(function () {
                     this._unbindResultsEventListeners();
                     this._bindResultsEventListeners()
-                }, this),100)
+                }, this), 100)
 
             }, this)
         });
@@ -467,7 +470,7 @@ define([
             visible: false
         });
 
-        var resourceTypeColumn = _.findWhere(columns, {field : "resourceType"}) || {};
+        var resourceTypeColumn = _.findWhere(columns, {field: "resourceType"}) || {};
         resourceTypeColumn.visible = false;
 
         //Add actions column
@@ -485,14 +488,14 @@ define([
         return columns;
     };
 
-    Catalog.prototype._getActions = function ( row ) {
+    Catalog.prototype._getActions = function (row) {
 
-        var excluded = C.excluded_action || CD.excluded_action || {},
+        var excluded = C.excluded_action || {},
             to_exclude = excluded[row.resourceType] || [],
             actions = this.actions;
 
-        _.each(to_exclude, function ( excl ) {
-            actions = _.reject(actions, {action : excl})
+        _.each(to_exclude, function (excl) {
+            actions = _.reject(actions, {action: excl})
         });
 
         return actions;
@@ -537,10 +540,8 @@ define([
         this.reqeust_id = "fx-request-id-" + window.fx_req_id;
 
         this.bridge.find({
-            body: $.extend(true, {}, this.baseFilter, body),
-            params: {
-                full: true
-            }
+            body: body,
+            params: this.d3pFindParams
         }).then(
             _.bind(this._renderResults, this, "fx-request-id-" + window.fx_req_id),
             _.bind(function (requestId, e) {
@@ -643,7 +644,7 @@ define([
 
                 label += bothPopulated ? " - " : "";
 
-                label += pointOfContact ? + pointOfContact : "";
+                label += pointOfContact ? +pointOfContact : "";
 
                 break;
             case "epoch":

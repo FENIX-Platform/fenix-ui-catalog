@@ -6,15 +6,13 @@ define(function () {
     return [
         {
             url: "",
-            parent_id: "-1",
-            id: "1",
-            i18n: "content"
+            parent_id: "root",
+            id: "content"
         },
         {
             url: "",
-            parent_id: "1",
-            i18n: "resourceType",
-            id: "11",
+            parent_id: "content",
+            id: "resourceType",
             a_attrs: {
                 "data-action": "selector",
                 "data-selector": "resourceType"
@@ -22,9 +20,8 @@ define(function () {
         },
         {
             url: "",
-            parent_id: "1",
-            i18n: "contextSystem",
-            id: "13",
+            parent_id: "content",
+            id: "contextSystem",
             a_attrs: {
                 "data-action": "selector",
                 "data-selector": "contextSystem"
@@ -32,9 +29,8 @@ define(function () {
         },
         {
             url: "",
-            parent_id: "1",
-            i18n: "referencePeriod",
-            id: "12",
+            parent_id: "content",
+            id: "referencePeriod",
             a_attrs: {
                 "data-action": "selector",
                 "data-selector": "referencePeriod"
@@ -42,9 +38,8 @@ define(function () {
         },
         {
             url: "",
-            parent_id: "1",
-            i18n: "referenceArea",
-            id: "13",
+            parent_id: "content",
+            id: "referenceArea",
             a_attrs: {
                 "data-action": "selector",
                 "data-selector": "referenceArea"
@@ -52,9 +47,8 @@ define(function () {
         },
         {
             url: "",
-            parent_id: "1",
-            i18n: "dataDomain",
-            id: "14",
+            parent_id: "content",
+            id: "dataDomain",
             a_attrs: {
                 "data-action": "selector",
                 "data-selector": "dataDomain"
@@ -62,9 +56,8 @@ define(function () {
         },
         {
             url: "",
-            parent_id: "1",
-            i18n: "region",
-            id: "15",
+            parent_id: "content",
+            id: "region",
             a_attrs: {
                 "data-action": "selector",
                 "data-selector": "region"
@@ -72,15 +65,13 @@ define(function () {
         },
         {
             url: "",
-            parent_id: "-1",
-            i18n: "accessibility",
-            id: "2"
+            parent_id: "root",
+            id: "accessibility",
         },
         {
             url: "",
-            parent_id: "2",
-            i18n: "statusOfConfidentiality",
-            id: "21",
+            parent_id: "accessibility",
+            id: "statusOfConfidentiality",
             a_attrs: {
                 "data-action": "selector",
                 "data-selector": "statusOfConfidentiality"
@@ -88,15 +79,13 @@ define(function () {
         },
         {
             url: "",
-            parent_id: "-1",
-            i18n: "search_by_id",
-            id: "3"
+            parent_id: "root",
+            id: "search_by_id",
         },
         {
             url: "",
-            parent_id: "3",
-            i18n: "uid",
-            id: "23",
+            parent_id: "search_by_id",
+            id: "uid",
             a_attrs: {
                 "data-action": "selector",
                 "data-selector": "uid"
