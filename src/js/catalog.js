@@ -142,7 +142,7 @@ define([
     Catalog.prototype._parseInput = function () {
 
         this.$el = $(this.initial.el);
-        this.cache = this.initial.cache;
+        this.cache = typeof this.initial.cache === "boolean" ? this.initial.cache : C.cache;
         this.defaultSelectors = this.initial.defaultSelectors || C.defaultSelectors;
         this.actions = this.initial.actions || C.resultActions;
         this.selectorsRegistry = $.extend(true, {}, SelectorsRegistry, this.initial.selectorsRegistry);
