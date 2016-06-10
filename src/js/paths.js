@@ -7,7 +7,7 @@ define(function () {
             'fx-catalog/html': '../../html',
             'fx-catalog/js': './',
             'fx-catalog/config' :  '../../config',
-            'fx-catalog/nls' :  '../../i18n',
+            'fx-catalog/nls' :  '../../nls',
 
             //3rd party libs
             'jquery': '{FENIX_CDN}/js/jquery/2.1.1/jquery.min',
