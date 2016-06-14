@@ -67,6 +67,9 @@ define([
 
             this._bindEventListeners();
 
+            //init tooltips
+            this.$el.find('[data-toggle="tooltip"]').tooltip();
+
             return this;
 
         } else {
@@ -144,10 +147,10 @@ define([
         this.$el = $(this.initial.el);
         this.cache = typeof this.initial.cache === "boolean" ? this.initial.cache : C.cache;
         this.defaultSelectors = this.initial.defaultSelectors || C.defaultSelectors;
-        this.actions = this.initial.actions || C.resultActions;
+        this.actions = this.initial.actions || C.actions;
         this.selectorsRegistry = $.extend(true, {}, SelectorsRegistry, this.initial.selectorsRegistry);
         this.baseFilter = this.initial.baseFilter || {};
-        this.tableColumns = this.initial.tableColumns || C.tableColumns;
+        this.columns = this.initial.columns || C.columns;
         this.environment = this.initial.environment;
         this.lang = this.initial.lang || "EN";
         this.lang = this.lang.toUpperCase();
@@ -467,11 +470,10 @@ define([
 
     Catalog.prototype._createTableColumnsConfiguration = function () {
 
-        var tableColumns = Object.keys(this.tableColumns),
-            columns = [],
+        var columns = [],
             self = this;
 
-        _.each(tableColumns, function (c) {
+        _.each(Object.keys(this.columns), function (c) {
 
             columns.push({
                 field: c,
@@ -623,7 +625,7 @@ define([
 
         var result = {};
 
-        _.each(this.tableColumns, _.bind(function (col, id) {
+        _.each(this.columns, _.bind(function (col, id) {
             result[id] = this._getColumnValue(record, $.extend(true, {id: id}, col));
         }, this));
 
@@ -640,7 +642,6 @@ define([
             metadataValue = Utils.getNestedProperty(path, record) || {},
             type = col.type || "",
             i18nLabel;
-
 
         switch (type.toLowerCase()) {
             case "i18n":

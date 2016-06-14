@@ -5876,6 +5876,7 @@ input[type="radio"]:disabled + label {
     width: 950px; } }
 
 .cat-toolbar {
+  position: relative;
   padding: 0; }
   .cat-toolbar .cat-btn-left {
     width: 50px;

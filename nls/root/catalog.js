@@ -32,7 +32,11 @@ define(function () {
 
         //Errors
         request : "Request error",
-        empty_values : "Empty selection"
+        empty_values : "Empty selection",
 
+        header_title : "Open a resource",
+
+        tooltip_btn_close_catalog : "Close catalogue",
+        tooltip_btn_add_selector : "Add metadata search field"
     }
 });

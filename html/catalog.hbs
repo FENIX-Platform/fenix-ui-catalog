@@ -8,18 +8,15 @@
 
             </div>
 
-            <h6 class="cat-title truncate">Open a resource</h6>
-            <!--<button type="button" class="close cat-btn-left" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>-->
+            <h6 class="cat-title truncate">{{ header_title }}</h6>
 
-            <div class="cat-btn-right">
-                <button data-dismiss="modal" aria-label="Close" class="btn btn-default" type="button">
+            <div class="cat-btn-right" data-toggle="tooltip" data-placement="bottom" title="{{ tooltip_btn_close_catalog }}">
+                <button data-dismiss="modal" aria-label="Close" class="btn btn-default" type="button" >
                     <span class="icojam_button_delete_1"></span>
                 </button>
             </div>
 
-
         </div>
-
 
         <div class="modal-body">
             <!-- Filter -->
@@ -29,7 +26,7 @@
 
                     <div class="col-sm-4 col-sm-height col-top cat-sidebar">
 
-                        <div data-role="menu" class="dropdown">
+                        <div data-role="menu" class="dropdown" data-toggle="tooltip" data-placement="bottom" title="{{ tooltip_btn_add_selector }}">
                             <button class="btn btn-floating btn-fx-catalog-filters" type="button" data-toggle="dropdown" aria-expanded="false">
                                 <span class="icojam_add"></span>
                             </button>

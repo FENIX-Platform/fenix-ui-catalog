@@ -8,7 +8,7 @@ define(function () {
 
         perPage : 10,
 
-        resultActions : ['select'], //'metadata', 'view', 'download'
+        actions : ['select'], //'metadata', 'view', 'download'
 
         excludedAction : {
             dataset : [],
@@ -17,7 +17,7 @@ define(function () {
 
         menuExcludedItems: [],
 
-        tableColumns : {
+        columns : {
             title: {
                 path : "title",
                 type: "i18n"
@@ -49,7 +49,6 @@ define(function () {
         },
 
         cache : false
-
     }
 
 });
