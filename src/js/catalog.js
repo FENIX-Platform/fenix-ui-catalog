@@ -196,8 +196,6 @@ define([
 
     Catalog.prototype._attach = function () {
 
-        alert(this.hideCloseButton)
-
         var template = Handlebars.compile($(Templates).find(s.CATALOG)[0].outerHTML),
             $html = $(template($.extend(true, {
                 hideCloseButton : this.hideCloseButton
