@@ -33,7 +33,7 @@ $cat-cmd-right-width: 50px;
   }
 
   //show only the status only correspondent tab content
-  $statuses: "ready" "error" "loading" "empty" "intro";
+  $statuses: "ready" "error" "loading" "empty" "intro" "huge";
 
   @each $status in $statuses {
 

@@ -48,7 +48,11 @@ define(function () {
             order : "meMaintenance.seUpdate.updateDate:desc" //order by last update
         },
 
-        cache : false
+        cache : false,
+
+        httpStatusMaxSizeError : 416,
+
+        hideCloseButton : false
     }
 
 });

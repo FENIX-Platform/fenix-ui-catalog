@@ -5775,6 +5775,8 @@ input[type="radio"]:disabled + label {
     display: block; }
   .fx-catalog [data-status="intro"] [data-content="intro"] {
     display: block; }
+  .fx-catalog [data-status="huge"] [data-content="huge"] {
+    display: block; }
   .fx-catalog .cat-title {
     margin-left: 50px;
     margin-right: 50px; }

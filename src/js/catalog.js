@@ -67,9 +67,6 @@ define([
 
             this._bindEventListeners();
 
-            //init tooltips
-            this.$el.find('[data-toggle="tooltip"]').tooltip();
-
             return this;
 
         } else {
@@ -154,10 +151,11 @@ define([
         this.environment = this.initial.environment;
         this.lang = this.initial.lang || "EN";
         this.lang = this.lang.toUpperCase();
-        this.perPage = C.perPage || 10;
+        this.perPage = this.initial.perPage || C.perPage;
         this.menuExcludedItems = this.initial.menuExcludedItems || C.menuExcludedItems;
         this.d3pFindParams = this.initial.d3pFindParams || C.d3pFindParams;
         this.searchTimeoutInterval =  this.initial.searchTimeoutInterval || C.searchTimeoutInterval;
+        this.hideCloseButton = typeof this.initial.hideCloseButton === "boolean" ? this.initial.hideCloseButton : C.hideCloseButton;
 
     };
 
@@ -198,8 +196,12 @@ define([
 
     Catalog.prototype._attach = function () {
 
+        alert(this.hideCloseButton)
+
         var template = Handlebars.compile($(Templates).find(s.CATALOG)[0].outerHTML),
-            $html = $(template($.extend(true, {}, i18nLabels)));
+            $html = $(template($.extend(true, {
+                hideCloseButton : this.hideCloseButton
+            }, i18nLabels)));
 
         this.$el.html($html);
 
@@ -562,9 +564,14 @@ define([
         }).then(
             _.bind(this._renderResults, this, "fx-request-id-" + window.fx_req_id),
             _.bind(function (requestId, e) {
-
+     
                 if (this.reqeust_id !== requestId) {
                     log.warn("Abort result rendering because it is not the last request");
+                    return;
+                }
+                
+                if (e.status === C.httpStatusMaxSizeError) {
+                    this._setBottomStatus("huge");
                     return;
                 }
 

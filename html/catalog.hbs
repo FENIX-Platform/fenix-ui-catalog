@@ -10,11 +10,15 @@
 
             <h6 class="cat-title truncate">{{ header_title }}</h6>
 
-            <div class="cat-btn-right" data-toggle="tooltip" data-placement="bottom" title="{{ tooltip_btn_close_catalog }}">
-                <button data-dismiss="modal" aria-label="Close" class="btn btn-default" type="button" >
-                    <span class="icojam_button_delete_1"></span>
-                </button>
-            </div>
+            {{#unless hideCloseButton}}
+
+                <div class="cat-btn-right" title="{{ tooltip_btn_close_catalog }}">
+                    <button data-role="close" data-dismiss="modal" aria-label="Close" class="btn btn-default"
+                            type="button">
+                        <span class="icojam_button_delete_1"></span>
+                    </button>
+                </div>
+            {{/unless}}
 
         </div>
 
@@ -26,8 +30,9 @@
 
                     <div class="col-sm-4 col-sm-height col-top cat-sidebar">
 
-                        <div data-role="menu" class="dropdown" data-toggle="tooltip" data-placement="bottom" title="{{ tooltip_btn_add_selector }}">
-                            <button class="btn btn-floating btn-fx-catalog-filters" type="button" data-toggle="dropdown" aria-expanded="false">
+                        <div data-role="menu" class="dropdown" title="{{ tooltip_btn_add_selector }}">
+                            <button class="btn btn-floating btn-fx-catalog-filters" type="button" data-toggle="dropdown"
+                                    aria-expanded="false">
                                 <span class="icojam_add"></span>
                             </button>
                         </div>
@@ -68,8 +73,11 @@
                                 <h2>This is the intro</h2>
                             </div>
 
-                        </div>
+                            <div data-content="huge" class="text-center">
+                                <h2>Too many results. <br> Please add more filter criteria.</h2>
+                            </div>
 
+                        </div>
 
                     </div>
 

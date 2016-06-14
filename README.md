@@ -83,8 +83,16 @@ var catalog = new Catalog(options);
           <td>dateFormat</td>
           <td>string</td>
           <td>'YYYY MMM DD'</td>
-          <td>'YYYY M DD',</td>
+          <td>'YYYY M DD'</td>
           <td>Moment JS date format</td>
+        </tr>  
+        
+        <tr>
+          <td>hideCloseButton</td>
+          <td>boolean</td>
+          <td>false</td>
+          <td>true</td>
+          <td>Hide the close button</td>
         </tr>
 
         <tr>

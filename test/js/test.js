@@ -36,6 +36,7 @@ define([
             el: s.STANDARD,
             defaultSelectors: ['resourceType', 'contextSystem'],
             environment: environment,
+            hideCloseButton : true,
             selectorsRegistry : {
                 contextSystem : {
                     selector : {
