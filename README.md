@@ -169,16 +169,21 @@ var catalog = new Catalog(options);
 </table>
 # API
 
-- catalog.reset() : reset catalog filter criteria and results
-- catalog.on(event, callback[, context]) : pub/sub 
-- catalog.dispose() : dispose the catalog instance
+```javascript
+//This is an example
+catalog.reset();
+```
+
+- `catalog.reset()` : reset catalog filter criteria and results
+- `catalog.on(event, callback[, context])` : pub/sub 
+- `catalog.dispose()` : dispose the catalog instance
 
 # Events
 
-- select : triggered when a "select" button is clicked
-- download : triggered when a "download" button is clicked
-- view : triggered when a "view" button is clicked
-- metadata : triggered when a "metadata" button is clicked
+- `select` : triggered when a "select" button is clicked
+- `download` : triggered when a "download" button is clicked
+- `view` : triggered when a "view" button is clicked
+- `metadata` : triggered when a "metadata" button is clicked
 
 # Filtering process
 
