@@ -7,7 +7,7 @@ define([
     'fx-catalog/config/events',
     'fx-catalog/config/config',
     'fx-catalog/config/menu-config',
-    'fx-catalog/config/selectors-registry',
+    'fx-catalog/config/selectorsRegistry',
     'text!fx-catalog/html/catalog.hbs',
     'i18n!fx-catalog/nls/catalog',
     'fx-filter/start',
@@ -146,7 +146,7 @@ define([
         this.defaultSelectors = this.initial.defaultSelectors || C.defaultSelectors;
         this.actions = this.initial.actions || C.actions;
         this.selectorsRegistry = $.extend(true, {}, SelectorsRegistry, this.initial.selectorsRegistry);
-        this.baseFilter = this.initial.baseFilter || {};
+        this.baseFilter = this.initial.baseFilter || C.baseFilter;
         this.columns = this.initial.columns || C.columns;
         this.environment = this.initial.environment;
         this.lang = this.initial.lang || "EN";

@@ -63,7 +63,6 @@ define([
                     }
                 }
             }
-            //id : "my_id"
             //actions: ["download", 'view'],
             //baseFilter : { test : "test"}
         });

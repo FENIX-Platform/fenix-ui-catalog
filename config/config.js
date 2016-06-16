@@ -17,6 +17,10 @@ define(function () {
 
         menuExcludedItems: [],
 
+        defaultSelectors : ['resourceType', 'contextSystem'],
+
+        environment : "develop",
+
         columns : {
             title: {
                 path : "title",
@@ -52,7 +56,9 @@ define(function () {
 
         httpStatusMaxSizeError : 416,
 
-        hideCloseButton : false
+        hideCloseButton : false,
+
+        baseFilter : {}
     }
 
 });
