@@ -9,6 +9,8 @@ var catalog = new Catalog(options);
 
 # Configuration
 
+To have a look of the default configuration check `fx-catalog/config/config.js`.
+
 <table>
    <thead>
       <tr>
@@ -143,13 +145,6 @@ var catalog = new Catalog(options);
          </td>
          <td>'production'</td>
          <td>Server environment</td>
-      </tr>
-      <tr>
-         <td>lang</td>
-         <td>string</td>
-         <td>'EN'</td>
-         <td>'FR'</td>
-         <td>Content language</td>
       </tr>
       <tr>
          <td>lang</td>
