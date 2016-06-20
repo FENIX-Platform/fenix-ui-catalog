@@ -153,7 +153,7 @@ define([
         this.lang = this.lang.toUpperCase();
         this.perPage = this.initial.perPage || C.perPage;
         this.menuExcludedItems = this.initial.menuExcludedItems || C.menuExcludedItems;
-        this.d3pFindParams = this.initial.d3pFindParams || C.d3pFindParams;
+        this.findServiceParams = this.initial.findServiceParams || C.findServiceParams;
         this.searchTimeoutInterval =  this.initial.searchTimeoutInterval || C.searchTimeoutInterval;
         this.hideCloseButton = typeof this.initial.hideCloseButton === "boolean" ? this.initial.hideCloseButton : C.hideCloseButton;
 
@@ -558,7 +558,7 @@ define([
 
         this.bridge.find({
             body: body,
-            params: this.d3pFindParams
+            params: this.findServiceParams
         }).then(
             _.bind(this._renderResults, this, "fx-request-id-" + window.fx_req_id),
             _.bind(function (requestId, e) {

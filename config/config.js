@@ -47,7 +47,7 @@ define(function () {
 
         dateFormat: 'YYYY MMM DD',
 
-        d3pFindParams : {
+        findServiceParams : {
             full: true,
             order : "meMaintenance.seUpdate.updateDate:desc" //order by last update
         },

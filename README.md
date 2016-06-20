@@ -120,7 +120,7 @@ To have a look of the default configuration check `fx-catalog/config/config.js`.
          <td>Keyset: columns is, value: object. path: FENIX metadata v2.0 path of the metadata attribute to show. Type: attribute type</td>
       </tr>
       <tr>
-         <td>d3pFindParams</td>
+         <td>findServiceParams</td>
          <td>object</td>
          <td>{
             full: true,
