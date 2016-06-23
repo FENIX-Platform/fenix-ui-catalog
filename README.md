@@ -9,7 +9,7 @@ var catalog = new Catalog(options);
 
 # Configuration
 
-To have a look of the default configuration check `fx-catalog/config/config.js`.
+Check `fx-catalog/config/config.js` to have a look of the default configuration.
 
 <table>
    <thead>
