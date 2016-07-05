@@ -154,9 +154,9 @@ Check `fx-catalog/config/config.js` to have a look of the default configuration.
          <td>Multilingual</td>
       </tr>
       <tr>
-         <td>selectorsRegistry</td>
+         <td>pluginRegistry</td>
          <td>Object</td>
-         <td>check `fx-catalog/config/selectorsRegistry.js`</td>
+         <td>check `fx-catalog/config/pluginRegistry.js`</td>
          <td>-</td>
          <td>Expandable available selectors registry</td>
       </tr>
@@ -185,7 +185,7 @@ catalog.reset();
 Results will be referred to the baseFilter criteria merged with the user selection. In case a user selects a criteria already 
 defined in the base filter, the user choice will override the baseFilter one.
 
-# Selectors registry
+# Available Selectors
 
-It is possible to add custom selectors. In order to do so, use the `selectorsRegistry` option that will be merged to the defaults one.
+It is possible to add custom selectors. In order to do so, use the `pluginRegistry` option that will be merged to the defaults one.
 In case an added selector has the same `id` of a default one, the default one will be overridden.

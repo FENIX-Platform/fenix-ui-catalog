@@ -6,6 +6,8 @@ define(function () {
 
     return {
 
+        lang : "EN",
+        
         perPage : 10,
 
         actions : ['select'], //'metadata', 'view', 'download'

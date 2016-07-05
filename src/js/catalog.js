@@ -6,8 +6,8 @@ define([
     'fx-catalog/config/errors',
     'fx-catalog/config/events',
     'fx-catalog/config/config',
-    'fx-catalog/config/menu-config',
-    'fx-catalog/config/selectorsRegistry',
+    'fx-catalog/config/menuConfig',
+    'fx-catalog/config/pluginRegistry',
     'text!fx-catalog/html/catalog.hbs',
     'i18n!fx-catalog/nls/catalog',
     'fx-filter/start',
@@ -19,7 +19,7 @@ define([
     'bootstrap-table',
     'amplify',
     'bootstrap'
-], function ($, _, log, ERR, EVT, C, MenuConfig, SelectorsRegistry, Templates, i18nLabels, Filter, JsonMenu, Bridge, Utils, Handlebars, Moment) {
+], function ($, _, log, ERR, EVT, C, MenuConfig, PluginRegistry, Templates, i18nLabels, Filter, JsonMenu, Bridge, Utils, Handlebars, Moment) {
 
     'use strict';
 
@@ -145,11 +145,11 @@ define([
         this.cache = typeof this.initial.cache === "boolean" ? this.initial.cache : C.cache;
         this.defaultSelectors = this.initial.defaultSelectors || C.defaultSelectors;
         this.actions = this.initial.actions || C.actions;
-        this.selectorsRegistry = $.extend(true, {}, SelectorsRegistry, this.initial.selectorsRegistry);
+        this.pluginRegistry = $.extend(true, {}, PluginRegistry, this.initial.pluginRegistry);
         this.baseFilter = this.initial.baseFilter || C.baseFilter;
         this.columns = this.initial.columns || C.columns;
         this.environment = this.initial.environment;
-        this.lang = this.initial.lang || "EN";
+        this.lang = this.initial.lang || C.lang;
         this.lang = this.lang.toUpperCase();
         this.perPage = this.initial.perPage || C.perPage;
         this.menuExcludedItems = this.initial.menuExcludedItems || C.menuExcludedItems;
@@ -344,13 +344,13 @@ define([
 
     Catalog.prototype._getSelectorConfiguration = function (selector) {
 
-        if (!this.selectorsRegistry.hasOwnProperty(selector)) {
+        if (!this.pluginRegistry.hasOwnProperty(selector)) {
             log.error("Impossible to find selector in registry: " + selector);
             return;
         }
 
         var config = {};
-        config[selector] = $.extend(true, {}, this.selectorsRegistry[selector]);
+        config[selector] = $.extend(true, {}, this.pluginRegistry[selector]);
 
         if (!config[selector].template) {
             config[selector].template = {};
