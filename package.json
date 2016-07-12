@@ -1,6 +1,6 @@
 {
   "name": "fenix-ui-catalog",
-  "version": "1.0.0-alpha",
+  "version": "1.0.0-beta.0",
   "description": "FENIX Catalog",
   "main": "src/js/start.js",
   "scripts": {
@@ -10,10 +10,20 @@
     "type": "git",
     "url": "https://github.com/FENIX-Platform/fenix-ui-catalog.git"
   },
-  "author": "Daniele Salvatore <daniele.salvatore@fao.org> (http://fenix.fao.org/)",
+  "author": "FENIX team (http://fenix.fao.org/)",
   "license": "GPL2",
   "bugs": {
     "url": "https://github.com/FENIX-Platform/fenix-ui-catalog/issues"
   },
-  "homepage": "https://github.com/FENIX-Platform/fenix-catalog#readme"
+  "homepage": "https://github.com/FENIX-Platform/fenix-catalog#readme",
+  "dependencies": {
+    "amplify": "0.0.11",
+    "bootstrap": "3.3.6",
+    "bootstrap-table": "1.10.1",
+    "handlebars": "4.0.5",
+    "jquery": "3.1.0",
+    "moment": "2.14.1",
+    "q": "1.4.1",
+    "underscore": "1.8.3"
+  }
 }
