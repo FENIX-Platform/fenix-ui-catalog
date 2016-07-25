@@ -1,4 +1,4 @@
-/*global define, amplify*/
+/*global define, amplify, JSON*/
 define([
     'jquery',
     'underscore',
@@ -154,8 +154,9 @@ define([
         this.perPage = this.initial.perPage || C.perPage;
         this.menuExcludedItems = this.initial.menuExcludedItems || C.menuExcludedItems;
         this.findServiceParams = this.initial.findServiceParams || C.findServiceParams;
-        this.searchTimeoutInterval =  this.initial.searchTimeoutInterval || C.searchTimeoutInterval;
+        this.searchTimeoutInterval = this.initial.searchTimeoutInterval || C.searchTimeoutInterval;
         this.hideCloseButton = typeof this.initial.hideCloseButton === "boolean" ? this.initial.hideCloseButton : C.hideCloseButton;
+        this.langFallbackOrder = this.initial.langFallbackOrder || C.langFallbackOrder;
 
     };
 
@@ -198,7 +199,7 @@ define([
 
         var template = Handlebars.compile($(Templates).find(s.CATALOG)[0].outerHTML),
             $html = $(template($.extend(true, {
-                hideCloseButton : this.hideCloseButton
+                hideCloseButton: this.hideCloseButton
             }, i18nLabels)));
 
         this.$el.html($html);
@@ -206,14 +207,14 @@ define([
         //render menu
         this.menu = new JsonMenu({
             el: this.$el.find(s.MENU),
-            exclude : this.menuExcludedItems,
+            exclude: this.menuExcludedItems,
             model: MenuConfig
                 .map(function (item) {
 
-                item.label = i18nLabels[item.id] || "Missing label [" + item.id + "]";
+                    item.label = i18nLabels[item.id] || "Missing label [" + item.id + "]";
 
-                return item;
-            })
+                    return item;
+                })
         });
 
         log.info("template attached successfully");
@@ -562,12 +563,12 @@ define([
         }).then(
             _.bind(this._renderResults, this, "fx-request-id-" + window.fx_req_id),
             _.bind(function (requestId, e) {
-     
+
                 if (this.reqeust_id !== requestId) {
                     log.warn("Abort result rendering because it is not the last request");
                     return;
                 }
-                
+
                 if (e.status === C.httpStatusMaxSizeError) {
                     this._setBottomStatus("huge");
                     return;
@@ -665,7 +666,7 @@ define([
 
                 label += bothPopulated ? " - " : "";
 
-                label += pointOfContact ? +pointOfContact : "";
+                label += pointOfContact ? label.concat(pointOfContact) : "";
 
                 break;
             case "epoch":
@@ -814,7 +815,25 @@ define([
 
     Catalog.prototype._getI18nLabel = function (obj) {
 
-        return typeof obj === "object" ? obj[this.lang] : null;
+        if (typeof obj !== "object") {
+            return "";
+        }
+
+        var languages = this.langFallbackOrder.slice(0),
+            label = "Missing label";
+
+        languages.unshift(this.lang);
+        languages = _.uniq(languages);
+
+        for (var i = 0; i < languages.length; i++) {
+            label = obj[languages[i]];
+
+            if (label) {
+                break;
+            }
+        }
+
+        return label;
 
     };
 

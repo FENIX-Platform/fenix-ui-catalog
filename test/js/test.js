@@ -12,6 +12,7 @@ define([
             STANDARD: "#standard"
         },
         catalogs = [],
+        lang = "FR",
         environment = "production";
 
     function Test() {
@@ -34,18 +35,19 @@ define([
 
         var catalog = this.createCatalog({
             el: s.STANDARD,
+            lang : lang,
             defaultSelectors: ['resourceType', 'contextSystem'],
             environment: environment,
             hideCloseButton : true,
-            selectorsRegistry : {
+            pluginRegistry : {
                 contextSystem : {
                     selector : {
                         id : "dropdown",
                         source : [
-                            {value : "cstat_mdg", label : "CountrySTAT Madagascar"},
+                            {value : "cstat_afg", label : "CountrySTAT Afghanistan"},
                             {value : "uneca", label : "UNECA"}
                         ],
-                        default : ["cstat_mdg"],
+                        default : ["cstat_afg"],
                         hideSummary : true,
                         config : {
                             plugins: ['remove_button'],
