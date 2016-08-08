@@ -658,15 +658,18 @@ define([
 
                 var owner = _.findWhere(metadataValue, {role: "owner"}) || {},
                     organization = owner.organization,
-                    pointOfContact = owner.pointOfContact,
+                    organizationUnit = owner.organizationUnit,
                     organizationI18nLabel = this._getI18nLabel(organization),
-                    bothPopulated = organizationI18nLabel && pointOfContact;
+                    organizationUnitI18nLabel = this._getI18nLabel(organizationUnit),
+                    bothPopulated = organizationI18nLabel && organizationUnitI18nLabel;
+
+                console.log(owner);
 
                 label += organizationI18nLabel ? organizationI18nLabel : "";
 
                 label += bothPopulated ? " - " : "";
 
-                label += pointOfContact ? label.concat(pointOfContact) : "";
+                label += organizationUnitI18nLabel ? organizationUnitI18nLabel : "";
 
                 break;
             case "epoch":
