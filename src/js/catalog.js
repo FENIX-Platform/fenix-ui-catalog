@@ -663,8 +663,6 @@ define([
                     organizationUnitI18nLabel = this._getI18nLabel(organizationUnit),
                     bothPopulated = organizationI18nLabel && organizationUnitI18nLabel;
 
-                console.log(owner);
-
                 label += organizationI18nLabel ? organizationI18nLabel : "";
 
                 label += bothPopulated ? " - " : "";
