@@ -160,8 +160,18 @@ Check `fx-catalog/config/config.js` to have a look of the default configuration.
          <td>-</td>
          <td>Expandable available selectors registry</td>
       </tr>
+        <tr>
+           <td>langFallbackOrder</td>
+           <td>Array of language</td>
+           <td>["EN", "FR", "ES", "AR", "PR"]</td>
+           <td>["AR", "FR", "EN", "ES", "PR"]</td>
+           <td>Whenever a multi-language label is used, in case the UI-language label is not available this is the language fallback order.</td>
+        </tr>
    </tbody>
 </table>
+
+
+
 # API
 
 ```javascript

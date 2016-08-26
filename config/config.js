@@ -7,6 +7,8 @@ define(function () {
     return {
 
         lang : "EN",
+
+        langFallbackOrder : ["EN", "FR", "ES", "AR", "PR"],
         
         perPage : 10,
 
