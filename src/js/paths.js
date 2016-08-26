@@ -1,13 +1,17 @@
+if (typeof define !== 'function') {
+    var define = require('amdefine')(module);
+}
+
 define(function () {
 
     var config = {
 
         paths: {
             'fx-catalog/start': './catalog',
-            'fx-catalog/html': '../../html',
+            'fx-catalog/html': '../html',
             'fx-catalog/js': './',
-            'fx-catalog/config' :  '../../config',
-            'fx-catalog/nls' :  '../../nls',
+            'fx-catalog/config' :  '../config',
+            'fx-catalog/nls' :  '../nls',
 
             //3rd party libs
             'jquery': '{FENIX_CDN}/js/jquery/2.1.1/jquery.min',
