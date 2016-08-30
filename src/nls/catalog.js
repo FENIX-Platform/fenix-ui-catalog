@@ -3,15 +3,17 @@ if (typeof define !== 'function') {
 }
 
 define([
-        "./en/catalog"
+        "./en/catalog",
+        "./fr/catalog"
     ],
-    function (i18nEn) {
+    function (i18nEn,i18nFr) {
 
         'use strict';
 
         return {
 
-            en: i18nEn
+            en: i18nEn,
+            fr: i18nFr
 
         }
     });
