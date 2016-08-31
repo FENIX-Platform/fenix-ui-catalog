@@ -3,8 +3,8 @@ if (typeof define !== 'function') {
 }
 
 define([
-        "./en/catalog",
-        "./fr/catalog"
+        "./en/labels",
+        "./fr/labels"
     ],
     function (i18nEn,i18nFr) {
 

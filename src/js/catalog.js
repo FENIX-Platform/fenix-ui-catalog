@@ -12,7 +12,7 @@ define([
     'fx-catalog/config/menuConfig',
     'fx-catalog/config/pluginRegistry',
     'text!fx-catalog/html/catalog.hbs',
-    'i18n!fx-catalog/nls/catalog',
+    'i18n!fx-catalog/nls/labels',
     'fx-filter/start',
     "fx-common/json-menu",
     "fx-common/bridge",
@@ -153,7 +153,7 @@ define([
         this.columns = this.initial.columns || C.columns;
         this.environment = this.initial.environment;
         this.lang = this.initial.lang || C.lang;
-        this.lang = this.lang.toUpperCase();
+        this.lang = this.lang.toLowerCase();
         this.perPage = this.initial.perPage || C.perPage;
         this.menuExcludedItems = this.initial.menuExcludedItems || C.menuExcludedItems;
         this.findServiceParams = this.initial.findServiceParams || C.findServiceParams;

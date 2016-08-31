@@ -2,8 +2,7 @@ define([
     'loglevel',
     'jquery',
     'underscore',
-    'fx-catalog/start',
-    'i18n!test/nls/labels'
+    'fx-catalog/start'
 ], function (log, $, _, Catalog) {
 
     'use strict';
