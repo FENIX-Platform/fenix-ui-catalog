@@ -1,30 +1,28 @@
-if (typeof define !== 'function') {
-    var define = require('amdefine')(module);
-}
-
 define([
     'jquery',
     'underscore',
     'loglevel',
-    'fx-catalog/config/errors',
-    'fx-catalog/config/events',
-    'fx-catalog/config/config',
-    'fx-catalog/config/menuConfig',
-    'fx-catalog/config/pluginRegistry',
-    'text!fx-catalog/html/catalog.hbs',
-    'i18n!fx-catalog/nls/labels',
-    'fx-filter/start',
-    "fx-common/json-menu",
-    "fx-common/bridge",
-    "fx-common/utils",
+    '../config/errors',
+    '../config/events',
+    '../config/config',
+    '../config/menuConfig',
+    '../config/pluginRegistry',
+    '../html/catalog.hbs',
+    '../html/actions.hbs',
+    '../nls/labels',
+    'fenix-ui-filter',
+    "./json-menu",
+    "fenix-ui-bridge",
     'handlebars',
     "moment",
-    'bootstrap-table',
-    'amplify',
+    'amplify-pubsub',
+    'bootstraptable',
     'bootstrap'
-], function ($, _, log, ERR, EVT, C, MenuConfig, PluginRegistry, Templates, i18nLabels, Filter, JsonMenu, Bridge, Utils, Handlebars, Moment) {
+], function ($, _, log, ERR, EVT, C, MenuConfig, PluginRegistry, CatalogTemplate, ActionsTemplate, i18nLabels, Filter, JsonMenu, Bridge, Handlebars, Moment, amplify, bootstrapTable) {
 
     'use strict';
+
+    console.log(bootstrapTable)
 
     var s = {
         CATALOG: "[data-role='catalog']",
@@ -200,8 +198,7 @@ define([
 
     Catalog.prototype._attach = function () {
 
-        var template = Handlebars.compile($(Templates).find(s.CATALOG)[0].outerHTML),
-            $html = $(template($.extend(true, {
+            var $html = $(CatalogTemplate($.extend(true, {
                 hideCloseButton: this.hideCloseButton
             }, i18nLabels)));
 
@@ -451,6 +448,7 @@ define([
             this._disableMenuItem(selector);
         }, this));
 
+        console.log(bootstrapTable);
         this.$el.find(s.RESULTS).bootstrapTable({
             pagination: true,
             pageSize: this.current.perPage,
@@ -500,9 +498,8 @@ define([
         columns.push({
             formatter: function (value, row) {
 
-                var template = Handlebars.compile($(Templates).find(s.ACTIONS)[0].outerHTML),
-                    model = $.extend(true, {}, i18nLabels, row, {actions: self._getActions(row)}),
-                    $html = $(template(model));
+                //$html = $(templateSelector($.extend(true, {classNames: classNames}, conf)));
+                var $html = $(ActionsTemplate($.extend(true, {}, i18nLabels, row, {actions: self._getActions(row)})));
 
                 return $html[0].outerHTML
             }
@@ -648,7 +645,7 @@ define([
 
         var label = " ",
             path = col.path ? col.path : col.id,
-            metadataValue = Utils.getNestedProperty(path, record) || {},
+            metadataValue = this._getNestedProperty(path, record) || {},
             type = col.type || "",
             i18nLabel;
 
@@ -840,6 +837,18 @@ define([
         return label;
 
     };
+
+    Catalog.prototype._getNestedProperty = function (path, obj) {
+
+        var obj = $.extend(true, {}, obj),
+            arr = path.split(".");
+
+        while (arr.length && (obj = obj[arr.shift()]));
+
+        return obj;
+
+    };
+
 
     return Catalog;
 });

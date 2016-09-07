@@ -2,7 +2,7 @@ define([
     'loglevel',
     'jquery',
     'underscore',
-    'fx-catalog/start'
+    '../../../src/js/index'
 ], function (log, $, _, Catalog) {
 
     'use strict';
@@ -14,10 +14,13 @@ define([
         lang = "FR",
         environment = "production";
 
-    function Test() {
+    function Dev() {
+        console.clear();
+        log.setLevel('trace')
+        this.start();
     }
 
-    Test.prototype.start = function () {
+    Dev.prototype.start = function () {
 
         log.trace("Test started");
 
@@ -25,12 +28,12 @@ define([
 
     };
 
-    Test.prototype._render = function () {
+    Dev.prototype._render = function () {
 
         this._renderStandard();
     };
 
-    Test.prototype._renderStandard = function () {
+    Dev.prototype._renderStandard = function () {
 
         var catalog = this.createCatalog({
             el: s.STANDARD,
@@ -71,7 +74,7 @@ define([
 
     //Utils
 
-    Test.prototype.createCatalog = function (params) {
+    Dev.prototype.createCatalog = function (params) {
 
         var instance = new Catalog(params);
 
@@ -80,6 +83,6 @@ define([
         return instance;
     };
 
-    return new Test();
+    return new Dev();
 
 });
