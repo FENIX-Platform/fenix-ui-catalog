@@ -15,8 +15,13 @@ define([
         environment = "production";
 
     function Dev() {
+
+        this._importThirdPartyCss();
+
         console.clear();
-        log.setLevel('trace')
+
+        log.setLevel('trace');
+
         this.start();
     }
 
@@ -81,6 +86,24 @@ define([
         catalogs.push(instance);
 
         return instance;
+    };
+
+    // utils
+
+    Dev.prototype._importThirdPartyCss = function () {
+
+        //Bootstrap
+        require("bootstrap-loader");
+        //dropdown selector
+        require("../../../node_modules/selectize/dist/css/selectize.bootstrap3.css");
+        // fenix-ui-filter
+        require("../../../node_modules/fenix-ui-filter/dist/fenix-ui-filter.min.css");
+        // fenix-ui-dropdown
+        require("../../../node_modules/fenix-ui-dropdown/dist/fenix-ui-dropdown.min.css");
+
+        // bootstrap-table
+        require("../../../node_modules/bootstrap-table/dist/bootstrap-table.min.css");
+
     };
 
     return new Dev();

@@ -1,4 +1,17 @@
 /* Catalog */
+@import 'utils/fx-functions';
+@import 'utils/fx-mixins';
+@import 'utils/fx-utils';
+
+@import 'themes/fx-bootstrap-queries';
+@import 'themes/fx-variables';
+
+@import 'base/fx-buttons';
+@import 'base/fx-fonts-import';
+@import 'base/fx-icons';
+@import 'base/fx-radio-checkbox';
+@import 'base/fx-typography';
+
 $catalog-head-color: #e0e0e0;
 $catalog-side-color: #efefef;
 $cat-cmd-left-width: 50px;
@@ -23,7 +36,6 @@ $cat-cmd-right-width: 50px;
   }
 
 }
-
 
 .fx-catalog {
 
@@ -115,8 +127,6 @@ $cat-cmd-right-width: 50px;
 
 }
 
-
-
 .cat-sidebar{
   background-color: $catalog-side-color;
   //overflow-y: scroll;
@@ -161,12 +171,6 @@ $cat-cmd-right-width: 50px;
   }
 
 }
-
-
-
-
-
-
 
 .catalog-modal{
 

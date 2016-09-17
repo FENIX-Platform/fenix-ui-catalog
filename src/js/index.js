@@ -11,18 +11,14 @@ define([
     '../html/actions.hbs',
     '../nls/labels',
     'fenix-ui-filter',
-    "./json-menu",
+    "fenix-ui-dropdown",
     "fenix-ui-bridge",
-    'handlebars',
     "moment",
     'amplify-pubsub',
-    'bootstraptable',
-    'bootstrap'
-], function ($, _, log, ERR, EVT, C, MenuConfig, PluginRegistry, CatalogTemplate, ActionsTemplate, i18nLabels, Filter, JsonMenu, Bridge, Handlebars, Moment, amplify, bootstrapTable) {
+    'bootstrap-table'
+], function ($, _, log, ERR, EVT, C, MenuConfig, PluginRegistry, CatalogTemplate, ActionsTemplate, i18nLabels, Filter, JsonMenu, Bridge, Moment, amplify, bootstrapTable) {
 
     'use strict';
-
-    console.log(bootstrapTable)
 
     var s = {
         CATALOG: "[data-role='catalog']",
@@ -44,9 +40,10 @@ define([
         log.info("FENIX catalog");
         log.info(o);
 
-        $.extend(true, this, {initial: o}, C);
+        //import css
+        require("../css/fenix-ui-catalog.css");
 
-        this._registerHandlebarsHelpers();
+        $.extend(true, this, {initial: o}, C);
 
         this._parseInput();
 
@@ -198,9 +195,9 @@ define([
 
     Catalog.prototype._attach = function () {
 
-            var $html = $(CatalogTemplate($.extend(true, {
-                hideCloseButton: this.hideCloseButton
-            }, i18nLabels)));
+        var $html = $(CatalogTemplate($.extend(true, {
+            hideCloseButton: this.hideCloseButton
+        }, i18nLabels)));
 
         this.$el.html($html);
 
@@ -783,14 +780,6 @@ define([
         amplify.unsubscribe(this._getEventName("download"), this._onDownloadResult);
         amplify.unsubscribe(this._getEventName("view"), this._onViewResult);
         amplify.unsubscribe(this._getEventName("metadata"), this._onMetadataResult);
-
-    };
-
-    Catalog.prototype._registerHandlebarsHelpers = function () {
-
-        Handlebars.registerHelper('isOpened', function (opened) {
-            return opened === true ? 'in' : '';
-        });
 
     };
 
