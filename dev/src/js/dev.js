@@ -11,7 +11,7 @@ define([
             STANDARD: "#standard"
         },
         catalogs = [],
-        lang = "FR",
+        lang = "EN",
         environment = "production";
 
     function Dev() {

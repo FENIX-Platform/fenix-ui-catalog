@@ -195,9 +195,10 @@ define([
 
     Catalog.prototype._attach = function () {
 
-        var $html = $(CatalogTemplate($.extend(true, {
+        var self = this,
+            $html = $(CatalogTemplate($.extend(true, {
             hideCloseButton: this.hideCloseButton
-        }, i18nLabels)));
+        },  i18nLabels[this.lang])));
 
         this.$el.html($html);
 
@@ -208,7 +209,7 @@ define([
             model: MenuConfig
                 .map(function (item) {
 
-                    item.label = i18nLabels[item.id] || "Missing label [" + item.id + "]";
+                    item.label =  i18nLabels[self.lang][item.id] || "Missing label [" + item.id + "]";
 
                     return item;
                 })
@@ -234,7 +235,7 @@ define([
         this.actions = this.actions.map(_.bind(function (value) {
 
             return {
-                label: i18nLabels['action_' + value] || "Missing action label [" + value + "]",
+                label:  i18nLabels[this.lang]['action_' + value] || "Missing action label [" + value + "]",
                 action: value
             }
 
@@ -354,7 +355,7 @@ define([
             config[selector].template = {};
         }
 
-        config[selector].template.title = i18nLabels[selector] || "Missing title [" + selector + "]";
+        config[selector].template.title =  i18nLabels[this.lang][selector] || "Missing title [" + selector + "]";
 
         return $.extend(true, {}, config);
 
@@ -476,7 +477,7 @@ define([
 
             columns.push({
                 field: c,
-                title: i18nLabels[c] || "Missing label [" + c + "]",
+                title:  i18nLabels[self.lang][c] || "Missing label [" + c + "]",
                 sortable: true
             });
 
@@ -496,7 +497,7 @@ define([
             formatter: function (value, row) {
 
                 //$html = $(templateSelector($.extend(true, {classNames: classNames}, conf)));
-                var $html = $(ActionsTemplate($.extend(true, {}, i18nLabels, row, {actions: self._getActions(row)})));
+                var $html = $(ActionsTemplate($.extend(true, {},  i18nLabels[this.lang], row, {actions: self._getActions(row)})));
 
                 return $html[0].outerHTML
             }
@@ -791,7 +792,7 @@ define([
 
         _.each(err, _.bind(function (e) {
 
-            var $li = $("<li>" + i18nLabels[e] + "</li>");
+            var $li = $("<li>" +  i18nLabels[this.lang][e] + "</li>");
             this.$el.find(s.ERROR_CONTAINER).show().html($li);
 
         }, this));
