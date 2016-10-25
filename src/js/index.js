@@ -424,7 +424,7 @@ define([
 
         this.filter = new Filter({
             el: s.FILTER,
-            items: this._getDefaultSelectors(),
+            selectors: this._getDefaultSelectors(),
             //summary$el: s.SUMMARY,
             direction: "prepend",
             cache: this.cache,
