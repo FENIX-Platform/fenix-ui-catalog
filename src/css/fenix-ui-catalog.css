@@ -5454,6 +5454,22 @@ input[type="radio"]:disabled + label {
 
   .col-lg-bottom {
     vertical-align: bottom; } }
+.fx-text-primary-color {
+  color: #0076ff; }
+
+.fx-button-primary-color {
+  color: white;
+  border-color: #005ecc;
+  background-color: #0076ff; }
+  .fx-button-primary-color:hover {
+    color: white;
+    border-color: #005ecc;
+    background-color: #006ae6; }
+  .fx-button-primary-color:focus {
+    color: white;
+    border-color: #004799;
+    background-color: #0053b3; }
+
 .fx-catalog .btn-fx-catalog-filters {
   margin-left: 0;
   margin-bottom: 0; }
@@ -5638,22 +5654,8 @@ input[type="radio"]:disabled + label {
       background-color: #e0e0e0;
       color: #0076ff; }
   .cat-toolbar .cat-title {
-    color: #0076ff;
     margin-top: 5px;
     margin-bottom: 5px;
     text-align: center; }
-
-[data-role="results"] [data-action="select"].btn-default {
-  color: white;
-  border-color: #005ecc;
-  background-color: #0076ff; }
-  [data-role="results"] [data-action="select"].btn-default:hover {
-    color: white;
-    border-color: #005ecc;
-    background-color: #006ae6; }
-  [data-role="results"] [data-action="select"].btn-default:focus {
-    color: white;
-    border-color: #004799;
-    background-color: #0053b3; }
 
 /*# sourceMappingURL=fenix-ui-catalog.css.map */

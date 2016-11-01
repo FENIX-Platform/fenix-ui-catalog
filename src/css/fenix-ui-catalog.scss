@@ -18,6 +18,35 @@ $catalog-side-color: #efefef;
 $cat-cmd-left-width: 50px;
 $cat-cmd-right-width: 50px;
 
+// Standard Fenix Theme
+
+.fx-text-primary-color{
+  color: $fx-cool-blue;
+}
+
+
+.fx-button-primary-color {
+  color: white;
+  border-color: darken($fx-cool-blue, 10%);
+  background-color: $fx-cool-blue;
+
+  &:hover {
+    color: white;
+    border-color: darken($fx-cool-blue, 10%);
+    background-color: darken($fx-cool-blue, 5%);
+  }
+
+  &:focus {
+    color: white;
+    border-color: darken($fx-cool-blue, 20%);
+    background-color: darken($fx-cool-blue, 15%);
+  }
+
+}
+
+
+
+
 .fx-catalog{
 
   .btn-fx-catalog-filters {
@@ -289,7 +318,7 @@ $cat-cmd-right-width: 50px;
 
 
   .cat-title {
-    color: $fx-cool-blue;
+
     margin-top: 5px;
     margin-bottom: 5px;
     text-align: center;
@@ -324,26 +353,3 @@ $cat-cmd-right-width: 50px;
 //}
 
 
-[data-role="results"]{
-
-
-  [data-action="select"].btn-default {
-    color: white;
-    border-color: darken($fx-cool-blue, 10%);
-    background-color: $fx-cool-blue;
-
-    &:hover {
-      color: white;
-      border-color: darken($fx-cool-blue, 10%);
-      background-color: darken($fx-cool-blue, 5%);
-    }
-
-    &:focus {
-      color: white;
-      border-color: darken($fx-cool-blue, 20%);
-      background-color: darken($fx-cool-blue, 15%);
-    }
-
-  }
-
-}
