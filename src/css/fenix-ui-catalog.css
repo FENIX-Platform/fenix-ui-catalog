@@ -1,6 +1,63 @@
 @charset "UTF-8";
 /* Catalog */
+/*********************
+  Shadows
+**********************/
+.z-depth-0 {
+  box-shadow: none !important; }
+
+.z-depth-1, .btn-floating {
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12); }
+
+.z-depth-1-half, .btn-floating:hover {
+  box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15); }
+
+.z-depth-2 {
+  box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); }
+
+.z-depth-3 {
+  box-shadow: 0 12px 15px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19); }
+
+.z-depth-4 {
+  box-shadow: 0 16px 28px 0 rgba(0, 0, 0, 0.22), 0 25px 55px 0 rgba(0, 0, 0, 0.21); }
+
+.z-depth-5 {
+  box-shadow: 0 27px 24px 0 rgba(0, 0, 0, 0.2), 0 40px 77px 0 rgba(0, 0, 0, 0.22); }
+
+.hoverable:hover {
+  transition: box-shadow .25s;
+  box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); }
+
+.btn-floating {
+  display: inline-block;
+  color: white;
+  position: relative;
+  overflow: hidden;
+  z-index: 2;
+  width: 37px;
+  height: 37px;
+  line-height: 37px;
+  padding: 0;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  border-radius: 50%;
+  transition: .3s;
+  cursor: pointer;
+  vertical-align: middle;
+  margin: 10px; }
+  .btn-floating:hover, .btn-floating:focus, .btn-floating:active, .btn-floating:active:focus {
+    color: white; }
+
 /*#0076ff*/
+/* Fenix Bootstrap Table Style */
+.bootstrap-table .pagination > li > a, .bootstrap-table .pagination > li > span {
+  color: #0076ff; }
+.bootstrap-table .pagination > .active > a, .bootstrap-table .pagination > .active > a:hover, .bootstrap-table .pagination > .active > a:focus, .bootstrap-table .pagination > .active > span, .bootstrap-table .pagination > .active > span:hover, .bootstrap-table .pagination > .active > span:focus {
+  color: white;
+  background-color: #0076ff;
+  border-color: #0076ff; }
+
 /* Fenix - Buttons Component */
 /** avoid dotted lines when clicking on button**/
 input[type="button"] {
@@ -5457,6 +5514,9 @@ input[type="radio"]:disabled + label {
 .fx-text-primary-color {
   color: #0076ff; }
 
+.fx-background-color-primary-color {
+  background-color: #0076ff; }
+
 .fx-button-primary-color {
   color: white;
   border-color: #005ecc;
@@ -5657,5 +5717,8 @@ input[type="radio"]:disabled + label {
     margin-top: 5px;
     margin-bottom: 5px;
     text-align: center; }
+
+[data-role="actions"] {
+  max-width: 200px; }
 
 /*# sourceMappingURL=fenix-ui-catalog.css.map */

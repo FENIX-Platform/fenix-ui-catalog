@@ -4,14 +4,17 @@
 @import 'utils/fx-utils';
 
 @import 'themes/fx-bootstrap-queries';
+@import 'themes/fx-material-theme-light';
 @import 'themes/fx-variables';
 
+@import 'base/fx-bootstrap-table';
 @import 'base/fx-buttons';
 @import 'base/fx-fonts-import';
 @import 'base/fx-icons';
 @import 'base/fx-radio-checkbox';
 @import 'base/fx-typography';
 @import 'base/fx-fixed-height';
+
 
 $catalog-head-color: #e0e0e0;
 $catalog-side-color: #efefef;
@@ -20,8 +23,14 @@ $cat-cmd-right-width: 50px;
 
 // Standard Fenix Theme
 
+
+
 .fx-text-primary-color{
   color: $fx-cool-blue;
+}
+
+.fx-background-color-primary-color{
+  background-color: $fx-cool-blue;
 }
 
 
@@ -44,6 +53,8 @@ $cat-cmd-right-width: 50px;
 
 }
 
+
+//// Filter
 
 
 
@@ -216,6 +227,7 @@ $cat-cmd-right-width: 50px;
 
   }
 
+
   .modal-lg{
 
 
@@ -324,6 +336,11 @@ $cat-cmd-right-width: 50px;
     text-align: center;
   }
 
+}
+
+
+[data-role="actions"]{
+  max-width: 200px;
 }
 
 // This is the standard primary btn of Bootstrap, the one below is the customized one
