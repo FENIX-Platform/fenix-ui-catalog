@@ -16,6 +16,7 @@ define([
     "moment",
     'amplify-pubsub',
     'bootstrap-table'
+
 ], function ($, _, log, ERR, EVT, C, MenuConfig, PluginRegistry, CatalogTemplate, ActionsTemplate, i18nLabels, Filter, JsonMenu, Bridge, Moment, amplify, bootstrapTable) {
 
     'use strict';

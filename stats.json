@@ -2,8 +2,8 @@
   "errors": [],
   "warnings": [],
   "version": "1.13.3",
-  "hash": "9bf530ad9fa3282fad51",
-  "time": 6934,
+  "hash": "c1887fd78c0444dd930a",
+  "time": 6663,
   "publicPath": "",
   "assetsByChunkName": {
     "app": [
@@ -45,7 +45,7 @@
     },
     {
       "name": "fenix-ui-catalog.min.js.map",
-      "size": 342961,
+      "size": 342967,
       "chunks": [
         0
       ],
@@ -73,7 +73,7 @@
       "initial": true,
       "entry": true,
       "extraAsync": false,
-      "size": 138101,
+      "size": 138102,
       "names": [
         "app"
       ],
@@ -83,7 +83,7 @@
         "fenix-ui-catalog.min.js.map",
         "fenix-ui-catalog.min.css.map"
       ],
-      "hash": "9535bad8197f3e363a9c",
+      "hash": "33db22d423dc0b309e76",
       "parents": [],
       "modules": [
         {
@@ -104,7 +104,7 @@
           "issuer": null,
           "profile": {
             "factory": 1,
-            "building": 1
+            "building": 0
           },
           "failed": false,
           "errors": 0,
@@ -117,7 +117,7 @@
           "name": "./src/js/index.js",
           "index": 1,
           "index2": 43,
-          "size": 22642,
+          "size": 22643,
           "cacheable": true,
           "built": true,
           "optional": false,
@@ -128,8 +128,8 @@
           "assets": [],
           "issuer": "multi app",
           "profile": {
-            "factory": 12,
-            "building": 60
+            "factory": 13,
+            "building": 59
           },
           "failed": false,
           "errors": 0,
@@ -144,7 +144,7 @@
               "userRequest": "./src/js/index.js"
             }
           ],
-          "source": "define([\n    'jquery',\n    'underscore',\n    'loglevel',\n    '../config/errors',\n    '../config/events',\n    '../config/config',\n    '../config/menuConfig',\n    '../config/pluginRegistry',\n    '../html/catalog.hbs',\n    '../html/actions.hbs',\n    '../nls/labels',\n    'fenix-ui-filter',\n    \"fenix-ui-dropdown\",\n    \"fenix-ui-bridge\",\n    \"moment\",\n    'amplify-pubsub',\n    'bootstrap-table'\n], function ($, _, log, ERR, EVT, C, MenuConfig, PluginRegistry, CatalogTemplate, ActionsTemplate, i18nLabels, Filter, JsonMenu, Bridge, Moment, amplify, bootstrapTable) {\n\n    'use strict';\n\n    var s = {\n        CATALOG: \"[data-role='catalog']\",\n        MENU: \"[data-role='menu']\",\n        MENU_GROUPS: \"[data-role='menu-group']\",\n        MENU_ITEMS: \"[data-role='menu-item']\",\n        FILTER: \"[data-role='filter']\",\n        SUMMARY: \"[data-role='summary']\",\n        BOTTOM: \"[data-role='bottom']\",\n        RESULTS_CONTAINER: \"[data-role='results-container']\",\n        RESULTS: \"[data-role='results']\",\n        RESULT: \"[data-role='result']\",\n        PAGINATION: \"[data-role='pagination']\",\n        ERROR_CONTAINER: \"[data-role='error-container']\",\n        ACTIONS: \"[data-role='actions']\"\n    };\n\n    function Catalog(o) {\n        log.info(\"FENIX catalog\");\n        log.info(o);\n\n        //import css\n        require(\"../css/fenix-ui-catalog.css\");\n\n        $.extend(true, this, {initial: o}, C);\n\n        this._parseInput();\n\n        var valid = this._validateInput();\n\n        log.info(\"Catalog has valid input? \" + JSON.stringify(valid));\n\n        if (valid === true) {\n\n            this._attach();\n\n            this._hideError();\n\n            this._setBottomStatus('intro');\n\n            this._initVariables();\n\n            this._initComponents();\n\n            this._bindEventListeners();\n\n            return this;\n\n        } else {\n            log.error(\"Impossible to create Catalog\");\n            log.error(valid)\n        }\n    }\n\n    /**\n     * Reset the view content\n     * @return {null}\n     */\n    Catalog.prototype.reset = function () {\n\n        this._resetResults();\n\n        this._hideError();\n\n        if (this.filter && !$.isFunction(this.filter.clear)) {\n            log.error(\"Filter.clear is not a fn()\");\n\n            return;\n        }\n\n        this.filter.clear();\n\n        log.info(\"Catalog reset\");\n    };\n\n    /**\n     * pub/sub\n     * @return {Object} component instance\n     */\n    Catalog.prototype.on = function (channel, fn, context) {\n        var _context = context || this;\n        if (!this.channels[channel]) {\n            this.channels[channel] = [];\n        }\n        this.channels[channel].push({context: _context, callback: fn});\n        return this;\n    };\n    /**\n     * Dispose\n     * @return {null}\n     */\n    Catalog.prototype.dispose = function () {\n\n        //unbind event listeners\n        this._unbindEventListeners();\n\n        this.$el.find(s.RESULTS).bootstrapTable('destroy');\n\n        log.info(\"Catalog disposed successfully\");\n\n    };\n\n    // end API\n\n    Catalog.prototype._trigger = function (channel) {\n\n        if (!this.channels[channel]) {\n            return false;\n        }\n        var args = Array.prototype.slice.call(arguments, 1);\n        for (var i = 0, l = this.channels[channel].length; i < l; i++) {\n            var subscription = this.channels[channel][i];\n            subscription.callback.apply(subscription.context, args);\n        }\n\n        return this;\n    };\n\n    Catalog.prototype._parseInput = function () {\n\n        this.$el = $(this.initial.el);\n        this.cache = typeof this.initial.cache === \"boolean\" ? this.initial.cache : C.cache;\n        this.defaultSelectors = this.initial.defaultSelectors || C.defaultSelectors;\n        this.actions = this.initial.actions || C.actions;\n        this.pluginRegistry = $.extend(true, {}, PluginRegistry, this.initial.pluginRegistry);\n        this.baseFilter = this.initial.baseFilter || C.baseFilter;\n        this.columns = this.initial.columns || C.columns;\n        this.environment = this.initial.environment;\n        this.lang = this.initial.lang || C.lang;\n        this.lang = this.lang.toLowerCase();\n        this.perPage = this.initial.perPage || C.perPage;\n        this.menuExcludedItems = this.initial.menuExcludedItems || C.menuExcludedItems;\n        this.findServiceParams = this.initial.findServiceParams || C.findServiceParams;\n        this.searchTimeoutInterval = this.initial.searchTimeoutInterval || C.searchTimeoutInterval;\n        this.hideCloseButton = typeof this.initial.hideCloseButton === \"boolean\" ? this.initial.hideCloseButton : C.hideCloseButton;\n        this.langFallbackOrder = this.initial.langFallbackOrder || C.langFallbackOrder;\n\n    };\n\n    Catalog.prototype._validateInput = function () {\n\n        var valid = true,\n            errors = [];\n\n        //set filter id\n        if (!this.id) {\n\n            window.fx_catalog_id >= 0 ? window.fx_catalog_id++ : window.fx_catalog_id = 0;\n\n            this.id = \"fx-catalog-\" + String(window.fx_catalog_id);\n\n            log.warn(\"Impossible to find catalog id. Set auto id to: \" + this.id);\n        }\n\n        if (!this.$el) {\n            errors.push({code: ERR.missing_container});\n\n            log.warn(\"Impossible to find filter container\");\n        }\n\n        this.$el = $(this.$el);\n\n        //Check if $el exist\n        if (this.$el.length === 0) {\n\n            errors.push({code: ERR.missing_container});\n\n            log.warn(\"Impossible to find box container\");\n\n        }\n\n        return errors.length > 0 ? errors : valid;\n    };\n\n    Catalog.prototype._attach = function () {\n\n        var self = this,\n            $html = $(CatalogTemplate($.extend(true, {\n            hideCloseButton: this.hideCloseButton\n        },  i18nLabels[this.lang])));\n\n        this.$el.html($html);\n\n        //render menu\n        this.menu = new JsonMenu({\n            el: this.$el.find(s.MENU),\n            exclude: this.menuExcludedItems,\n            model: MenuConfig\n                .map(function (item) {\n\n                    item.label =  i18nLabels[self.lang][item.id] || \"Missing label [\" + item.id + \"]\";\n\n                    return item;\n                })\n        });\n\n        log.info(\"template attached successfully\");\n\n    };\n\n    Catalog.prototype._initVariables = function () {\n\n        //pub/sub\n        this.channels = {};\n\n        //menu\n        this.$menu = this.$el.find(s.MENU);\n        this.$items = this.$menu.find(s.MENU_ITEMS);\n\n        this.current = {};\n        this.current.perPage = this.perPage;\n        this.current.page = 0;\n\n        this.actions = this.actions.map(_.bind(function (value) {\n\n            return {\n                label:  i18nLabels[this.lang]['action_' + value] || \"Missing action label [\" + value + \"]\",\n                action: value\n            }\n\n        }, this));\n\n        this.bridge = new Bridge({\n            environment: this.environment,\n            cache: this.cache\n        });\n\n        Moment.locale(this.lang);\n\n        this.dateFormat = C.dateFormat;\n\n        this.searchTimeout = false;\n\n    };\n\n    Catalog.prototype._enableMenuItem = function (selector) {\n\n        this.menu.enableItem(selector);\n    };\n\n    Catalog.prototype._disableMenuItem = function (selector) {\n\n        this.menu.disableItem(selector);\n\n    };\n\n    Catalog.prototype._bindEventListeners = function () {\n\n        var self = this;\n\n        this.$el.find(\"[data-action='selector']\").on(\"click\", function (e) {\n            e.preventDefault();\n\n            var selector = $(e.target).data(\"selector\");\n\n            log.info(\"Select selector: \" + selector);\n\n            self.selectSelector(selector);\n\n            self._hideError();\n\n        });\n\n        this.filter.on('ready', _.bind(function () {\n\n            log.info(\"Filter is ready\");\n\n            this._unlock();\n\n            this._refreshResults();\n\n        }, this));\n\n        this.filter.on('remove', _.bind(function (item) {\n\n            log.info(\"Remove from filter: \" + item.id);\n\n            this._enableMenuItem(item.id);\n\n            this._refreshResults();\n\n        }, this));\n\n        this.filter.on('change', function () {\n            self.onFilterChangeEvent();\n        });\n\n        amplify.subscribe(this._getEventName(\"select\"), this, this._onSelectResult);\n        amplify.subscribe(this._getEventName(\"download\"), this, this._onDownloadResult);\n        amplify.subscribe(this._getEventName(\"view\"), this, this._onViewResult);\n        amplify.subscribe(this._getEventName(\"metadata\"), this, this._onMetadataResult);\n    };\n\n    Catalog.prototype.onFilterChangeEvent = function () {\n\n        log.info(\"Change from filter\");\n\n        this._refreshResults();\n\n    };\n\n    Catalog.prototype.selectSelector = function (selector) {\n\n        this._disableMenuItem(selector);\n\n        this._addSelector(selector);\n\n    };\n\n    Catalog.prototype._unlock = function () {\n    };\n\n    Catalog.prototype._lock = function () {\n    };\n\n    Catalog.prototype._addSelector = function (selector) {\n\n        var config = this._getSelectorConfiguration(selector);\n\n        this.filter.add(config);\n    };\n\n    Catalog.prototype._getSelectorConfiguration = function (selector) {\n\n        if (!this.pluginRegistry.hasOwnProperty(selector)) {\n            log.error(\"Impossible to find selector in registry: \" + selector);\n            return;\n        }\n\n        var config = {};\n        config[selector] = $.extend(true, {}, this.pluginRegistry[selector]);\n\n        if (!config[selector].template) {\n            config[selector].template = {};\n        }\n\n        config[selector].template.title =  i18nLabels[this.lang][selector] || \"Missing title [\" + selector + \"]\";\n\n        return $.extend(true, {}, config);\n\n    };\n\n    Catalog.prototype._refreshResults = function () {\n\n        log.info(\"Refresh catalog results\");\n\n        this._setBottomStatus(\"loading\");\n\n        if (this.searchTimeout) {\n            clearTimeout(this.searchTimeout);\n            log.info(\"Abort search timeout\");\n        }\n\n        this.searchTimeout = window.setTimeout(_.bind(function () {\n            this._prepareSearch();\n        }, this), this.searchTimeoutInterval);\n\n    };\n\n    Catalog.prototype._prepareSearch = function () {\n\n        if (this.filter && !$.isFunction(this.filter.getValues)) {\n            log.error(\"Filter.getValues is not a fn()\");\n            return;\n        }\n\n        this.current.values = this.filter.getValues();\n\n        this.current.filter = $.extend(true, {}, this.baseFilter, this.filter.getValues(\"catalog\"));\n\n        var valid = this._validateQuery();\n\n        if (valid === true) {\n            this._search();\n            this._hideError();\n        } else {\n\n            if (Array.isArray(valid) && valid[0] === ERR.empty_values) {\n                this._setBottomStatus(\"intro\")\n            } else {\n                this._showError(valid);\n            }\n        }\n    };\n\n    Catalog.prototype._validateQuery = function () {\n\n        var valid = true,\n            errors = [];\n\n        if ($.isEmptyObject(this.current.filter)) {\n            errors.push(ERR.empty_values);\n            log.error(ERR.empty_values);\n            return errors;\n        }\n\n        return errors.length > 0 ? errors : valid;\n    };\n\n    Catalog.prototype._initComponents = function () {\n\n        log.info(\"Filter instantiation\");\n\n        this.filter = new Filter({\n            el: s.FILTER,\n            selectors: this._getDefaultSelectors(),\n            //summary$el: s.SUMMARY,\n            direction: \"prepend\",\n            cache: this.cache,\n            ensureAtLeast: 1,\n            environment: this.environment,\n            //summaryRender : function (item ){ return \" -> \" + item.code; },\n            common: {\n                template: {\n                    hideHeader: false,\n                    hideRemoveButton: false\n                },\n                selector: {\n                    hideFooter: true\n                }\n            }\n        });\n\n        _.each(this.defaultSelectors, _.bind(function (selector) {\n            this._disableMenuItem(selector);\n        }, this));\n\n        console.log(bootstrapTable);\n        this.$el.find(s.RESULTS).bootstrapTable({\n            pagination: true,\n            pageSize: this.current.perPage,\n            pageList: [],\n            columns: this._createTableColumnsConfiguration(),\n            onPageChange: _.bind(function () {\n                this._unbindResultsEventListeners();\n                this._bindResultsEventListeners()\n            }, this),\n            onSort: _.bind(function () {\n\n                window.setTimeout(_.bind(function () {\n                    this._unbindResultsEventListeners();\n                    this._bindResultsEventListeners()\n                }, this), 100)\n\n            }, this)\n        });\n\n    };\n\n    Catalog.prototype._createTableColumnsConfiguration = function () {\n\n        var columns = [],\n            self = this;\n\n        _.each(Object.keys(this.columns), function (c) {\n\n            columns.push({\n                field: c,\n                title:  i18nLabels[self.lang][c] || \"Missing label [\" + c + \"]\",\n                sortable: true\n            });\n\n        });\n\n        // add rid\n        columns.push({\n            field: \"rid\",\n            visible: false\n        });\n\n        var resourceTypeColumn = _.findWhere(columns, {field: \"resourceType\"}) || {};\n        resourceTypeColumn.visible = false;\n\n        //Add actions column\n        columns.push({\n            formatter: function (value, row) {\n\n                //$html = $(templateSelector($.extend(true, {classNames: classNames}, conf)));\n                var $html = $(ActionsTemplate($.extend(true, {},  i18nLabels[this.lang], row, {actions: self._getActions(row)})));\n\n                return $html[0].outerHTML\n            }\n        });\n\n        return columns;\n    };\n\n    Catalog.prototype._getActions = function (row) {\n\n        var excluded = C.excluded_action || {},\n            to_exclude = excluded[row.resourceType] || [],\n            actions = this.actions;\n\n        _.each(to_exclude, function (excl) {\n            actions = _.reject(actions, {action: excl})\n        });\n\n        return actions;\n\n    };\n\n    Catalog.prototype._getDefaultSelectors = function () {\n\n        var self = this,\n            items = {};\n\n        _.each(this.defaultSelectors, function (selector) {\n            items = $.extend(true, {}, items, self._getSelectorConfiguration(selector));\n        });\n\n        log.info(\"Default items: \" + JSON.stringify(items));\n\n        return items;\n\n    };\n\n    Catalog.prototype._resetResults = function () {\n\n        this._setBottomStatus('intro');\n\n        this._unbindResultsEventListeners();\n\n    };\n\n    //Request\n\n    Catalog.prototype._search = function () {\n\n        var body = this.current.filter;\n\n        this._lock();\n\n        window.fx_req_id >= 0 ? window.fx_req_id++ : window.fx_req_id = 0;\n\n        this.reqeust_id = \"fx-request-id-\" + window.fx_req_id;\n\n        this.bridge.find({\n            body: body,\n            params: this.findServiceParams\n        }).then(\n            _.bind(this._renderResults, this, \"fx-request-id-\" + window.fx_req_id),\n            _.bind(function (requestId, e) {\n\n                if (this.reqeust_id !== requestId) {\n                    log.warn(\"Abort result rendering because it is not the last request\");\n                    return;\n                }\n\n                if (e.status === C.httpStatusMaxSizeError) {\n                    this._setBottomStatus(\"huge\");\n                    return;\n                }\n\n                this._setBottomStatus(\"error\");\n                this.error(e);\n                this._unlock();\n                this._showError(ERR.request);\n\n            }, this, \"fx-request-id-\" + window.fx_req_id));\n\n    };\n\n    Catalog.prototype._setBottomStatus = function (status) {\n\n        log.info(\"Set status to: \" + status);\n\n        this.$el.find(s.BOTTOM).attr('data-status', status);\n\n    };\n\n    Catalog.prototype._renderResults = function (requestId, data) {\n\n        if (this.reqeust_id !== requestId) {\n            log.warn(\"Abort result rendering because it is not the last request\");\n            return;\n        }\n\n        this.current.data = data;\n        this.current.model = this._parseData(this.current.data);\n\n        if (!this.current.data) {\n            this._setBottomStatus(\"empty\");\n            return;\n        }\n\n        this._setBottomStatus('ready');\n\n        this._unlock();\n\n        this._renderTable();\n\n    };\n\n    Catalog.prototype._parseData = function (d) {\n\n        var data = [];\n\n        _.each(d, _.bind(function (record) {\n\n            data.push(this._parseRecord(record));\n\n        }, this));\n\n        return data;\n    };\n\n    Catalog.prototype._parseRecord = function (record) {\n\n        var result = {};\n\n        _.each(this.columns, _.bind(function (col, id) {\n            result[id] = this._getColumnValue(record, $.extend(true, {id: id}, col));\n        }, this));\n\n        //add rid to model\n        result[\"rid\"] = this._getColumnValue(record, $.extend(true, {id: \"rid\"}, {}));\n\n        return result;\n    };\n\n    Catalog.prototype._getColumnValue = function (record, col) {\n\n        var label = \" \",\n            path = col.path ? col.path : col.id,\n            metadataValue = this._getNestedProperty(path, record) || {},\n            type = col.type || \"\",\n            i18nLabel;\n\n        switch (type.toLowerCase()) {\n            case \"i18n\":\n                i18nLabel = this._getI18nLabel(metadataValue);\n                label = i18nLabel ? i18nLabel : \" \";\n                break;\n            case \"source\":\n\n                var owner = _.findWhere(metadataValue, {role: \"owner\"}) || {},\n                    organization = owner.organization,\n                    organizationUnit = owner.organizationUnit,\n                    organizationI18nLabel = this._getI18nLabel(organization),\n                    organizationUnitI18nLabel = this._getI18nLabel(organizationUnit),\n                    bothPopulated = organizationI18nLabel && organizationUnitI18nLabel;\n\n                label += organizationI18nLabel ? organizationI18nLabel : \"\";\n\n                label += bothPopulated ? \" - \" : \"\";\n\n                label += organizationUnitI18nLabel ? organizationUnitI18nLabel : \"\";\n\n                break;\n            case \"epoch\":\n\n                label = new Moment(metadataValue).format(this.dateFormat);\n                break;\n            case \"code\":\n\n                var code = (Array.isArray(metadataValue.codes) && metadataValue.codes.length > 0) ? metadataValue.codes[0] : {};\n\n                i18nLabel = this._getI18nLabel(code.label);\n                label = i18nLabel ? i18nLabel : \" \";\n\n                break;\n            default :\n\n                label = metadataValue;\n\n        }\n\n        return label ? label : null;\n    };\n\n    Catalog.prototype._renderTable = function () {\n\n        this._unbindResultsEventListeners();\n\n        this.$el.find(s.RESULTS).bootstrapTable('load', this.current.model);\n\n        this._bindResultsEventListeners();\n\n    };\n\n    Catalog.prototype._unbindResultsEventListeners = function () {\n        this.$el.find(s.RESULTS).find(\"[data-action]\").off();\n    };\n\n    Catalog.prototype._bindResultsEventListeners = function () {\n\n        var self = this;\n\n        this.$el.find(s.RESULTS).find(\"[data-action]\").each(function () {\n\n            var $this = $(this),\n                action = $this.data(\"action\"),\n                event = self._getEventName(action),\n                rid = $this.data(\"rid\");\n\n            $this.on(\"click\", {\n                event: event,\n                rid: rid,\n                values: self.current.values,\n                filter: self.current.filter\n            }, function (e) {\n                e.preventDefault();\n\n                log.info(\"Result raise event: \" + e.data.event);\n\n                var model = _.findWhere(self.current.data, {rid: rid});\n\n                amplify.publish(event, {rid: rid, model: model, filter: e.data.filter, values: e.data.values});\n\n            });\n        });\n    };\n\n    // Handlers\n\n    Catalog.prototype._onSelectResult = function (payload) {\n\n        log.info(\"Select result: \" + JSON.stringify(payload));\n\n        this._trigger('select', payload);\n\n    };\n\n    Catalog.prototype._onDownloadResult = function (payload) {\n\n        log.info(\"Download result: \" + JSON.stringify(payload));\n\n        this._trigger('download', payload);\n\n    };\n\n    Catalog.prototype._onViewResult = function (payload) {\n\n        log.info(\"View result: \" + JSON.stringify(payload));\n\n        this._trigger('view', payload);\n    };\n\n    Catalog.prototype._onMetadataResult = function (payload) {\n\n        log.info(\"Metadata result: \" + JSON.stringify(payload));\n\n        this._trigger('metadata', payload);\n    };\n\n    Catalog.prototype._getEventName = function (evt, excludeId) {\n\n        var baseEvent = EVT[evt] ? EVT[evt] : evt;\n\n        return excludeId === true ? baseEvent : baseEvent + \".\" + this.id;\n    };\n\n    //disposition\n\n    Catalog.prototype._unbindEventListeners = function () {\n\n        this.$el.find('[data-action]').off();\n\n        amplify.unsubscribe(this._getEventName(\"select\"), this._onSelectResult);\n        amplify.unsubscribe(this._getEventName(\"download\"), this._onDownloadResult);\n        amplify.unsubscribe(this._getEventName(\"view\"), this._onViewResult);\n        amplify.unsubscribe(this._getEventName(\"metadata\"), this._onMetadataResult);\n\n    };\n\n    Catalog.prototype._showError = function (err) {\n\n        if (!Array.isArray(err)) {\n            err = [err];\n        }\n\n        _.each(err, _.bind(function (e) {\n\n            var $li = $(\"<li>\" +  i18nLabels[this.lang][e] + \"</li>\");\n            this.$el.find(s.ERROR_CONTAINER).show().html($li);\n\n        }, this));\n\n    };\n\n    Catalog.prototype._hideError = function () {\n\n        this.$el.find(s.ERROR_CONTAINER).hide();\n    };\n\n    Catalog.prototype._getI18nLabel = function (obj) {\n\n        if (typeof obj !== \"object\") {\n            return \"\";\n        }\n\n        var languages = this.langFallbackOrder.slice(0),\n            label = \"Missing label\";\n\n        languages.unshift(this.lang);\n        languages = _.uniq(languages);\n\n        for (var i = 0; i < languages.length; i++) {\n            label = obj[languages[i]];\n\n            if (label) {\n                break;\n            }\n        }\n\n        return label;\n\n    };\n\n    Catalog.prototype._getNestedProperty = function (path, obj) {\n\n        var obj = $.extend(true, {}, obj),\n            arr = path.split(\".\");\n\n        while (arr.length && (obj = obj[arr.shift()]));\n\n        return obj;\n\n    };\n\n\n    return Catalog;\n});"
+          "source": "define([\n    'jquery',\n    'underscore',\n    'loglevel',\n    '../config/errors',\n    '../config/events',\n    '../config/config',\n    '../config/menuConfig',\n    '../config/pluginRegistry',\n    '../html/catalog.hbs',\n    '../html/actions.hbs',\n    '../nls/labels',\n    'fenix-ui-filter',\n    \"fenix-ui-dropdown\",\n    \"fenix-ui-bridge\",\n    \"moment\",\n    'amplify-pubsub',\n    'bootstrap-table'\n\n], function ($, _, log, ERR, EVT, C, MenuConfig, PluginRegistry, CatalogTemplate, ActionsTemplate, i18nLabels, Filter, JsonMenu, Bridge, Moment, amplify, bootstrapTable) {\n\n    'use strict';\n\n    var s = {\n        CATALOG: \"[data-role='catalog']\",\n        MENU: \"[data-role='menu']\",\n        MENU_GROUPS: \"[data-role='menu-group']\",\n        MENU_ITEMS: \"[data-role='menu-item']\",\n        FILTER: \"[data-role='filter']\",\n        SUMMARY: \"[data-role='summary']\",\n        BOTTOM: \"[data-role='bottom']\",\n        RESULTS_CONTAINER: \"[data-role='results-container']\",\n        RESULTS: \"[data-role='results']\",\n        RESULT: \"[data-role='result']\",\n        PAGINATION: \"[data-role='pagination']\",\n        ERROR_CONTAINER: \"[data-role='error-container']\",\n        ACTIONS: \"[data-role='actions']\"\n    };\n\n    function Catalog(o) {\n        log.info(\"FENIX catalog\");\n        log.info(o);\n\n        //import css\n        require(\"../css/fenix-ui-catalog.css\");\n\n        $.extend(true, this, {initial: o}, C);\n\n        this._parseInput();\n\n        var valid = this._validateInput();\n\n        log.info(\"Catalog has valid input? \" + JSON.stringify(valid));\n\n        if (valid === true) {\n\n            this._attach();\n\n            this._hideError();\n\n            this._setBottomStatus('intro');\n\n            this._initVariables();\n\n            this._initComponents();\n\n            this._bindEventListeners();\n\n            return this;\n\n        } else {\n            log.error(\"Impossible to create Catalog\");\n            log.error(valid)\n        }\n    }\n\n    /**\n     * Reset the view content\n     * @return {null}\n     */\n    Catalog.prototype.reset = function () {\n\n        this._resetResults();\n\n        this._hideError();\n\n        if (this.filter && !$.isFunction(this.filter.clear)) {\n            log.error(\"Filter.clear is not a fn()\");\n\n            return;\n        }\n\n        this.filter.clear();\n\n        log.info(\"Catalog reset\");\n    };\n\n    /**\n     * pub/sub\n     * @return {Object} component instance\n     */\n    Catalog.prototype.on = function (channel, fn, context) {\n        var _context = context || this;\n        if (!this.channels[channel]) {\n            this.channels[channel] = [];\n        }\n        this.channels[channel].push({context: _context, callback: fn});\n        return this;\n    };\n    /**\n     * Dispose\n     * @return {null}\n     */\n    Catalog.prototype.dispose = function () {\n\n        //unbind event listeners\n        this._unbindEventListeners();\n\n        this.$el.find(s.RESULTS).bootstrapTable('destroy');\n\n        log.info(\"Catalog disposed successfully\");\n\n    };\n\n    // end API\n\n    Catalog.prototype._trigger = function (channel) {\n\n        if (!this.channels[channel]) {\n            return false;\n        }\n        var args = Array.prototype.slice.call(arguments, 1);\n        for (var i = 0, l = this.channels[channel].length; i < l; i++) {\n            var subscription = this.channels[channel][i];\n            subscription.callback.apply(subscription.context, args);\n        }\n\n        return this;\n    };\n\n    Catalog.prototype._parseInput = function () {\n\n        this.$el = $(this.initial.el);\n        this.cache = typeof this.initial.cache === \"boolean\" ? this.initial.cache : C.cache;\n        this.defaultSelectors = this.initial.defaultSelectors || C.defaultSelectors;\n        this.actions = this.initial.actions || C.actions;\n        this.pluginRegistry = $.extend(true, {}, PluginRegistry, this.initial.pluginRegistry);\n        this.baseFilter = this.initial.baseFilter || C.baseFilter;\n        this.columns = this.initial.columns || C.columns;\n        this.environment = this.initial.environment;\n        this.lang = this.initial.lang || C.lang;\n        this.lang = this.lang.toLowerCase();\n        this.perPage = this.initial.perPage || C.perPage;\n        this.menuExcludedItems = this.initial.menuExcludedItems || C.menuExcludedItems;\n        this.findServiceParams = this.initial.findServiceParams || C.findServiceParams;\n        this.searchTimeoutInterval = this.initial.searchTimeoutInterval || C.searchTimeoutInterval;\n        this.hideCloseButton = typeof this.initial.hideCloseButton === \"boolean\" ? this.initial.hideCloseButton : C.hideCloseButton;\n        this.langFallbackOrder = this.initial.langFallbackOrder || C.langFallbackOrder;\n\n    };\n\n    Catalog.prototype._validateInput = function () {\n\n        var valid = true,\n            errors = [];\n\n        //set filter id\n        if (!this.id) {\n\n            window.fx_catalog_id >= 0 ? window.fx_catalog_id++ : window.fx_catalog_id = 0;\n\n            this.id = \"fx-catalog-\" + String(window.fx_catalog_id);\n\n            log.warn(\"Impossible to find catalog id. Set auto id to: \" + this.id);\n        }\n\n        if (!this.$el) {\n            errors.push({code: ERR.missing_container});\n\n            log.warn(\"Impossible to find filter container\");\n        }\n\n        this.$el = $(this.$el);\n\n        //Check if $el exist\n        if (this.$el.length === 0) {\n\n            errors.push({code: ERR.missing_container});\n\n            log.warn(\"Impossible to find box container\");\n\n        }\n\n        return errors.length > 0 ? errors : valid;\n    };\n\n    Catalog.prototype._attach = function () {\n\n        var self = this,\n            $html = $(CatalogTemplate($.extend(true, {\n            hideCloseButton: this.hideCloseButton\n        },  i18nLabels[this.lang])));\n\n        this.$el.html($html);\n\n        //render menu\n        this.menu = new JsonMenu({\n            el: this.$el.find(s.MENU),\n            exclude: this.menuExcludedItems,\n            model: MenuConfig\n                .map(function (item) {\n\n                    item.label =  i18nLabels[self.lang][item.id] || \"Missing label [\" + item.id + \"]\";\n\n                    return item;\n                })\n        });\n\n        log.info(\"template attached successfully\");\n\n    };\n\n    Catalog.prototype._initVariables = function () {\n\n        //pub/sub\n        this.channels = {};\n\n        //menu\n        this.$menu = this.$el.find(s.MENU);\n        this.$items = this.$menu.find(s.MENU_ITEMS);\n\n        this.current = {};\n        this.current.perPage = this.perPage;\n        this.current.page = 0;\n\n        this.actions = this.actions.map(_.bind(function (value) {\n\n            return {\n                label:  i18nLabels[this.lang]['action_' + value] || \"Missing action label [\" + value + \"]\",\n                action: value\n            }\n\n        }, this));\n\n        this.bridge = new Bridge({\n            environment: this.environment,\n            cache: this.cache\n        });\n\n        Moment.locale(this.lang);\n\n        this.dateFormat = C.dateFormat;\n\n        this.searchTimeout = false;\n\n    };\n\n    Catalog.prototype._enableMenuItem = function (selector) {\n\n        this.menu.enableItem(selector);\n    };\n\n    Catalog.prototype._disableMenuItem = function (selector) {\n\n        this.menu.disableItem(selector);\n\n    };\n\n    Catalog.prototype._bindEventListeners = function () {\n\n        var self = this;\n\n        this.$el.find(\"[data-action='selector']\").on(\"click\", function (e) {\n            e.preventDefault();\n\n            var selector = $(e.target).data(\"selector\");\n\n            log.info(\"Select selector: \" + selector);\n\n            self.selectSelector(selector);\n\n            self._hideError();\n\n        });\n\n        this.filter.on('ready', _.bind(function () {\n\n            log.info(\"Filter is ready\");\n\n            this._unlock();\n\n            this._refreshResults();\n\n        }, this));\n\n        this.filter.on('remove', _.bind(function (item) {\n\n            log.info(\"Remove from filter: \" + item.id);\n\n            this._enableMenuItem(item.id);\n\n            this._refreshResults();\n\n        }, this));\n\n        this.filter.on('change', function () {\n            self.onFilterChangeEvent();\n        });\n\n        amplify.subscribe(this._getEventName(\"select\"), this, this._onSelectResult);\n        amplify.subscribe(this._getEventName(\"download\"), this, this._onDownloadResult);\n        amplify.subscribe(this._getEventName(\"view\"), this, this._onViewResult);\n        amplify.subscribe(this._getEventName(\"metadata\"), this, this._onMetadataResult);\n    };\n\n    Catalog.prototype.onFilterChangeEvent = function () {\n\n        log.info(\"Change from filter\");\n\n        this._refreshResults();\n\n    };\n\n    Catalog.prototype.selectSelector = function (selector) {\n\n        this._disableMenuItem(selector);\n\n        this._addSelector(selector);\n\n    };\n\n    Catalog.prototype._unlock = function () {\n    };\n\n    Catalog.prototype._lock = function () {\n    };\n\n    Catalog.prototype._addSelector = function (selector) {\n\n        var config = this._getSelectorConfiguration(selector);\n\n        this.filter.add(config);\n    };\n\n    Catalog.prototype._getSelectorConfiguration = function (selector) {\n\n        if (!this.pluginRegistry.hasOwnProperty(selector)) {\n            log.error(\"Impossible to find selector in registry: \" + selector);\n            return;\n        }\n\n        var config = {};\n        config[selector] = $.extend(true, {}, this.pluginRegistry[selector]);\n\n        if (!config[selector].template) {\n            config[selector].template = {};\n        }\n\n        config[selector].template.title =  i18nLabels[this.lang][selector] || \"Missing title [\" + selector + \"]\";\n\n        return $.extend(true, {}, config);\n\n    };\n\n    Catalog.prototype._refreshResults = function () {\n\n        log.info(\"Refresh catalog results\");\n\n        this._setBottomStatus(\"loading\");\n\n        if (this.searchTimeout) {\n            clearTimeout(this.searchTimeout);\n            log.info(\"Abort search timeout\");\n        }\n\n        this.searchTimeout = window.setTimeout(_.bind(function () {\n            this._prepareSearch();\n        }, this), this.searchTimeoutInterval);\n\n    };\n\n    Catalog.prototype._prepareSearch = function () {\n\n        if (this.filter && !$.isFunction(this.filter.getValues)) {\n            log.error(\"Filter.getValues is not a fn()\");\n            return;\n        }\n\n        this.current.values = this.filter.getValues();\n\n        this.current.filter = $.extend(true, {}, this.baseFilter, this.filter.getValues(\"catalog\"));\n\n        var valid = this._validateQuery();\n\n        if (valid === true) {\n            this._search();\n            this._hideError();\n        } else {\n\n            if (Array.isArray(valid) && valid[0] === ERR.empty_values) {\n                this._setBottomStatus(\"intro\")\n            } else {\n                this._showError(valid);\n            }\n        }\n    };\n\n    Catalog.prototype._validateQuery = function () {\n\n        var valid = true,\n            errors = [];\n\n        if ($.isEmptyObject(this.current.filter)) {\n            errors.push(ERR.empty_values);\n            log.error(ERR.empty_values);\n            return errors;\n        }\n\n        return errors.length > 0 ? errors : valid;\n    };\n\n    Catalog.prototype._initComponents = function () {\n\n        log.info(\"Filter instantiation\");\n\n        this.filter = new Filter({\n            el: s.FILTER,\n            selectors: this._getDefaultSelectors(),\n            //summary$el: s.SUMMARY,\n            direction: \"prepend\",\n            cache: this.cache,\n            ensureAtLeast: 1,\n            environment: this.environment,\n            //summaryRender : function (item ){ return \" -> \" + item.code; },\n            common: {\n                template: {\n                    hideHeader: false,\n                    hideRemoveButton: false\n                },\n                selector: {\n                    hideFooter: true\n                }\n            }\n        });\n\n        _.each(this.defaultSelectors, _.bind(function (selector) {\n            this._disableMenuItem(selector);\n        }, this));\n\n        console.log(bootstrapTable);\n        this.$el.find(s.RESULTS).bootstrapTable({\n            pagination: true,\n            pageSize: this.current.perPage,\n            pageList: [],\n            columns: this._createTableColumnsConfiguration(),\n            onPageChange: _.bind(function () {\n                this._unbindResultsEventListeners();\n                this._bindResultsEventListeners()\n            }, this),\n            onSort: _.bind(function () {\n\n                window.setTimeout(_.bind(function () {\n                    this._unbindResultsEventListeners();\n                    this._bindResultsEventListeners()\n                }, this), 100)\n\n            }, this)\n        });\n\n    };\n\n    Catalog.prototype._createTableColumnsConfiguration = function () {\n\n        var columns = [],\n            self = this;\n\n        _.each(Object.keys(this.columns), function (c) {\n\n            columns.push({\n                field: c,\n                title:  i18nLabels[self.lang][c] || \"Missing label [\" + c + \"]\",\n                sortable: true\n            });\n\n        });\n\n        // add rid\n        columns.push({\n            field: \"rid\",\n            visible: false\n        });\n\n        var resourceTypeColumn = _.findWhere(columns, {field: \"resourceType\"}) || {};\n        resourceTypeColumn.visible = false;\n\n        //Add actions column\n        columns.push({\n            formatter: function (value, row) {\n\n                //$html = $(templateSelector($.extend(true, {classNames: classNames}, conf)));\n                var $html = $(ActionsTemplate($.extend(true, {},  i18nLabels[this.lang], row, {actions: self._getActions(row)})));\n\n                return $html[0].outerHTML\n            }\n        });\n\n        return columns;\n    };\n\n    Catalog.prototype._getActions = function (row) {\n\n        var excluded = C.excluded_action || {},\n            to_exclude = excluded[row.resourceType] || [],\n            actions = this.actions;\n\n        _.each(to_exclude, function (excl) {\n            actions = _.reject(actions, {action: excl})\n        });\n\n        return actions;\n\n    };\n\n    Catalog.prototype._getDefaultSelectors = function () {\n\n        var self = this,\n            items = {};\n\n        _.each(this.defaultSelectors, function (selector) {\n            items = $.extend(true, {}, items, self._getSelectorConfiguration(selector));\n        });\n\n        log.info(\"Default items: \" + JSON.stringify(items));\n\n        return items;\n\n    };\n\n    Catalog.prototype._resetResults = function () {\n\n        this._setBottomStatus('intro');\n\n        this._unbindResultsEventListeners();\n\n    };\n\n    //Request\n\n    Catalog.prototype._search = function () {\n\n        var body = this.current.filter;\n\n        this._lock();\n\n        window.fx_req_id >= 0 ? window.fx_req_id++ : window.fx_req_id = 0;\n\n        this.reqeust_id = \"fx-request-id-\" + window.fx_req_id;\n\n        this.bridge.find({\n            body: body,\n            params: this.findServiceParams\n        }).then(\n            _.bind(this._renderResults, this, \"fx-request-id-\" + window.fx_req_id),\n            _.bind(function (requestId, e) {\n\n                if (this.reqeust_id !== requestId) {\n                    log.warn(\"Abort result rendering because it is not the last request\");\n                    return;\n                }\n\n                if (e.status === C.httpStatusMaxSizeError) {\n                    this._setBottomStatus(\"huge\");\n                    return;\n                }\n\n                this._setBottomStatus(\"error\");\n                this.error(e);\n                this._unlock();\n                this._showError(ERR.request);\n\n            }, this, \"fx-request-id-\" + window.fx_req_id));\n\n    };\n\n    Catalog.prototype._setBottomStatus = function (status) {\n\n        log.info(\"Set status to: \" + status);\n\n        this.$el.find(s.BOTTOM).attr('data-status', status);\n\n    };\n\n    Catalog.prototype._renderResults = function (requestId, data) {\n\n        if (this.reqeust_id !== requestId) {\n            log.warn(\"Abort result rendering because it is not the last request\");\n            return;\n        }\n\n        this.current.data = data;\n        this.current.model = this._parseData(this.current.data);\n\n        if (!this.current.data) {\n            this._setBottomStatus(\"empty\");\n            return;\n        }\n\n        this._setBottomStatus('ready');\n\n        this._unlock();\n\n        this._renderTable();\n\n    };\n\n    Catalog.prototype._parseData = function (d) {\n\n        var data = [];\n\n        _.each(d, _.bind(function (record) {\n\n            data.push(this._parseRecord(record));\n\n        }, this));\n\n        return data;\n    };\n\n    Catalog.prototype._parseRecord = function (record) {\n\n        var result = {};\n\n        _.each(this.columns, _.bind(function (col, id) {\n            result[id] = this._getColumnValue(record, $.extend(true, {id: id}, col));\n        }, this));\n\n        //add rid to model\n        result[\"rid\"] = this._getColumnValue(record, $.extend(true, {id: \"rid\"}, {}));\n\n        return result;\n    };\n\n    Catalog.prototype._getColumnValue = function (record, col) {\n\n        var label = \" \",\n            path = col.path ? col.path : col.id,\n            metadataValue = this._getNestedProperty(path, record) || {},\n            type = col.type || \"\",\n            i18nLabel;\n\n        switch (type.toLowerCase()) {\n            case \"i18n\":\n                i18nLabel = this._getI18nLabel(metadataValue);\n                label = i18nLabel ? i18nLabel : \" \";\n                break;\n            case \"source\":\n\n                var owner = _.findWhere(metadataValue, {role: \"owner\"}) || {},\n                    organization = owner.organization,\n                    organizationUnit = owner.organizationUnit,\n                    organizationI18nLabel = this._getI18nLabel(organization),\n                    organizationUnitI18nLabel = this._getI18nLabel(organizationUnit),\n                    bothPopulated = organizationI18nLabel && organizationUnitI18nLabel;\n\n                label += organizationI18nLabel ? organizationI18nLabel : \"\";\n\n                label += bothPopulated ? \" - \" : \"\";\n\n                label += organizationUnitI18nLabel ? organizationUnitI18nLabel : \"\";\n\n                break;\n            case \"epoch\":\n\n                label = new Moment(metadataValue).format(this.dateFormat);\n                break;\n            case \"code\":\n\n                var code = (Array.isArray(metadataValue.codes) && metadataValue.codes.length > 0) ? metadataValue.codes[0] : {};\n\n                i18nLabel = this._getI18nLabel(code.label);\n                label = i18nLabel ? i18nLabel : \" \";\n\n                break;\n            default :\n\n                label = metadataValue;\n\n        }\n\n        return label ? label : null;\n    };\n\n    Catalog.prototype._renderTable = function () {\n\n        this._unbindResultsEventListeners();\n\n        this.$el.find(s.RESULTS).bootstrapTable('load', this.current.model);\n\n        this._bindResultsEventListeners();\n\n    };\n\n    Catalog.prototype._unbindResultsEventListeners = function () {\n        this.$el.find(s.RESULTS).find(\"[data-action]\").off();\n    };\n\n    Catalog.prototype._bindResultsEventListeners = function () {\n\n        var self = this;\n\n        this.$el.find(s.RESULTS).find(\"[data-action]\").each(function () {\n\n            var $this = $(this),\n                action = $this.data(\"action\"),\n                event = self._getEventName(action),\n                rid = $this.data(\"rid\");\n\n            $this.on(\"click\", {\n                event: event,\n                rid: rid,\n                values: self.current.values,\n                filter: self.current.filter\n            }, function (e) {\n                e.preventDefault();\n\n                log.info(\"Result raise event: \" + e.data.event);\n\n                var model = _.findWhere(self.current.data, {rid: rid});\n\n                amplify.publish(event, {rid: rid, model: model, filter: e.data.filter, values: e.data.values});\n\n            });\n        });\n    };\n\n    // Handlers\n\n    Catalog.prototype._onSelectResult = function (payload) {\n\n        log.info(\"Select result: \" + JSON.stringify(payload));\n\n        this._trigger('select', payload);\n\n    };\n\n    Catalog.prototype._onDownloadResult = function (payload) {\n\n        log.info(\"Download result: \" + JSON.stringify(payload));\n\n        this._trigger('download', payload);\n\n    };\n\n    Catalog.prototype._onViewResult = function (payload) {\n\n        log.info(\"View result: \" + JSON.stringify(payload));\n\n        this._trigger('view', payload);\n    };\n\n    Catalog.prototype._onMetadataResult = function (payload) {\n\n        log.info(\"Metadata result: \" + JSON.stringify(payload));\n\n        this._trigger('metadata', payload);\n    };\n\n    Catalog.prototype._getEventName = function (evt, excludeId) {\n\n        var baseEvent = EVT[evt] ? EVT[evt] : evt;\n\n        return excludeId === true ? baseEvent : baseEvent + \".\" + this.id;\n    };\n\n    //disposition\n\n    Catalog.prototype._unbindEventListeners = function () {\n\n        this.$el.find('[data-action]').off();\n\n        amplify.unsubscribe(this._getEventName(\"select\"), this._onSelectResult);\n        amplify.unsubscribe(this._getEventName(\"download\"), this._onDownloadResult);\n        amplify.unsubscribe(this._getEventName(\"view\"), this._onViewResult);\n        amplify.unsubscribe(this._getEventName(\"metadata\"), this._onMetadataResult);\n\n    };\n\n    Catalog.prototype._showError = function (err) {\n\n        if (!Array.isArray(err)) {\n            err = [err];\n        }\n\n        _.each(err, _.bind(function (e) {\n\n            var $li = $(\"<li>\" +  i18nLabels[this.lang][e] + \"</li>\");\n            this.$el.find(s.ERROR_CONTAINER).show().html($li);\n\n        }, this));\n\n    };\n\n    Catalog.prototype._hideError = function () {\n\n        this.$el.find(s.ERROR_CONTAINER).hide();\n    };\n\n    Catalog.prototype._getI18nLabel = function (obj) {\n\n        if (typeof obj !== \"object\") {\n            return \"\";\n        }\n\n        var languages = this.langFallbackOrder.slice(0),\n            label = \"Missing label\";\n\n        languages.unshift(this.lang);\n        languages = _.uniq(languages);\n\n        for (var i = 0; i < languages.length; i++) {\n            label = obj[languages[i]];\n\n            if (label) {\n                break;\n            }\n        }\n\n        return label;\n\n    };\n\n    Catalog.prototype._getNestedProperty = function (path, obj) {\n\n        var obj = $.extend(true, {}, obj),\n            arr = path.split(\".\");\n\n        while (arr.length && (obj = obj[arr.shift()]));\n\n        return obj;\n\n    };\n\n\n    return Catalog;\n});"
         },
         {
           "id": 2,
@@ -164,7 +164,7 @@
           "issuer": "/Users/nicolaselleri/Repos/fenix-ui-catalog/src/js/index.js",
           "profile": {
             "factory": 8,
-            "building": 20
+            "building": 21
           },
           "failed": false,
           "errors": 0,
@@ -177,7 +177,7 @@
               "moduleName": "./src/js/index.js",
               "type": "amd require",
               "userRequest": "../nls/labels",
-              "loc": "1:0-844:2"
+              "loc": "1:0-845:2"
             }
           ],
           "source": "define([\n        \"./en/labels\",\n        \"./fr/labels\"\n    ],\n    function (i18nEn,i18nFr) {\n\n        'use strict';\n\n        return {\n\n            en: i18nEn,\n            fr: i18nFr\n\n        }\n    });"
@@ -199,8 +199,8 @@
           "assets": [],
           "issuer": "/Users/nicolaselleri/Repos/fenix-ui-catalog/src/nls/labels.js",
           "profile": {
-            "factory": 9,
-            "building": 539
+            "factory": 8,
+            "building": 361
           },
           "failed": false,
           "errors": 0,
@@ -235,8 +235,8 @@
           "assets": [],
           "issuer": "/Users/nicolaselleri/Repos/fenix-ui-catalog/src/nls/labels.js",
           "profile": {
-            "factory": 10,
-            "building": 3335
+            "factory": 8,
+            "building": 380
           },
           "failed": false,
           "errors": 0,
@@ -285,7 +285,7 @@
               "moduleName": "./src/js/index.js",
               "type": "amd require",
               "userRequest": "jquery",
-              "loc": "1:0-844:2"
+              "loc": "1:0-845:2"
             }
           ]
         },
@@ -307,7 +307,7 @@
           "issuer": "/Users/nicolaselleri/Repos/fenix-ui-catalog/src/js/index.js",
           "profile": {
             "factory": 1,
-            "building": 0
+            "building": 1
           },
           "failed": false,
           "errors": 0,
@@ -320,7 +320,7 @@
               "moduleName": "./src/js/index.js",
               "type": "amd require",
               "userRequest": "loglevel",
-              "loc": "1:0-844:2"
+              "loc": "1:0-845:2"
             }
           ]
         },
@@ -342,7 +342,7 @@
           "issuer": "/Users/nicolaselleri/Repos/fenix-ui-catalog/src/js/index.js",
           "profile": {
             "factory": 9,
-            "building": 20
+            "building": 21
           },
           "failed": false,
           "errors": 0,
@@ -355,7 +355,7 @@
               "moduleName": "./src/js/index.js",
               "type": "amd require",
               "userRequest": "../config/errors",
-              "loc": "1:0-844:2"
+              "loc": "1:0-845:2"
             }
           ],
           "source": "define(function ( ) {\n\n    'use strict';\n\n    var prefix = \"\";\n\n    return {\n\n        request : prefix + \"request\",\n        empty_values : prefix + \"empty_values\",\n        missing_container : prefix + \"missing_container\"\n\n    };\n});\n"
@@ -378,7 +378,7 @@
           "issuer": "/Users/nicolaselleri/Repos/fenix-ui-catalog/src/js/index.js",
           "profile": {
             "factory": 9,
-            "building": 20
+            "building": 22
           },
           "failed": false,
           "errors": 0,
@@ -391,7 +391,7 @@
               "moduleName": "./src/js/index.js",
               "type": "amd require",
               "userRequest": "../config/events",
-              "loc": "1:0-844:2"
+              "loc": "1:0-845:2"
             }
           ],
           "source": "define(function () {\n\n    'use strict';\n\n    var prefix = \"fx.catalog.\";\n\n    return {\n\n        select : prefix + 'select',\n        view : prefix + 'view',\n        download : prefix + 'download'\n\n    };\n});\n"
@@ -413,8 +413,8 @@
           "assets": [],
           "issuer": "/Users/nicolaselleri/Repos/fenix-ui-catalog/src/js/index.js",
           "profile": {
-            "factory": 9,
-            "building": 24
+            "factory": 10,
+            "building": 22
           },
           "failed": false,
           "errors": 0,
@@ -427,7 +427,7 @@
               "moduleName": "./src/js/index.js",
               "type": "amd require",
               "userRequest": "../config/config",
-              "loc": "1:0-844:2"
+              "loc": "1:0-845:2"
             }
           ],
           "source": "define(function () {\n\n    'use strict';\n\n    return {\n\n        lang : \"EN\",\n\n        langFallbackOrder : [\"EN\", \"FR\", \"ES\", \"AR\", \"PR\"],\n        \n        perPage : 10,\n\n        actions : ['select'], //'metadata', 'view', 'download'\n\n        excludedAction : {\n            dataset : [],\n            geographic : ['download']\n        },\n\n        menuExcludedItems: [],\n\n        defaultSelectors : ['resourceType', 'contextSystem'],\n\n        environment : \"develop\",\n\n        columns : {\n            title: {\n                path : \"title\",\n                type: \"i18n\"\n            },\n            source : {\n                path : \"contacts\",\n                type : \"source\"\n            },\n            last_update : {\n                path : \"meMaintenance.seUpdate.updateDate\",\n                type : \"epoch\"\n            },\n            region : {\n                path: \"meContent.seCoverage.coverageGeographic\",\n                type: \"code\"\n            },\n            resourceType : {\n                path: \"meContent.resourceRepresentationType\"\n            }\n        },\n\n        searchTimeoutInterval : 1000,\n\n        dateFormat: 'YYYY MMM DD',\n\n        findServiceParams : {\n            full: true,\n            order : \"meMaintenance.seUpdate.updateDate:desc\" //order by last update\n        },\n\n        cache : false,\n\n        httpStatusMaxSizeError : 416,\n\n        hideCloseButton : false,\n\n        baseFilter : {}\n    }\n\n});"
@@ -449,7 +449,7 @@
           "assets": [],
           "issuer": "/Users/nicolaselleri/Repos/fenix-ui-catalog/src/js/index.js",
           "profile": {
-            "factory": 9,
+            "factory": 10,
             "building": 23
           },
           "failed": false,
@@ -463,7 +463,7 @@
               "moduleName": "./src/js/index.js",
               "type": "amd require",
               "userRequest": "../config/menuConfig",
-              "loc": "1:0-844:2"
+              "loc": "1:0-845:2"
             }
           ],
           "source": "define(function () {\n\n    'use strict';\n\n    return [\n        {\n            url: \"\",\n            parent_id: \"root\",\n            id: \"content\"\n        },\n        {\n            url: \"\",\n            parent_id: \"content\",\n            id: \"resourceType\",\n            a_attrs: {\n                \"data-action\": \"selector\",\n                \"data-selector\": \"resourceType\"\n            }\n        },\n        {\n            url: \"\",\n            parent_id: \"content\",\n            id: \"contextSystem\",\n            a_attrs: {\n                \"data-action\": \"selector\",\n                \"data-selector\": \"contextSystem\"\n            }\n        },\n        {\n            url: \"\",\n            parent_id: \"content\",\n            id: \"referencePeriod\",\n            a_attrs: {\n                \"data-action\": \"selector\",\n                \"data-selector\": \"referencePeriod\"\n            }\n        },\n        {\n            url: \"\",\n            parent_id: \"content\",\n            id: \"referenceArea\",\n            a_attrs: {\n                \"data-action\": \"selector\",\n                \"data-selector\": \"referenceArea\"\n            }\n        },\n        {\n            url: \"\",\n            parent_id: \"content\",\n            id: \"dataDomain\",\n            a_attrs: {\n                \"data-action\": \"selector\",\n                \"data-selector\": \"dataDomain\"\n            }\n        },\n        {\n            url: \"\",\n            parent_id: \"content\",\n            id: \"region\",\n            a_attrs: {\n                \"data-action\": \"selector\",\n                \"data-selector\": \"region\"\n            }\n        },\n        {\n            url: \"\",\n            parent_id: \"root\",\n            id: \"accessibility\",\n        },\n        {\n            url: \"\",\n            parent_id: \"accessibility\",\n            id: \"statusOfConfidentiality\",\n            a_attrs: {\n                \"data-action\": \"selector\",\n                \"data-selector\": \"statusOfConfidentiality\"\n            }\n        },\n        {\n            url: \"\",\n            parent_id: \"root\",\n            id: \"search_by_id\",\n        },\n        {\n            url: \"\",\n            parent_id: \"search_by_id\",\n            id: \"uid\",\n            a_attrs: {\n                \"data-action\": \"selector\",\n                \"data-selector\": \"uid\"\n            }\n        }\n    ];\n});\n"
@@ -486,7 +486,7 @@
           "issuer": "/Users/nicolaselleri/Repos/fenix-ui-catalog/src/js/index.js",
           "profile": {
             "factory": 10,
-            "building": 25
+            "building": 24
           },
           "failed": false,
           "errors": 0,
@@ -499,7 +499,7 @@
               "moduleName": "./src/js/index.js",
               "type": "amd require",
               "userRequest": "../config/pluginRegistry",
-              "loc": "1:0-844:2"
+              "loc": "1:0-845:2"
             }
           ],
           "source": "define(function () {\n\n    'use strict';\n\n    return {\n\n        resourceType: {\n\n            enumeration : {\n                uid: \"RepresentationType\"\n            },\n\n            selector : {\n                id : \"dropdown\",\n                hideSummary : true,\n                default : ['dataset'],\n                config : {\n                    plugins: ['remove_button'],\n                    mode: 'multi'\n                }\n            },\n\n            template : {\n                hideRemoveButton : false\n            },\n\n            format : {\n                output : \"enumeration\",\n                metadataAttribute: \"meContent.resourceRepresentationType\"\n            }\n\n        },\n\n        referencePeriod: {\n\n            cl : {\n                uid: \"FAO_Period\",\n                version: \"1.0\"\n            },\n\n            selector : {\n                id : \"dropdown\",\n                hideSummary : true,\n                config : {\n                    plugins: ['remove_button'],\n                    mode: 'multi'\n                }\n            },\n\n            template : {\n                hideRemoveButton : false\n            },\n\n            format : {\n                output : \"codes\",\n                metadataAttribute: \"meContent.seReferencePopulation.referencePeriod\"\n            }\n        },\n\n        referenceArea: {\n\n            cl : {\n                uid: \"GAUL_ReferenceArea\",\n                version: \"1.0\"\n            },\n\n            selector : {\n                id : \"dropdown\",\n                hideSummary : true,\n                config : {\n                    plugins: ['remove_button'],\n                    mode: 'multi'\n                }\n            },\n\n            template : {\n                hideRemoveButton : false\n            },\n\n            format : {\n                output : \"codes\",\n                metadataAttribute: \"meContent.seReferencePopulation.referenceArea\"\n            }\n        },\n\n        dataDomain: {\n\n            cl : {\n                uid: \"UNECA_ClassificationOfActivities\",\n                level : 2,\n                levels : 1\n            },\n\n            selector : {\n                id : \"dropdown\",\n                hideSummary : true,\n                config : {\n                    plugins: ['remove_button'],\n                    mode: 'multi'\n                }\n            },\n\n            template : {\n                hideRemoveButton : false\n            },\n\n            format : {\n                output : \"codes\",\n                metadataAttribute: \"meContent.seCoverage.coverageSectors\"\n            }\n\n        },\n\n        region: {\n\n            cl : {\n                uid: \"GAUL0\",\n                version: \"2014\"\n            },\n\n            selector : {\n                id : \"dropdown\",\n                hideSummary : true,\n                config : {\n                    plugins: ['remove_button'],\n                    mode: 'multi'\n                }\n            },\n\n            template : {\n                hideRemoveButton : false\n            },\n\n            format : {\n                output : \"codes\",\n                metadataAttribute: \"meContent.seCoverage.coverageGeographic\"\n            }\n        },\n\n        statusOfConfidentiality: {\n\n            cl : {\n                uid: \"CL_CONF_STATUS\",\n                version: \"1.0\"\n            },\n\n            selector : {\n                id : \"dropdown\",\n                hideSummary : true,\n                config : {\n                    plugins: ['remove_button'],\n                    mode: 'multi'\n                }\n            },\n\n            template : {\n                hideRemoveButton : false\n            },\n\n            format : {\n                output : \"codes\",\n                metadataAttribute: \"meAccessibility.seConfidentiality.confidentialityStatus\"\n            }\n\n        },\n\n        uid: {\n\n            selector : {\n                id : \"input\",\n                type : \"text\"\n            },\n\n            template : {\n                hideRemoveButton : false\n            },\n\n            format : {\n                output : \"enumeration\",\n                metadataAttribute: \"uid\"\n            }\n\n        },\n\n        contextSystem : {\n\n            selector : {\n                id : \"dropdown\",\n                source : [{value : \"uneca\", label : \"UNECA\"}],\n                default : [\"uneca\"],\n                hideSummary : true,\n                config : {\n                    plugins: ['remove_button'],\n                    mode: 'multi'\n                }\n            },\n\n            template : {\n                hideRemoveButton : false\n            },\n\n            format : {\n                output : \"enumeration\",\n                metadataAttribute: \"dsd.contextSystem\"\n            }\n        }\n    }\n\n});"
@@ -521,8 +521,8 @@
           "assets": [],
           "issuer": "/Users/nicolaselleri/Repos/fenix-ui-catalog/src/js/index.js",
           "profile": {
-            "factory": 42,
-            "building": 3364
+            "factory": 38,
+            "building": 3173
           },
           "failed": false,
           "errors": 0,
@@ -535,7 +535,7 @@
               "moduleName": "./src/js/index.js",
               "type": "amd require",
               "userRequest": "../html/catalog.hbs",
-              "loc": "1:0-844:2"
+              "loc": "1:0-845:2"
             }
           ],
           "source": "var Handlebars = require(\"/Users/nicolaselleri/Repos/fenix-ui-catalog/node_modules/handlebars/runtime.js\");\nfunction __default(obj) { return obj && (obj.__esModule ? obj[\"default\"] : obj); }\nmodule.exports = (Handlebars[\"default\"] || Handlebars).template({\"1\":function(container,depth0,helpers,partials,data) {\n    var helper;\n\n  return \"\\n            <div class=\\\"cat-btn-right\\\" title=\\\"\"\n    + container.escapeExpression(((helper = (helper = helpers.tooltip_btn_close_catalog || (depth0 != null ? depth0.tooltip_btn_close_catalog : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === \"function\" ? helper.call(depth0 != null ? depth0 : {},{\"name\":\"tooltip_btn_close_catalog\",\"hash\":{},\"data\":data}) : helper)))\n    + \"\\\">\\n                <button data-role=\\\"close\\\" data-dismiss=\\\"modal\\\" aria-label=\\\"Close\\\" class=\\\"btn btn-default\\\"\\n                        type=\\\"button\\\">\\n                    <span class=\\\"icojam_button_delete_1\\\"></span>\\n                </button>\\n            </div>\\n\";\n},\"compiler\":[7,\">= 4.0.0\"],\"main\":function(container,depth0,helpers,partials,data) {\n    var stack1, helper, alias1=depth0 != null ? depth0 : {}, alias2=helpers.helperMissing, alias3=\"function\", alias4=container.escapeExpression;\n\n  return \"<div data-role=\\\"catalog\\\" class=\\\"fx-catalog\\\">\\n\\n    <div class=\\\"modal-header clearfix cat-toolbar\\\">\\n\\n        <div class=\\\"cat-btn-left\\\">\\n\\n        </div>\\n\\n        <h6 class=\\\"cat-title fx-text-primary-color truncate\\\">\"\n    + alias4(((helper = (helper = helpers.header_title || (depth0 != null ? depth0.header_title : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{\"name\":\"header_title\",\"hash\":{},\"data\":data}) : helper)))\n    + \"</h6>\\n\\n\"\n    + ((stack1 = helpers.unless.call(alias1,(depth0 != null ? depth0.hideCloseButton : depth0),{\"name\":\"unless\",\"hash\":{},\"fn\":container.program(1, data, 0),\"inverse\":container.noop,\"data\":data})) != null ? stack1 : \"\")\n    + \"\\n    </div>\\n\\n    <div class=\\\"modal-body\\\">\\n        <!-- Filter -->\\n        <div class=\\\"row\\\">\\n\\n            <div class=\\\"row-height\\\">\\n\\n                <div class=\\\"col-sm-4 col-sm-height col-top cat-sidebar\\\">\\n\\n                    <div data-role=\\\"menu\\\" class=\\\"dropdown\\\" title=\\\"\"\n    + alias4(((helper = (helper = helpers.tooltip_btn_add_selector || (depth0 != null ? depth0.tooltip_btn_add_selector : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{\"name\":\"tooltip_btn_add_selector\",\"hash\":{},\"data\":data}) : helper)))\n    + \"\\\">\\n                        <button class=\\\"btn btn-floating fx-background-color-primary-color btn-fx-catalog-filters\\\" type=\\\"button\\\" data-toggle=\\\"dropdown\\\"\\n                                aria-expanded=\\\"false\\\">\\n                            <span class=\\\"icojam_add\\\"></span>\\n                        </button>\\n                    </div>\\n\\n                    <!-- Filter -->\\n                    <div data-role=\\\"filter\\\" class=\\\"cat-filter-container\\\"></div>\\n\\n                </div>\\n\\n                <div class=\\\"col-sm-8 col-sm-height col-top cat-results\\\">\\n\\n                    <!-- Bottom -->\\n\\n                    <div data-role=\\\"bottom\\\" data-status=\\\"intro\\\" class=\\\"cat-statuses-holder\\\">\\n\\n                        <div data-content=\\\"error\\\" class=\\\"text-center\\\">\\n\\n                            <h2>Oh snap!</h2>\\n\\n                        </div>\\n\\n                        <div data-content=\\\"ready\\\">\\n                            <div data-role=\\\"results-container\\\">\\n                                <table data-role=\\\"results\\\"></table>\\n                            </div>\\n                            <div data-role=\\\"pagination\\\" class=\\\"text-center\\\"></div>\\n                        </div>\\n\\n                        <div data-content=\\\"loading\\\" class=\\\"text-center\\\">\\n                            <span class=\\\"loading loading-48\\\"></span>\\n                        </div>\\n\\n                        <div data-content=\\\"empty\\\" class=\\\"text-center\\\">\\n                            <h2>Empty</h2>\\n                        </div>\\n\\n                        <div data-content=\\\"intro\\\" class=\\\"text-center\\\">\\n                            <h2>This is the intro</h2>\\n                        </div>\\n\\n                        <div data-content=\\\"huge\\\" class=\\\"text-center\\\">\\n                            <h2>Too many results. <br> Please add more filter criteria.</h2>\\n                        </div>\\n\\n                    </div>\\n\\n                </div>\\n\\n            </div>\\n        </div>\\n\\n    </div>\\n\\n    <div class=\\\"modal-footer\\\">\\n        <!-- Summary -->\\n        <div class=\\\"row\\\">\\n            <div class=\\\"col-xs-12\\\" data-role=\\\"summary\\\"></div>\\n        </div>\\n\\n    </div>\\n\\n\\n    <!-- Errors -->\\n    <div class=\\\"row\\\">\\n        <div class=\\\"col-xs-12\\\">\\n            <ul data-role=\\\"error-container\\\" class=\\\"alert alert-danger list-unstyled\\\" role=\\\"alert\\\"></ul>\\n        </div>\\n    </div>\\n\\n</div>\";\n},\"useData\":true});"
@@ -557,7 +557,7 @@
           "assets": [],
           "issuer": "/Users/nicolaselleri/Repos/fenix-ui-catalog/node_modules/handlebars-loader/index.js!/Users/nicolaselleri/Repos/fenix-ui-catalog/src/html/catalog.hbs",
           "profile": {
-            "factory": 27,
+            "factory": 31,
             "building": 2
           },
           "failed": false,
@@ -603,7 +603,7 @@
           "issuer": "/Users/nicolaselleri/Repos/fenix-ui-catalog/node_modules/handlebars/runtime.js",
           "profile": {
             "factory": 3,
-            "building": 2
+            "building": 1
           },
           "failed": false,
           "errors": 0,
@@ -638,8 +638,8 @@
           "assets": [],
           "issuer": "/Users/nicolaselleri/Repos/fenix-ui-catalog/node_modules/handlebars/dist/cjs/handlebars.runtime.js",
           "profile": {
-            "factory": 5,
-            "building": 6,
+            "factory": 6,
+            "building": 5,
             "dependencies": 1
           },
           "failed": false,
@@ -685,7 +685,7 @@
           "issuer": "/Users/nicolaselleri/Repos/fenix-ui-catalog/node_modules/handlebars/dist/cjs/handlebars.runtime.js",
           "profile": {
             "factory": 6,
-            "building": 14
+            "building": 15
           },
           "failed": false,
           "errors": 0,
@@ -864,8 +864,8 @@
           "assets": [],
           "issuer": "/Users/nicolaselleri/Repos/fenix-ui-catalog/node_modules/handlebars/dist/cjs/handlebars/base.js",
           "profile": {
-            "factory": 26,
-            "building": 2
+            "factory": 25,
+            "building": 3
           },
           "failed": false,
           "errors": 0,
@@ -900,9 +900,9 @@
           "assets": [],
           "issuer": "/Users/nicolaselleri/Repos/fenix-ui-catalog/node_modules/handlebars/dist/cjs/handlebars/helpers.js",
           "profile": {
-            "factory": 10,
+            "factory": 7,
             "building": 4,
-            "dependencies": 1
+            "dependencies": 0
           },
           "failed": false,
           "errors": 0,
@@ -937,7 +937,7 @@
           "assets": [],
           "issuer": "/Users/nicolaselleri/Repos/fenix-ui-catalog/node_modules/handlebars/dist/cjs/handlebars/helpers.js",
           "profile": {
-            "factory": 10,
+            "factory": 7,
             "building": 9,
             "dependencies": 1
           },
@@ -974,8 +974,8 @@
           "assets": [],
           "issuer": "/Users/nicolaselleri/Repos/fenix-ui-catalog/node_modules/handlebars/dist/cjs/handlebars/helpers.js",
           "profile": {
-            "factory": 10,
-            "building": 11,
+            "factory": 8,
+            "building": 10,
             "dependencies": 0
           },
           "failed": false,
@@ -1011,7 +1011,7 @@
           "assets": [],
           "issuer": "/Users/nicolaselleri/Repos/fenix-ui-catalog/node_modules/handlebars/dist/cjs/handlebars/helpers.js",
           "profile": {
-            "factory": 11,
+            "factory": 8,
             "building": 11,
             "dependencies": 0
           },
@@ -1048,8 +1048,8 @@
           "assets": [],
           "issuer": "/Users/nicolaselleri/Repos/fenix-ui-catalog/node_modules/handlebars/dist/cjs/handlebars/helpers.js",
           "profile": {
-            "factory": 11,
-            "building": 12
+            "factory": 8,
+            "building": 11
           },
           "failed": false,
           "errors": 0,
@@ -1084,7 +1084,7 @@
           "assets": [],
           "issuer": "/Users/nicolaselleri/Repos/fenix-ui-catalog/node_modules/handlebars/dist/cjs/handlebars/helpers.js",
           "profile": {
-            "factory": 11,
+            "factory": 8,
             "building": 12
           },
           "failed": false,
@@ -1120,8 +1120,8 @@
           "assets": [],
           "issuer": "/Users/nicolaselleri/Repos/fenix-ui-catalog/node_modules/handlebars/dist/cjs/handlebars/helpers.js",
           "profile": {
-            "factory": 11,
-            "building": 12,
+            "factory": 9,
+            "building": 11,
             "dependencies": 1
           },
           "failed": false,
@@ -1157,8 +1157,8 @@
           "assets": [],
           "issuer": "/Users/nicolaselleri/Repos/fenix-ui-catalog/node_modules/handlebars/dist/cjs/handlebars/base.js",
           "profile": {
-            "factory": 27,
-            "building": 4
+            "factory": 26,
+            "building": 5
           },
           "failed": false,
           "errors": 0,
@@ -1193,7 +1193,7 @@
           "assets": [],
           "issuer": "/Users/nicolaselleri/Repos/fenix-ui-catalog/node_modules/handlebars/dist/cjs/handlebars/decorators.js",
           "profile": {
-            "factory": 10,
+            "factory": 6,
             "building": 12,
             "dependencies": 1
           },
@@ -1230,8 +1230,8 @@
           "assets": [],
           "issuer": "/Users/nicolaselleri/Repos/fenix-ui-catalog/node_modules/handlebars/dist/cjs/handlebars/base.js",
           "profile": {
-            "factory": 27,
-            "building": 7,
+            "factory": 26,
+            "building": 6,
             "dependencies": 0
           },
           "failed": false,
@@ -1304,7 +1304,7 @@
           "issuer": "/Users/nicolaselleri/Repos/fenix-ui-catalog/node_modules/handlebars/dist/cjs/handlebars.runtime.js",
           "profile": {
             "factory": 7,
-            "building": 24,
+            "building": 23,
             "dependencies": 4
           },
           "failed": false,
@@ -1341,7 +1341,7 @@
           "issuer": "/Users/nicolaselleri/Repos/fenix-ui-catalog/node_modules/handlebars/dist/cjs/handlebars.runtime.js",
           "profile": {
             "factory": 7,
-            "building": 29
+            "building": 27
           },
           "failed": false,
           "errors": 0,
@@ -1376,9 +1376,9 @@
           "assets": [],
           "issuer": "/Users/nicolaselleri/Repos/fenix-ui-catalog/src/js/index.js",
           "profile": {
-            "factory": 86,
-            "building": 3327,
-            "dependencies": 20
+            "factory": 70,
+            "building": 3149,
+            "dependencies": 24
           },
           "failed": false,
           "errors": 0,
@@ -1391,7 +1391,7 @@
               "moduleName": "./src/js/index.js",
               "type": "amd require",
               "userRequest": "../html/actions.hbs",
-              "loc": "1:0-844:2"
+              "loc": "1:0-845:2"
             }
           ],
           "source": "var Handlebars = require(\"/Users/nicolaselleri/Repos/fenix-ui-catalog/node_modules/handlebars/runtime.js\");\nfunction __default(obj) { return obj && (obj.__esModule ? obj[\"default\"] : obj); }\nmodule.exports = (Handlebars[\"default\"] || Handlebars).template({\"1\":function(container,depth0,helpers,partials,data,blockParams,depths) {\n    var helper, alias1=depth0 != null ? depth0 : {}, alias2=helpers.helperMissing, alias3=\"function\", alias4=container.escapeExpression;\n\n  return \"            <div class=\\\"btn-group\\\" role=\\\"group\\\">\\n                <button class=\\\"btn btn-default fx-button-primary-color\\\" data-action=\\\"\"\n    + alias4(((helper = (helper = helpers.action || (depth0 != null ? depth0.action : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{\"name\":\"action\",\"hash\":{},\"data\":data}) : helper)))\n    + \"\\\" data-rid=\\\"\"\n    + alias4(container.lambda((depths[1] != null ? depths[1].rid : depths[1]), depth0))\n    + \"\\\"> \"\n    + alias4(((helper = (helper = helpers.label || (depth0 != null ? depth0.label : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{\"name\":\"label\",\"hash\":{},\"data\":data}) : helper)))\n    + \" </button>\\n            </div>\\n\";\n},\"compiler\":[7,\">= 4.0.0\"],\"main\":function(container,depth0,helpers,partials,data,blockParams,depths) {\n    var stack1;\n\n  return \"<div data-role=\\\"actions\\\">\\n\\n    <div class=\\\"btn-group btn-group-justified\\\" role=\\\"group\\\">\\n\"\n    + ((stack1 = helpers.each.call(depth0 != null ? depth0 : {},(depth0 != null ? depth0.actions : depth0),{\"name\":\"each\",\"hash\":{},\"fn\":container.program(1, data, 0, blockParams, depths),\"inverse\":container.noop,\"data\":data})) != null ? stack1 : \"\")\n    + \"\\n    </div>\\n</div>\";\n},\"useData\":true,\"useDepths\":true});"
@@ -1413,7 +1413,7 @@
           "assets": [],
           "issuer": "/Users/nicolaselleri/Repos/fenix-ui-catalog/src/js/index.js",
           "profile": {
-            "factory": 3,
+            "factory": 4,
             "building": 0
           },
           "failed": false,
@@ -1427,7 +1427,7 @@
               "moduleName": "./src/js/index.js",
               "type": "amd require",
               "userRequest": "underscore",
-              "loc": "1:0-844:2"
+              "loc": "1:0-845:2"
             }
           ]
         },
@@ -1462,7 +1462,7 @@
               "moduleName": "./src/js/index.js",
               "type": "amd require",
               "userRequest": "fenix-ui-filter",
-              "loc": "1:0-844:2"
+              "loc": "1:0-845:2"
             }
           ]
         },
@@ -1497,7 +1497,7 @@
               "moduleName": "./src/js/index.js",
               "type": "amd require",
               "userRequest": "fenix-ui-dropdown",
-              "loc": "1:0-844:2"
+              "loc": "1:0-845:2"
             }
           ]
         },
@@ -1532,7 +1532,7 @@
               "moduleName": "./src/js/index.js",
               "type": "amd require",
               "userRequest": "fenix-ui-bridge",
-              "loc": "1:0-844:2"
+              "loc": "1:0-845:2"
             }
           ]
         },
@@ -1567,7 +1567,7 @@
               "moduleName": "./src/js/index.js",
               "type": "amd require",
               "userRequest": "moment",
-              "loc": "1:0-844:2"
+              "loc": "1:0-845:2"
             }
           ]
         },
@@ -1602,7 +1602,7 @@
               "moduleName": "./src/js/index.js",
               "type": "amd require",
               "userRequest": "amplify-pubsub",
-              "loc": "1:0-844:2"
+              "loc": "1:0-845:2"
             }
           ]
         },
@@ -1637,7 +1637,7 @@
               "moduleName": "./src/js/index.js",
               "type": "amd require",
               "userRequest": "bootstrap-table",
-              "loc": "1:0-844:2"
+              "loc": "1:0-845:2"
             }
           ]
         },
@@ -1658,8 +1658,8 @@
           "assets": [],
           "issuer": "/Users/nicolaselleri/Repos/fenix-ui-catalog/src/js/index.js",
           "profile": {
-            "factory": 86,
-            "building": 6
+            "factory": 70,
+            "building": 7
           },
           "failed": false,
           "errors": 0,
@@ -1672,7 +1672,7 @@
               "moduleName": "./src/js/index.js",
               "type": "cjs require",
               "userRequest": "../css/fenix-ui-catalog.css",
-              "loc": "44:8-46"
+              "loc": "45:8-46"
             }
           ],
           "source": "// removed by extract-text-webpack-plugin"
@@ -1711,7 +1711,7 @@
       "issuer": null,
       "profile": {
         "factory": 1,
-        "building": 1
+        "building": 0
       },
       "failed": false,
       "errors": 0,
@@ -1724,7 +1724,7 @@
       "name": "./src/js/index.js",
       "index": 1,
       "index2": 43,
-      "size": 22642,
+      "size": 22643,
       "cacheable": true,
       "built": true,
       "optional": false,
@@ -1735,8 +1735,8 @@
       "assets": [],
       "issuer": "multi app",
       "profile": {
-        "factory": 12,
-        "building": 60
+        "factory": 13,
+        "building": 59
       },
       "failed": false,
       "errors": 0,
@@ -1751,7 +1751,7 @@
           "userRequest": "./src/js/index.js"
         }
       ],
-      "source": "define([\n    'jquery',\n    'underscore',\n    'loglevel',\n    '../config/errors',\n    '../config/events',\n    '../config/config',\n    '../config/menuConfig',\n    '../config/pluginRegistry',\n    '../html/catalog.hbs',\n    '../html/actions.hbs',\n    '../nls/labels',\n    'fenix-ui-filter',\n    \"fenix-ui-dropdown\",\n    \"fenix-ui-bridge\",\n    \"moment\",\n    'amplify-pubsub',\n    'bootstrap-table'\n], function ($, _, log, ERR, EVT, C, MenuConfig, PluginRegistry, CatalogTemplate, ActionsTemplate, i18nLabels, Filter, JsonMenu, Bridge, Moment, amplify, bootstrapTable) {\n\n    'use strict';\n\n    var s = {\n        CATALOG: \"[data-role='catalog']\",\n        MENU: \"[data-role='menu']\",\n        MENU_GROUPS: \"[data-role='menu-group']\",\n        MENU_ITEMS: \"[data-role='menu-item']\",\n        FILTER: \"[data-role='filter']\",\n        SUMMARY: \"[data-role='summary']\",\n        BOTTOM: \"[data-role='bottom']\",\n        RESULTS_CONTAINER: \"[data-role='results-container']\",\n        RESULTS: \"[data-role='results']\",\n        RESULT: \"[data-role='result']\",\n        PAGINATION: \"[data-role='pagination']\",\n        ERROR_CONTAINER: \"[data-role='error-container']\",\n        ACTIONS: \"[data-role='actions']\"\n    };\n\n    function Catalog(o) {\n        log.info(\"FENIX catalog\");\n        log.info(o);\n\n        //import css\n        require(\"../css/fenix-ui-catalog.css\");\n\n        $.extend(true, this, {initial: o}, C);\n\n        this._parseInput();\n\n        var valid = this._validateInput();\n\n        log.info(\"Catalog has valid input? \" + JSON.stringify(valid));\n\n        if (valid === true) {\n\n            this._attach();\n\n            this._hideError();\n\n            this._setBottomStatus('intro');\n\n            this._initVariables();\n\n            this._initComponents();\n\n            this._bindEventListeners();\n\n            return this;\n\n        } else {\n            log.error(\"Impossible to create Catalog\");\n            log.error(valid)\n        }\n    }\n\n    /**\n     * Reset the view content\n     * @return {null}\n     */\n    Catalog.prototype.reset = function () {\n\n        this._resetResults();\n\n        this._hideError();\n\n        if (this.filter && !$.isFunction(this.filter.clear)) {\n            log.error(\"Filter.clear is not a fn()\");\n\n            return;\n        }\n\n        this.filter.clear();\n\n        log.info(\"Catalog reset\");\n    };\n\n    /**\n     * pub/sub\n     * @return {Object} component instance\n     */\n    Catalog.prototype.on = function (channel, fn, context) {\n        var _context = context || this;\n        if (!this.channels[channel]) {\n            this.channels[channel] = [];\n        }\n        this.channels[channel].push({context: _context, callback: fn});\n        return this;\n    };\n    /**\n     * Dispose\n     * @return {null}\n     */\n    Catalog.prototype.dispose = function () {\n\n        //unbind event listeners\n        this._unbindEventListeners();\n\n        this.$el.find(s.RESULTS).bootstrapTable('destroy');\n\n        log.info(\"Catalog disposed successfully\");\n\n    };\n\n    // end API\n\n    Catalog.prototype._trigger = function (channel) {\n\n        if (!this.channels[channel]) {\n            return false;\n        }\n        var args = Array.prototype.slice.call(arguments, 1);\n        for (var i = 0, l = this.channels[channel].length; i < l; i++) {\n            var subscription = this.channels[channel][i];\n            subscription.callback.apply(subscription.context, args);\n        }\n\n        return this;\n    };\n\n    Catalog.prototype._parseInput = function () {\n\n        this.$el = $(this.initial.el);\n        this.cache = typeof this.initial.cache === \"boolean\" ? this.initial.cache : C.cache;\n        this.defaultSelectors = this.initial.defaultSelectors || C.defaultSelectors;\n        this.actions = this.initial.actions || C.actions;\n        this.pluginRegistry = $.extend(true, {}, PluginRegistry, this.initial.pluginRegistry);\n        this.baseFilter = this.initial.baseFilter || C.baseFilter;\n        this.columns = this.initial.columns || C.columns;\n        this.environment = this.initial.environment;\n        this.lang = this.initial.lang || C.lang;\n        this.lang = this.lang.toLowerCase();\n        this.perPage = this.initial.perPage || C.perPage;\n        this.menuExcludedItems = this.initial.menuExcludedItems || C.menuExcludedItems;\n        this.findServiceParams = this.initial.findServiceParams || C.findServiceParams;\n        this.searchTimeoutInterval = this.initial.searchTimeoutInterval || C.searchTimeoutInterval;\n        this.hideCloseButton = typeof this.initial.hideCloseButton === \"boolean\" ? this.initial.hideCloseButton : C.hideCloseButton;\n        this.langFallbackOrder = this.initial.langFallbackOrder || C.langFallbackOrder;\n\n    };\n\n    Catalog.prototype._validateInput = function () {\n\n        var valid = true,\n            errors = [];\n\n        //set filter id\n        if (!this.id) {\n\n            window.fx_catalog_id >= 0 ? window.fx_catalog_id++ : window.fx_catalog_id = 0;\n\n            this.id = \"fx-catalog-\" + String(window.fx_catalog_id);\n\n            log.warn(\"Impossible to find catalog id. Set auto id to: \" + this.id);\n        }\n\n        if (!this.$el) {\n            errors.push({code: ERR.missing_container});\n\n            log.warn(\"Impossible to find filter container\");\n        }\n\n        this.$el = $(this.$el);\n\n        //Check if $el exist\n        if (this.$el.length === 0) {\n\n            errors.push({code: ERR.missing_container});\n\n            log.warn(\"Impossible to find box container\");\n\n        }\n\n        return errors.length > 0 ? errors : valid;\n    };\n\n    Catalog.prototype._attach = function () {\n\n        var self = this,\n            $html = $(CatalogTemplate($.extend(true, {\n            hideCloseButton: this.hideCloseButton\n        },  i18nLabels[this.lang])));\n\n        this.$el.html($html);\n\n        //render menu\n        this.menu = new JsonMenu({\n            el: this.$el.find(s.MENU),\n            exclude: this.menuExcludedItems,\n            model: MenuConfig\n                .map(function (item) {\n\n                    item.label =  i18nLabels[self.lang][item.id] || \"Missing label [\" + item.id + \"]\";\n\n                    return item;\n                })\n        });\n\n        log.info(\"template attached successfully\");\n\n    };\n\n    Catalog.prototype._initVariables = function () {\n\n        //pub/sub\n        this.channels = {};\n\n        //menu\n        this.$menu = this.$el.find(s.MENU);\n        this.$items = this.$menu.find(s.MENU_ITEMS);\n\n        this.current = {};\n        this.current.perPage = this.perPage;\n        this.current.page = 0;\n\n        this.actions = this.actions.map(_.bind(function (value) {\n\n            return {\n                label:  i18nLabels[this.lang]['action_' + value] || \"Missing action label [\" + value + \"]\",\n                action: value\n            }\n\n        }, this));\n\n        this.bridge = new Bridge({\n            environment: this.environment,\n            cache: this.cache\n        });\n\n        Moment.locale(this.lang);\n\n        this.dateFormat = C.dateFormat;\n\n        this.searchTimeout = false;\n\n    };\n\n    Catalog.prototype._enableMenuItem = function (selector) {\n\n        this.menu.enableItem(selector);\n    };\n\n    Catalog.prototype._disableMenuItem = function (selector) {\n\n        this.menu.disableItem(selector);\n\n    };\n\n    Catalog.prototype._bindEventListeners = function () {\n\n        var self = this;\n\n        this.$el.find(\"[data-action='selector']\").on(\"click\", function (e) {\n            e.preventDefault();\n\n            var selector = $(e.target).data(\"selector\");\n\n            log.info(\"Select selector: \" + selector);\n\n            self.selectSelector(selector);\n\n            self._hideError();\n\n        });\n\n        this.filter.on('ready', _.bind(function () {\n\n            log.info(\"Filter is ready\");\n\n            this._unlock();\n\n            this._refreshResults();\n\n        }, this));\n\n        this.filter.on('remove', _.bind(function (item) {\n\n            log.info(\"Remove from filter: \" + item.id);\n\n            this._enableMenuItem(item.id);\n\n            this._refreshResults();\n\n        }, this));\n\n        this.filter.on('change', function () {\n            self.onFilterChangeEvent();\n        });\n\n        amplify.subscribe(this._getEventName(\"select\"), this, this._onSelectResult);\n        amplify.subscribe(this._getEventName(\"download\"), this, this._onDownloadResult);\n        amplify.subscribe(this._getEventName(\"view\"), this, this._onViewResult);\n        amplify.subscribe(this._getEventName(\"metadata\"), this, this._onMetadataResult);\n    };\n\n    Catalog.prototype.onFilterChangeEvent = function () {\n\n        log.info(\"Change from filter\");\n\n        this._refreshResults();\n\n    };\n\n    Catalog.prototype.selectSelector = function (selector) {\n\n        this._disableMenuItem(selector);\n\n        this._addSelector(selector);\n\n    };\n\n    Catalog.prototype._unlock = function () {\n    };\n\n    Catalog.prototype._lock = function () {\n    };\n\n    Catalog.prototype._addSelector = function (selector) {\n\n        var config = this._getSelectorConfiguration(selector);\n\n        this.filter.add(config);\n    };\n\n    Catalog.prototype._getSelectorConfiguration = function (selector) {\n\n        if (!this.pluginRegistry.hasOwnProperty(selector)) {\n            log.error(\"Impossible to find selector in registry: \" + selector);\n            return;\n        }\n\n        var config = {};\n        config[selector] = $.extend(true, {}, this.pluginRegistry[selector]);\n\n        if (!config[selector].template) {\n            config[selector].template = {};\n        }\n\n        config[selector].template.title =  i18nLabels[this.lang][selector] || \"Missing title [\" + selector + \"]\";\n\n        return $.extend(true, {}, config);\n\n    };\n\n    Catalog.prototype._refreshResults = function () {\n\n        log.info(\"Refresh catalog results\");\n\n        this._setBottomStatus(\"loading\");\n\n        if (this.searchTimeout) {\n            clearTimeout(this.searchTimeout);\n            log.info(\"Abort search timeout\");\n        }\n\n        this.searchTimeout = window.setTimeout(_.bind(function () {\n            this._prepareSearch();\n        }, this), this.searchTimeoutInterval);\n\n    };\n\n    Catalog.prototype._prepareSearch = function () {\n\n        if (this.filter && !$.isFunction(this.filter.getValues)) {\n            log.error(\"Filter.getValues is not a fn()\");\n            return;\n        }\n\n        this.current.values = this.filter.getValues();\n\n        this.current.filter = $.extend(true, {}, this.baseFilter, this.filter.getValues(\"catalog\"));\n\n        var valid = this._validateQuery();\n\n        if (valid === true) {\n            this._search();\n            this._hideError();\n        } else {\n\n            if (Array.isArray(valid) && valid[0] === ERR.empty_values) {\n                this._setBottomStatus(\"intro\")\n            } else {\n                this._showError(valid);\n            }\n        }\n    };\n\n    Catalog.prototype._validateQuery = function () {\n\n        var valid = true,\n            errors = [];\n\n        if ($.isEmptyObject(this.current.filter)) {\n            errors.push(ERR.empty_values);\n            log.error(ERR.empty_values);\n            return errors;\n        }\n\n        return errors.length > 0 ? errors : valid;\n    };\n\n    Catalog.prototype._initComponents = function () {\n\n        log.info(\"Filter instantiation\");\n\n        this.filter = new Filter({\n            el: s.FILTER,\n            selectors: this._getDefaultSelectors(),\n            //summary$el: s.SUMMARY,\n            direction: \"prepend\",\n            cache: this.cache,\n            ensureAtLeast: 1,\n            environment: this.environment,\n            //summaryRender : function (item ){ return \" -> \" + item.code; },\n            common: {\n                template: {\n                    hideHeader: false,\n                    hideRemoveButton: false\n                },\n                selector: {\n                    hideFooter: true\n                }\n            }\n        });\n\n        _.each(this.defaultSelectors, _.bind(function (selector) {\n            this._disableMenuItem(selector);\n        }, this));\n\n        console.log(bootstrapTable);\n        this.$el.find(s.RESULTS).bootstrapTable({\n            pagination: true,\n            pageSize: this.current.perPage,\n            pageList: [],\n            columns: this._createTableColumnsConfiguration(),\n            onPageChange: _.bind(function () {\n                this._unbindResultsEventListeners();\n                this._bindResultsEventListeners()\n            }, this),\n            onSort: _.bind(function () {\n\n                window.setTimeout(_.bind(function () {\n                    this._unbindResultsEventListeners();\n                    this._bindResultsEventListeners()\n                }, this), 100)\n\n            }, this)\n        });\n\n    };\n\n    Catalog.prototype._createTableColumnsConfiguration = function () {\n\n        var columns = [],\n            self = this;\n\n        _.each(Object.keys(this.columns), function (c) {\n\n            columns.push({\n                field: c,\n                title:  i18nLabels[self.lang][c] || \"Missing label [\" + c + \"]\",\n                sortable: true\n            });\n\n        });\n\n        // add rid\n        columns.push({\n            field: \"rid\",\n            visible: false\n        });\n\n        var resourceTypeColumn = _.findWhere(columns, {field: \"resourceType\"}) || {};\n        resourceTypeColumn.visible = false;\n\n        //Add actions column\n        columns.push({\n            formatter: function (value, row) {\n\n                //$html = $(templateSelector($.extend(true, {classNames: classNames}, conf)));\n                var $html = $(ActionsTemplate($.extend(true, {},  i18nLabels[this.lang], row, {actions: self._getActions(row)})));\n\n                return $html[0].outerHTML\n            }\n        });\n\n        return columns;\n    };\n\n    Catalog.prototype._getActions = function (row) {\n\n        var excluded = C.excluded_action || {},\n            to_exclude = excluded[row.resourceType] || [],\n            actions = this.actions;\n\n        _.each(to_exclude, function (excl) {\n            actions = _.reject(actions, {action: excl})\n        });\n\n        return actions;\n\n    };\n\n    Catalog.prototype._getDefaultSelectors = function () {\n\n        var self = this,\n            items = {};\n\n        _.each(this.defaultSelectors, function (selector) {\n            items = $.extend(true, {}, items, self._getSelectorConfiguration(selector));\n        });\n\n        log.info(\"Default items: \" + JSON.stringify(items));\n\n        return items;\n\n    };\n\n    Catalog.prototype._resetResults = function () {\n\n        this._setBottomStatus('intro');\n\n        this._unbindResultsEventListeners();\n\n    };\n\n    //Request\n\n    Catalog.prototype._search = function () {\n\n        var body = this.current.filter;\n\n        this._lock();\n\n        window.fx_req_id >= 0 ? window.fx_req_id++ : window.fx_req_id = 0;\n\n        this.reqeust_id = \"fx-request-id-\" + window.fx_req_id;\n\n        this.bridge.find({\n            body: body,\n            params: this.findServiceParams\n        }).then(\n            _.bind(this._renderResults, this, \"fx-request-id-\" + window.fx_req_id),\n            _.bind(function (requestId, e) {\n\n                if (this.reqeust_id !== requestId) {\n                    log.warn(\"Abort result rendering because it is not the last request\");\n                    return;\n                }\n\n                if (e.status === C.httpStatusMaxSizeError) {\n                    this._setBottomStatus(\"huge\");\n                    return;\n                }\n\n                this._setBottomStatus(\"error\");\n                this.error(e);\n                this._unlock();\n                this._showError(ERR.request);\n\n            }, this, \"fx-request-id-\" + window.fx_req_id));\n\n    };\n\n    Catalog.prototype._setBottomStatus = function (status) {\n\n        log.info(\"Set status to: \" + status);\n\n        this.$el.find(s.BOTTOM).attr('data-status', status);\n\n    };\n\n    Catalog.prototype._renderResults = function (requestId, data) {\n\n        if (this.reqeust_id !== requestId) {\n            log.warn(\"Abort result rendering because it is not the last request\");\n            return;\n        }\n\n        this.current.data = data;\n        this.current.model = this._parseData(this.current.data);\n\n        if (!this.current.data) {\n            this._setBottomStatus(\"empty\");\n            return;\n        }\n\n        this._setBottomStatus('ready');\n\n        this._unlock();\n\n        this._renderTable();\n\n    };\n\n    Catalog.prototype._parseData = function (d) {\n\n        var data = [];\n\n        _.each(d, _.bind(function (record) {\n\n            data.push(this._parseRecord(record));\n\n        }, this));\n\n        return data;\n    };\n\n    Catalog.prototype._parseRecord = function (record) {\n\n        var result = {};\n\n        _.each(this.columns, _.bind(function (col, id) {\n            result[id] = this._getColumnValue(record, $.extend(true, {id: id}, col));\n        }, this));\n\n        //add rid to model\n        result[\"rid\"] = this._getColumnValue(record, $.extend(true, {id: \"rid\"}, {}));\n\n        return result;\n    };\n\n    Catalog.prototype._getColumnValue = function (record, col) {\n\n        var label = \" \",\n            path = col.path ? col.path : col.id,\n            metadataValue = this._getNestedProperty(path, record) || {},\n            type = col.type || \"\",\n            i18nLabel;\n\n        switch (type.toLowerCase()) {\n            case \"i18n\":\n                i18nLabel = this._getI18nLabel(metadataValue);\n                label = i18nLabel ? i18nLabel : \" \";\n                break;\n            case \"source\":\n\n                var owner = _.findWhere(metadataValue, {role: \"owner\"}) || {},\n                    organization = owner.organization,\n                    organizationUnit = owner.organizationUnit,\n                    organizationI18nLabel = this._getI18nLabel(organization),\n                    organizationUnitI18nLabel = this._getI18nLabel(organizationUnit),\n                    bothPopulated = organizationI18nLabel && organizationUnitI18nLabel;\n\n                label += organizationI18nLabel ? organizationI18nLabel : \"\";\n\n                label += bothPopulated ? \" - \" : \"\";\n\n                label += organizationUnitI18nLabel ? organizationUnitI18nLabel : \"\";\n\n                break;\n            case \"epoch\":\n\n                label = new Moment(metadataValue).format(this.dateFormat);\n                break;\n            case \"code\":\n\n                var code = (Array.isArray(metadataValue.codes) && metadataValue.codes.length > 0) ? metadataValue.codes[0] : {};\n\n                i18nLabel = this._getI18nLabel(code.label);\n                label = i18nLabel ? i18nLabel : \" \";\n\n                break;\n            default :\n\n                label = metadataValue;\n\n        }\n\n        return label ? label : null;\n    };\n\n    Catalog.prototype._renderTable = function () {\n\n        this._unbindResultsEventListeners();\n\n        this.$el.find(s.RESULTS).bootstrapTable('load', this.current.model);\n\n        this._bindResultsEventListeners();\n\n    };\n\n    Catalog.prototype._unbindResultsEventListeners = function () {\n        this.$el.find(s.RESULTS).find(\"[data-action]\").off();\n    };\n\n    Catalog.prototype._bindResultsEventListeners = function () {\n\n        var self = this;\n\n        this.$el.find(s.RESULTS).find(\"[data-action]\").each(function () {\n\n            var $this = $(this),\n                action = $this.data(\"action\"),\n                event = self._getEventName(action),\n                rid = $this.data(\"rid\");\n\n            $this.on(\"click\", {\n                event: event,\n                rid: rid,\n                values: self.current.values,\n                filter: self.current.filter\n            }, function (e) {\n                e.preventDefault();\n\n                log.info(\"Result raise event: \" + e.data.event);\n\n                var model = _.findWhere(self.current.data, {rid: rid});\n\n                amplify.publish(event, {rid: rid, model: model, filter: e.data.filter, values: e.data.values});\n\n            });\n        });\n    };\n\n    // Handlers\n\n    Catalog.prototype._onSelectResult = function (payload) {\n\n        log.info(\"Select result: \" + JSON.stringify(payload));\n\n        this._trigger('select', payload);\n\n    };\n\n    Catalog.prototype._onDownloadResult = function (payload) {\n\n        log.info(\"Download result: \" + JSON.stringify(payload));\n\n        this._trigger('download', payload);\n\n    };\n\n    Catalog.prototype._onViewResult = function (payload) {\n\n        log.info(\"View result: \" + JSON.stringify(payload));\n\n        this._trigger('view', payload);\n    };\n\n    Catalog.prototype._onMetadataResult = function (payload) {\n\n        log.info(\"Metadata result: \" + JSON.stringify(payload));\n\n        this._trigger('metadata', payload);\n    };\n\n    Catalog.prototype._getEventName = function (evt, excludeId) {\n\n        var baseEvent = EVT[evt] ? EVT[evt] : evt;\n\n        return excludeId === true ? baseEvent : baseEvent + \".\" + this.id;\n    };\n\n    //disposition\n\n    Catalog.prototype._unbindEventListeners = function () {\n\n        this.$el.find('[data-action]').off();\n\n        amplify.unsubscribe(this._getEventName(\"select\"), this._onSelectResult);\n        amplify.unsubscribe(this._getEventName(\"download\"), this._onDownloadResult);\n        amplify.unsubscribe(this._getEventName(\"view\"), this._onViewResult);\n        amplify.unsubscribe(this._getEventName(\"metadata\"), this._onMetadataResult);\n\n    };\n\n    Catalog.prototype._showError = function (err) {\n\n        if (!Array.isArray(err)) {\n            err = [err];\n        }\n\n        _.each(err, _.bind(function (e) {\n\n            var $li = $(\"<li>\" +  i18nLabels[this.lang][e] + \"</li>\");\n            this.$el.find(s.ERROR_CONTAINER).show().html($li);\n\n        }, this));\n\n    };\n\n    Catalog.prototype._hideError = function () {\n\n        this.$el.find(s.ERROR_CONTAINER).hide();\n    };\n\n    Catalog.prototype._getI18nLabel = function (obj) {\n\n        if (typeof obj !== \"object\") {\n            return \"\";\n        }\n\n        var languages = this.langFallbackOrder.slice(0),\n            label = \"Missing label\";\n\n        languages.unshift(this.lang);\n        languages = _.uniq(languages);\n\n        for (var i = 0; i < languages.length; i++) {\n            label = obj[languages[i]];\n\n            if (label) {\n                break;\n            }\n        }\n\n        return label;\n\n    };\n\n    Catalog.prototype._getNestedProperty = function (path, obj) {\n\n        var obj = $.extend(true, {}, obj),\n            arr = path.split(\".\");\n\n        while (arr.length && (obj = obj[arr.shift()]));\n\n        return obj;\n\n    };\n\n\n    return Catalog;\n});"
+      "source": "define([\n    'jquery',\n    'underscore',\n    'loglevel',\n    '../config/errors',\n    '../config/events',\n    '../config/config',\n    '../config/menuConfig',\n    '../config/pluginRegistry',\n    '../html/catalog.hbs',\n    '../html/actions.hbs',\n    '../nls/labels',\n    'fenix-ui-filter',\n    \"fenix-ui-dropdown\",\n    \"fenix-ui-bridge\",\n    \"moment\",\n    'amplify-pubsub',\n    'bootstrap-table'\n\n], function ($, _, log, ERR, EVT, C, MenuConfig, PluginRegistry, CatalogTemplate, ActionsTemplate, i18nLabels, Filter, JsonMenu, Bridge, Moment, amplify, bootstrapTable) {\n\n    'use strict';\n\n    var s = {\n        CATALOG: \"[data-role='catalog']\",\n        MENU: \"[data-role='menu']\",\n        MENU_GROUPS: \"[data-role='menu-group']\",\n        MENU_ITEMS: \"[data-role='menu-item']\",\n        FILTER: \"[data-role='filter']\",\n        SUMMARY: \"[data-role='summary']\",\n        BOTTOM: \"[data-role='bottom']\",\n        RESULTS_CONTAINER: \"[data-role='results-container']\",\n        RESULTS: \"[data-role='results']\",\n        RESULT: \"[data-role='result']\",\n        PAGINATION: \"[data-role='pagination']\",\n        ERROR_CONTAINER: \"[data-role='error-container']\",\n        ACTIONS: \"[data-role='actions']\"\n    };\n\n    function Catalog(o) {\n        log.info(\"FENIX catalog\");\n        log.info(o);\n\n        //import css\n        require(\"../css/fenix-ui-catalog.css\");\n\n        $.extend(true, this, {initial: o}, C);\n\n        this._parseInput();\n\n        var valid = this._validateInput();\n\n        log.info(\"Catalog has valid input? \" + JSON.stringify(valid));\n\n        if (valid === true) {\n\n            this._attach();\n\n            this._hideError();\n\n            this._setBottomStatus('intro');\n\n            this._initVariables();\n\n            this._initComponents();\n\n            this._bindEventListeners();\n\n            return this;\n\n        } else {\n            log.error(\"Impossible to create Catalog\");\n            log.error(valid)\n        }\n    }\n\n    /**\n     * Reset the view content\n     * @return {null}\n     */\n    Catalog.prototype.reset = function () {\n\n        this._resetResults();\n\n        this._hideError();\n\n        if (this.filter && !$.isFunction(this.filter.clear)) {\n            log.error(\"Filter.clear is not a fn()\");\n\n            return;\n        }\n\n        this.filter.clear();\n\n        log.info(\"Catalog reset\");\n    };\n\n    /**\n     * pub/sub\n     * @return {Object} component instance\n     */\n    Catalog.prototype.on = function (channel, fn, context) {\n        var _context = context || this;\n        if (!this.channels[channel]) {\n            this.channels[channel] = [];\n        }\n        this.channels[channel].push({context: _context, callback: fn});\n        return this;\n    };\n    /**\n     * Dispose\n     * @return {null}\n     */\n    Catalog.prototype.dispose = function () {\n\n        //unbind event listeners\n        this._unbindEventListeners();\n\n        this.$el.find(s.RESULTS).bootstrapTable('destroy');\n\n        log.info(\"Catalog disposed successfully\");\n\n    };\n\n    // end API\n\n    Catalog.prototype._trigger = function (channel) {\n\n        if (!this.channels[channel]) {\n            return false;\n        }\n        var args = Array.prototype.slice.call(arguments, 1);\n        for (var i = 0, l = this.channels[channel].length; i < l; i++) {\n            var subscription = this.channels[channel][i];\n            subscription.callback.apply(subscription.context, args);\n        }\n\n        return this;\n    };\n\n    Catalog.prototype._parseInput = function () {\n\n        this.$el = $(this.initial.el);\n        this.cache = typeof this.initial.cache === \"boolean\" ? this.initial.cache : C.cache;\n        this.defaultSelectors = this.initial.defaultSelectors || C.defaultSelectors;\n        this.actions = this.initial.actions || C.actions;\n        this.pluginRegistry = $.extend(true, {}, PluginRegistry, this.initial.pluginRegistry);\n        this.baseFilter = this.initial.baseFilter || C.baseFilter;\n        this.columns = this.initial.columns || C.columns;\n        this.environment = this.initial.environment;\n        this.lang = this.initial.lang || C.lang;\n        this.lang = this.lang.toLowerCase();\n        this.perPage = this.initial.perPage || C.perPage;\n        this.menuExcludedItems = this.initial.menuExcludedItems || C.menuExcludedItems;\n        this.findServiceParams = this.initial.findServiceParams || C.findServiceParams;\n        this.searchTimeoutInterval = this.initial.searchTimeoutInterval || C.searchTimeoutInterval;\n        this.hideCloseButton = typeof this.initial.hideCloseButton === \"boolean\" ? this.initial.hideCloseButton : C.hideCloseButton;\n        this.langFallbackOrder = this.initial.langFallbackOrder || C.langFallbackOrder;\n\n    };\n\n    Catalog.prototype._validateInput = function () {\n\n        var valid = true,\n            errors = [];\n\n        //set filter id\n        if (!this.id) {\n\n            window.fx_catalog_id >= 0 ? window.fx_catalog_id++ : window.fx_catalog_id = 0;\n\n            this.id = \"fx-catalog-\" + String(window.fx_catalog_id);\n\n            log.warn(\"Impossible to find catalog id. Set auto id to: \" + this.id);\n        }\n\n        if (!this.$el) {\n            errors.push({code: ERR.missing_container});\n\n            log.warn(\"Impossible to find filter container\");\n        }\n\n        this.$el = $(this.$el);\n\n        //Check if $el exist\n        if (this.$el.length === 0) {\n\n            errors.push({code: ERR.missing_container});\n\n            log.warn(\"Impossible to find box container\");\n\n        }\n\n        return errors.length > 0 ? errors : valid;\n    };\n\n    Catalog.prototype._attach = function () {\n\n        var self = this,\n            $html = $(CatalogTemplate($.extend(true, {\n            hideCloseButton: this.hideCloseButton\n        },  i18nLabels[this.lang])));\n\n        this.$el.html($html);\n\n        //render menu\n        this.menu = new JsonMenu({\n            el: this.$el.find(s.MENU),\n            exclude: this.menuExcludedItems,\n            model: MenuConfig\n                .map(function (item) {\n\n                    item.label =  i18nLabels[self.lang][item.id] || \"Missing label [\" + item.id + \"]\";\n\n                    return item;\n                })\n        });\n\n        log.info(\"template attached successfully\");\n\n    };\n\n    Catalog.prototype._initVariables = function () {\n\n        //pub/sub\n        this.channels = {};\n\n        //menu\n        this.$menu = this.$el.find(s.MENU);\n        this.$items = this.$menu.find(s.MENU_ITEMS);\n\n        this.current = {};\n        this.current.perPage = this.perPage;\n        this.current.page = 0;\n\n        this.actions = this.actions.map(_.bind(function (value) {\n\n            return {\n                label:  i18nLabels[this.lang]['action_' + value] || \"Missing action label [\" + value + \"]\",\n                action: value\n            }\n\n        }, this));\n\n        this.bridge = new Bridge({\n            environment: this.environment,\n            cache: this.cache\n        });\n\n        Moment.locale(this.lang);\n\n        this.dateFormat = C.dateFormat;\n\n        this.searchTimeout = false;\n\n    };\n\n    Catalog.prototype._enableMenuItem = function (selector) {\n\n        this.menu.enableItem(selector);\n    };\n\n    Catalog.prototype._disableMenuItem = function (selector) {\n\n        this.menu.disableItem(selector);\n\n    };\n\n    Catalog.prototype._bindEventListeners = function () {\n\n        var self = this;\n\n        this.$el.find(\"[data-action='selector']\").on(\"click\", function (e) {\n            e.preventDefault();\n\n            var selector = $(e.target).data(\"selector\");\n\n            log.info(\"Select selector: \" + selector);\n\n            self.selectSelector(selector);\n\n            self._hideError();\n\n        });\n\n        this.filter.on('ready', _.bind(function () {\n\n            log.info(\"Filter is ready\");\n\n            this._unlock();\n\n            this._refreshResults();\n\n        }, this));\n\n        this.filter.on('remove', _.bind(function (item) {\n\n            log.info(\"Remove from filter: \" + item.id);\n\n            this._enableMenuItem(item.id);\n\n            this._refreshResults();\n\n        }, this));\n\n        this.filter.on('change', function () {\n            self.onFilterChangeEvent();\n        });\n\n        amplify.subscribe(this._getEventName(\"select\"), this, this._onSelectResult);\n        amplify.subscribe(this._getEventName(\"download\"), this, this._onDownloadResult);\n        amplify.subscribe(this._getEventName(\"view\"), this, this._onViewResult);\n        amplify.subscribe(this._getEventName(\"metadata\"), this, this._onMetadataResult);\n    };\n\n    Catalog.prototype.onFilterChangeEvent = function () {\n\n        log.info(\"Change from filter\");\n\n        this._refreshResults();\n\n    };\n\n    Catalog.prototype.selectSelector = function (selector) {\n\n        this._disableMenuItem(selector);\n\n        this._addSelector(selector);\n\n    };\n\n    Catalog.prototype._unlock = function () {\n    };\n\n    Catalog.prototype._lock = function () {\n    };\n\n    Catalog.prototype._addSelector = function (selector) {\n\n        var config = this._getSelectorConfiguration(selector);\n\n        this.filter.add(config);\n    };\n\n    Catalog.prototype._getSelectorConfiguration = function (selector) {\n\n        if (!this.pluginRegistry.hasOwnProperty(selector)) {\n            log.error(\"Impossible to find selector in registry: \" + selector);\n            return;\n        }\n\n        var config = {};\n        config[selector] = $.extend(true, {}, this.pluginRegistry[selector]);\n\n        if (!config[selector].template) {\n            config[selector].template = {};\n        }\n\n        config[selector].template.title =  i18nLabels[this.lang][selector] || \"Missing title [\" + selector + \"]\";\n\n        return $.extend(true, {}, config);\n\n    };\n\n    Catalog.prototype._refreshResults = function () {\n\n        log.info(\"Refresh catalog results\");\n\n        this._setBottomStatus(\"loading\");\n\n        if (this.searchTimeout) {\n            clearTimeout(this.searchTimeout);\n            log.info(\"Abort search timeout\");\n        }\n\n        this.searchTimeout = window.setTimeout(_.bind(function () {\n            this._prepareSearch();\n        }, this), this.searchTimeoutInterval);\n\n    };\n\n    Catalog.prototype._prepareSearch = function () {\n\n        if (this.filter && !$.isFunction(this.filter.getValues)) {\n            log.error(\"Filter.getValues is not a fn()\");\n            return;\n        }\n\n        this.current.values = this.filter.getValues();\n\n        this.current.filter = $.extend(true, {}, this.baseFilter, this.filter.getValues(\"catalog\"));\n\n        var valid = this._validateQuery();\n\n        if (valid === true) {\n            this._search();\n            this._hideError();\n        } else {\n\n            if (Array.isArray(valid) && valid[0] === ERR.empty_values) {\n                this._setBottomStatus(\"intro\")\n            } else {\n                this._showError(valid);\n            }\n        }\n    };\n\n    Catalog.prototype._validateQuery = function () {\n\n        var valid = true,\n            errors = [];\n\n        if ($.isEmptyObject(this.current.filter)) {\n            errors.push(ERR.empty_values);\n            log.error(ERR.empty_values);\n            return errors;\n        }\n\n        return errors.length > 0 ? errors : valid;\n    };\n\n    Catalog.prototype._initComponents = function () {\n\n        log.info(\"Filter instantiation\");\n\n        this.filter = new Filter({\n            el: s.FILTER,\n            selectors: this._getDefaultSelectors(),\n            //summary$el: s.SUMMARY,\n            direction: \"prepend\",\n            cache: this.cache,\n            ensureAtLeast: 1,\n            environment: this.environment,\n            //summaryRender : function (item ){ return \" -> \" + item.code; },\n            common: {\n                template: {\n                    hideHeader: false,\n                    hideRemoveButton: false\n                },\n                selector: {\n                    hideFooter: true\n                }\n            }\n        });\n\n        _.each(this.defaultSelectors, _.bind(function (selector) {\n            this._disableMenuItem(selector);\n        }, this));\n\n        console.log(bootstrapTable);\n        this.$el.find(s.RESULTS).bootstrapTable({\n            pagination: true,\n            pageSize: this.current.perPage,\n            pageList: [],\n            columns: this._createTableColumnsConfiguration(),\n            onPageChange: _.bind(function () {\n                this._unbindResultsEventListeners();\n                this._bindResultsEventListeners()\n            }, this),\n            onSort: _.bind(function () {\n\n                window.setTimeout(_.bind(function () {\n                    this._unbindResultsEventListeners();\n                    this._bindResultsEventListeners()\n                }, this), 100)\n\n            }, this)\n        });\n\n    };\n\n    Catalog.prototype._createTableColumnsConfiguration = function () {\n\n        var columns = [],\n            self = this;\n\n        _.each(Object.keys(this.columns), function (c) {\n\n            columns.push({\n                field: c,\n                title:  i18nLabels[self.lang][c] || \"Missing label [\" + c + \"]\",\n                sortable: true\n            });\n\n        });\n\n        // add rid\n        columns.push({\n            field: \"rid\",\n            visible: false\n        });\n\n        var resourceTypeColumn = _.findWhere(columns, {field: \"resourceType\"}) || {};\n        resourceTypeColumn.visible = false;\n\n        //Add actions column\n        columns.push({\n            formatter: function (value, row) {\n\n                //$html = $(templateSelector($.extend(true, {classNames: classNames}, conf)));\n                var $html = $(ActionsTemplate($.extend(true, {},  i18nLabels[this.lang], row, {actions: self._getActions(row)})));\n\n                return $html[0].outerHTML\n            }\n        });\n\n        return columns;\n    };\n\n    Catalog.prototype._getActions = function (row) {\n\n        var excluded = C.excluded_action || {},\n            to_exclude = excluded[row.resourceType] || [],\n            actions = this.actions;\n\n        _.each(to_exclude, function (excl) {\n            actions = _.reject(actions, {action: excl})\n        });\n\n        return actions;\n\n    };\n\n    Catalog.prototype._getDefaultSelectors = function () {\n\n        var self = this,\n            items = {};\n\n        _.each(this.defaultSelectors, function (selector) {\n            items = $.extend(true, {}, items, self._getSelectorConfiguration(selector));\n        });\n\n        log.info(\"Default items: \" + JSON.stringify(items));\n\n        return items;\n\n    };\n\n    Catalog.prototype._resetResults = function () {\n\n        this._setBottomStatus('intro');\n\n        this._unbindResultsEventListeners();\n\n    };\n\n    //Request\n\n    Catalog.prototype._search = function () {\n\n        var body = this.current.filter;\n\n        this._lock();\n\n        window.fx_req_id >= 0 ? window.fx_req_id++ : window.fx_req_id = 0;\n\n        this.reqeust_id = \"fx-request-id-\" + window.fx_req_id;\n\n        this.bridge.find({\n            body: body,\n            params: this.findServiceParams\n        }).then(\n            _.bind(this._renderResults, this, \"fx-request-id-\" + window.fx_req_id),\n            _.bind(function (requestId, e) {\n\n                if (this.reqeust_id !== requestId) {\n                    log.warn(\"Abort result rendering because it is not the last request\");\n                    return;\n                }\n\n                if (e.status === C.httpStatusMaxSizeError) {\n                    this._setBottomStatus(\"huge\");\n                    return;\n                }\n\n                this._setBottomStatus(\"error\");\n                this.error(e);\n                this._unlock();\n                this._showError(ERR.request);\n\n            }, this, \"fx-request-id-\" + window.fx_req_id));\n\n    };\n\n    Catalog.prototype._setBottomStatus = function (status) {\n\n        log.info(\"Set status to: \" + status);\n\n        this.$el.find(s.BOTTOM).attr('data-status', status);\n\n    };\n\n    Catalog.prototype._renderResults = function (requestId, data) {\n\n        if (this.reqeust_id !== requestId) {\n            log.warn(\"Abort result rendering because it is not the last request\");\n            return;\n        }\n\n        this.current.data = data;\n        this.current.model = this._parseData(this.current.data);\n\n        if (!this.current.data) {\n            this._setBottomStatus(\"empty\");\n            return;\n        }\n\n        this._setBottomStatus('ready');\n\n        this._unlock();\n\n        this._renderTable();\n\n    };\n\n    Catalog.prototype._parseData = function (d) {\n\n        var data = [];\n\n        _.each(d, _.bind(function (record) {\n\n            data.push(this._parseRecord(record));\n\n        }, this));\n\n        return data;\n    };\n\n    Catalog.prototype._parseRecord = function (record) {\n\n        var result = {};\n\n        _.each(this.columns, _.bind(function (col, id) {\n            result[id] = this._getColumnValue(record, $.extend(true, {id: id}, col));\n        }, this));\n\n        //add rid to model\n        result[\"rid\"] = this._getColumnValue(record, $.extend(true, {id: \"rid\"}, {}));\n\n        return result;\n    };\n\n    Catalog.prototype._getColumnValue = function (record, col) {\n\n        var label = \" \",\n            path = col.path ? col.path : col.id,\n            metadataValue = this._getNestedProperty(path, record) || {},\n            type = col.type || \"\",\n            i18nLabel;\n\n        switch (type.toLowerCase()) {\n            case \"i18n\":\n                i18nLabel = this._getI18nLabel(metadataValue);\n                label = i18nLabel ? i18nLabel : \" \";\n                break;\n            case \"source\":\n\n                var owner = _.findWhere(metadataValue, {role: \"owner\"}) || {},\n                    organization = owner.organization,\n                    organizationUnit = owner.organizationUnit,\n                    organizationI18nLabel = this._getI18nLabel(organization),\n                    organizationUnitI18nLabel = this._getI18nLabel(organizationUnit),\n                    bothPopulated = organizationI18nLabel && organizationUnitI18nLabel;\n\n                label += organizationI18nLabel ? organizationI18nLabel : \"\";\n\n                label += bothPopulated ? \" - \" : \"\";\n\n                label += organizationUnitI18nLabel ? organizationUnitI18nLabel : \"\";\n\n                break;\n            case \"epoch\":\n\n                label = new Moment(metadataValue).format(this.dateFormat);\n                break;\n            case \"code\":\n\n                var code = (Array.isArray(metadataValue.codes) && metadataValue.codes.length > 0) ? metadataValue.codes[0] : {};\n\n                i18nLabel = this._getI18nLabel(code.label);\n                label = i18nLabel ? i18nLabel : \" \";\n\n                break;\n            default :\n\n                label = metadataValue;\n\n        }\n\n        return label ? label : null;\n    };\n\n    Catalog.prototype._renderTable = function () {\n\n        this._unbindResultsEventListeners();\n\n        this.$el.find(s.RESULTS).bootstrapTable('load', this.current.model);\n\n        this._bindResultsEventListeners();\n\n    };\n\n    Catalog.prototype._unbindResultsEventListeners = function () {\n        this.$el.find(s.RESULTS).find(\"[data-action]\").off();\n    };\n\n    Catalog.prototype._bindResultsEventListeners = function () {\n\n        var self = this;\n\n        this.$el.find(s.RESULTS).find(\"[data-action]\").each(function () {\n\n            var $this = $(this),\n                action = $this.data(\"action\"),\n                event = self._getEventName(action),\n                rid = $this.data(\"rid\");\n\n            $this.on(\"click\", {\n                event: event,\n                rid: rid,\n                values: self.current.values,\n                filter: self.current.filter\n            }, function (e) {\n                e.preventDefault();\n\n                log.info(\"Result raise event: \" + e.data.event);\n\n                var model = _.findWhere(self.current.data, {rid: rid});\n\n                amplify.publish(event, {rid: rid, model: model, filter: e.data.filter, values: e.data.values});\n\n            });\n        });\n    };\n\n    // Handlers\n\n    Catalog.prototype._onSelectResult = function (payload) {\n\n        log.info(\"Select result: \" + JSON.stringify(payload));\n\n        this._trigger('select', payload);\n\n    };\n\n    Catalog.prototype._onDownloadResult = function (payload) {\n\n        log.info(\"Download result: \" + JSON.stringify(payload));\n\n        this._trigger('download', payload);\n\n    };\n\n    Catalog.prototype._onViewResult = function (payload) {\n\n        log.info(\"View result: \" + JSON.stringify(payload));\n\n        this._trigger('view', payload);\n    };\n\n    Catalog.prototype._onMetadataResult = function (payload) {\n\n        log.info(\"Metadata result: \" + JSON.stringify(payload));\n\n        this._trigger('metadata', payload);\n    };\n\n    Catalog.prototype._getEventName = function (evt, excludeId) {\n\n        var baseEvent = EVT[evt] ? EVT[evt] : evt;\n\n        return excludeId === true ? baseEvent : baseEvent + \".\" + this.id;\n    };\n\n    //disposition\n\n    Catalog.prototype._unbindEventListeners = function () {\n\n        this.$el.find('[data-action]').off();\n\n        amplify.unsubscribe(this._getEventName(\"select\"), this._onSelectResult);\n        amplify.unsubscribe(this._getEventName(\"download\"), this._onDownloadResult);\n        amplify.unsubscribe(this._getEventName(\"view\"), this._onViewResult);\n        amplify.unsubscribe(this._getEventName(\"metadata\"), this._onMetadataResult);\n\n    };\n\n    Catalog.prototype._showError = function (err) {\n\n        if (!Array.isArray(err)) {\n            err = [err];\n        }\n\n        _.each(err, _.bind(function (e) {\n\n            var $li = $(\"<li>\" +  i18nLabels[this.lang][e] + \"</li>\");\n            this.$el.find(s.ERROR_CONTAINER).show().html($li);\n\n        }, this));\n\n    };\n\n    Catalog.prototype._hideError = function () {\n\n        this.$el.find(s.ERROR_CONTAINER).hide();\n    };\n\n    Catalog.prototype._getI18nLabel = function (obj) {\n\n        if (typeof obj !== \"object\") {\n            return \"\";\n        }\n\n        var languages = this.langFallbackOrder.slice(0),\n            label = \"Missing label\";\n\n        languages.unshift(this.lang);\n        languages = _.uniq(languages);\n\n        for (var i = 0; i < languages.length; i++) {\n            label = obj[languages[i]];\n\n            if (label) {\n                break;\n            }\n        }\n\n        return label;\n\n    };\n\n    Catalog.prototype._getNestedProperty = function (path, obj) {\n\n        var obj = $.extend(true, {}, obj),\n            arr = path.split(\".\");\n\n        while (arr.length && (obj = obj[arr.shift()]));\n\n        return obj;\n\n    };\n\n\n    return Catalog;\n});"
     },
     {
       "id": 2,
@@ -1771,7 +1771,7 @@
       "issuer": "/Users/nicolaselleri/Repos/fenix-ui-catalog/src/js/index.js",
       "profile": {
         "factory": 8,
-        "building": 20
+        "building": 21
       },
       "failed": false,
       "errors": 0,
@@ -1784,7 +1784,7 @@
           "moduleName": "./src/js/index.js",
           "type": "amd require",
           "userRequest": "../nls/labels",
-          "loc": "1:0-844:2"
+          "loc": "1:0-845:2"
         }
       ],
       "source": "define([\n        \"./en/labels\",\n        \"./fr/labels\"\n    ],\n    function (i18nEn,i18nFr) {\n\n        'use strict';\n\n        return {\n\n            en: i18nEn,\n            fr: i18nFr\n\n        }\n    });"
@@ -1806,8 +1806,8 @@
       "assets": [],
       "issuer": "/Users/nicolaselleri/Repos/fenix-ui-catalog/src/nls/labels.js",
       "profile": {
-        "factory": 9,
-        "building": 539
+        "factory": 8,
+        "building": 361
       },
       "failed": false,
       "errors": 0,
@@ -1842,8 +1842,8 @@
       "assets": [],
       "issuer": "/Users/nicolaselleri/Repos/fenix-ui-catalog/src/nls/labels.js",
       "profile": {
-        "factory": 10,
-        "building": 3335
+        "factory": 8,
+        "building": 380
       },
       "failed": false,
       "errors": 0,
@@ -1892,7 +1892,7 @@
           "moduleName": "./src/js/index.js",
           "type": "amd require",
           "userRequest": "jquery",
-          "loc": "1:0-844:2"
+          "loc": "1:0-845:2"
         }
       ]
     },
@@ -1914,7 +1914,7 @@
       "issuer": "/Users/nicolaselleri/Repos/fenix-ui-catalog/src/js/index.js",
       "profile": {
         "factory": 1,
-        "building": 0
+        "building": 1
       },
       "failed": false,
       "errors": 0,
@@ -1927,7 +1927,7 @@
           "moduleName": "./src/js/index.js",
           "type": "amd require",
           "userRequest": "loglevel",
-          "loc": "1:0-844:2"
+          "loc": "1:0-845:2"
         }
       ]
     },
@@ -1949,7 +1949,7 @@
       "issuer": "/Users/nicolaselleri/Repos/fenix-ui-catalog/src/js/index.js",
       "profile": {
         "factory": 9,
-        "building": 20
+        "building": 21
       },
       "failed": false,
       "errors": 0,
@@ -1962,7 +1962,7 @@
           "moduleName": "./src/js/index.js",
           "type": "amd require",
           "userRequest": "../config/errors",
-          "loc": "1:0-844:2"
+          "loc": "1:0-845:2"
         }
       ],
       "source": "define(function ( ) {\n\n    'use strict';\n\n    var prefix = \"\";\n\n    return {\n\n        request : prefix + \"request\",\n        empty_values : prefix + \"empty_values\",\n        missing_container : prefix + \"missing_container\"\n\n    };\n});\n"
@@ -1985,7 +1985,7 @@
       "issuer": "/Users/nicolaselleri/Repos/fenix-ui-catalog/src/js/index.js",
       "profile": {
         "factory": 9,
-        "building": 20
+        "building": 22
       },
       "failed": false,
       "errors": 0,
@@ -1998,7 +1998,7 @@
           "moduleName": "./src/js/index.js",
           "type": "amd require",
           "userRequest": "../config/events",
-          "loc": "1:0-844:2"
+          "loc": "1:0-845:2"
         }
       ],
       "source": "define(function () {\n\n    'use strict';\n\n    var prefix = \"fx.catalog.\";\n\n    return {\n\n        select : prefix + 'select',\n        view : prefix + 'view',\n        download : prefix + 'download'\n\n    };\n});\n"
@@ -2020,8 +2020,8 @@
       "assets": [],
       "issuer": "/Users/nicolaselleri/Repos/fenix-ui-catalog/src/js/index.js",
       "profile": {
-        "factory": 9,
-        "building": 24
+        "factory": 10,
+        "building": 22
       },
       "failed": false,
       "errors": 0,
@@ -2034,7 +2034,7 @@
           "moduleName": "./src/js/index.js",
           "type": "amd require",
           "userRequest": "../config/config",
-          "loc": "1:0-844:2"
+          "loc": "1:0-845:2"
         }
       ],
       "source": "define(function () {\n\n    'use strict';\n\n    return {\n\n        lang : \"EN\",\n\n        langFallbackOrder : [\"EN\", \"FR\", \"ES\", \"AR\", \"PR\"],\n        \n        perPage : 10,\n\n        actions : ['select'], //'metadata', 'view', 'download'\n\n        excludedAction : {\n            dataset : [],\n            geographic : ['download']\n        },\n\n        menuExcludedItems: [],\n\n        defaultSelectors : ['resourceType', 'contextSystem'],\n\n        environment : \"develop\",\n\n        columns : {\n            title: {\n                path : \"title\",\n                type: \"i18n\"\n            },\n            source : {\n                path : \"contacts\",\n                type : \"source\"\n            },\n            last_update : {\n                path : \"meMaintenance.seUpdate.updateDate\",\n                type : \"epoch\"\n            },\n            region : {\n                path: \"meContent.seCoverage.coverageGeographic\",\n                type: \"code\"\n            },\n            resourceType : {\n                path: \"meContent.resourceRepresentationType\"\n            }\n        },\n\n        searchTimeoutInterval : 1000,\n\n        dateFormat: 'YYYY MMM DD',\n\n        findServiceParams : {\n            full: true,\n            order : \"meMaintenance.seUpdate.updateDate:desc\" //order by last update\n        },\n\n        cache : false,\n\n        httpStatusMaxSizeError : 416,\n\n        hideCloseButton : false,\n\n        baseFilter : {}\n    }\n\n});"
@@ -2056,7 +2056,7 @@
       "assets": [],
       "issuer": "/Users/nicolaselleri/Repos/fenix-ui-catalog/src/js/index.js",
       "profile": {
-        "factory": 9,
+        "factory": 10,
         "building": 23
       },
       "failed": false,
@@ -2070,7 +2070,7 @@
           "moduleName": "./src/js/index.js",
           "type": "amd require",
           "userRequest": "../config/menuConfig",
-          "loc": "1:0-844:2"
+          "loc": "1:0-845:2"
         }
       ],
       "source": "define(function () {\n\n    'use strict';\n\n    return [\n        {\n            url: \"\",\n            parent_id: \"root\",\n            id: \"content\"\n        },\n        {\n            url: \"\",\n            parent_id: \"content\",\n            id: \"resourceType\",\n            a_attrs: {\n                \"data-action\": \"selector\",\n                \"data-selector\": \"resourceType\"\n            }\n        },\n        {\n            url: \"\",\n            parent_id: \"content\",\n            id: \"contextSystem\",\n            a_attrs: {\n                \"data-action\": \"selector\",\n                \"data-selector\": \"contextSystem\"\n            }\n        },\n        {\n            url: \"\",\n            parent_id: \"content\",\n            id: \"referencePeriod\",\n            a_attrs: {\n                \"data-action\": \"selector\",\n                \"data-selector\": \"referencePeriod\"\n            }\n        },\n        {\n            url: \"\",\n            parent_id: \"content\",\n            id: \"referenceArea\",\n            a_attrs: {\n                \"data-action\": \"selector\",\n                \"data-selector\": \"referenceArea\"\n            }\n        },\n        {\n            url: \"\",\n            parent_id: \"content\",\n            id: \"dataDomain\",\n            a_attrs: {\n                \"data-action\": \"selector\",\n                \"data-selector\": \"dataDomain\"\n            }\n        },\n        {\n            url: \"\",\n            parent_id: \"content\",\n            id: \"region\",\n            a_attrs: {\n                \"data-action\": \"selector\",\n                \"data-selector\": \"region\"\n            }\n        },\n        {\n            url: \"\",\n            parent_id: \"root\",\n            id: \"accessibility\",\n        },\n        {\n            url: \"\",\n            parent_id: \"accessibility\",\n            id: \"statusOfConfidentiality\",\n            a_attrs: {\n                \"data-action\": \"selector\",\n                \"data-selector\": \"statusOfConfidentiality\"\n            }\n        },\n        {\n            url: \"\",\n            parent_id: \"root\",\n            id: \"search_by_id\",\n        },\n        {\n            url: \"\",\n            parent_id: \"search_by_id\",\n            id: \"uid\",\n            a_attrs: {\n                \"data-action\": \"selector\",\n                \"data-selector\": \"uid\"\n            }\n        }\n    ];\n});\n"
@@ -2093,7 +2093,7 @@
       "issuer": "/Users/nicolaselleri/Repos/fenix-ui-catalog/src/js/index.js",
       "profile": {
         "factory": 10,
-        "building": 25
+        "building": 24
       },
       "failed": false,
       "errors": 0,
@@ -2106,7 +2106,7 @@
           "moduleName": "./src/js/index.js",
           "type": "amd require",
           "userRequest": "../config/pluginRegistry",
-          "loc": "1:0-844:2"
+          "loc": "1:0-845:2"
         }
       ],
       "source": "define(function () {\n\n    'use strict';\n\n    return {\n\n        resourceType: {\n\n            enumeration : {\n                uid: \"RepresentationType\"\n            },\n\n            selector : {\n                id : \"dropdown\",\n                hideSummary : true,\n                default : ['dataset'],\n                config : {\n                    plugins: ['remove_button'],\n                    mode: 'multi'\n                }\n            },\n\n            template : {\n                hideRemoveButton : false\n            },\n\n            format : {\n                output : \"enumeration\",\n                metadataAttribute: \"meContent.resourceRepresentationType\"\n            }\n\n        },\n\n        referencePeriod: {\n\n            cl : {\n                uid: \"FAO_Period\",\n                version: \"1.0\"\n            },\n\n            selector : {\n                id : \"dropdown\",\n                hideSummary : true,\n                config : {\n                    plugins: ['remove_button'],\n                    mode: 'multi'\n                }\n            },\n\n            template : {\n                hideRemoveButton : false\n            },\n\n            format : {\n                output : \"codes\",\n                metadataAttribute: \"meContent.seReferencePopulation.referencePeriod\"\n            }\n        },\n\n        referenceArea: {\n\n            cl : {\n                uid: \"GAUL_ReferenceArea\",\n                version: \"1.0\"\n            },\n\n            selector : {\n                id : \"dropdown\",\n                hideSummary : true,\n                config : {\n                    plugins: ['remove_button'],\n                    mode: 'multi'\n                }\n            },\n\n            template : {\n                hideRemoveButton : false\n            },\n\n            format : {\n                output : \"codes\",\n                metadataAttribute: \"meContent.seReferencePopulation.referenceArea\"\n            }\n        },\n\n        dataDomain: {\n\n            cl : {\n                uid: \"UNECA_ClassificationOfActivities\",\n                level : 2,\n                levels : 1\n            },\n\n            selector : {\n                id : \"dropdown\",\n                hideSummary : true,\n                config : {\n                    plugins: ['remove_button'],\n                    mode: 'multi'\n                }\n            },\n\n            template : {\n                hideRemoveButton : false\n            },\n\n            format : {\n                output : \"codes\",\n                metadataAttribute: \"meContent.seCoverage.coverageSectors\"\n            }\n\n        },\n\n        region: {\n\n            cl : {\n                uid: \"GAUL0\",\n                version: \"2014\"\n            },\n\n            selector : {\n                id : \"dropdown\",\n                hideSummary : true,\n                config : {\n                    plugins: ['remove_button'],\n                    mode: 'multi'\n                }\n            },\n\n            template : {\n                hideRemoveButton : false\n            },\n\n            format : {\n                output : \"codes\",\n                metadataAttribute: \"meContent.seCoverage.coverageGeographic\"\n            }\n        },\n\n        statusOfConfidentiality: {\n\n            cl : {\n                uid: \"CL_CONF_STATUS\",\n                version: \"1.0\"\n            },\n\n            selector : {\n                id : \"dropdown\",\n                hideSummary : true,\n                config : {\n                    plugins: ['remove_button'],\n                    mode: 'multi'\n                }\n            },\n\n            template : {\n                hideRemoveButton : false\n            },\n\n            format : {\n                output : \"codes\",\n                metadataAttribute: \"meAccessibility.seConfidentiality.confidentialityStatus\"\n            }\n\n        },\n\n        uid: {\n\n            selector : {\n                id : \"input\",\n                type : \"text\"\n            },\n\n            template : {\n                hideRemoveButton : false\n            },\n\n            format : {\n                output : \"enumeration\",\n                metadataAttribute: \"uid\"\n            }\n\n        },\n\n        contextSystem : {\n\n            selector : {\n                id : \"dropdown\",\n                source : [{value : \"uneca\", label : \"UNECA\"}],\n                default : [\"uneca\"],\n                hideSummary : true,\n                config : {\n                    plugins: ['remove_button'],\n                    mode: 'multi'\n                }\n            },\n\n            template : {\n                hideRemoveButton : false\n            },\n\n            format : {\n                output : \"enumeration\",\n                metadataAttribute: \"dsd.contextSystem\"\n            }\n        }\n    }\n\n});"
@@ -2128,8 +2128,8 @@
       "assets": [],
       "issuer": "/Users/nicolaselleri/Repos/fenix-ui-catalog/src/js/index.js",
       "profile": {
-        "factory": 42,
-        "building": 3364
+        "factory": 38,
+        "building": 3173
       },
       "failed": false,
       "errors": 0,
@@ -2142,7 +2142,7 @@
           "moduleName": "./src/js/index.js",
           "type": "amd require",
           "userRequest": "../html/catalog.hbs",
-          "loc": "1:0-844:2"
+          "loc": "1:0-845:2"
         }
       ],
       "source": "var Handlebars = require(\"/Users/nicolaselleri/Repos/fenix-ui-catalog/node_modules/handlebars/runtime.js\");\nfunction __default(obj) { return obj && (obj.__esModule ? obj[\"default\"] : obj); }\nmodule.exports = (Handlebars[\"default\"] || Handlebars).template({\"1\":function(container,depth0,helpers,partials,data) {\n    var helper;\n\n  return \"\\n            <div class=\\\"cat-btn-right\\\" title=\\\"\"\n    + container.escapeExpression(((helper = (helper = helpers.tooltip_btn_close_catalog || (depth0 != null ? depth0.tooltip_btn_close_catalog : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === \"function\" ? helper.call(depth0 != null ? depth0 : {},{\"name\":\"tooltip_btn_close_catalog\",\"hash\":{},\"data\":data}) : helper)))\n    + \"\\\">\\n                <button data-role=\\\"close\\\" data-dismiss=\\\"modal\\\" aria-label=\\\"Close\\\" class=\\\"btn btn-default\\\"\\n                        type=\\\"button\\\">\\n                    <span class=\\\"icojam_button_delete_1\\\"></span>\\n                </button>\\n            </div>\\n\";\n},\"compiler\":[7,\">= 4.0.0\"],\"main\":function(container,depth0,helpers,partials,data) {\n    var stack1, helper, alias1=depth0 != null ? depth0 : {}, alias2=helpers.helperMissing, alias3=\"function\", alias4=container.escapeExpression;\n\n  return \"<div data-role=\\\"catalog\\\" class=\\\"fx-catalog\\\">\\n\\n    <div class=\\\"modal-header clearfix cat-toolbar\\\">\\n\\n        <div class=\\\"cat-btn-left\\\">\\n\\n        </div>\\n\\n        <h6 class=\\\"cat-title fx-text-primary-color truncate\\\">\"\n    + alias4(((helper = (helper = helpers.header_title || (depth0 != null ? depth0.header_title : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{\"name\":\"header_title\",\"hash\":{},\"data\":data}) : helper)))\n    + \"</h6>\\n\\n\"\n    + ((stack1 = helpers.unless.call(alias1,(depth0 != null ? depth0.hideCloseButton : depth0),{\"name\":\"unless\",\"hash\":{},\"fn\":container.program(1, data, 0),\"inverse\":container.noop,\"data\":data})) != null ? stack1 : \"\")\n    + \"\\n    </div>\\n\\n    <div class=\\\"modal-body\\\">\\n        <!-- Filter -->\\n        <div class=\\\"row\\\">\\n\\n            <div class=\\\"row-height\\\">\\n\\n                <div class=\\\"col-sm-4 col-sm-height col-top cat-sidebar\\\">\\n\\n                    <div data-role=\\\"menu\\\" class=\\\"dropdown\\\" title=\\\"\"\n    + alias4(((helper = (helper = helpers.tooltip_btn_add_selector || (depth0 != null ? depth0.tooltip_btn_add_selector : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{\"name\":\"tooltip_btn_add_selector\",\"hash\":{},\"data\":data}) : helper)))\n    + \"\\\">\\n                        <button class=\\\"btn btn-floating fx-background-color-primary-color btn-fx-catalog-filters\\\" type=\\\"button\\\" data-toggle=\\\"dropdown\\\"\\n                                aria-expanded=\\\"false\\\">\\n                            <span class=\\\"icojam_add\\\"></span>\\n                        </button>\\n                    </div>\\n\\n                    <!-- Filter -->\\n                    <div data-role=\\\"filter\\\" class=\\\"cat-filter-container\\\"></div>\\n\\n                </div>\\n\\n                <div class=\\\"col-sm-8 col-sm-height col-top cat-results\\\">\\n\\n                    <!-- Bottom -->\\n\\n                    <div data-role=\\\"bottom\\\" data-status=\\\"intro\\\" class=\\\"cat-statuses-holder\\\">\\n\\n                        <div data-content=\\\"error\\\" class=\\\"text-center\\\">\\n\\n                            <h2>Oh snap!</h2>\\n\\n                        </div>\\n\\n                        <div data-content=\\\"ready\\\">\\n                            <div data-role=\\\"results-container\\\">\\n                                <table data-role=\\\"results\\\"></table>\\n                            </div>\\n                            <div data-role=\\\"pagination\\\" class=\\\"text-center\\\"></div>\\n                        </div>\\n\\n                        <div data-content=\\\"loading\\\" class=\\\"text-center\\\">\\n                            <span class=\\\"loading loading-48\\\"></span>\\n                        </div>\\n\\n                        <div data-content=\\\"empty\\\" class=\\\"text-center\\\">\\n                            <h2>Empty</h2>\\n                        </div>\\n\\n                        <div data-content=\\\"intro\\\" class=\\\"text-center\\\">\\n                            <h2>This is the intro</h2>\\n                        </div>\\n\\n                        <div data-content=\\\"huge\\\" class=\\\"text-center\\\">\\n                            <h2>Too many results. <br> Please add more filter criteria.</h2>\\n                        </div>\\n\\n                    </div>\\n\\n                </div>\\n\\n            </div>\\n        </div>\\n\\n    </div>\\n\\n    <div class=\\\"modal-footer\\\">\\n        <!-- Summary -->\\n        <div class=\\\"row\\\">\\n            <div class=\\\"col-xs-12\\\" data-role=\\\"summary\\\"></div>\\n        </div>\\n\\n    </div>\\n\\n\\n    <!-- Errors -->\\n    <div class=\\\"row\\\">\\n        <div class=\\\"col-xs-12\\\">\\n            <ul data-role=\\\"error-container\\\" class=\\\"alert alert-danger list-unstyled\\\" role=\\\"alert\\\"></ul>\\n        </div>\\n    </div>\\n\\n</div>\";\n},\"useData\":true});"
@@ -2164,7 +2164,7 @@
       "assets": [],
       "issuer": "/Users/nicolaselleri/Repos/fenix-ui-catalog/node_modules/handlebars-loader/index.js!/Users/nicolaselleri/Repos/fenix-ui-catalog/src/html/catalog.hbs",
       "profile": {
-        "factory": 27,
+        "factory": 31,
         "building": 2
       },
       "failed": false,
@@ -2210,7 +2210,7 @@
       "issuer": "/Users/nicolaselleri/Repos/fenix-ui-catalog/node_modules/handlebars/runtime.js",
       "profile": {
         "factory": 3,
-        "building": 2
+        "building": 1
       },
       "failed": false,
       "errors": 0,
@@ -2245,8 +2245,8 @@
       "assets": [],
       "issuer": "/Users/nicolaselleri/Repos/fenix-ui-catalog/node_modules/handlebars/dist/cjs/handlebars.runtime.js",
       "profile": {
-        "factory": 5,
-        "building": 6,
+        "factory": 6,
+        "building": 5,
         "dependencies": 1
       },
       "failed": false,
@@ -2292,7 +2292,7 @@
       "issuer": "/Users/nicolaselleri/Repos/fenix-ui-catalog/node_modules/handlebars/dist/cjs/handlebars.runtime.js",
       "profile": {
         "factory": 6,
-        "building": 14
+        "building": 15
       },
       "failed": false,
       "errors": 0,
@@ -2471,8 +2471,8 @@
       "assets": [],
       "issuer": "/Users/nicolaselleri/Repos/fenix-ui-catalog/node_modules/handlebars/dist/cjs/handlebars/base.js",
       "profile": {
-        "factory": 26,
-        "building": 2
+        "factory": 25,
+        "building": 3
       },
       "failed": false,
       "errors": 0,
@@ -2507,9 +2507,9 @@
       "assets": [],
       "issuer": "/Users/nicolaselleri/Repos/fenix-ui-catalog/node_modules/handlebars/dist/cjs/handlebars/helpers.js",
       "profile": {
-        "factory": 10,
+        "factory": 7,
         "building": 4,
-        "dependencies": 1
+        "dependencies": 0
       },
       "failed": false,
       "errors": 0,
@@ -2544,7 +2544,7 @@
       "assets": [],
       "issuer": "/Users/nicolaselleri/Repos/fenix-ui-catalog/node_modules/handlebars/dist/cjs/handlebars/helpers.js",
       "profile": {
-        "factory": 10,
+        "factory": 7,
         "building": 9,
         "dependencies": 1
       },
@@ -2581,8 +2581,8 @@
       "assets": [],
       "issuer": "/Users/nicolaselleri/Repos/fenix-ui-catalog/node_modules/handlebars/dist/cjs/handlebars/helpers.js",
       "profile": {
-        "factory": 10,
-        "building": 11,
+        "factory": 8,
+        "building": 10,
         "dependencies": 0
       },
       "failed": false,
@@ -2618,7 +2618,7 @@
       "assets": [],
       "issuer": "/Users/nicolaselleri/Repos/fenix-ui-catalog/node_modules/handlebars/dist/cjs/handlebars/helpers.js",
       "profile": {
-        "factory": 11,
+        "factory": 8,
         "building": 11,
         "dependencies": 0
       },
@@ -2655,8 +2655,8 @@
       "assets": [],
       "issuer": "/Users/nicolaselleri/Repos/fenix-ui-catalog/node_modules/handlebars/dist/cjs/handlebars/helpers.js",
       "profile": {
-        "factory": 11,
-        "building": 12
+        "factory": 8,
+        "building": 11
       },
       "failed": false,
       "errors": 0,
@@ -2691,7 +2691,7 @@
       "assets": [],
       "issuer": "/Users/nicolaselleri/Repos/fenix-ui-catalog/node_modules/handlebars/dist/cjs/handlebars/helpers.js",
       "profile": {
-        "factory": 11,
+        "factory": 8,
         "building": 12
       },
       "failed": false,
@@ -2727,8 +2727,8 @@
       "assets": [],
       "issuer": "/Users/nicolaselleri/Repos/fenix-ui-catalog/node_modules/handlebars/dist/cjs/handlebars/helpers.js",
       "profile": {
-        "factory": 11,
-        "building": 12,
+        "factory": 9,
+        "building": 11,
         "dependencies": 1
       },
       "failed": false,
@@ -2764,8 +2764,8 @@
       "assets": [],
       "issuer": "/Users/nicolaselleri/Repos/fenix-ui-catalog/node_modules/handlebars/dist/cjs/handlebars/base.js",
       "profile": {
-        "factory": 27,
-        "building": 4
+        "factory": 26,
+        "building": 5
       },
       "failed": false,
       "errors": 0,
@@ -2800,7 +2800,7 @@
       "assets": [],
       "issuer": "/Users/nicolaselleri/Repos/fenix-ui-catalog/node_modules/handlebars/dist/cjs/handlebars/decorators.js",
       "profile": {
-        "factory": 10,
+        "factory": 6,
         "building": 12,
         "dependencies": 1
       },
@@ -2837,8 +2837,8 @@
       "assets": [],
       "issuer": "/Users/nicolaselleri/Repos/fenix-ui-catalog/node_modules/handlebars/dist/cjs/handlebars/base.js",
       "profile": {
-        "factory": 27,
-        "building": 7,
+        "factory": 26,
+        "building": 6,
         "dependencies": 0
       },
       "failed": false,
@@ -2911,7 +2911,7 @@
       "issuer": "/Users/nicolaselleri/Repos/fenix-ui-catalog/node_modules/handlebars/dist/cjs/handlebars.runtime.js",
       "profile": {
         "factory": 7,
-        "building": 24,
+        "building": 23,
         "dependencies": 4
       },
       "failed": false,
@@ -2948,7 +2948,7 @@
       "issuer": "/Users/nicolaselleri/Repos/fenix-ui-catalog/node_modules/handlebars/dist/cjs/handlebars.runtime.js",
       "profile": {
         "factory": 7,
-        "building": 29
+        "building": 27
       },
       "failed": false,
       "errors": 0,
@@ -2983,9 +2983,9 @@
       "assets": [],
       "issuer": "/Users/nicolaselleri/Repos/fenix-ui-catalog/src/js/index.js",
       "profile": {
-        "factory": 86,
-        "building": 3327,
-        "dependencies": 20
+        "factory": 70,
+        "building": 3149,
+        "dependencies": 24
       },
       "failed": false,
       "errors": 0,
@@ -2998,7 +2998,7 @@
           "moduleName": "./src/js/index.js",
           "type": "amd require",
           "userRequest": "../html/actions.hbs",
-          "loc": "1:0-844:2"
+          "loc": "1:0-845:2"
         }
       ],
       "source": "var Handlebars = require(\"/Users/nicolaselleri/Repos/fenix-ui-catalog/node_modules/handlebars/runtime.js\");\nfunction __default(obj) { return obj && (obj.__esModule ? obj[\"default\"] : obj); }\nmodule.exports = (Handlebars[\"default\"] || Handlebars).template({\"1\":function(container,depth0,helpers,partials,data,blockParams,depths) {\n    var helper, alias1=depth0 != null ? depth0 : {}, alias2=helpers.helperMissing, alias3=\"function\", alias4=container.escapeExpression;\n\n  return \"            <div class=\\\"btn-group\\\" role=\\\"group\\\">\\n                <button class=\\\"btn btn-default fx-button-primary-color\\\" data-action=\\\"\"\n    + alias4(((helper = (helper = helpers.action || (depth0 != null ? depth0.action : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{\"name\":\"action\",\"hash\":{},\"data\":data}) : helper)))\n    + \"\\\" data-rid=\\\"\"\n    + alias4(container.lambda((depths[1] != null ? depths[1].rid : depths[1]), depth0))\n    + \"\\\"> \"\n    + alias4(((helper = (helper = helpers.label || (depth0 != null ? depth0.label : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{\"name\":\"label\",\"hash\":{},\"data\":data}) : helper)))\n    + \" </button>\\n            </div>\\n\";\n},\"compiler\":[7,\">= 4.0.0\"],\"main\":function(container,depth0,helpers,partials,data,blockParams,depths) {\n    var stack1;\n\n  return \"<div data-role=\\\"actions\\\">\\n\\n    <div class=\\\"btn-group btn-group-justified\\\" role=\\\"group\\\">\\n\"\n    + ((stack1 = helpers.each.call(depth0 != null ? depth0 : {},(depth0 != null ? depth0.actions : depth0),{\"name\":\"each\",\"hash\":{},\"fn\":container.program(1, data, 0, blockParams, depths),\"inverse\":container.noop,\"data\":data})) != null ? stack1 : \"\")\n    + \"\\n    </div>\\n</div>\";\n},\"useData\":true,\"useDepths\":true});"
@@ -3020,7 +3020,7 @@
       "assets": [],
       "issuer": "/Users/nicolaselleri/Repos/fenix-ui-catalog/src/js/index.js",
       "profile": {
-        "factory": 3,
+        "factory": 4,
         "building": 0
       },
       "failed": false,
@@ -3034,7 +3034,7 @@
           "moduleName": "./src/js/index.js",
           "type": "amd require",
           "userRequest": "underscore",
-          "loc": "1:0-844:2"
+          "loc": "1:0-845:2"
         }
       ]
     },
@@ -3069,7 +3069,7 @@
           "moduleName": "./src/js/index.js",
           "type": "amd require",
           "userRequest": "fenix-ui-filter",
-          "loc": "1:0-844:2"
+          "loc": "1:0-845:2"
         }
       ]
     },
@@ -3104,7 +3104,7 @@
           "moduleName": "./src/js/index.js",
           "type": "amd require",
           "userRequest": "fenix-ui-dropdown",
-          "loc": "1:0-844:2"
+          "loc": "1:0-845:2"
         }
       ]
     },
@@ -3139,7 +3139,7 @@
           "moduleName": "./src/js/index.js",
           "type": "amd require",
           "userRequest": "fenix-ui-bridge",
-          "loc": "1:0-844:2"
+          "loc": "1:0-845:2"
         }
       ]
     },
@@ -3174,7 +3174,7 @@
           "moduleName": "./src/js/index.js",
           "type": "amd require",
           "userRequest": "moment",
-          "loc": "1:0-844:2"
+          "loc": "1:0-845:2"
         }
       ]
     },
@@ -3209,7 +3209,7 @@
           "moduleName": "./src/js/index.js",
           "type": "amd require",
           "userRequest": "amplify-pubsub",
-          "loc": "1:0-844:2"
+          "loc": "1:0-845:2"
         }
       ]
     },
@@ -3244,7 +3244,7 @@
           "moduleName": "./src/js/index.js",
           "type": "amd require",
           "userRequest": "bootstrap-table",
-          "loc": "1:0-844:2"
+          "loc": "1:0-845:2"
         }
       ]
     },
@@ -3265,8 +3265,8 @@
       "assets": [],
       "issuer": "/Users/nicolaselleri/Repos/fenix-ui-catalog/src/js/index.js",
       "profile": {
-        "factory": 86,
-        "building": 6
+        "factory": 70,
+        "building": 7
       },
       "failed": false,
       "errors": 0,
@@ -3279,7 +3279,7 @@
           "moduleName": "./src/js/index.js",
           "type": "cjs require",
           "userRequest": "../css/fenix-ui-catalog.css",
-          "loc": "44:8-46"
+          "loc": "45:8-46"
         }
       ],
       "source": "// removed by extract-text-webpack-plugin"
@@ -3300,7 +3300,7 @@
       "issuer": "/Users/nicolaselleri/Repos/fenix-ui-catalog/node_modules/extract-text-webpack-plugin/loader.js?{\"omit\":1,\"extract\":true,\"remove\":true}!/Users/nicolaselleri/Repos/fenix-ui-catalog/node_modules/style-loader/index.js!/Users/nicolaselleri/Repos/fenix-ui-catalog/node_modules/css-loader/index.js!/Users/nicolaselleri/Repos/fenix-ui-catalog/src/css/fenix-ui-catalog.css",
       "profile": {
         "factory": 1,
-        "building": 3275
+        "building": 3121
       },
       "failed": false,
       "errors": 0,
@@ -3323,8 +3323,8 @@
       "assets": [],
       "issuer": "/Users/nicolaselleri/Repos/fenix-ui-catalog/node_modules/css-loader/index.js!/Users/nicolaselleri/Repos/fenix-ui-catalog/src/css/fenix-ui-catalog.css",
       "profile": {
-        "factory": 29,
-        "building": 36
+        "factory": 21,
+        "building": 22
       },
       "failed": false,
       "errors": 0,
@@ -3359,8 +3359,8 @@
       ],
       "issuer": "/Users/nicolaselleri/Repos/fenix-ui-catalog/node_modules/css-loader/index.js!/Users/nicolaselleri/Repos/fenix-ui-catalog/src/css/fenix-ui-catalog.css",
       "profile": {
-        "factory": 66,
-        "building": 4
+        "factory": 44,
+        "building": 3
       },
       "failed": false,
       "errors": 0,
@@ -3393,8 +3393,8 @@
       "assets": [],
       "issuer": "/Users/nicolaselleri/Repos/fenix-ui-catalog/node_modules/extract-text-webpack-plugin/loader.js?{\"omit\":1,\"extract\":true,\"remove\":true}!/Users/nicolaselleri/Repos/fenix-ui-catalog/node_modules/style-loader/index.js!/Users/nicolaselleri/Repos/fenix-ui-catalog/node_modules/css-loader/index.js!/Users/nicolaselleri/Repos/fenix-ui-catalog/src/css/fenix-ui-catalog.css",
       "profile": {
-        "factory": 482,
-        "building": 2854
+        "factory": 319,
+        "building": 2842
       },
       "failed": false,
       "errors": 0,
@@ -3451,7 +3451,7 @@
               "issuer": null,
               "profile": {
                 "factory": 1,
-                "building": 2511
+                "building": 2429
               },
               "failed": false,
               "errors": 0,
@@ -3476,7 +3476,7 @@
               "assets": [],
               "issuer": "/Users/nicolaselleri/Repos/fenix-ui-catalog/node_modules/css-loader/index.js!/Users/nicolaselleri/Repos/fenix-ui-catalog/src/css/fenix-ui-catalog.css",
               "profile": {
-                "factory": 1,
+                "factory": 0,
                 "building": 1
               },
               "failed": false,
@@ -3515,7 +3515,7 @@
               "issuer": "/Users/nicolaselleri/Repos/fenix-ui-catalog/node_modules/css-loader/index.js!/Users/nicolaselleri/Repos/fenix-ui-catalog/src/css/fenix-ui-catalog.css",
               "profile": {
                 "factory": 2,
-                "building": 1
+                "building": 0
               },
               "failed": false,
               "errors": 0,
@@ -3566,7 +3566,7 @@
           "issuer": null,
           "profile": {
             "factory": 1,
-            "building": 2511
+            "building": 2429
           },
           "failed": false,
           "errors": 0,
@@ -3591,7 +3591,7 @@
           "assets": [],
           "issuer": "/Users/nicolaselleri/Repos/fenix-ui-catalog/node_modules/css-loader/index.js!/Users/nicolaselleri/Repos/fenix-ui-catalog/src/css/fenix-ui-catalog.css",
           "profile": {
-            "factory": 1,
+            "factory": 0,
             "building": 1
           },
           "failed": false,
@@ -3630,7 +3630,7 @@
           "issuer": "/Users/nicolaselleri/Repos/fenix-ui-catalog/node_modules/css-loader/index.js!/Users/nicolaselleri/Repos/fenix-ui-catalog/src/css/fenix-ui-catalog.css",
           "profile": {
             "factory": 2,
-            "building": 1
+            "building": 0
           },
           "failed": false,
           "errors": 0,
