@@ -7,10 +7,12 @@
 @import 'themes/fx-material-theme-light';
 @import 'themes/fx-variables';
 
+
 @import 'base/fx-bootstrap-table';
 @import 'base/fx-buttons';
 @import 'base/fx-fonts-import';
 @import 'base/fx-icons';
+@import 'base/fx-preload';
 @import 'base/fx-radio-checkbox';
 @import 'base/fx-typography';
 @import 'base/fx-fixed-height';
@@ -340,7 +342,11 @@ $cat-cmd-right-width: 50px;
 
 
 [data-role="actions"]{
-  max-width: 200px;
+
+    [data-action]{
+      width: 200px;
+    }
+
 }
 
 // This is the standard primary btn of Bootstrap, the one below is the customized one

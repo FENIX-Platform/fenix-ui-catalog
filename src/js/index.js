@@ -447,7 +447,7 @@ define([
             this._disableMenuItem(selector);
         }, this));
 
-        console.log(bootstrapTable);
+        console.log(this._createTableColumnsConfiguration());
         this.$el.find(s.RESULTS).bootstrapTable({
             pagination: true,
             pageSize: this.current.perPage,
@@ -472,14 +472,16 @@ define([
     Catalog.prototype._createTableColumnsConfiguration = function () {
 
         var columns = [],
-            self = this;
+            self = this,
+            columnsIds = Object.keys(this.columns);
 
-        _.each(Object.keys(this.columns), function (c) {
+        _.each(columnsIds, function (c) {
 
             columns.push({
                 field: c,
                 title:  i18nLabels[self.lang][c] || "Missing label [" + c + "]",
-                sortable: true
+                sortable: true,
+                //width : 100 / columnsIds.length
             });
 
         });

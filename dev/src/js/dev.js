@@ -43,35 +43,31 @@ define([
         var catalog = this.createCatalog({
             el: s.STANDARD,
             lang : lang,
-            defaultSelectors: ['resourceType', 'contextSystem'],
-            environment: environment,
-            hideCloseButton : true,
-            pluginRegistry : {
-                contextSystem : {
-                    selector : {
-                        id : "dropdown",
-                        source : [
-                            {value : "cstat_afg", label : "CountrySTAT Afghanistan"},
-                            {value : "uneca", label : "UNECA"}
-                        ],
-                        default : ["cstat_afg"],
-                        hideSummary : true,
-                        config : {
-                            plugins: ['remove_button'],
-                            mode: 'multi'
+            cache: false,
+            environment: "production",
+                pluginRegistry: {
+                    contextSystem: {
+                        selector: {
+                            source: [
+                                {value: "cstat_cog", label: "CountrySTAT Congo"}
+                            ],
+                            default: ["cstat_cog"]
                         }
                     },
-
-                    template : {
-                        hideRemoveButton : false
-                    },
-
-                    format : {
-                        output : "enumeration",
-                        metadataAttribute: "dsd.contextSystem"
+                    dataDomain: {
+                        cl: {
+                            uid: "CountrySTAT_Indicators",
+                            level: 1,
+                            levels: 1
+                        }
                     }
-                }
-            }
+                },
+                baseFilter: {
+                    "dsd.contextSystem": {"enumeration": ["cstat_cog"]},
+                    "meContent.resourceRepresentationType": {"enumeration": ["dataset"]}
+                },
+                defaultSelectors: ["referenceArea", "dataDomain"],
+                menuExcludedItems: ["accessibility"]
             //actions: ["download", 'view'],
             //baseFilter : { test : "test"}
         });
