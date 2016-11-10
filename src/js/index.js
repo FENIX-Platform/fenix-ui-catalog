@@ -307,6 +307,10 @@ define([
             self.onFilterChangeEvent();
         });
 
+        this.filter.on('click', function () {
+            self.onFilterChangeEvent();
+        });
+
         amplify.subscribe(this._getEventName("select"), this, this._onSelectResult);
         amplify.subscribe(this._getEventName("download"), this, this._onDownloadResult);
         amplify.subscribe(this._getEventName("view"), this, this._onViewResult);
