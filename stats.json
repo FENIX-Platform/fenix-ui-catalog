@@ -2,8 +2,8 @@
   "errors": [],
   "warnings": [],
   "version": "1.13.3",
-  "hash": "78e1e79afc627d5dd0dc",
-  "time": 6484,
+  "hash": "e6f380896e870b60d393",
+  "time": 6315,
   "publicPath": "",
   "assetsByChunkName": {
     "app": [
@@ -23,7 +23,7 @@
     },
     {
       "name": "fenix-ui-catalog.min.js",
-      "size": 37545,
+      "size": 37568,
       "chunks": [
         0
       ],
@@ -45,7 +45,7 @@
     },
     {
       "name": "fenix-ui-catalog.min.js.map",
-      "size": 344960,
+      "size": 345045,
       "chunks": [
         0
       ],
@@ -73,7 +73,7 @@
       "initial": true,
       "entry": true,
       "extraAsync": false,
-      "size": 138936,
+      "size": 138969,
       "names": [
         "app"
       ],
@@ -83,7 +83,7 @@
         "fenix-ui-catalog.min.js.map",
         "fenix-ui-catalog.min.css.map"
       ],
-      "hash": "05d666e8a4e716e8fb4e",
+      "hash": "96c463b2480a422a31cb",
       "parents": [],
       "modules": [
         {
@@ -129,7 +129,7 @@
           "issuer": "multi app",
           "profile": {
             "factory": 12,
-            "building": 66
+            "building": 65
           },
           "failed": false,
           "errors": 0,
@@ -163,7 +163,7 @@
           "assets": [],
           "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/src/js/index.js",
           "profile": {
-            "factory": 16,
+            "factory": 15,
             "building": 18
           },
           "failed": false,
@@ -200,7 +200,7 @@
           "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/src/nls/labels.js",
           "profile": {
             "factory": 13,
-            "building": 327
+            "building": 310
           },
           "failed": false,
           "errors": 0,
@@ -224,7 +224,7 @@
           "name": "./src/nls/fr/labels.js",
           "index": 4,
           "index2": 1,
-          "size": 1282,
+          "size": 1315,
           "cacheable": true,
           "built": true,
           "optional": false,
@@ -235,8 +235,8 @@
           "assets": [],
           "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/src/nls/labels.js",
           "profile": {
-            "factory": 14,
-            "building": 348
+            "factory": 13,
+            "building": 330
           },
           "failed": false,
           "errors": 0,
@@ -252,7 +252,7 @@
               "loc": "1:0-15:6"
             }
           ],
-          "source": "if (typeof define !== 'function') {\n    var define = require('amdefine')(module);\n}\n\ndefine(function () {\n\n    'use strict';\n\n    return {\n        submit_button: \"Envoyer\",\n        reset_button: \"Réinitialiser\",\n        //menu and selector titles\n        resourceType: \" Type de Ressource \",\n        referencePeriod: \"Période de Référence \",\n        referenceArea: \"Zone de Référence \",\n        dataDomain: \"Domaine des Données\",\n        statusOfConfidentiality: \"Statut Confidentiel\",\n        uid: \"Uid\",\n        title : \"Titre\",\n        region : \"Région\",\n        source : \"Source\",\n        last_update : \"Dernière mise à jour\",\n        periodicity : \"Périodicité\",\n        contextSystem : \"Source de Données\",\n        content : \"Contenu\",\n        search_by_id : \"Rechercher par ID\",\n        accessibility : \"Accessibilité\",\n        action_select : \"Sélectionner\",\n        action_download : \"Télécharger\",\n        action_view : \"Visualiser\",\n        action_metadata : \"Métadonnées\",\n        //Errors\n        request : \"Erreur de demande\",\n        empty_values : \"Sélection vide\",\n        header_title : \"Ouvrir une ressource\",\n        tooltip_btn_close_catalog : \"Fermer le catalogue\",\n        tooltip_btn_add_selector : \"Ajouter métadonnées dans le champ de recherche \"\n    }\n});"
+          "source": "if (typeof define !== 'function') {\n    var define = require('amdefine')(module);\n}\n\ndefine(function () {\n\n    'use strict';\n\n    return {\n        submit_button: \"Envoyer\",\n        reset_button: \"Réinitialiser\",\n        //menu and selector titles\n        freeText: \"Texte libre\",\n        resourceType: \" Type de Ressource \",\n        referencePeriod: \"Période de Référence \",\n        referenceArea: \"Zone de Référence \",\n        dataDomain: \"Domaine des Données\",\n        statusOfConfidentiality: \"Statut Confidentiel\",\n        uid: \"Uid\",\n        title : \"Titre\",\n        region : \"Région\",\n        source : \"Source\",\n        last_update : \"Dernière mise à jour\",\n        periodicity : \"Périodicité\",\n        contextSystem : \"Source de Données\",\n        content : \"Contenu\",\n        search_by_id : \"Rechercher par ID\",\n        accessibility : \"Accessibilité\",\n        action_select : \"Sélectionner\",\n        action_download : \"Télécharger\",\n        action_view : \"Visualiser\",\n        action_metadata : \"Métadonnées\",\n        //Errors\n        request : \"Erreur de demande\",\n        empty_values : \"Sélection vide\",\n        header_title : \"Ouvrir une ressource\",\n        tooltip_btn_close_catalog : \"Fermer le catalogue\",\n        tooltip_btn_add_selector : \"Ajouter métadonnées dans le champ de recherche \"\n    }\n});"
         },
         {
           "id": 5,
@@ -341,7 +341,7 @@
           "assets": [],
           "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/src/js/index.js",
           "profile": {
-            "factory": 17,
+            "factory": 16,
             "building": 18
           },
           "failed": false,
@@ -378,7 +378,7 @@
           "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/src/js/index.js",
           "profile": {
             "factory": 17,
-            "building": 19
+            "building": 18
           },
           "failed": false,
           "errors": 0,
@@ -414,7 +414,7 @@
           "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/src/js/index.js",
           "profile": {
             "factory": 17,
-            "building": 22
+            "building": 21
           },
           "failed": false,
           "errors": 0,
@@ -449,7 +449,7 @@
           "assets": [],
           "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/src/js/index.js",
           "profile": {
-            "factory": 18,
+            "factory": 17,
             "building": 23
           },
           "failed": false,
@@ -485,7 +485,7 @@
           "assets": [],
           "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/src/js/index.js",
           "profile": {
-            "factory": 18,
+            "factory": 17,
             "building": 27
           },
           "failed": false,
@@ -521,8 +521,8 @@
           "assets": [],
           "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/src/js/index.js",
           "profile": {
-            "factory": 48,
-            "building": 3028
+            "factory": 47,
+            "building": 2919
           },
           "failed": false,
           "errors": 0,
@@ -557,7 +557,7 @@
           "assets": [],
           "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/node_modules/handlebars-loader/index.js!/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/src/html/catalog.hbs",
           "profile": {
-            "factory": 22,
+            "factory": 21,
             "building": 2
           },
           "failed": false,
@@ -685,7 +685,7 @@
           "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/node_modules/handlebars/dist/cjs/handlebars.runtime.js",
           "profile": {
             "factory": 6,
-            "building": 11
+            "building": 10
           },
           "failed": false,
           "errors": 0,
@@ -864,8 +864,8 @@
           "assets": [],
           "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/node_modules/handlebars/dist/cjs/handlebars/base.js",
           "profile": {
-            "factory": 21,
-            "building": 3
+            "factory": 20,
+            "building": 2
           },
           "failed": false,
           "errors": 0,
@@ -901,7 +901,7 @@
           "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/node_modules/handlebars/dist/cjs/handlebars/helpers.js",
           "profile": {
             "factory": 7,
-            "building": 3,
+            "building": 2,
             "dependencies": 1
           },
           "failed": false,
@@ -938,8 +938,8 @@
           "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/node_modules/handlebars/dist/cjs/handlebars/helpers.js",
           "profile": {
             "factory": 7,
-            "building": 12,
-            "dependencies": 0
+            "building": 9,
+            "dependencies": 1
           },
           "failed": false,
           "errors": 0,
@@ -975,8 +975,8 @@
           "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/node_modules/handlebars/dist/cjs/handlebars/helpers.js",
           "profile": {
             "factory": 7,
-            "building": 7,
-            "dependencies": 1
+            "building": 12,
+            "dependencies": 0
           },
           "failed": false,
           "errors": 0,
@@ -1012,8 +1012,8 @@
           "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/node_modules/handlebars/dist/cjs/handlebars/helpers.js",
           "profile": {
             "factory": 7,
-            "building": 13,
-            "dependencies": 0
+            "building": 10,
+            "dependencies": 1
           },
           "failed": false,
           "errors": 0,
@@ -1049,7 +1049,7 @@
           "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/node_modules/handlebars/dist/cjs/handlebars/helpers.js",
           "profile": {
             "factory": 7,
-            "building": 14
+            "building": 11
           },
           "failed": false,
           "errors": 0,
@@ -1084,8 +1084,8 @@
           "assets": [],
           "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/node_modules/handlebars/dist/cjs/handlebars/helpers.js",
           "profile": {
-            "factory": 8,
-            "building": 13
+            "factory": 7,
+            "building": 12
           },
           "failed": false,
           "errors": 0,
@@ -1121,7 +1121,7 @@
           "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/node_modules/handlebars/dist/cjs/handlebars/helpers.js",
           "profile": {
             "factory": 8,
-            "building": 14,
+            "building": 12,
             "dependencies": 0
           },
           "failed": false,
@@ -1157,8 +1157,8 @@
           "assets": [],
           "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/node_modules/handlebars/dist/cjs/handlebars/base.js",
           "profile": {
-            "factory": 21,
-            "building": 2
+            "factory": 20,
+            "building": 4
           },
           "failed": false,
           "errors": 0,
@@ -1193,8 +1193,8 @@
           "assets": [],
           "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/node_modules/handlebars/dist/cjs/handlebars/decorators.js",
           "profile": {
-            "factory": 7,
-            "building": 6,
+            "factory": 6,
+            "building": 13,
             "dependencies": 0
           },
           "failed": false,
@@ -1230,8 +1230,8 @@
           "assets": [],
           "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/node_modules/handlebars/dist/cjs/handlebars/base.js",
           "profile": {
-            "factory": 22,
-            "building": 8,
+            "factory": 21,
+            "building": 5,
             "dependencies": 0
           },
           "failed": false,
@@ -1267,8 +1267,8 @@
           "assets": [],
           "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/node_modules/handlebars/dist/cjs/handlebars.runtime.js",
           "profile": {
-            "factory": 6,
-            "building": 6
+            "factory": 5,
+            "building": 7
           },
           "failed": false,
           "errors": 0,
@@ -1304,8 +1304,8 @@
           "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/node_modules/handlebars/dist/cjs/handlebars.runtime.js",
           "profile": {
             "factory": 6,
-            "building": 23,
-            "dependencies": 0
+            "building": 21,
+            "dependencies": 1
           },
           "failed": false,
           "errors": 0,
@@ -1341,7 +1341,7 @@
           "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/node_modules/handlebars/dist/cjs/handlebars.runtime.js",
           "profile": {
             "factory": 6,
-            "building": 12
+            "building": 22
           },
           "failed": false,
           "errors": 0,
@@ -1377,8 +1377,8 @@
           "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/src/js/index.js",
           "profile": {
             "factory": 75,
-            "building": 3004,
-            "dependencies": 20
+            "building": 2895,
+            "dependencies": 18
           },
           "failed": false,
           "errors": 0,
@@ -1413,7 +1413,7 @@
           "assets": [],
           "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/src/js/index.js",
           "profile": {
-            "factory": 4,
+            "factory": 3,
             "building": 0
           },
           "failed": false,
@@ -1658,7 +1658,7 @@
           "assets": [],
           "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/src/js/index.js",
           "profile": {
-            "factory": 76,
+            "factory": 75,
             "building": 5
           },
           "failed": false,
@@ -1736,7 +1736,7 @@
       "issuer": "multi app",
       "profile": {
         "factory": 12,
-        "building": 66
+        "building": 65
       },
       "failed": false,
       "errors": 0,
@@ -1770,7 +1770,7 @@
       "assets": [],
       "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/src/js/index.js",
       "profile": {
-        "factory": 16,
+        "factory": 15,
         "building": 18
       },
       "failed": false,
@@ -1807,7 +1807,7 @@
       "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/src/nls/labels.js",
       "profile": {
         "factory": 13,
-        "building": 327
+        "building": 310
       },
       "failed": false,
       "errors": 0,
@@ -1831,7 +1831,7 @@
       "name": "./src/nls/fr/labels.js",
       "index": 4,
       "index2": 1,
-      "size": 1282,
+      "size": 1315,
       "cacheable": true,
       "built": true,
       "optional": false,
@@ -1842,8 +1842,8 @@
       "assets": [],
       "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/src/nls/labels.js",
       "profile": {
-        "factory": 14,
-        "building": 348
+        "factory": 13,
+        "building": 330
       },
       "failed": false,
       "errors": 0,
@@ -1859,7 +1859,7 @@
           "loc": "1:0-15:6"
         }
       ],
-      "source": "if (typeof define !== 'function') {\n    var define = require('amdefine')(module);\n}\n\ndefine(function () {\n\n    'use strict';\n\n    return {\n        submit_button: \"Envoyer\",\n        reset_button: \"Réinitialiser\",\n        //menu and selector titles\n        resourceType: \" Type de Ressource \",\n        referencePeriod: \"Période de Référence \",\n        referenceArea: \"Zone de Référence \",\n        dataDomain: \"Domaine des Données\",\n        statusOfConfidentiality: \"Statut Confidentiel\",\n        uid: \"Uid\",\n        title : \"Titre\",\n        region : \"Région\",\n        source : \"Source\",\n        last_update : \"Dernière mise à jour\",\n        periodicity : \"Périodicité\",\n        contextSystem : \"Source de Données\",\n        content : \"Contenu\",\n        search_by_id : \"Rechercher par ID\",\n        accessibility : \"Accessibilité\",\n        action_select : \"Sélectionner\",\n        action_download : \"Télécharger\",\n        action_view : \"Visualiser\",\n        action_metadata : \"Métadonnées\",\n        //Errors\n        request : \"Erreur de demande\",\n        empty_values : \"Sélection vide\",\n        header_title : \"Ouvrir une ressource\",\n        tooltip_btn_close_catalog : \"Fermer le catalogue\",\n        tooltip_btn_add_selector : \"Ajouter métadonnées dans le champ de recherche \"\n    }\n});"
+      "source": "if (typeof define !== 'function') {\n    var define = require('amdefine')(module);\n}\n\ndefine(function () {\n\n    'use strict';\n\n    return {\n        submit_button: \"Envoyer\",\n        reset_button: \"Réinitialiser\",\n        //menu and selector titles\n        freeText: \"Texte libre\",\n        resourceType: \" Type de Ressource \",\n        referencePeriod: \"Période de Référence \",\n        referenceArea: \"Zone de Référence \",\n        dataDomain: \"Domaine des Données\",\n        statusOfConfidentiality: \"Statut Confidentiel\",\n        uid: \"Uid\",\n        title : \"Titre\",\n        region : \"Région\",\n        source : \"Source\",\n        last_update : \"Dernière mise à jour\",\n        periodicity : \"Périodicité\",\n        contextSystem : \"Source de Données\",\n        content : \"Contenu\",\n        search_by_id : \"Rechercher par ID\",\n        accessibility : \"Accessibilité\",\n        action_select : \"Sélectionner\",\n        action_download : \"Télécharger\",\n        action_view : \"Visualiser\",\n        action_metadata : \"Métadonnées\",\n        //Errors\n        request : \"Erreur de demande\",\n        empty_values : \"Sélection vide\",\n        header_title : \"Ouvrir une ressource\",\n        tooltip_btn_close_catalog : \"Fermer le catalogue\",\n        tooltip_btn_add_selector : \"Ajouter métadonnées dans le champ de recherche \"\n    }\n});"
     },
     {
       "id": 5,
@@ -1948,7 +1948,7 @@
       "assets": [],
       "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/src/js/index.js",
       "profile": {
-        "factory": 17,
+        "factory": 16,
         "building": 18
       },
       "failed": false,
@@ -1985,7 +1985,7 @@
       "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/src/js/index.js",
       "profile": {
         "factory": 17,
-        "building": 19
+        "building": 18
       },
       "failed": false,
       "errors": 0,
@@ -2021,7 +2021,7 @@
       "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/src/js/index.js",
       "profile": {
         "factory": 17,
-        "building": 22
+        "building": 21
       },
       "failed": false,
       "errors": 0,
@@ -2056,7 +2056,7 @@
       "assets": [],
       "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/src/js/index.js",
       "profile": {
-        "factory": 18,
+        "factory": 17,
         "building": 23
       },
       "failed": false,
@@ -2092,7 +2092,7 @@
       "assets": [],
       "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/src/js/index.js",
       "profile": {
-        "factory": 18,
+        "factory": 17,
         "building": 27
       },
       "failed": false,
@@ -2128,8 +2128,8 @@
       "assets": [],
       "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/src/js/index.js",
       "profile": {
-        "factory": 48,
-        "building": 3028
+        "factory": 47,
+        "building": 2919
       },
       "failed": false,
       "errors": 0,
@@ -2164,7 +2164,7 @@
       "assets": [],
       "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/node_modules/handlebars-loader/index.js!/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/src/html/catalog.hbs",
       "profile": {
-        "factory": 22,
+        "factory": 21,
         "building": 2
       },
       "failed": false,
@@ -2292,7 +2292,7 @@
       "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/node_modules/handlebars/dist/cjs/handlebars.runtime.js",
       "profile": {
         "factory": 6,
-        "building": 11
+        "building": 10
       },
       "failed": false,
       "errors": 0,
@@ -2471,8 +2471,8 @@
       "assets": [],
       "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/node_modules/handlebars/dist/cjs/handlebars/base.js",
       "profile": {
-        "factory": 21,
-        "building": 3
+        "factory": 20,
+        "building": 2
       },
       "failed": false,
       "errors": 0,
@@ -2508,7 +2508,7 @@
       "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/node_modules/handlebars/dist/cjs/handlebars/helpers.js",
       "profile": {
         "factory": 7,
-        "building": 3,
+        "building": 2,
         "dependencies": 1
       },
       "failed": false,
@@ -2545,8 +2545,8 @@
       "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/node_modules/handlebars/dist/cjs/handlebars/helpers.js",
       "profile": {
         "factory": 7,
-        "building": 12,
-        "dependencies": 0
+        "building": 9,
+        "dependencies": 1
       },
       "failed": false,
       "errors": 0,
@@ -2582,8 +2582,8 @@
       "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/node_modules/handlebars/dist/cjs/handlebars/helpers.js",
       "profile": {
         "factory": 7,
-        "building": 7,
-        "dependencies": 1
+        "building": 12,
+        "dependencies": 0
       },
       "failed": false,
       "errors": 0,
@@ -2619,8 +2619,8 @@
       "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/node_modules/handlebars/dist/cjs/handlebars/helpers.js",
       "profile": {
         "factory": 7,
-        "building": 13,
-        "dependencies": 0
+        "building": 10,
+        "dependencies": 1
       },
       "failed": false,
       "errors": 0,
@@ -2656,7 +2656,7 @@
       "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/node_modules/handlebars/dist/cjs/handlebars/helpers.js",
       "profile": {
         "factory": 7,
-        "building": 14
+        "building": 11
       },
       "failed": false,
       "errors": 0,
@@ -2691,8 +2691,8 @@
       "assets": [],
       "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/node_modules/handlebars/dist/cjs/handlebars/helpers.js",
       "profile": {
-        "factory": 8,
-        "building": 13
+        "factory": 7,
+        "building": 12
       },
       "failed": false,
       "errors": 0,
@@ -2728,7 +2728,7 @@
       "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/node_modules/handlebars/dist/cjs/handlebars/helpers.js",
       "profile": {
         "factory": 8,
-        "building": 14,
+        "building": 12,
         "dependencies": 0
       },
       "failed": false,
@@ -2764,8 +2764,8 @@
       "assets": [],
       "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/node_modules/handlebars/dist/cjs/handlebars/base.js",
       "profile": {
-        "factory": 21,
-        "building": 2
+        "factory": 20,
+        "building": 4
       },
       "failed": false,
       "errors": 0,
@@ -2800,8 +2800,8 @@
       "assets": [],
       "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/node_modules/handlebars/dist/cjs/handlebars/decorators.js",
       "profile": {
-        "factory": 7,
-        "building": 6,
+        "factory": 6,
+        "building": 13,
         "dependencies": 0
       },
       "failed": false,
@@ -2837,8 +2837,8 @@
       "assets": [],
       "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/node_modules/handlebars/dist/cjs/handlebars/base.js",
       "profile": {
-        "factory": 22,
-        "building": 8,
+        "factory": 21,
+        "building": 5,
         "dependencies": 0
       },
       "failed": false,
@@ -2874,8 +2874,8 @@
       "assets": [],
       "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/node_modules/handlebars/dist/cjs/handlebars.runtime.js",
       "profile": {
-        "factory": 6,
-        "building": 6
+        "factory": 5,
+        "building": 7
       },
       "failed": false,
       "errors": 0,
@@ -2911,8 +2911,8 @@
       "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/node_modules/handlebars/dist/cjs/handlebars.runtime.js",
       "profile": {
         "factory": 6,
-        "building": 23,
-        "dependencies": 0
+        "building": 21,
+        "dependencies": 1
       },
       "failed": false,
       "errors": 0,
@@ -2948,7 +2948,7 @@
       "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/node_modules/handlebars/dist/cjs/handlebars.runtime.js",
       "profile": {
         "factory": 6,
-        "building": 12
+        "building": 22
       },
       "failed": false,
       "errors": 0,
@@ -2984,8 +2984,8 @@
       "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/src/js/index.js",
       "profile": {
         "factory": 75,
-        "building": 3004,
-        "dependencies": 20
+        "building": 2895,
+        "dependencies": 18
       },
       "failed": false,
       "errors": 0,
@@ -3020,7 +3020,7 @@
       "assets": [],
       "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/src/js/index.js",
       "profile": {
-        "factory": 4,
+        "factory": 3,
         "building": 0
       },
       "failed": false,
@@ -3265,7 +3265,7 @@
       "assets": [],
       "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/src/js/index.js",
       "profile": {
-        "factory": 76,
+        "factory": 75,
         "building": 5
       },
       "failed": false,
@@ -3300,7 +3300,7 @@
       "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/node_modules/extract-text-webpack-plugin/loader.js?{\"omit\":1,\"extract\":true,\"remove\":true}!/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/node_modules/style-loader/index.js!/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/node_modules/css-loader/index.js!/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/src/css/fenix-ui-catalog.css",
       "profile": {
         "factory": 0,
-        "building": 2983
+        "building": 2876
       },
       "failed": false,
       "errors": 0,
@@ -3323,8 +3323,8 @@
       "assets": [],
       "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/node_modules/css-loader/index.js!/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/src/css/fenix-ui-catalog.css",
       "profile": {
-        "factory": 16,
-        "building": 18
+        "factory": 15,
+        "building": 16
       },
       "failed": false,
       "errors": 0,
@@ -3359,7 +3359,7 @@
       ],
       "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/node_modules/css-loader/index.js!/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/src/css/fenix-ui-catalog.css",
       "profile": {
-        "factory": 35,
+        "factory": 32,
         "building": 3
       },
       "failed": false,
@@ -3393,8 +3393,8 @@
       "assets": [],
       "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/node_modules/extract-text-webpack-plugin/loader.js?{\"omit\":1,\"extract\":true,\"remove\":true}!/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/node_modules/style-loader/index.js!/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/node_modules/css-loader/index.js!/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/src/css/fenix-ui-catalog.css",
       "profile": {
-        "factory": 290,
-        "building": 2721
+        "factory": 273,
+        "building": 2630
       },
       "failed": false,
       "errors": 0,
@@ -3451,7 +3451,7 @@
               "issuer": null,
               "profile": {
                 "factory": 1,
-                "building": 2533
+                "building": 2454
               },
               "failed": false,
               "errors": 0,
@@ -3566,7 +3566,7 @@
           "issuer": null,
           "profile": {
             "factory": 1,
-            "building": 2533
+            "building": 2454
           },
           "failed": false,
           "errors": 0,

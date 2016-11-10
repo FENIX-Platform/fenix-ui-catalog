@@ -10,6 +10,7 @@ define(function () {
         submit_button: "Envoyer",
         reset_button: "Réinitialiser",
         //menu and selector titles
+        freeText: "Texte libre",
         resourceType: " Type de Ressource ",
         referencePeriod: "Période de Référence ",
         referenceArea: "Zone de Référence ",
