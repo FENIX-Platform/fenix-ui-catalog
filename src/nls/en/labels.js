@@ -11,6 +11,7 @@ define(function () {
         reset_button: "Reset",
 
         //menu and selector titles
+        freeText: "Free text",
         resourceType: "Resource Type",
         referencePeriod: "Reference Period",
         referenceArea: "Reference Area",

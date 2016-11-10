@@ -2,8 +2,8 @@
   "errors": [],
   "warnings": [],
   "version": "1.13.3",
-  "hash": "702cfb5cf4526581fc12",
-  "time": 6329,
+  "hash": "78e1e79afc627d5dd0dc",
+  "time": 6484,
   "publicPath": "",
   "assetsByChunkName": {
     "app": [
@@ -23,7 +23,7 @@
     },
     {
       "name": "fenix-ui-catalog.min.js",
-      "size": 37277,
+      "size": 37545,
       "chunks": [
         0
       ],
@@ -45,7 +45,7 @@
     },
     {
       "name": "fenix-ui-catalog.min.js.map",
-      "size": 343407,
+      "size": 344960,
       "chunks": [
         0
       ],
@@ -73,7 +73,7 @@
       "initial": true,
       "entry": true,
       "extraAsync": false,
-      "size": 138328,
+      "size": 138936,
       "names": [
         "app"
       ],
@@ -83,7 +83,7 @@
         "fenix-ui-catalog.min.js.map",
         "fenix-ui-catalog.min.css.map"
       ],
-      "hash": "67d40f70337f40d6aa36",
+      "hash": "05d666e8a4e716e8fb4e",
       "parents": [],
       "modules": [
         {
@@ -103,7 +103,7 @@
           "assets": [],
           "issuer": null,
           "profile": {
-            "factory": 1,
+            "factory": 0,
             "building": 1
           },
           "failed": false,
@@ -129,7 +129,7 @@
           "issuer": "multi app",
           "profile": {
             "factory": 12,
-            "building": 65
+            "building": 66
           },
           "failed": false,
           "errors": 0,
@@ -188,7 +188,7 @@
           "name": "./src/nls/en/labels.js",
           "index": 3,
           "index2": 0,
-          "size": 1190,
+          "size": 1221,
           "cacheable": true,
           "built": true,
           "optional": false,
@@ -199,8 +199,8 @@
           "assets": [],
           "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/src/nls/labels.js",
           "profile": {
-            "factory": 12,
-            "building": 310
+            "factory": 13,
+            "building": 327
           },
           "failed": false,
           "errors": 0,
@@ -216,7 +216,7 @@
               "loc": "1:0-15:6"
             }
           ],
-          "source": "if (typeof define !== 'function') {\n    var define = require('amdefine')(module);\n}\n\ndefine(function () {\n\n    'use strict';\n\n    return {\n        submit_button: \"Submit\",\n        reset_button: \"Reset\",\n\n        //menu and selector titles\n        resourceType: \"Resource Type\",\n        referencePeriod: \"Reference Period\",\n        referenceArea: \"Reference Area\",\n        dataDomain: \"Data Domain\",\n        statusOfConfidentiality: \"Status of Confidentiality\",\n        uid: \"Uid\",\n        title : \"Title\",\n        region : \"Region\",\n        source : \"Source\",\n        last_update : \"Last update\",\n        periodicity : \"Periodicity\",\n        contextSystem : \"Data Source\",\n\n        content : \"Content\",\n        search_by_id : \"Search by id\",\n        accessibility : \"Accessibility\",\n\n        action_select : \"Select\",\n        action_download : \"Download\",\n        action_view : \"View\",\n        action_metadata : \"Metadata\",\n\n        //Errors\n        request : \"Request error\",\n        empty_values : \"Empty selection\",\n\n        header_title : \"Open a resource\",\n\n        tooltip_btn_close_catalog : \"Close catalogue\",\n        tooltip_btn_add_selector : \"Add metadata search field\"\n    }\n});"
+          "source": "if (typeof define !== 'function') {\n    var define = require('amdefine')(module);\n}\n\ndefine(function () {\n\n    'use strict';\n\n    return {\n        submit_button: \"Submit\",\n        reset_button: \"Reset\",\n\n        //menu and selector titles\n        freeText: \"Free text\",\n        resourceType: \"Resource Type\",\n        referencePeriod: \"Reference Period\",\n        referenceArea: \"Reference Area\",\n        dataDomain: \"Data Domain\",\n        statusOfConfidentiality: \"Status of Confidentiality\",\n        uid: \"Uid\",\n        title : \"Title\",\n        region : \"Region\",\n        source : \"Source\",\n        last_update : \"Last update\",\n        periodicity : \"Periodicity\",\n        contextSystem : \"Data Source\",\n\n        content : \"Content\",\n        search_by_id : \"Search by id\",\n        accessibility : \"Accessibility\",\n\n        action_select : \"Select\",\n        action_download : \"Download\",\n        action_view : \"View\",\n        action_metadata : \"Metadata\",\n\n        //Errors\n        request : \"Request error\",\n        empty_values : \"Empty selection\",\n\n        header_title : \"Open a resource\",\n\n        tooltip_btn_close_catalog : \"Close catalogue\",\n        tooltip_btn_add_selector : \"Add metadata search field\"\n    }\n});"
         },
         {
           "id": 4,
@@ -235,8 +235,8 @@
           "assets": [],
           "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/src/nls/labels.js",
           "profile": {
-            "factory": 12,
-            "building": 329
+            "factory": 14,
+            "building": 348
           },
           "failed": false,
           "errors": 0,
@@ -402,43 +402,7 @@
           "name": "./src/config/config.js",
           "index": 9,
           "index2": 7,
-          "size": 1425,
-          "cacheable": true,
-          "built": true,
-          "optional": false,
-          "prefetched": false,
-          "chunks": [
-            0
-          ],
-          "assets": [],
-          "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/src/js/index.js",
-          "profile": {
-            "factory": 17,
-            "building": 20
-          },
-          "failed": false,
-          "errors": 0,
-          "warnings": 0,
-          "reasons": [
-            {
-              "moduleId": 1,
-              "moduleIdentifier": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/src/js/index.js",
-              "module": "./src/js/index.js",
-              "moduleName": "./src/js/index.js",
-              "type": "amd require",
-              "userRequest": "../config/config",
-              "loc": "1:0-850:2"
-            }
-          ],
-          "source": "define(function () {\n\n    'use strict';\n\n    return {\n\n        lang : \"EN\",\n\n        langFallbackOrder : [\"EN\", \"FR\", \"ES\", \"AR\", \"PR\"],\n        \n        perPage : 10,\n\n        actions : ['select'], //'metadata', 'view', 'download'\n\n        excludedAction : {\n            dataset : [],\n            geographic : ['download']\n        },\n\n        menuExcludedItems: [],\n\n        defaultSelectors : ['resourceType', 'contextSystem'],\n\n        environment : \"develop\",\n\n        columns : {\n            title: {\n                path : \"title\",\n                type: \"i18n\"\n            },\n            source : {\n                path : \"contacts\",\n                type : \"source\"\n            },\n            last_update : {\n                path : \"meMaintenance.seUpdate.updateDate\",\n                type : \"epoch\"\n            },\n            region : {\n                path: \"meContent.seCoverage.coverageGeographic\",\n                type: \"code\"\n            },\n            resourceType : {\n                path: \"meContent.resourceRepresentationType\"\n            }\n        },\n\n        searchTimeoutInterval : 1000,\n\n        dateFormat: 'YYYY MMM DD',\n\n        findServiceParams : {\n            full: true,\n            order : \"meMaintenance.seUpdate.updateDate:desc\" //order by last update\n        },\n\n        cache : false,\n\n        httpStatusMaxSizeError : 416,\n\n        hideCloseButton : false,\n\n        baseFilter : {}\n    }\n\n});"
-        },
-        {
-          "id": 10,
-          "identifier": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/src/config/menuConfig.js",
-          "name": "./src/config/menuConfig.js",
-          "index": 10,
-          "index2": 8,
-          "size": 2271,
+          "size": 1437,
           "cacheable": true,
           "built": true,
           "optional": false,
@@ -462,19 +426,19 @@
               "module": "./src/js/index.js",
               "moduleName": "./src/js/index.js",
               "type": "amd require",
-              "userRequest": "../config/menuConfig",
+              "userRequest": "../config/config",
               "loc": "1:0-850:2"
             }
           ],
-          "source": "define(function () {\n\n    'use strict';\n\n    return [\n        {\n            url: \"\",\n            parent_id: \"root\",\n            id: \"content\"\n        },\n        {\n            url: \"\",\n            parent_id: \"content\",\n            id: \"resourceType\",\n            a_attrs: {\n                \"data-action\": \"selector\",\n                \"data-selector\": \"resourceType\"\n            }\n        },\n        {\n            url: \"\",\n            parent_id: \"content\",\n            id: \"contextSystem\",\n            a_attrs: {\n                \"data-action\": \"selector\",\n                \"data-selector\": \"contextSystem\"\n            }\n        },\n        {\n            url: \"\",\n            parent_id: \"content\",\n            id: \"referencePeriod\",\n            a_attrs: {\n                \"data-action\": \"selector\",\n                \"data-selector\": \"referencePeriod\"\n            }\n        },\n        {\n            url: \"\",\n            parent_id: \"content\",\n            id: \"referenceArea\",\n            a_attrs: {\n                \"data-action\": \"selector\",\n                \"data-selector\": \"referenceArea\"\n            }\n        },\n        {\n            url: \"\",\n            parent_id: \"content\",\n            id: \"dataDomain\",\n            a_attrs: {\n                \"data-action\": \"selector\",\n                \"data-selector\": \"dataDomain\"\n            }\n        },\n        {\n            url: \"\",\n            parent_id: \"content\",\n            id: \"region\",\n            a_attrs: {\n                \"data-action\": \"selector\",\n                \"data-selector\": \"region\"\n            }\n        },\n        {\n            url: \"\",\n            parent_id: \"root\",\n            id: \"accessibility\",\n        },\n        {\n            url: \"\",\n            parent_id: \"accessibility\",\n            id: \"statusOfConfidentiality\",\n            a_attrs: {\n                \"data-action\": \"selector\",\n                \"data-selector\": \"statusOfConfidentiality\"\n            }\n        },\n        {\n            url: \"\",\n            parent_id: \"root\",\n            id: \"search_by_id\",\n        },\n        {\n            url: \"\",\n            parent_id: \"search_by_id\",\n            id: \"uid\",\n            a_attrs: {\n                \"data-action\": \"selector\",\n                \"data-selector\": \"uid\"\n            }\n        }\n    ];\n});\n"
+          "source": "define(function () {\n\n    'use strict';\n\n    return {\n\n        lang : \"EN\",\n\n        langFallbackOrder : [\"EN\", \"FR\", \"ES\", \"AR\", \"PR\"],\n        \n        perPage : 10,\n\n        actions : ['select'], //'metadata', 'view', 'download'\n\n        excludedAction : {\n            dataset : [],\n            geographic : ['download']\n        },\n\n        menuExcludedItems: [],\n\n        defaultSelectors : ['freeText', 'resourceType', 'contextSystem'],\n\n        environment : \"develop\",\n\n        columns : {\n            title: {\n                path : \"title\",\n                type: \"i18n\"\n            },\n            source : {\n                path : \"contacts\",\n                type : \"source\"\n            },\n            last_update : {\n                path : \"meMaintenance.seUpdate.updateDate\",\n                type : \"epoch\"\n            },\n            region : {\n                path: \"meContent.seCoverage.coverageGeographic\",\n                type: \"code\"\n            },\n            resourceType : {\n                path: \"meContent.resourceRepresentationType\"\n            }\n        },\n\n        searchTimeoutInterval : 1000,\n\n        dateFormat: 'YYYY MMM DD',\n\n        findServiceParams : {\n            full: true,\n            order : \"meMaintenance.seUpdate.updateDate:desc\" //order by last update\n        },\n\n        cache : false,\n\n        httpStatusMaxSizeError : 416,\n\n        hideCloseButton : false,\n\n        baseFilter : {}\n    }\n\n});"
         },
         {
-          "id": 11,
-          "identifier": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/src/config/pluginRegistry.js",
-          "name": "./src/config/pluginRegistry.js",
-          "index": 11,
-          "index2": 9,
-          "size": 4730,
+          "id": 10,
+          "identifier": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/src/config/menuConfig.js",
+          "name": "./src/config/menuConfig.js",
+          "index": 10,
+          "index2": 8,
+          "size": 2499,
           "cacheable": true,
           "built": true,
           "optional": false,
@@ -486,7 +450,43 @@
           "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/src/js/index.js",
           "profile": {
             "factory": 18,
-            "building": 26
+            "building": 23
+          },
+          "failed": false,
+          "errors": 0,
+          "warnings": 0,
+          "reasons": [
+            {
+              "moduleId": 1,
+              "moduleIdentifier": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/src/js/index.js",
+              "module": "./src/js/index.js",
+              "moduleName": "./src/js/index.js",
+              "type": "amd require",
+              "userRequest": "../config/menuConfig",
+              "loc": "1:0-850:2"
+            }
+          ],
+          "source": "define(function () {\n\n    'use strict';\n\n    return [\n        {\n            url: \"\",\n            parent_id: \"root\",\n            id: \"content\"\n        },\n        {\n            url: \"\",\n            parent_id: \"content\",\n            id: \"freeText\",\n            a_attrs: {\n                \"data-action\": \"selector\",\n                \"data-selector\": \"freeText\"\n            }\n        },\n        {\n            url: \"\",\n            parent_id: \"content\",\n            id: \"resourceType\",\n            a_attrs: {\n                \"data-action\": \"selector\",\n                \"data-selector\": \"resourceType\"\n            }\n        },\n        {\n            url: \"\",\n            parent_id: \"content\",\n            id: \"contextSystem\",\n            a_attrs: {\n                \"data-action\": \"selector\",\n                \"data-selector\": \"contextSystem\"\n            }\n        },\n        {\n            url: \"\",\n            parent_id: \"content\",\n            id: \"referencePeriod\",\n            a_attrs: {\n                \"data-action\": \"selector\",\n                \"data-selector\": \"referencePeriod\"\n            }\n        },\n        {\n            url: \"\",\n            parent_id: \"content\",\n            id: \"referenceArea\",\n            a_attrs: {\n                \"data-action\": \"selector\",\n                \"data-selector\": \"referenceArea\"\n            }\n        },\n        {\n            url: \"\",\n            parent_id: \"content\",\n            id: \"dataDomain\",\n            a_attrs: {\n                \"data-action\": \"selector\",\n                \"data-selector\": \"dataDomain\"\n            }\n        },\n        {\n            url: \"\",\n            parent_id: \"content\",\n            id: \"region\",\n            a_attrs: {\n                \"data-action\": \"selector\",\n                \"data-selector\": \"region\"\n            }\n        },\n        {\n            url: \"\",\n            parent_id: \"root\",\n            id: \"accessibility\",\n        },\n        {\n            url: \"\",\n            parent_id: \"accessibility\",\n            id: \"statusOfConfidentiality\",\n            a_attrs: {\n                \"data-action\": \"selector\",\n                \"data-selector\": \"statusOfConfidentiality\"\n            }\n        },\n        {\n            url: \"\",\n            parent_id: \"root\",\n            id: \"search_by_id\",\n        },\n        {\n            url: \"\",\n            parent_id: \"search_by_id\",\n            id: \"uid\",\n            a_attrs: {\n                \"data-action\": \"selector\",\n                \"data-selector\": \"uid\"\n            }\n        }\n    ];\n});\n"
+        },
+        {
+          "id": 11,
+          "identifier": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/src/config/pluginRegistry.js",
+          "name": "./src/config/pluginRegistry.js",
+          "index": 11,
+          "index2": 9,
+          "size": 5067,
+          "cacheable": true,
+          "built": true,
+          "optional": false,
+          "prefetched": false,
+          "chunks": [
+            0
+          ],
+          "assets": [],
+          "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/src/js/index.js",
+          "profile": {
+            "factory": 18,
+            "building": 27
           },
           "failed": false,
           "errors": 0,
@@ -502,7 +502,7 @@
               "loc": "1:0-850:2"
             }
           ],
-          "source": "define(function () {\n\n    'use strict';\n\n    return {\n\n        resourceType: {\n\n            enumeration : {\n                uid: \"RepresentationType\"\n            },\n\n            selector : {\n                id : \"dropdown\",\n                hideSummary : true,\n                default : ['dataset'],\n                config : {\n                    plugins: ['remove_button'],\n                    mode: 'multi'\n                }\n            },\n\n            template : {\n                hideRemoveButton : false\n            },\n\n            format : {\n                output : \"enumeration\",\n                metadataAttribute: \"meContent.resourceRepresentationType\"\n            }\n\n        },\n\n        referencePeriod: {\n\n            cl : {\n                uid: \"FAO_Period\",\n                version: \"1.0\"\n            },\n\n            selector : {\n                id : \"dropdown\",\n                hideSummary : true,\n                config : {\n                    plugins: ['remove_button'],\n                    mode: 'multi'\n                }\n            },\n\n            template : {\n                hideRemoveButton : false\n            },\n\n            format : {\n                output : \"codes\",\n                metadataAttribute: \"meContent.seReferencePopulation.referencePeriod\"\n            }\n        },\n\n        referenceArea: {\n\n            cl : {\n                uid: \"GAUL_ReferenceArea\",\n                version: \"1.0\"\n            },\n\n            selector : {\n                id : \"dropdown\",\n                hideSummary : true,\n                config : {\n                    plugins: ['remove_button'],\n                    mode: 'multi'\n                }\n            },\n\n            template : {\n                hideRemoveButton : false\n            },\n\n            format : {\n                output : \"codes\",\n                metadataAttribute: \"meContent.seReferencePopulation.referenceArea\"\n            }\n        },\n\n        dataDomain: {\n\n            cl : {\n                uid: \"UNECA_ClassificationOfActivities\",\n                level : 2,\n                levels : 1\n            },\n\n            selector : {\n                id : \"dropdown\",\n                hideSummary : true,\n                config : {\n                    plugins: ['remove_button'],\n                    mode: 'multi'\n                }\n            },\n\n            template : {\n                hideRemoveButton : false\n            },\n\n            format : {\n                output : \"codes\",\n                metadataAttribute: \"meContent.seCoverage.coverageSectors\"\n            }\n\n        },\n\n        region: {\n\n            cl : {\n                uid: \"GAUL0\",\n                version: \"2014\"\n            },\n\n            selector : {\n                id : \"dropdown\",\n                hideSummary : true,\n                config : {\n                    plugins: ['remove_button'],\n                    mode: 'multi'\n                }\n            },\n\n            template : {\n                hideRemoveButton : false\n            },\n\n            format : {\n                output : \"codes\",\n                metadataAttribute: \"meContent.seCoverage.coverageGeographic\"\n            }\n        },\n\n        statusOfConfidentiality: {\n\n            cl : {\n                uid: \"CL_CONF_STATUS\",\n                version: \"1.0\"\n            },\n\n            selector : {\n                id : \"dropdown\",\n                hideSummary : true,\n                config : {\n                    plugins: ['remove_button'],\n                    mode: 'multi'\n                }\n            },\n\n            template : {\n                hideRemoveButton : false\n            },\n\n            format : {\n                output : \"codes\",\n                metadataAttribute: \"meAccessibility.seConfidentiality.confidentialityStatus\"\n            }\n\n        },\n\n        uid: {\n\n            selector : {\n                id : \"input\",\n                type : \"text\"\n            },\n\n            template : {\n                hideRemoveButton : false\n            },\n\n            format : {\n                output : \"enumeration\",\n                metadataAttribute: \"uid\"\n            }\n\n        },\n\n        contextSystem : {\n\n            selector : {\n                id : \"dropdown\",\n                source : [{value : \"uneca\", label : \"UNECA\"}],\n                default : [\"uneca\"],\n                hideSummary : true,\n                config : {\n                    plugins: ['remove_button'],\n                    mode: 'multi'\n                }\n            },\n\n            template : {\n                hideRemoveButton : false\n            },\n\n            format : {\n                output : \"enumeration\",\n                metadataAttribute: \"dsd.contextSystem\"\n            }\n        }\n    }\n\n});"
+          "source": "define(function () {\n\n    'use strict';\n\n    return {\n\n        resourceType: {\n\n            enumeration : {\n                uid: \"RepresentationType\"\n            },\n\n            selector : {\n                id : \"dropdown\",\n                hideSummary : true,\n                default : ['dataset'],\n                config : {\n                    plugins: ['remove_button'],\n                    mode: 'multi'\n                }\n            },\n\n            template : {\n                hideRemoveButton : false\n            },\n\n            format : {\n                output : \"enumeration\",\n                metadataAttribute: \"meContent.resourceRepresentationType\"\n            }\n\n        },\n\n        referencePeriod: {\n\n            cl : {\n                uid: \"FAO_Period\",\n                version: \"1.0\"\n            },\n\n            selector : {\n                id : \"dropdown\",\n                hideSummary : true,\n                config : {\n                    plugins: ['remove_button'],\n                    mode: 'multi'\n                }\n            },\n\n            template : {\n                hideRemoveButton : false\n            },\n\n            format : {\n                output : \"codes\",\n                metadataAttribute: \"meContent.seReferencePopulation.referencePeriod\"\n            }\n        },\n\n        referenceArea: {\n\n            cl : {\n                uid: \"GAUL_ReferenceArea\",\n                version: \"1.0\"\n            },\n\n            selector : {\n                id : \"dropdown\",\n                hideSummary : true,\n                config : {\n                    plugins: ['remove_button'],\n                    mode: 'multi'\n                }\n            },\n\n            template : {\n                hideRemoveButton : false\n            },\n\n            format : {\n                output : \"codes\",\n                metadataAttribute: \"meContent.seReferencePopulation.referenceArea\"\n            }\n        },\n\n        dataDomain: {\n\n            cl : {\n                uid: \"UNECA_ClassificationOfActivities\",\n                level : 2,\n                levels : 1\n            },\n\n            selector : {\n                id : \"dropdown\",\n                hideSummary : true,\n                config : {\n                    plugins: ['remove_button'],\n                    mode: 'multi'\n                }\n            },\n\n            template : {\n                hideRemoveButton : false\n            },\n\n            format : {\n                output : \"codes\",\n                metadataAttribute: \"meContent.seCoverage.coverageSectors\"\n            }\n\n        },\n\n        region: {\n\n            cl : {\n                uid: \"GAUL0\",\n                version: \"2014\"\n            },\n\n            selector : {\n                id : \"dropdown\",\n                hideSummary : true,\n                config : {\n                    plugins: ['remove_button'],\n                    mode: 'multi'\n                }\n            },\n\n            template : {\n                hideRemoveButton : false\n            },\n\n            format : {\n                output : \"codes\",\n                metadataAttribute: \"meContent.seCoverage.coverageGeographic\"\n            }\n        },\n\n        statusOfConfidentiality: {\n\n            cl : {\n                uid: \"CL_CONF_STATUS\",\n                version: \"1.0\"\n            },\n\n            selector : {\n                id : \"dropdown\",\n                hideSummary : true,\n                config : {\n                    plugins: ['remove_button'],\n                    mode: 'multi'\n                }\n            },\n\n            template : {\n                hideRemoveButton : false\n            },\n\n            format : {\n                output : \"codes\",\n                metadataAttribute: \"meAccessibility.seConfidentiality.confidentialityStatus\"\n            }\n\n        },\n\n        uid: {\n\n            selector : {\n                id : \"input\",\n                type : \"text\"\n            },\n\n            template : {\n                hideRemoveButton : false\n            },\n\n            format : {\n                output : \"enumeration\",\n                metadataAttribute: \"uid\"\n            }\n\n        },\n\n        freeText: {\n\n            selector : {\n                id : \"input\",\n                type : \"text\"\n            },\n\n            template : {\n                hideRemoveButton : false\n            },\n\n            format : {\n                output : \"freeText\",\n                metadataAttribute: \"freetext\"\n            }\n\n        },\n\n        contextSystem : {\n\n            selector : {\n                id : \"dropdown\",\n                source : [{value : \"uneca\", label : \"UNECA\"}],\n                default : [\"uneca\"],\n                hideSummary : true,\n                config : {\n                    plugins: ['remove_button'],\n                    mode: 'multi'\n                }\n            },\n\n            template : {\n                hideRemoveButton : false\n            },\n\n            format : {\n                output : \"enumeration\",\n                metadataAttribute: \"dsd.contextSystem\"\n            }\n        }\n    }\n\n});"
         },
         {
           "id": 12,
@@ -521,9 +521,8 @@
           "assets": [],
           "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/src/js/index.js",
           "profile": {
-            "factory": 47,
-            "building": 3002,
-            "dependencies": 16
+            "factory": 48,
+            "building": 3028
           },
           "failed": false,
           "errors": 0,
@@ -556,9 +555,9 @@
             0
           ],
           "assets": [],
-          "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/node_modules/handlebars-loader/index.js!/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/src/html/actions.hbs",
+          "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/node_modules/handlebars-loader/index.js!/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/src/html/catalog.hbs",
           "profile": {
-            "factory": 18,
+            "factory": 22,
             "building": 2
           },
           "failed": false,
@@ -603,7 +602,7 @@
           "assets": [],
           "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/node_modules/handlebars/runtime.js",
           "profile": {
-            "factory": 2,
+            "factory": 3,
             "building": 4
           },
           "failed": false,
@@ -639,9 +638,9 @@
           "assets": [],
           "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/node_modules/handlebars/dist/cjs/handlebars.runtime.js",
           "profile": {
-            "factory": 4,
-            "building": 7,
-            "dependencies": 0
+            "factory": 5,
+            "building": 5,
+            "dependencies": 1
           },
           "failed": false,
           "errors": 0,
@@ -685,7 +684,7 @@
           "assets": [],
           "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/node_modules/handlebars/dist/cjs/handlebars.runtime.js",
           "profile": {
-            "factory": 5,
+            "factory": 6,
             "building": 11
           },
           "failed": false,
@@ -793,8 +792,8 @@
           "assets": [],
           "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/node_modules/handlebars/dist/cjs/handlebars.runtime.js",
           "profile": {
-            "factory": 5,
-            "building": 8
+            "factory": 6,
+            "building": 7
           },
           "failed": false,
           "errors": 0,
@@ -865,7 +864,7 @@
           "assets": [],
           "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/node_modules/handlebars/dist/cjs/handlebars/base.js",
           "profile": {
-            "factory": 18,
+            "factory": 21,
             "building": 3
           },
           "failed": false,
@@ -901,7 +900,7 @@
           "assets": [],
           "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/node_modules/handlebars/dist/cjs/handlebars/helpers.js",
           "profile": {
-            "factory": 6,
+            "factory": 7,
             "building": 3,
             "dependencies": 1
           },
@@ -939,8 +938,8 @@
           "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/node_modules/handlebars/dist/cjs/handlebars/helpers.js",
           "profile": {
             "factory": 7,
-            "building": 8,
-            "dependencies": 1
+            "building": 12,
+            "dependencies": 0
           },
           "failed": false,
           "errors": 0,
@@ -976,8 +975,8 @@
           "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/node_modules/handlebars/dist/cjs/handlebars/helpers.js",
           "profile": {
             "factory": 7,
-            "building": 10,
-            "dependencies": 0
+            "building": 7,
+            "dependencies": 1
           },
           "failed": false,
           "errors": 0,
@@ -1013,7 +1012,7 @@
           "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/node_modules/handlebars/dist/cjs/handlebars/helpers.js",
           "profile": {
             "factory": 7,
-            "building": 11,
+            "building": 13,
             "dependencies": 0
           },
           "failed": false,
@@ -1050,7 +1049,7 @@
           "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/node_modules/handlebars/dist/cjs/handlebars/helpers.js",
           "profile": {
             "factory": 7,
-            "building": 11
+            "building": 14
           },
           "failed": false,
           "errors": 0,
@@ -1085,8 +1084,8 @@
           "assets": [],
           "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/node_modules/handlebars/dist/cjs/handlebars/helpers.js",
           "profile": {
-            "factory": 7,
-            "building": 11
+            "factory": 8,
+            "building": 13
           },
           "failed": false,
           "errors": 0,
@@ -1122,7 +1121,7 @@
           "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/node_modules/handlebars/dist/cjs/handlebars/helpers.js",
           "profile": {
             "factory": 8,
-            "building": 11,
+            "building": 14,
             "dependencies": 0
           },
           "failed": false,
@@ -1158,8 +1157,8 @@
           "assets": [],
           "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/node_modules/handlebars/dist/cjs/handlebars/base.js",
           "profile": {
-            "factory": 19,
-            "building": 5
+            "factory": 21,
+            "building": 2
           },
           "failed": false,
           "errors": 0,
@@ -1194,8 +1193,8 @@
           "assets": [],
           "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/node_modules/handlebars/dist/cjs/handlebars/decorators.js",
           "profile": {
-            "factory": 5,
-            "building": 12,
+            "factory": 7,
+            "building": 6,
             "dependencies": 0
           },
           "failed": false,
@@ -1231,8 +1230,8 @@
           "assets": [],
           "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/node_modules/handlebars/dist/cjs/handlebars/base.js",
           "profile": {
-            "factory": 19,
-            "building": 5,
+            "factory": 22,
+            "building": 8,
             "dependencies": 0
           },
           "failed": false,
@@ -1268,8 +1267,8 @@
           "assets": [],
           "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/node_modules/handlebars/dist/cjs/handlebars.runtime.js",
           "profile": {
-            "factory": 5,
-            "building": 1
+            "factory": 6,
+            "building": 6
           },
           "failed": false,
           "errors": 0,
@@ -1304,9 +1303,9 @@
           "assets": [],
           "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/node_modules/handlebars/dist/cjs/handlebars.runtime.js",
           "profile": {
-            "factory": 5,
-            "building": 21,
-            "dependencies": 1
+            "factory": 6,
+            "building": 23,
+            "dependencies": 0
           },
           "failed": false,
           "errors": 0,
@@ -1341,8 +1340,8 @@
           "assets": [],
           "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/node_modules/handlebars/dist/cjs/handlebars.runtime.js",
           "profile": {
-            "factory": 5,
-            "building": 23
+            "factory": 6,
+            "building": 12
           },
           "failed": false,
           "errors": 0,
@@ -1377,8 +1376,9 @@
           "assets": [],
           "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/src/js/index.js",
           "profile": {
-            "factory": 74,
-            "building": 2972
+            "factory": 75,
+            "building": 3004,
+            "dependencies": 20
           },
           "failed": false,
           "errors": 0,
@@ -1658,7 +1658,7 @@
           "assets": [],
           "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/src/js/index.js",
           "profile": {
-            "factory": 74,
+            "factory": 76,
             "building": 5
           },
           "failed": false,
@@ -1710,7 +1710,7 @@
       "assets": [],
       "issuer": null,
       "profile": {
-        "factory": 1,
+        "factory": 0,
         "building": 1
       },
       "failed": false,
@@ -1736,7 +1736,7 @@
       "issuer": "multi app",
       "profile": {
         "factory": 12,
-        "building": 65
+        "building": 66
       },
       "failed": false,
       "errors": 0,
@@ -1795,7 +1795,7 @@
       "name": "./src/nls/en/labels.js",
       "index": 3,
       "index2": 0,
-      "size": 1190,
+      "size": 1221,
       "cacheable": true,
       "built": true,
       "optional": false,
@@ -1806,8 +1806,8 @@
       "assets": [],
       "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/src/nls/labels.js",
       "profile": {
-        "factory": 12,
-        "building": 310
+        "factory": 13,
+        "building": 327
       },
       "failed": false,
       "errors": 0,
@@ -1823,7 +1823,7 @@
           "loc": "1:0-15:6"
         }
       ],
-      "source": "if (typeof define !== 'function') {\n    var define = require('amdefine')(module);\n}\n\ndefine(function () {\n\n    'use strict';\n\n    return {\n        submit_button: \"Submit\",\n        reset_button: \"Reset\",\n\n        //menu and selector titles\n        resourceType: \"Resource Type\",\n        referencePeriod: \"Reference Period\",\n        referenceArea: \"Reference Area\",\n        dataDomain: \"Data Domain\",\n        statusOfConfidentiality: \"Status of Confidentiality\",\n        uid: \"Uid\",\n        title : \"Title\",\n        region : \"Region\",\n        source : \"Source\",\n        last_update : \"Last update\",\n        periodicity : \"Periodicity\",\n        contextSystem : \"Data Source\",\n\n        content : \"Content\",\n        search_by_id : \"Search by id\",\n        accessibility : \"Accessibility\",\n\n        action_select : \"Select\",\n        action_download : \"Download\",\n        action_view : \"View\",\n        action_metadata : \"Metadata\",\n\n        //Errors\n        request : \"Request error\",\n        empty_values : \"Empty selection\",\n\n        header_title : \"Open a resource\",\n\n        tooltip_btn_close_catalog : \"Close catalogue\",\n        tooltip_btn_add_selector : \"Add metadata search field\"\n    }\n});"
+      "source": "if (typeof define !== 'function') {\n    var define = require('amdefine')(module);\n}\n\ndefine(function () {\n\n    'use strict';\n\n    return {\n        submit_button: \"Submit\",\n        reset_button: \"Reset\",\n\n        //menu and selector titles\n        freeText: \"Free text\",\n        resourceType: \"Resource Type\",\n        referencePeriod: \"Reference Period\",\n        referenceArea: \"Reference Area\",\n        dataDomain: \"Data Domain\",\n        statusOfConfidentiality: \"Status of Confidentiality\",\n        uid: \"Uid\",\n        title : \"Title\",\n        region : \"Region\",\n        source : \"Source\",\n        last_update : \"Last update\",\n        periodicity : \"Periodicity\",\n        contextSystem : \"Data Source\",\n\n        content : \"Content\",\n        search_by_id : \"Search by id\",\n        accessibility : \"Accessibility\",\n\n        action_select : \"Select\",\n        action_download : \"Download\",\n        action_view : \"View\",\n        action_metadata : \"Metadata\",\n\n        //Errors\n        request : \"Request error\",\n        empty_values : \"Empty selection\",\n\n        header_title : \"Open a resource\",\n\n        tooltip_btn_close_catalog : \"Close catalogue\",\n        tooltip_btn_add_selector : \"Add metadata search field\"\n    }\n});"
     },
     {
       "id": 4,
@@ -1842,8 +1842,8 @@
       "assets": [],
       "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/src/nls/labels.js",
       "profile": {
-        "factory": 12,
-        "building": 329
+        "factory": 14,
+        "building": 348
       },
       "failed": false,
       "errors": 0,
@@ -2009,43 +2009,7 @@
       "name": "./src/config/config.js",
       "index": 9,
       "index2": 7,
-      "size": 1425,
-      "cacheable": true,
-      "built": true,
-      "optional": false,
-      "prefetched": false,
-      "chunks": [
-        0
-      ],
-      "assets": [],
-      "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/src/js/index.js",
-      "profile": {
-        "factory": 17,
-        "building": 20
-      },
-      "failed": false,
-      "errors": 0,
-      "warnings": 0,
-      "reasons": [
-        {
-          "moduleId": 1,
-          "moduleIdentifier": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/src/js/index.js",
-          "module": "./src/js/index.js",
-          "moduleName": "./src/js/index.js",
-          "type": "amd require",
-          "userRequest": "../config/config",
-          "loc": "1:0-850:2"
-        }
-      ],
-      "source": "define(function () {\n\n    'use strict';\n\n    return {\n\n        lang : \"EN\",\n\n        langFallbackOrder : [\"EN\", \"FR\", \"ES\", \"AR\", \"PR\"],\n        \n        perPage : 10,\n\n        actions : ['select'], //'metadata', 'view', 'download'\n\n        excludedAction : {\n            dataset : [],\n            geographic : ['download']\n        },\n\n        menuExcludedItems: [],\n\n        defaultSelectors : ['resourceType', 'contextSystem'],\n\n        environment : \"develop\",\n\n        columns : {\n            title: {\n                path : \"title\",\n                type: \"i18n\"\n            },\n            source : {\n                path : \"contacts\",\n                type : \"source\"\n            },\n            last_update : {\n                path : \"meMaintenance.seUpdate.updateDate\",\n                type : \"epoch\"\n            },\n            region : {\n                path: \"meContent.seCoverage.coverageGeographic\",\n                type: \"code\"\n            },\n            resourceType : {\n                path: \"meContent.resourceRepresentationType\"\n            }\n        },\n\n        searchTimeoutInterval : 1000,\n\n        dateFormat: 'YYYY MMM DD',\n\n        findServiceParams : {\n            full: true,\n            order : \"meMaintenance.seUpdate.updateDate:desc\" //order by last update\n        },\n\n        cache : false,\n\n        httpStatusMaxSizeError : 416,\n\n        hideCloseButton : false,\n\n        baseFilter : {}\n    }\n\n});"
-    },
-    {
-      "id": 10,
-      "identifier": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/src/config/menuConfig.js",
-      "name": "./src/config/menuConfig.js",
-      "index": 10,
-      "index2": 8,
-      "size": 2271,
+      "size": 1437,
       "cacheable": true,
       "built": true,
       "optional": false,
@@ -2069,19 +2033,19 @@
           "module": "./src/js/index.js",
           "moduleName": "./src/js/index.js",
           "type": "amd require",
-          "userRequest": "../config/menuConfig",
+          "userRequest": "../config/config",
           "loc": "1:0-850:2"
         }
       ],
-      "source": "define(function () {\n\n    'use strict';\n\n    return [\n        {\n            url: \"\",\n            parent_id: \"root\",\n            id: \"content\"\n        },\n        {\n            url: \"\",\n            parent_id: \"content\",\n            id: \"resourceType\",\n            a_attrs: {\n                \"data-action\": \"selector\",\n                \"data-selector\": \"resourceType\"\n            }\n        },\n        {\n            url: \"\",\n            parent_id: \"content\",\n            id: \"contextSystem\",\n            a_attrs: {\n                \"data-action\": \"selector\",\n                \"data-selector\": \"contextSystem\"\n            }\n        },\n        {\n            url: \"\",\n            parent_id: \"content\",\n            id: \"referencePeriod\",\n            a_attrs: {\n                \"data-action\": \"selector\",\n                \"data-selector\": \"referencePeriod\"\n            }\n        },\n        {\n            url: \"\",\n            parent_id: \"content\",\n            id: \"referenceArea\",\n            a_attrs: {\n                \"data-action\": \"selector\",\n                \"data-selector\": \"referenceArea\"\n            }\n        },\n        {\n            url: \"\",\n            parent_id: \"content\",\n            id: \"dataDomain\",\n            a_attrs: {\n                \"data-action\": \"selector\",\n                \"data-selector\": \"dataDomain\"\n            }\n        },\n        {\n            url: \"\",\n            parent_id: \"content\",\n            id: \"region\",\n            a_attrs: {\n                \"data-action\": \"selector\",\n                \"data-selector\": \"region\"\n            }\n        },\n        {\n            url: \"\",\n            parent_id: \"root\",\n            id: \"accessibility\",\n        },\n        {\n            url: \"\",\n            parent_id: \"accessibility\",\n            id: \"statusOfConfidentiality\",\n            a_attrs: {\n                \"data-action\": \"selector\",\n                \"data-selector\": \"statusOfConfidentiality\"\n            }\n        },\n        {\n            url: \"\",\n            parent_id: \"root\",\n            id: \"search_by_id\",\n        },\n        {\n            url: \"\",\n            parent_id: \"search_by_id\",\n            id: \"uid\",\n            a_attrs: {\n                \"data-action\": \"selector\",\n                \"data-selector\": \"uid\"\n            }\n        }\n    ];\n});\n"
+      "source": "define(function () {\n\n    'use strict';\n\n    return {\n\n        lang : \"EN\",\n\n        langFallbackOrder : [\"EN\", \"FR\", \"ES\", \"AR\", \"PR\"],\n        \n        perPage : 10,\n\n        actions : ['select'], //'metadata', 'view', 'download'\n\n        excludedAction : {\n            dataset : [],\n            geographic : ['download']\n        },\n\n        menuExcludedItems: [],\n\n        defaultSelectors : ['freeText', 'resourceType', 'contextSystem'],\n\n        environment : \"develop\",\n\n        columns : {\n            title: {\n                path : \"title\",\n                type: \"i18n\"\n            },\n            source : {\n                path : \"contacts\",\n                type : \"source\"\n            },\n            last_update : {\n                path : \"meMaintenance.seUpdate.updateDate\",\n                type : \"epoch\"\n            },\n            region : {\n                path: \"meContent.seCoverage.coverageGeographic\",\n                type: \"code\"\n            },\n            resourceType : {\n                path: \"meContent.resourceRepresentationType\"\n            }\n        },\n\n        searchTimeoutInterval : 1000,\n\n        dateFormat: 'YYYY MMM DD',\n\n        findServiceParams : {\n            full: true,\n            order : \"meMaintenance.seUpdate.updateDate:desc\" //order by last update\n        },\n\n        cache : false,\n\n        httpStatusMaxSizeError : 416,\n\n        hideCloseButton : false,\n\n        baseFilter : {}\n    }\n\n});"
     },
     {
-      "id": 11,
-      "identifier": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/src/config/pluginRegistry.js",
-      "name": "./src/config/pluginRegistry.js",
-      "index": 11,
-      "index2": 9,
-      "size": 4730,
+      "id": 10,
+      "identifier": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/src/config/menuConfig.js",
+      "name": "./src/config/menuConfig.js",
+      "index": 10,
+      "index2": 8,
+      "size": 2499,
       "cacheable": true,
       "built": true,
       "optional": false,
@@ -2093,7 +2057,43 @@
       "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/src/js/index.js",
       "profile": {
         "factory": 18,
-        "building": 26
+        "building": 23
+      },
+      "failed": false,
+      "errors": 0,
+      "warnings": 0,
+      "reasons": [
+        {
+          "moduleId": 1,
+          "moduleIdentifier": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/src/js/index.js",
+          "module": "./src/js/index.js",
+          "moduleName": "./src/js/index.js",
+          "type": "amd require",
+          "userRequest": "../config/menuConfig",
+          "loc": "1:0-850:2"
+        }
+      ],
+      "source": "define(function () {\n\n    'use strict';\n\n    return [\n        {\n            url: \"\",\n            parent_id: \"root\",\n            id: \"content\"\n        },\n        {\n            url: \"\",\n            parent_id: \"content\",\n            id: \"freeText\",\n            a_attrs: {\n                \"data-action\": \"selector\",\n                \"data-selector\": \"freeText\"\n            }\n        },\n        {\n            url: \"\",\n            parent_id: \"content\",\n            id: \"resourceType\",\n            a_attrs: {\n                \"data-action\": \"selector\",\n                \"data-selector\": \"resourceType\"\n            }\n        },\n        {\n            url: \"\",\n            parent_id: \"content\",\n            id: \"contextSystem\",\n            a_attrs: {\n                \"data-action\": \"selector\",\n                \"data-selector\": \"contextSystem\"\n            }\n        },\n        {\n            url: \"\",\n            parent_id: \"content\",\n            id: \"referencePeriod\",\n            a_attrs: {\n                \"data-action\": \"selector\",\n                \"data-selector\": \"referencePeriod\"\n            }\n        },\n        {\n            url: \"\",\n            parent_id: \"content\",\n            id: \"referenceArea\",\n            a_attrs: {\n                \"data-action\": \"selector\",\n                \"data-selector\": \"referenceArea\"\n            }\n        },\n        {\n            url: \"\",\n            parent_id: \"content\",\n            id: \"dataDomain\",\n            a_attrs: {\n                \"data-action\": \"selector\",\n                \"data-selector\": \"dataDomain\"\n            }\n        },\n        {\n            url: \"\",\n            parent_id: \"content\",\n            id: \"region\",\n            a_attrs: {\n                \"data-action\": \"selector\",\n                \"data-selector\": \"region\"\n            }\n        },\n        {\n            url: \"\",\n            parent_id: \"root\",\n            id: \"accessibility\",\n        },\n        {\n            url: \"\",\n            parent_id: \"accessibility\",\n            id: \"statusOfConfidentiality\",\n            a_attrs: {\n                \"data-action\": \"selector\",\n                \"data-selector\": \"statusOfConfidentiality\"\n            }\n        },\n        {\n            url: \"\",\n            parent_id: \"root\",\n            id: \"search_by_id\",\n        },\n        {\n            url: \"\",\n            parent_id: \"search_by_id\",\n            id: \"uid\",\n            a_attrs: {\n                \"data-action\": \"selector\",\n                \"data-selector\": \"uid\"\n            }\n        }\n    ];\n});\n"
+    },
+    {
+      "id": 11,
+      "identifier": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/src/config/pluginRegistry.js",
+      "name": "./src/config/pluginRegistry.js",
+      "index": 11,
+      "index2": 9,
+      "size": 5067,
+      "cacheable": true,
+      "built": true,
+      "optional": false,
+      "prefetched": false,
+      "chunks": [
+        0
+      ],
+      "assets": [],
+      "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/src/js/index.js",
+      "profile": {
+        "factory": 18,
+        "building": 27
       },
       "failed": false,
       "errors": 0,
@@ -2109,7 +2109,7 @@
           "loc": "1:0-850:2"
         }
       ],
-      "source": "define(function () {\n\n    'use strict';\n\n    return {\n\n        resourceType: {\n\n            enumeration : {\n                uid: \"RepresentationType\"\n            },\n\n            selector : {\n                id : \"dropdown\",\n                hideSummary : true,\n                default : ['dataset'],\n                config : {\n                    plugins: ['remove_button'],\n                    mode: 'multi'\n                }\n            },\n\n            template : {\n                hideRemoveButton : false\n            },\n\n            format : {\n                output : \"enumeration\",\n                metadataAttribute: \"meContent.resourceRepresentationType\"\n            }\n\n        },\n\n        referencePeriod: {\n\n            cl : {\n                uid: \"FAO_Period\",\n                version: \"1.0\"\n            },\n\n            selector : {\n                id : \"dropdown\",\n                hideSummary : true,\n                config : {\n                    plugins: ['remove_button'],\n                    mode: 'multi'\n                }\n            },\n\n            template : {\n                hideRemoveButton : false\n            },\n\n            format : {\n                output : \"codes\",\n                metadataAttribute: \"meContent.seReferencePopulation.referencePeriod\"\n            }\n        },\n\n        referenceArea: {\n\n            cl : {\n                uid: \"GAUL_ReferenceArea\",\n                version: \"1.0\"\n            },\n\n            selector : {\n                id : \"dropdown\",\n                hideSummary : true,\n                config : {\n                    plugins: ['remove_button'],\n                    mode: 'multi'\n                }\n            },\n\n            template : {\n                hideRemoveButton : false\n            },\n\n            format : {\n                output : \"codes\",\n                metadataAttribute: \"meContent.seReferencePopulation.referenceArea\"\n            }\n        },\n\n        dataDomain: {\n\n            cl : {\n                uid: \"UNECA_ClassificationOfActivities\",\n                level : 2,\n                levels : 1\n            },\n\n            selector : {\n                id : \"dropdown\",\n                hideSummary : true,\n                config : {\n                    plugins: ['remove_button'],\n                    mode: 'multi'\n                }\n            },\n\n            template : {\n                hideRemoveButton : false\n            },\n\n            format : {\n                output : \"codes\",\n                metadataAttribute: \"meContent.seCoverage.coverageSectors\"\n            }\n\n        },\n\n        region: {\n\n            cl : {\n                uid: \"GAUL0\",\n                version: \"2014\"\n            },\n\n            selector : {\n                id : \"dropdown\",\n                hideSummary : true,\n                config : {\n                    plugins: ['remove_button'],\n                    mode: 'multi'\n                }\n            },\n\n            template : {\n                hideRemoveButton : false\n            },\n\n            format : {\n                output : \"codes\",\n                metadataAttribute: \"meContent.seCoverage.coverageGeographic\"\n            }\n        },\n\n        statusOfConfidentiality: {\n\n            cl : {\n                uid: \"CL_CONF_STATUS\",\n                version: \"1.0\"\n            },\n\n            selector : {\n                id : \"dropdown\",\n                hideSummary : true,\n                config : {\n                    plugins: ['remove_button'],\n                    mode: 'multi'\n                }\n            },\n\n            template : {\n                hideRemoveButton : false\n            },\n\n            format : {\n                output : \"codes\",\n                metadataAttribute: \"meAccessibility.seConfidentiality.confidentialityStatus\"\n            }\n\n        },\n\n        uid: {\n\n            selector : {\n                id : \"input\",\n                type : \"text\"\n            },\n\n            template : {\n                hideRemoveButton : false\n            },\n\n            format : {\n                output : \"enumeration\",\n                metadataAttribute: \"uid\"\n            }\n\n        },\n\n        contextSystem : {\n\n            selector : {\n                id : \"dropdown\",\n                source : [{value : \"uneca\", label : \"UNECA\"}],\n                default : [\"uneca\"],\n                hideSummary : true,\n                config : {\n                    plugins: ['remove_button'],\n                    mode: 'multi'\n                }\n            },\n\n            template : {\n                hideRemoveButton : false\n            },\n\n            format : {\n                output : \"enumeration\",\n                metadataAttribute: \"dsd.contextSystem\"\n            }\n        }\n    }\n\n});"
+      "source": "define(function () {\n\n    'use strict';\n\n    return {\n\n        resourceType: {\n\n            enumeration : {\n                uid: \"RepresentationType\"\n            },\n\n            selector : {\n                id : \"dropdown\",\n                hideSummary : true,\n                default : ['dataset'],\n                config : {\n                    plugins: ['remove_button'],\n                    mode: 'multi'\n                }\n            },\n\n            template : {\n                hideRemoveButton : false\n            },\n\n            format : {\n                output : \"enumeration\",\n                metadataAttribute: \"meContent.resourceRepresentationType\"\n            }\n\n        },\n\n        referencePeriod: {\n\n            cl : {\n                uid: \"FAO_Period\",\n                version: \"1.0\"\n            },\n\n            selector : {\n                id : \"dropdown\",\n                hideSummary : true,\n                config : {\n                    plugins: ['remove_button'],\n                    mode: 'multi'\n                }\n            },\n\n            template : {\n                hideRemoveButton : false\n            },\n\n            format : {\n                output : \"codes\",\n                metadataAttribute: \"meContent.seReferencePopulation.referencePeriod\"\n            }\n        },\n\n        referenceArea: {\n\n            cl : {\n                uid: \"GAUL_ReferenceArea\",\n                version: \"1.0\"\n            },\n\n            selector : {\n                id : \"dropdown\",\n                hideSummary : true,\n                config : {\n                    plugins: ['remove_button'],\n                    mode: 'multi'\n                }\n            },\n\n            template : {\n                hideRemoveButton : false\n            },\n\n            format : {\n                output : \"codes\",\n                metadataAttribute: \"meContent.seReferencePopulation.referenceArea\"\n            }\n        },\n\n        dataDomain: {\n\n            cl : {\n                uid: \"UNECA_ClassificationOfActivities\",\n                level : 2,\n                levels : 1\n            },\n\n            selector : {\n                id : \"dropdown\",\n                hideSummary : true,\n                config : {\n                    plugins: ['remove_button'],\n                    mode: 'multi'\n                }\n            },\n\n            template : {\n                hideRemoveButton : false\n            },\n\n            format : {\n                output : \"codes\",\n                metadataAttribute: \"meContent.seCoverage.coverageSectors\"\n            }\n\n        },\n\n        region: {\n\n            cl : {\n                uid: \"GAUL0\",\n                version: \"2014\"\n            },\n\n            selector : {\n                id : \"dropdown\",\n                hideSummary : true,\n                config : {\n                    plugins: ['remove_button'],\n                    mode: 'multi'\n                }\n            },\n\n            template : {\n                hideRemoveButton : false\n            },\n\n            format : {\n                output : \"codes\",\n                metadataAttribute: \"meContent.seCoverage.coverageGeographic\"\n            }\n        },\n\n        statusOfConfidentiality: {\n\n            cl : {\n                uid: \"CL_CONF_STATUS\",\n                version: \"1.0\"\n            },\n\n            selector : {\n                id : \"dropdown\",\n                hideSummary : true,\n                config : {\n                    plugins: ['remove_button'],\n                    mode: 'multi'\n                }\n            },\n\n            template : {\n                hideRemoveButton : false\n            },\n\n            format : {\n                output : \"codes\",\n                metadataAttribute: \"meAccessibility.seConfidentiality.confidentialityStatus\"\n            }\n\n        },\n\n        uid: {\n\n            selector : {\n                id : \"input\",\n                type : \"text\"\n            },\n\n            template : {\n                hideRemoveButton : false\n            },\n\n            format : {\n                output : \"enumeration\",\n                metadataAttribute: \"uid\"\n            }\n\n        },\n\n        freeText: {\n\n            selector : {\n                id : \"input\",\n                type : \"text\"\n            },\n\n            template : {\n                hideRemoveButton : false\n            },\n\n            format : {\n                output : \"freeText\",\n                metadataAttribute: \"freetext\"\n            }\n\n        },\n\n        contextSystem : {\n\n            selector : {\n                id : \"dropdown\",\n                source : [{value : \"uneca\", label : \"UNECA\"}],\n                default : [\"uneca\"],\n                hideSummary : true,\n                config : {\n                    plugins: ['remove_button'],\n                    mode: 'multi'\n                }\n            },\n\n            template : {\n                hideRemoveButton : false\n            },\n\n            format : {\n                output : \"enumeration\",\n                metadataAttribute: \"dsd.contextSystem\"\n            }\n        }\n    }\n\n});"
     },
     {
       "id": 12,
@@ -2128,9 +2128,8 @@
       "assets": [],
       "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/src/js/index.js",
       "profile": {
-        "factory": 47,
-        "building": 3002,
-        "dependencies": 16
+        "factory": 48,
+        "building": 3028
       },
       "failed": false,
       "errors": 0,
@@ -2163,9 +2162,9 @@
         0
       ],
       "assets": [],
-      "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/node_modules/handlebars-loader/index.js!/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/src/html/actions.hbs",
+      "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/node_modules/handlebars-loader/index.js!/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/src/html/catalog.hbs",
       "profile": {
-        "factory": 18,
+        "factory": 22,
         "building": 2
       },
       "failed": false,
@@ -2210,7 +2209,7 @@
       "assets": [],
       "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/node_modules/handlebars/runtime.js",
       "profile": {
-        "factory": 2,
+        "factory": 3,
         "building": 4
       },
       "failed": false,
@@ -2246,9 +2245,9 @@
       "assets": [],
       "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/node_modules/handlebars/dist/cjs/handlebars.runtime.js",
       "profile": {
-        "factory": 4,
-        "building": 7,
-        "dependencies": 0
+        "factory": 5,
+        "building": 5,
+        "dependencies": 1
       },
       "failed": false,
       "errors": 0,
@@ -2292,7 +2291,7 @@
       "assets": [],
       "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/node_modules/handlebars/dist/cjs/handlebars.runtime.js",
       "profile": {
-        "factory": 5,
+        "factory": 6,
         "building": 11
       },
       "failed": false,
@@ -2400,8 +2399,8 @@
       "assets": [],
       "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/node_modules/handlebars/dist/cjs/handlebars.runtime.js",
       "profile": {
-        "factory": 5,
-        "building": 8
+        "factory": 6,
+        "building": 7
       },
       "failed": false,
       "errors": 0,
@@ -2472,7 +2471,7 @@
       "assets": [],
       "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/node_modules/handlebars/dist/cjs/handlebars/base.js",
       "profile": {
-        "factory": 18,
+        "factory": 21,
         "building": 3
       },
       "failed": false,
@@ -2508,7 +2507,7 @@
       "assets": [],
       "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/node_modules/handlebars/dist/cjs/handlebars/helpers.js",
       "profile": {
-        "factory": 6,
+        "factory": 7,
         "building": 3,
         "dependencies": 1
       },
@@ -2546,8 +2545,8 @@
       "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/node_modules/handlebars/dist/cjs/handlebars/helpers.js",
       "profile": {
         "factory": 7,
-        "building": 8,
-        "dependencies": 1
+        "building": 12,
+        "dependencies": 0
       },
       "failed": false,
       "errors": 0,
@@ -2583,8 +2582,8 @@
       "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/node_modules/handlebars/dist/cjs/handlebars/helpers.js",
       "profile": {
         "factory": 7,
-        "building": 10,
-        "dependencies": 0
+        "building": 7,
+        "dependencies": 1
       },
       "failed": false,
       "errors": 0,
@@ -2620,7 +2619,7 @@
       "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/node_modules/handlebars/dist/cjs/handlebars/helpers.js",
       "profile": {
         "factory": 7,
-        "building": 11,
+        "building": 13,
         "dependencies": 0
       },
       "failed": false,
@@ -2657,7 +2656,7 @@
       "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/node_modules/handlebars/dist/cjs/handlebars/helpers.js",
       "profile": {
         "factory": 7,
-        "building": 11
+        "building": 14
       },
       "failed": false,
       "errors": 0,
@@ -2692,8 +2691,8 @@
       "assets": [],
       "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/node_modules/handlebars/dist/cjs/handlebars/helpers.js",
       "profile": {
-        "factory": 7,
-        "building": 11
+        "factory": 8,
+        "building": 13
       },
       "failed": false,
       "errors": 0,
@@ -2729,7 +2728,7 @@
       "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/node_modules/handlebars/dist/cjs/handlebars/helpers.js",
       "profile": {
         "factory": 8,
-        "building": 11,
+        "building": 14,
         "dependencies": 0
       },
       "failed": false,
@@ -2765,8 +2764,8 @@
       "assets": [],
       "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/node_modules/handlebars/dist/cjs/handlebars/base.js",
       "profile": {
-        "factory": 19,
-        "building": 5
+        "factory": 21,
+        "building": 2
       },
       "failed": false,
       "errors": 0,
@@ -2801,8 +2800,8 @@
       "assets": [],
       "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/node_modules/handlebars/dist/cjs/handlebars/decorators.js",
       "profile": {
-        "factory": 5,
-        "building": 12,
+        "factory": 7,
+        "building": 6,
         "dependencies": 0
       },
       "failed": false,
@@ -2838,8 +2837,8 @@
       "assets": [],
       "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/node_modules/handlebars/dist/cjs/handlebars/base.js",
       "profile": {
-        "factory": 19,
-        "building": 5,
+        "factory": 22,
+        "building": 8,
         "dependencies": 0
       },
       "failed": false,
@@ -2875,8 +2874,8 @@
       "assets": [],
       "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/node_modules/handlebars/dist/cjs/handlebars.runtime.js",
       "profile": {
-        "factory": 5,
-        "building": 1
+        "factory": 6,
+        "building": 6
       },
       "failed": false,
       "errors": 0,
@@ -2911,9 +2910,9 @@
       "assets": [],
       "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/node_modules/handlebars/dist/cjs/handlebars.runtime.js",
       "profile": {
-        "factory": 5,
-        "building": 21,
-        "dependencies": 1
+        "factory": 6,
+        "building": 23,
+        "dependencies": 0
       },
       "failed": false,
       "errors": 0,
@@ -2948,8 +2947,8 @@
       "assets": [],
       "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/node_modules/handlebars/dist/cjs/handlebars.runtime.js",
       "profile": {
-        "factory": 5,
-        "building": 23
+        "factory": 6,
+        "building": 12
       },
       "failed": false,
       "errors": 0,
@@ -2984,8 +2983,9 @@
       "assets": [],
       "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/src/js/index.js",
       "profile": {
-        "factory": 74,
-        "building": 2972
+        "factory": 75,
+        "building": 3004,
+        "dependencies": 20
       },
       "failed": false,
       "errors": 0,
@@ -3265,7 +3265,7 @@
       "assets": [],
       "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/src/js/index.js",
       "profile": {
-        "factory": 74,
+        "factory": 76,
         "building": 5
       },
       "failed": false,
@@ -3300,7 +3300,7 @@
       "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/node_modules/extract-text-webpack-plugin/loader.js?{\"omit\":1,\"extract\":true,\"remove\":true}!/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/node_modules/style-loader/index.js!/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/node_modules/css-loader/index.js!/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/src/css/fenix-ui-catalog.css",
       "profile": {
         "factory": 0,
-        "building": 2957
+        "building": 2983
       },
       "failed": false,
       "errors": 0,
@@ -3323,8 +3323,8 @@
       "assets": [],
       "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/node_modules/css-loader/index.js!/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/src/css/fenix-ui-catalog.css",
       "profile": {
-        "factory": 13,
-        "building": 15
+        "factory": 16,
+        "building": 18
       },
       "failed": false,
       "errors": 0,
@@ -3359,7 +3359,7 @@
       ],
       "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/node_modules/css-loader/index.js!/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/src/css/fenix-ui-catalog.css",
       "profile": {
-        "factory": 29,
+        "factory": 35,
         "building": 3
       },
       "failed": false,
@@ -3393,8 +3393,8 @@
       "assets": [],
       "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/node_modules/extract-text-webpack-plugin/loader.js?{\"omit\":1,\"extract\":true,\"remove\":true}!/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/node_modules/style-loader/index.js!/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/node_modules/css-loader/index.js!/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/src/css/fenix-ui-catalog.css",
       "profile": {
-        "factory": 275,
-        "building": 2706
+        "factory": 290,
+        "building": 2721
       },
       "failed": false,
       "errors": 0,
@@ -3451,7 +3451,7 @@
               "issuer": null,
               "profile": {
                 "factory": 1,
-                "building": 2437
+                "building": 2533
               },
               "failed": false,
               "errors": 0,
@@ -3515,7 +3515,7 @@
               "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/node_modules/css-loader/index.js!/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/src/css/fenix-ui-catalog.css",
               "profile": {
                 "factory": 2,
-                "building": 1
+                "building": 0
               },
               "failed": false,
               "errors": 0,
@@ -3566,7 +3566,7 @@
           "issuer": null,
           "profile": {
             "factory": 1,
-            "building": 2437
+            "building": 2533
           },
           "failed": false,
           "errors": 0,
@@ -3630,7 +3630,7 @@
           "issuer": "/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/node_modules/css-loader/index.js!/home/daniele/repos/fenix-projects/countrystat-cog-ui/submodules/fenix-ui-catalog/src/css/fenix-ui-catalog.css",
           "profile": {
             "factory": 2,
-            "building": 1
+            "building": 0
           },
           "failed": false,
           "errors": 0,

@@ -182,6 +182,24 @@ define(function () {
 
         },
 
+        freeText: {
+
+            selector : {
+                id : "input",
+                type : "text"
+            },
+
+            template : {
+                hideRemoveButton : false
+            },
+
+            format : {
+                output : "freeText",
+                metadataAttribute: "freetext"
+            }
+
+        },
+
         contextSystem : {
 
             selector : {

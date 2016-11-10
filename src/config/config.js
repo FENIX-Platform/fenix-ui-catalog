@@ -19,7 +19,7 @@ define(function () {
 
         menuExcludedItems: [],
 
-        defaultSelectors : ['resourceType', 'contextSystem'],
+        defaultSelectors : ['freeText', 'resourceType', 'contextSystem'],
 
         environment : "develop",
 

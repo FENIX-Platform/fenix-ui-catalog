@@ -11,6 +11,15 @@ define(function () {
         {
             url: "",
             parent_id: "content",
+            id: "freeText",
+            a_attrs: {
+                "data-action": "selector",
+                "data-selector": "freeText"
+            }
+        },
+        {
+            url: "",
+            parent_id: "content",
             id: "resourceType",
             a_attrs: {
                 "data-action": "selector",
