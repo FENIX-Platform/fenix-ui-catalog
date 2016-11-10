@@ -20,7 +20,7 @@ define([
 
         console.clear();
 
-        log.setLevel('trace');
+        log.setLevel('silent');
 
         this.start();
     }
@@ -35,7 +35,9 @@ define([
 
     Dev.prototype._render = function () {
 
-        this._renderStandard();
+       //this._renderStandard();
+
+        this._renderAngola();
     };
 
     Dev.prototype._renderStandard = function () {
@@ -70,6 +72,42 @@ define([
                 menuExcludedItems: ["accessibility"]
             //actions: ["download", 'view'],
             //baseFilter : { test : "test"}
+        });
+    };
+
+    Dev.prototype._renderAngola = function () {
+
+        var catalog = this.createCatalog({
+            el: s.STANDARD,
+            lang : lang,
+            environment: environment,
+            defaultSelectors: ['resourceType', 'contextSystem'],
+            hideCloseButton: true,
+            pluginRegistry: {
+                contextSystem: {
+                    selector: {
+                        id: "dropdown",
+                        source: [
+                            {value: "cstat_ago", label: "CountrySTAT Angola"}
+                        ],
+                        default: ["cstat_ago"],
+                        hideSummary: true,
+                        config: {
+                            plugins: ['remove_button'],
+                            mode: 'multi'
+                        }
+                    },
+
+                    template: {
+                        hideRemoveButton: false
+                    },
+
+                    format: {
+                        output: "enumeration",
+                        metadataAttribute: "dsd.contextSystem"
+                    }
+                }
+            }
         });
     };
 

@@ -447,7 +447,6 @@ define([
             this._disableMenuItem(selector);
         }, this));
 
-        console.log(this._createTableColumnsConfiguration());
         this.$el.find(s.RESULTS).bootstrapTable({
             pagination: true,
             pageSize: this.current.perPage,
