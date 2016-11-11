@@ -15,8 +15,8 @@ define([
     "fenix-ui-bridge",
     "moment",
     'amplify-pubsub',
-    'bootstrap-table'
-
+    'bootstrap-table',
+    '../../node_modules/bootstrap-table/dist/bootstrap-table-locale-all.min'
 ], function ($, _, log, ERR, EVT, C, MenuConfig, PluginRegistry, CatalogTemplate, ActionsTemplate, i18nLabels, Filter, JsonMenu, Bridge, Moment, amplify, bootstrapTable) {
 
     'use strict';
@@ -430,6 +430,7 @@ define([
         this.filter = new Filter({
             el: s.FILTER,
             selectors: this._getDefaultSelectors(),
+            lang : this.lang,
             //summary$el: s.SUMMARY,
             direction: "prepend",
             cache: this.cache,
@@ -453,6 +454,7 @@ define([
 
         this.$el.find(s.RESULTS).bootstrapTable({
             pagination: true,
+            locale: this.lang.toLowerCase() + "-" + this.lang.toUpperCase() ,
             pageSize: this.current.perPage,
             pageList: [],
             columns: this._createTableColumnsConfiguration(),
