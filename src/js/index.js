@@ -726,7 +726,8 @@ define([
                 event: event,
                 rid: rid,
                 values: self.current.values,
-                filter: self.current.filter
+                filter: self.current.filter,
+                lang: self.lang
             }, function (e) {
                 e.preventDefault();
 
@@ -734,7 +735,7 @@ define([
 
                 var model = _.findWhere(self.current.data, {rid: rid});
 
-                amplify.publish(event, {rid: rid, model: model, filter: e.data.filter, values: e.data.values});
+                amplify.publish(event, {rid: rid, model: model, filter: e.data.filter, values: e.data.values, lang: e.data.lang});
 
             });
         });

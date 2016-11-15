@@ -11,7 +11,7 @@ define([
             STANDARD: "#standard"
         },
         catalogs = [],
-        lang = "EN",
+        lang = "FR",
         environment = "production";
 
     function Dev() {
@@ -20,7 +20,7 @@ define([
 
         console.clear();
 
-        log.setLevel('silent');
+        log.setLevel('trace');
 
         this.start();
     }
@@ -69,8 +69,8 @@ define([
                     "meContent.resourceRepresentationType": {"enumeration": ["dataset"]}
                 },
                 defaultSelectors: ["referenceArea", "dataDomain"],
-                menuExcludedItems: ["accessibility"]
-            //actions: ["download", 'view'],
+                menuExcludedItems: ["accessibility"],
+            actions: ["download", 'view'],
             //baseFilter : { test : "test"}
         });
     };
@@ -83,6 +83,7 @@ define([
             environment: environment,
             defaultSelectors: ['resourceType', 'contextSystem'],
             hideCloseButton: true,
+            actions: ["download", 'view'],
             pluginRegistry: {
                 contextSystem: {
                     selector: {
