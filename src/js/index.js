@@ -144,7 +144,8 @@ define([
         this.cache = typeof this.initial.cache === "boolean" ? this.initial.cache : C.cache;
         this.defaultSelectors = this.initial.defaultSelectors || C.defaultSelectors;
         this.actions = this.initial.actions || C.actions;
-        this.pluginRegistry = $.extend(true, {}, this.initial.pluginRegistry, PluginRegistry);
+        this.pluginRegistry = $.extend(true, {}, PluginRegistry, this.initial.pluginRegistry);
+        this.overridePluginRegistry = this.initial.overridePluginRegistry || false;
         this.baseFilter = this.initial.baseFilter || C.baseFilter;
         this.columns = this.initial.columns || C.columns;
         this.environment = this.initial.environment;
@@ -161,6 +162,9 @@ define([
         this.selectorsDependencies = this.initial.selectorsDependencies || {};
         this.searchService =  this.initial.searchService;
 
+        if(this.overridePluginRegistry && this.initial.pluginRegistry){
+            this.pluginRegistry = this.initial.pluginRegistry;
+        }
 
     };
 

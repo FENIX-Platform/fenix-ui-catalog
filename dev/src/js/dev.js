@@ -234,7 +234,7 @@ define([
                     }
                 }
             },
-
+            overridePluginRegistry: true,
             pluginRegistry: {
                 country: {
                     cl: {
