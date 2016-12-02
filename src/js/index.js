@@ -144,7 +144,7 @@ define([
         this.cache = typeof this.initial.cache === "boolean" ? this.initial.cache : C.cache;
         this.defaultSelectors = this.initial.defaultSelectors || C.defaultSelectors;
         this.actions = this.initial.actions || C.actions;
-        this.pluginRegistry = $.extend(true, {}, PluginRegistry, this.initial.pluginRegistry);
+        this.pluginRegistry = $.extend(true, {}, this.initial.pluginRegistry, PluginRegistry);
         this.baseFilter = this.initial.baseFilter || C.baseFilter;
         this.columns = this.initial.columns || C.columns;
         this.environment = this.initial.environment;
@@ -156,6 +156,11 @@ define([
         this.searchTimeoutInterval = this.initial.searchTimeoutInterval || C.searchTimeoutInterval;
         this.hideCloseButton = typeof this.initial.hideCloseButton === "boolean" ? this.initial.hideCloseButton : C.hideCloseButton;
         this.langFallbackOrder = this.initial.langFallbackOrder || C.langFallbackOrder;
+        this.template =  this.initial.template || CatalogTemplate;
+        this.prepareQuery = this.initial.prepareQuery;
+        this.selectorsDependencies = this.initial.selectorsDependencies || {};
+        this.searchService =  this.initial.searchService;
+
 
     };
 
@@ -196,10 +201,16 @@ define([
 
     Catalog.prototype._attach = function () {
 
+        /* var self = this,
+         $html = $(CatalogTemplate($.extend(true, {
+         hideCloseButton: this.hideCloseButton
+         },  i18nLabels[this.lang])));
+         */
+
         var self = this,
-            $html = $(CatalogTemplate($.extend(true, {
-            hideCloseButton: this.hideCloseButton
-        },  i18nLabels[this.lang])));
+            $html = $(this.template($.extend(true, {
+                hideCloseButton: this.hideCloseButton
+            },  i18nLabels[this.lang])));
 
         this.$el.html($html);
 
@@ -360,7 +371,9 @@ define([
             config[selector].template = {};
         }
 
-        config[selector].template.title =  i18nLabels[this.lang][selector] || "Missing title [" + selector + "]";
+        var title =  i18nLabels[this.lang][selector] || config[selector].template.title || "Missing title [" + selector + "]";
+        config[selector].template.title = title;
+
 
         return $.extend(true, {}, config);
 
@@ -393,6 +406,10 @@ define([
         this.current.values = this.filter.getValues();
 
         this.current.filter = $.extend(true, {}, this.baseFilter, this.filter.getValues("catalog"));
+
+        if (typeof this.prepareQuery === 'function'){
+            this.current.filter =this.prepareQuery(this.current.filter, this.filter.getValues("fenix"), this.filter.getValues());
+        }
 
         var valid = this._validateQuery();
 
@@ -430,6 +447,7 @@ define([
         this.filter = new Filter({
             el: s.FILTER,
             selectors: this._getDefaultSelectors(),
+            dependencies: this.selectorsDependencies,
             lang : this.lang,
             //summary$el: s.SUMMARY,
             direction: "prepend",
@@ -476,18 +494,37 @@ define([
 
     Catalog.prototype._createTableColumnsConfiguration = function () {
 
+
         var columns = [],
             self = this,
             columnsIds = Object.keys(this.columns);
 
         _.each(columnsIds, function (c) {
+            // console.log(" ============================ ");
+            // console.log(self.columns[c]);
+            var title =  i18nLabels[self.lang][c] || self.columns[c].title || "Missing label [" + c + "]";
 
-            columns.push({
+            var tableParams = {
+                field: c,
+                title:  title,//i18nLabels[self.lang][c] || "Missing label [" + c + "]",
+                sortable: true
+                //width : 100 / columnsIds.length
+            };
+
+
+            if(self.columns[c].width){
+                tableParams.width = self.columns[c].width;
+            }
+
+            columns.push(tableParams);
+
+           /* columns.push({
                 field: c,
                 title:  i18nLabels[self.lang][c] || "Missing label [" + c + "]",
-                sortable: true,
+                sortable: true
+                //width: self.columns[c].width
                 //width : 100 / columnsIds.length
-            });
+            });*/
 
         });
 
@@ -563,10 +600,10 @@ define([
 
         this.reqeust_id = "fx-request-id-" + window.fx_req_id;
 
-        this.bridge.find({
-            body: body,
-            params: this.findServiceParams
-        }).then(
+        var serviceParams = this._processSearchServiceParameters();
+        var bridgeParams = $.extend(true, {body: body}, serviceParams);
+
+        this.bridge.find(bridgeParams).then(
             _.bind(this._renderResults, this, "fx-request-id-" + window.fx_req_id),
             _.bind(function (requestId, e) {
 
@@ -586,6 +623,30 @@ define([
                 this._showError(ERR.request);
 
             }, this, "fx-request-id-" + window.fx_req_id));
+
+    };
+
+    Catalog.prototype._processSearchServiceParameters = function () {
+
+        var params = {};
+
+        if(this.searchService){
+            if(this.searchService.serviceProvider){
+                params.SERVICE_PROVIDER = this.searchService.serviceProvider;
+                params.findService = this.searchService.findService;
+            }
+            if(this.searchService.findService){
+                params.findService = this.searchService.findService;
+            }
+            if(this.searchService.params){
+                params.params = this.findServiceParams;
+            }
+
+        } else {
+            params.params = this.findServiceParams;
+        }
+
+        return params;
 
     };
 
