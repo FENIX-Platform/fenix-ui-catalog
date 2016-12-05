@@ -36,9 +36,9 @@ define([
 
     Dev.prototype._render = function () {
 
-        this._renderGift();
+        //this._renderGift();
 
-       //this._renderStandard();
+       this._renderStandard();
 
         //this._renderAngola();
     };
