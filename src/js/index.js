@@ -318,7 +318,7 @@ define([
             self.onFilterChangeEvent();
         });
 
-        this.filter.on('click', function () {
+        this.filter.on('select', function () {
             self.onFilterChangeEvent();
         });
 
