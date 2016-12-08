@@ -144,8 +144,7 @@ define([
         this.cache = typeof this.initial.cache === "boolean" ? this.initial.cache : C.cache;
         this.defaultSelectors = this.initial.defaultSelectors || C.defaultSelectors;
         this.actions = this.initial.actions || C.actions;
-        this.pluginRegistry = $.extend(true, {}, PluginRegistry, this.initial.pluginRegistry);
-        this.overridePluginRegistry = this.initial.overridePluginRegistry || false;
+        this.pluginRegistry = $.extend({}, PluginRegistry, this.initial.pluginRegistry);
         this.baseFilter = this.initial.baseFilter || C.baseFilter;
         this.columns = this.initial.columns || C.columns;
         this.environment = this.initial.environment;
@@ -157,15 +156,10 @@ define([
         this.searchTimeoutInterval = this.initial.searchTimeoutInterval || C.searchTimeoutInterval;
         this.hideCloseButton = typeof this.initial.hideCloseButton === "boolean" ? this.initial.hideCloseButton : C.hideCloseButton;
         this.langFallbackOrder = this.initial.langFallbackOrder || C.langFallbackOrder;
-        this.template =  this.initial.template || CatalogTemplate;
+        this.template = this.initial.template || CatalogTemplate;
         this.prepareQuery = this.initial.prepareQuery;
         this.selectorsDependencies = this.initial.selectorsDependencies || {};
-        this.searchService =  this.initial.searchService;
-
-        if(this.overridePluginRegistry && this.initial.pluginRegistry){
-            this.pluginRegistry = this.initial.pluginRegistry;
-        }
-
+        this.searchService = this.initial.searchService;
     };
 
     Catalog.prototype._validateInput = function () {
@@ -214,7 +208,7 @@ define([
         var self = this,
             $html = $(this.template($.extend(true, {
                 hideCloseButton: this.hideCloseButton
-            },  i18nLabels[this.lang])));
+            }, i18nLabels[this.lang])));
 
         this.$el.html($html);
 
@@ -225,7 +219,7 @@ define([
             model: MenuConfig
                 .map(function (item) {
 
-                    item.label =  i18nLabels[self.lang][item.id] || "Missing label [" + item.id + "]";
+                    item.label = i18nLabels[self.lang][item.id] || "Missing label [" + item.id + "]";
 
                     return item;
                 })
@@ -251,7 +245,7 @@ define([
         this.actions = this.actions.map(_.bind(function (value) {
 
             return {
-                label:  i18nLabels[this.lang]['action_' + value] || "Missing action label [" + value + "]",
+                label: i18nLabels[this.lang]['action_' + value] || "Missing action label [" + value + "]",
                 action: value
             }
 
@@ -375,9 +369,8 @@ define([
             config[selector].template = {};
         }
 
-        var title =  i18nLabels[this.lang][selector] || config[selector].template.title || "Missing title [" + selector + "]";
+        var title = config[selector].template.title || i18nLabels[this.lang][selector] || "Missing title [" + selector + "]";
         config[selector].template.title = title;
-
 
         return $.extend(true, {}, config);
 
@@ -411,8 +404,8 @@ define([
 
         this.current.filter = $.extend(true, {}, this.baseFilter, this.filter.getValues("catalog"));
 
-        if (typeof this.prepareQuery === 'function'){
-            this.current.filter =this.prepareQuery(this.current.filter, this.filter.getValues("fenix"), this.filter.getValues());
+        if (typeof this.prepareQuery === 'function') {
+            this.current.filter = this.prepareQuery(this.current.filter, this.filter.getValues("fenix"), this.filter.getValues());
         }
 
         var valid = this._validateQuery();
@@ -452,7 +445,7 @@ define([
             el: s.FILTER,
             selectors: this._getDefaultSelectors(),
             dependencies: this.selectorsDependencies,
-            lang : this.lang,
+            lang: this.lang,
             //summary$el: s.SUMMARY,
             direction: "prepend",
             cache: this.cache,
@@ -476,7 +469,7 @@ define([
 
         this.$el.find(s.RESULTS).bootstrapTable({
             pagination: true,
-            locale: this.lang.toLowerCase() + "-" + this.lang.toUpperCase() ,
+            locale: this.lang.toLowerCase() + "-" + this.lang.toUpperCase(),
             pageSize: this.current.perPage,
             pageList: [],
             columns: this._createTableColumnsConfiguration(),
@@ -504,31 +497,29 @@ define([
             columnsIds = Object.keys(this.columns);
 
         _.each(columnsIds, function (c) {
-            // console.log(" ============================ ");
-            // console.log(self.columns[c]);
-            var title =  i18nLabels[self.lang][c] || self.columns[c].title || "Missing label [" + c + "]";
+            var title = i18nLabels[self.lang][c] || self.columns[c].title || "Missing label [" + c + "]";
 
             var tableParams = {
                 field: c,
-                title:  title,//i18nLabels[self.lang][c] || "Missing label [" + c + "]",
+                title: title,//i18nLabels[self.lang][c] || "Missing label [" + c + "]",
                 sortable: true
                 //width : 100 / columnsIds.length
             };
 
 
-            if(self.columns[c].width){
+            if (self.columns[c].width) {
                 tableParams.width = self.columns[c].width;
             }
 
             columns.push(tableParams);
 
-           /* columns.push({
-                field: c,
-                title:  i18nLabels[self.lang][c] || "Missing label [" + c + "]",
-                sortable: true
-                //width: self.columns[c].width
-                //width : 100 / columnsIds.length
-            });*/
+            /* columns.push({
+             field: c,
+             title:  i18nLabels[self.lang][c] || "Missing label [" + c + "]",
+             sortable: true
+             //width: self.columns[c].width
+             //width : 100 / columnsIds.length
+             });*/
 
         });
 
@@ -546,7 +537,7 @@ define([
             formatter: function (value, row) {
 
                 //$html = $(templateSelector($.extend(true, {classNames: classNames}, conf)));
-                var $html = $(ActionsTemplate($.extend(true, {},  i18nLabels[this.lang], row, {actions: self._getActions(row)})));
+                var $html = $(ActionsTemplate($.extend(true, {}, i18nLabels[this.lang], row, {actions: self._getActions(row)})));
 
                 return $html[0].outerHTML
             }
@@ -634,15 +625,15 @@ define([
 
         var params = {};
 
-        if(this.searchService){
-            if(this.searchService.serviceProvider){
+        if (this.searchService) {
+            if (this.searchService.serviceProvider) {
                 params.SERVICE_PROVIDER = this.searchService.serviceProvider;
                 params.findService = this.searchService.findService;
             }
-            if(this.searchService.findService){
+            if (this.searchService.findService) {
                 params.findService = this.searchService.findService;
             }
-            if(this.searchService.params){
+            if (this.searchService.params) {
                 params.params = this.findServiceParams;
             }
 
@@ -800,7 +791,13 @@ define([
 
                 var model = _.findWhere(self.current.data, {rid: rid});
 
-                amplify.publish(event, {rid: rid, model: model, filter: e.data.filter, values: e.data.values, lang: e.data.lang});
+                amplify.publish(event, {
+                    rid: rid,
+                    model: model,
+                    filter: e.data.filter,
+                    values: e.data.values,
+                    lang: e.data.lang
+                });
 
             });
         });
@@ -866,7 +863,7 @@ define([
 
         _.each(err, _.bind(function (e) {
 
-            var $li = $("<li>" +  i18nLabels[this.lang][e] + "</li>");
+            var $li = $("<li>" + i18nLabels[this.lang][e] + "</li>");
             this.$el.find(s.ERROR_CONTAINER).show().html($li);
 
         }, this));
