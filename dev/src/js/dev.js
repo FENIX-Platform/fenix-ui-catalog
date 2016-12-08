@@ -36,11 +36,9 @@ define([
 
     Dev.prototype._render = function () {
 
+        this._renderStandard();
+
         //this._renderGift();
-
-        //this._renderStandard();
-
-        this._renderGift();
 
         //this._renderAngola();
     };
@@ -51,6 +49,7 @@ define([
             el: s.STANDARD,
             lang: lang,
             cache: false,
+            hideAddButton : true,
             environment: "production",
             pluginRegistry: {
                 contextSystem: {

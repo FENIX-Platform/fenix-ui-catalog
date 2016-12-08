@@ -60,7 +60,9 @@ define(function () {
 
         hideCloseButton : false,
 
-        baseFilter : {}
+        baseFilter : {},
+
+        hideAddButton: false
     }
 
 });

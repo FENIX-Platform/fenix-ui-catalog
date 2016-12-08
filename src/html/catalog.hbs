@@ -28,12 +28,16 @@
 
                 <div class="col-sm-4 col-sm-height col-top cat-sidebar">
 
-                    <div data-role="menu" class="dropdown" title="{{ tooltip_btn_add_selector }}">
-                        <button class="btn btn-floating fx-background-color-primary-color btn-fx-catalog-filters" type="button" data-toggle="dropdown"
-                                aria-expanded="false">
-                            <span class="icojam_add"></span>
-                        </button>
-                    </div>
+                    {{#unless hideAddButton}}
+
+                        <div data-role="menu" class="dropdown" title="{{ tooltip_btn_add_selector }}">
+                            <button class="btn btn-floating fx-background-color-primary-color btn-fx-catalog-filters"
+                                    type="button" data-toggle="dropdown"
+                                    aria-expanded="false">
+                                <span class="icojam_add"></span>
+                            </button>
+                        </div>
+                    {{/unless}}
 
                     <!-- Filter -->
                     <div data-role="filter" class="cat-filter-container"></div>

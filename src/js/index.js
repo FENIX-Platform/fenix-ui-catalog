@@ -160,6 +160,7 @@ define([
         this.prepareQuery = this.initial.prepareQuery;
         this.selectorsDependencies = this.initial.selectorsDependencies || {};
         this.searchService = this.initial.searchService;
+        this.hideAddButton = typeof this.initial.hideAddButton === "boolean" ? this.initial.hideAddButton : C.hideAddButton;
     };
 
     Catalog.prototype._validateInput = function () {
@@ -199,31 +200,28 @@ define([
 
     Catalog.prototype._attach = function () {
 
-        /* var self = this,
-         $html = $(CatalogTemplate($.extend(true, {
-         hideCloseButton: this.hideCloseButton
-         },  i18nLabels[this.lang])));
-         */
-
         var self = this,
             $html = $(this.template($.extend(true, {
-                hideCloseButton: this.hideCloseButton
+                hideCloseButton: this.hideCloseButton,
+                hideAddButton: this.hideAddButton
             }, i18nLabels[this.lang])));
 
         this.$el.html($html);
 
         //render menu
-        this.menu = new JsonMenu({
-            el: this.$el.find(s.MENU),
-            exclude: this.menuExcludedItems,
-            model: MenuConfig
-                .map(function (item) {
+        if (!this.hideAddButton) {
+            this.menu = new JsonMenu({
+                el: this.$el.find(s.MENU),
+                exclude: this.menuExcludedItems,
+                model: MenuConfig
+                    .map(function (item) {
 
-                    item.label = i18nLabels[self.lang][item.id] || "Missing label [" + item.id + "]";
+                        item.label = i18nLabels[self.lang][item.id] || "Missing label [" + item.id + "]";
 
-                    return item;
-                })
-        });
+                        return item;
+                    })
+            });
+        }
 
         log.info("template attached successfully");
 
@@ -233,10 +231,6 @@ define([
 
         //pub/sub
         this.channels = {};
-
-        //menu
-        this.$menu = this.$el.find(s.MENU);
-        this.$items = this.$menu.find(s.MENU_ITEMS);
 
         this.current = {};
         this.current.perPage = this.perPage;
@@ -266,10 +260,18 @@ define([
 
     Catalog.prototype._enableMenuItem = function (selector) {
 
+        if (this.hideAddButton){
+            return
+        }
+
         this.menu.enableItem(selector);
     };
 
     Catalog.prototype._disableMenuItem = function (selector) {
+
+        if (this.hideAddButton){
+            return
+        }
 
         this.menu.disableItem(selector);
 
