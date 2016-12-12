@@ -76,7 +76,7 @@ define([
 
     /**
      * Reset the view content
-     * @return {null}
+     * @return {undefined}
      */
     Catalog.prototype.reset = function () {
 
@@ -86,7 +86,6 @@ define([
 
         if (this.filter && !$.isFunction(this.filter.clear)) {
             log.error("Filter.clear is not a fn()");
-
             return;
         }
 
@@ -418,9 +417,10 @@ define([
         } else {
 
             if (Array.isArray(valid) && valid[0] === ERR.empty_values) {
-                this._setBottomStatus("intro")
+                this._setBottomStatus("intro");
             } else {
                 this._showError(valid);
+                this._setBottomStatus("error")
             }
         }
     };
@@ -433,7 +433,11 @@ define([
         if ($.isEmptyObject(this.current.filter)) {
             errors.push(ERR.empty_values);
             log.error(ERR.empty_values);
-            return errors;
+        }
+
+        if (this.current.filter.valid === false){
+            errors.push(ERR.filter_validation);
+            log.error(this.current.filter.errors);
         }
 
         return errors.length > 0 ? errors : valid;
@@ -859,13 +863,15 @@ define([
 
     Catalog.prototype._showError = function (err) {
 
+        var lang = this.lang.toLowerCase();
+
         if (!Array.isArray(err)) {
             err = [err];
         }
 
         _.each(err, _.bind(function (e) {
 
-            var $li = $("<li>" + i18nLabels[this.lang][e] + "</li>");
+            var $li = $("<li>" + i18nLabels[lang][e] + "</li>");
             this.$el.find(s.ERROR_CONTAINER).show().html($li);
 
         }, this));
@@ -911,7 +917,6 @@ define([
         return obj;
 
     };
-
 
     return Catalog;
 });

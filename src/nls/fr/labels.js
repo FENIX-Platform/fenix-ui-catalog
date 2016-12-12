@@ -35,6 +35,8 @@ define(function () {
         empty_values : "Sélection vide",
         header_title : "Ouvrir une ressource",
         tooltip_btn_close_catalog : "Fermer le catalogue",
-        tooltip_btn_add_selector : "Ajouter métadonnées dans le champ de recherche "
+        tooltip_btn_add_selector : "Ajouter métadonnées dans le champ de recherche ",
+
+        filter_validation: "Critères de recherche non valides"
     }
 });

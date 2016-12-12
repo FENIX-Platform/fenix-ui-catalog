@@ -2,7 +2,7 @@ define([
     'loglevel',
     'jquery',
     'underscore',
-    './template.hbs',
+    '../html/template.hbs',
     '../../../src/js/index'
 ], function (log, $, _, Template, Catalog) {
 
@@ -45,22 +45,44 @@ define([
 
     Dev.prototype._renderStandard = function () {
 
-        var catalog = this.createCatalog({
+        var catalog = this.createCatalog( {
             el: s.STANDARD,
+
             lang: lang,
+
             cache: false,
-            hideAddButton : true,
-            environment: "production",
+
             pluginRegistry: {
-                contextSystem: {
-                    selector: {
-                        source: [
-                            {value: "cstat_cog", label: "CountrySTAT Congo"}
-                        ],
-                        default: ["cstat_cog"]
+
+                freeText: {
+
+                    selector : {
+                        id : "input",
+                        type : "text"
+                    },
+
+                    template : {
+                        hideRemoveButton : true,
+                        hideSwitch : true
+                    },
+
+                    format : {
+                        output : "freeText",
+                        metadataAttribute: "freetext"
+                    },
+
+                    constraints : {
+                        presence: true
                     }
+
                 },
-                dataDomain: {
+
+                region: {
+
+                    cl : {
+                        uid: "GAUL0",
+                        version: "2014"
+                    },
 
                     selector : {
                         id : "dropdown",
@@ -72,25 +94,66 @@ define([
                     },
 
                     template : {
-                        hideRemoveButton : false
+                        hideRemoveButton : true,
+                        hideSwitch : true
                     },
 
-                    cl: {
-                        uid: "CountrySTAT_Indicators",
-                        level: 1,
-                        levels: 1
+                    format : {
+                        output : "codes",
+                        metadataAttribute: "meContent.seCoverage.coverageGeographic"
                     }
+                },
+
+                coverageTime: {
+                    selector: {
+                        id: "range",
+                        config: {
+                            min: 1980,
+                            max: new Date().getFullYear(),
+                            type: "double",
+                            grid: true,
+                            force_edges: true,
+                            prettify: function (num) {
+                                return num;
+                            }
+                        }
+                    },
+                    template: {
+                        title: "Coverage Time",
+                        hideSwitch: true,
+                        hideRemoveButton: true
+                    },
+                    format: {
+                        metadataAttribute: "meContent.seCoverage.coverageTime",
+                        output: "time"
+                    }
+
                 }
             },
-            baseFilter: {
-                "dsd.contextSystem": {"enumeration": ["cstat_cog"]},
-                "meContent.resourceRepresentationType": {"enumeration": ["dataset"]}
+
+            hideAddButton : true,
+
+            columns : {
+                title: {
+                    path : "title",
+                    type: "i18n",
+                    title : "Title",
+                    width: "80%"
+                }
             },
-            defaultSelectors: ["referenceArea", "dataDomain"],
-            menuExcludedItems: ["accessibility"],
-            actions: ["download", 'view'],
-            //baseFilter : { test : "test"}
+
+            baseFilter: {
+                "dsd.contextSystem": {"enumeration": ["gift"]},
+                "meContent.resourceRepresentationType": {"enumeration": ["dataset"]},
+                "meAccessibility.seConfidentiality.confidentialityStatus" : {codes: [{uid : "GIFT_ConfidentialityStatus", codes: ["5"]}]}
+            },
+
+            defaultSelectors: ["freeText", "region", "coverageTime"]
         });
+
+        catalog.on("select", function () {
+            console.log("EVENT")
+        })
     };
 
     Dev.prototype._renderGift = function () {
@@ -185,7 +248,11 @@ define([
                         "source": [{"label": "All", "value": "none"}],
                         "default": ["none"]
                     },
-                    "template": {"title": "Geographical/Administrative coverage", "hideSwitch": true, "hideRemoveButton": true},
+                    "template": {
+                        "title": "Geographical/Administrative coverage",
+                        "hideSwitch": true,
+                        "hideRemoveButton": true
+                    },
                     "format": {"metadataAttribute": "meContent.seReferencePopulation.referenceArea", "output": "codes"}
                 },
                 "coverageSector": {
@@ -353,7 +420,11 @@ define([
                         "source": [{"label": "All", "value": "none"}],
                         "default": ["none"]
                     },
-                    "template": {"title": "Geographical/Administrative coverage", "hideSwitch": true, "hideRemoveButton": true},
+                    "template": {
+                        "title": "Geographical/Administrative coverage",
+                        "hideSwitch": true,
+                        "hideRemoveButton": true
+                    },
                     "format": {
                         "metadataAttribute": "meContent.seReferencePopulation.referenceArea",
                         "output": "codes",

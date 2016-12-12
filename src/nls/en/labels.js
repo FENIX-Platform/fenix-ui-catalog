@@ -41,6 +41,9 @@ define(function () {
         header_title : "Open a resource",
 
         tooltip_btn_close_catalog : "Close catalogue",
-        tooltip_btn_add_selector : "Add metadata search field"
+        tooltip_btn_add_selector : "Add metadata search field",
+
+        //errors
+        filter_validation: "Invalid searching criteria"
     }
 });
