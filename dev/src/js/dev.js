@@ -77,6 +77,25 @@ define([
 
                 },
 
+                dataDomain: {
+                    selector: {
+                        id : "dropdown",
+                        config : {
+                            plugins: ['remove_button'], //in combination with mode:'multi' create a 'X' button to remove items
+                            mode: 'multi'
+                        }
+                    },
+
+                    cl : {
+                        uid:  "CSTAT_Core"
+                    },
+
+                    format : {
+                        output : "codes",
+                        metadataAttribute: "meContent.seCoverage.daniele"
+                    }
+                },
+
                 region: {
 
                     cl : {
@@ -148,7 +167,7 @@ define([
                 "meAccessibility.seConfidentiality.confidentialityStatus" : {codes: [{uid : "GIFT_ConfidentialityStatus", codes: ["5"]}]}
             },
 
-            defaultSelectors: ["freeText", "region", "coverageTime"]
+            defaultSelectors: ["freeText", "region", "dataDomain", "coverageTime"]
         });
 
         catalog.on("select", function () {
