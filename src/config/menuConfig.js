@@ -1,7 +1,3 @@
-if (typeof define !== 'function') {
-    var define = require('amdefine')(module);
-}
-
 define(function () {
 
     'use strict';
@@ -11,6 +7,15 @@ define(function () {
             url: "",
             parent_id: "root",
             id: "content"
+        },
+        {
+            url: "",
+            parent_id: "content",
+            id: "freeText",
+            a_attrs: {
+                "data-action": "selector",
+                "data-selector": "freeText"
+            }
         },
         {
             url: "",

@@ -1,7 +1,3 @@
-if (typeof define !== 'function') {
-    var define = require('amdefine')(module);
-}
-
 define(function () {
 
     'use strict';
@@ -23,7 +19,7 @@ define(function () {
 
         menuExcludedItems: [],
 
-        defaultSelectors : ['resourceType', 'contextSystem'],
+        defaultSelectors : ['freeText', 'resourceType', 'contextSystem'],
 
         environment : "develop",
 
@@ -64,7 +60,9 @@ define(function () {
 
         hideCloseButton : false,
 
-        baseFilter : {}
+        baseFilter : {},
+
+        hideAddButton: false
     }
 
 });

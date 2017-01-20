@@ -1,0 +1,11 @@
+<div data-role="actions">
+
+    <div class="btn-group btn-group-justified" role="group">
+        {{#each actions}}
+            <div class="btn-group" role="group">
+                <button class="btn btn-default fx-button-primary-color" data-action="{{action}}" data-rid="{{../rid}}"> {{label}} </button>
+            </div>
+        {{/each}}
+
+    </div>
+</div>

@@ -1,0 +1,378 @@
+/* Catalog */
+@import 'utils/fx-functions';
+@import 'utils/fx-mixins';
+@import 'utils/fx-utils';
+
+@import 'themes/fx-bootstrap-queries';
+@import 'themes/fx-material-theme-light';
+@import 'themes/fx-variables';
+
+
+@import 'base/fx-bootstrap-table';
+@import 'base/fx-buttons';
+@import 'base/fx-fonts-import';
+@import 'base/fx-icons';
+@import 'base/fx-preload';
+@import 'base/fx-radio-checkbox';
+@import 'base/fx-typography';
+@import 'base/fx-fixed-height';
+
+
+$catalog-head-color: #e0e0e0;
+$catalog-side-color: #efefef;
+$cat-cmd-left-width: 50px;
+$cat-cmd-right-width: 50px;
+
+// Standard Fenix Theme
+
+
+
+.fx-text-primary-color{
+  color: $fx-cool-blue;
+}
+
+.fx-background-color-primary-color{
+  background-color: $fx-cool-blue;
+}
+
+
+.fx-button-primary-color {
+  color: white;
+  border-color: darken($fx-cool-blue, 10%);
+  background-color: $fx-cool-blue;
+
+  &:hover {
+    color: white;
+    border-color: darken($fx-cool-blue, 10%);
+    background-color: darken($fx-cool-blue, 5%);
+  }
+
+  &:focus {
+    color: white;
+    border-color: darken($fx-cool-blue, 20%);
+    background-color: darken($fx-cool-blue, 15%);
+  }
+
+}
+
+
+//// Filter
+
+
+
+.fx-catalog{
+
+  .btn-fx-catalog-filters {
+
+    margin-left: 0;
+    margin-bottom: 0;
+
+    span[class^="icojam_"] {
+
+      color: white;
+      font-size: 20px;
+      position: relative;
+      top: 3px;
+
+    }
+
+  }
+
+}
+
+.fx-catalog {
+
+  [data-content] {
+    display: none;
+    height: 100%;
+  }
+
+  //show only the status only correspondent tab content
+  $statuses: "ready" "error" "loading" "empty" "intro" "huge";
+
+  @each $status in $statuses {
+
+    [data-status="#{$status}"] {
+
+      [data-content="#{$status}"] {
+        display: block;
+      }
+    }
+  }
+
+
+  /* Hovered */
+
+  .cat-title {
+    margin-left: $cat-cmd-left-width;
+    margin-right: $cat-cmd-right-width;
+  }
+
+
+  .cat-btn-left, .cat-btn-right {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  @media screen and (min-width: $screen-sm) {
+
+    & {
+
+
+
+      .cat-btn-left, .cat-btn-right {
+          //opacity: 0;
+          pointer-events: none;
+          @include animate(0.3s, 0.2s);
+        }
+
+        .cat-title {
+          margin-left: 15px;
+          margin-right: 15px;
+          @include animate(0.3s, 0.2s);
+        }
+
+
+
+    }
+
+    &:hover {
+
+
+
+      .cat-btn-left, .cat-btn-right {
+          opacity: 1;
+          pointer-events: auto;
+        }
+
+        .cat-title {
+          margin-left: $cat-cmd-left-width;
+          margin-right: $cat-cmd-right-width;
+        }
+
+
+
+    }
+
+  }
+
+  @media screen and (min-width: $screen-md) {
+
+  }
+  @media screen and (min-width: $screen-lg) {
+
+  }
+
+
+
+
+
+
+}
+
+.cat-sidebar{
+  background-color: $catalog-side-color;
+  //overflow-y: scroll;
+
+
+  .cat-filter-container{
+    padding-bottom: 25px;
+
+  }
+
+}
+
+.cat-results{
+
+  .th-inner{
+    font-weight: normal;
+    font-size: 12px;
+  }
+
+
+  .fixed-table-body{
+
+    margin: 0 -15px;
+
+
+  }
+
+  .fixed-table-container{
+    @include fx-no-border-radius;
+    @include fx-no-border;
+
+  }
+
+  .cat-statuses-holder{
+    height: 100%;
+
+
+    .loading{
+      margin-top: 20px;
+    }
+
+  }
+
+}
+
+.catalog-modal{
+
+  .modal-content{
+    @include fx-no-border-radius;
+    @include fx-no-border
+  }
+
+
+  .modal-body{
+
+    padding: 0 15px;
+
+  }
+
+
+  .modal-lg{
+
+
+    @media screen and (min-width: $screen-sm) {
+      width: 750px;
+    }
+
+    @media screen and (min-width: $screen-md) {
+      width: 850px;
+    }
+
+    @media screen and (min-width: $screen-lg) {
+      width: 950px;
+    }
+
+
+
+
+
+  }
+
+
+
+}
+
+
+.cat-toolbar {
+
+  position: relative;
+  padding: 0;
+
+  //background-color: $catalog-head-color;
+  //@include fx-no-border;
+
+
+  .cat-btn-left {
+    width: $cat-cmd-left-width;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  .cat-btn-right {
+    width: $cat-cmd-right-width;
+    position: absolute;
+    top: 0;
+    right: 0;
+    text-align: right;
+    font-size: 0; /* Avoid space between elements with display inline */
+
+    button {
+      float: none; /* Avoid 1px bug on the right in md resolution */
+      margin-left: 0 !important; /* Avoid 1px bug of the bootstrap's btn-group */
+      display: inline-block;
+
+
+      &:last-child {
+        margin-right: 0; /* Remove margin from the last child of btn-group */
+      }
+
+    }
+
+  }
+
+  button {
+    border: 0;
+    background-color: transparent;
+    font-size: 16px;
+    padding: 1px 10px 0 10px;
+    @include fx-no-border-radius;
+
+    &.active, &:active {
+
+    }
+
+    &.focus, &:focus {
+
+    }
+
+    &[disabled] {
+      background-color: transparent;
+      border: 0;
+      opacity: 1;
+
+      span {
+        opacity: 0.35;
+      }
+
+    }
+
+    &:hover {
+      border: 0;
+      border-color: transparent;
+      background-color: $catalog-head-color;
+      color: $fx-cool-blue;
+
+    }
+
+  }
+
+
+  .cat-title {
+
+    margin-top: 5px;
+    margin-bottom: 5px;
+    text-align: center;
+  }
+
+}
+
+
+[data-role="actions"]{
+
+    [data-action]{
+      width: 200px;
+    }
+
+}
+
+// This is the standard primary btn of Bootstrap, the one below is the customized one
+
+//[data-role="results"]{
+//
+//
+//  [data-action="select"].btn-default {
+//    color: #fff;
+//    background-color: #337ab7;
+//    border-color: #2e6da4;
+//
+//    &:hover {
+//      color: #fff;
+//      background-color: #286090;
+//      border-color: #204d74;
+//    }
+//
+//    &:focus {
+//      color: #fff;
+//      background-color: #286090;
+//      border-color: #122b40;
+//    }
+//
+//  }
+//
+//}
+
+

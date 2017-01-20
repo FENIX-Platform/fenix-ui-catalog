@@ -1,7 +1,3 @@
-if (typeof define !== 'function') {
-    var define = require('amdefine')(module);
-}
-
 define(function ( ) {
 
     'use strict';
@@ -12,6 +8,7 @@ define(function ( ) {
 
         request : prefix + "request",
         empty_values : prefix + "empty_values",
+        filter_validation : prefix + "filter_validation",
         missing_container : prefix + "missing_container"
 
     };

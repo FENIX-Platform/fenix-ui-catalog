@@ -1,121 +1,106 @@
-<div>
+<div data-role="catalog" class="fx-catalog">
 
-    <div data-role="catalog" class="fx-catalog">
+    <div class="modal-header clearfix cat-toolbar">
 
-        <div class="modal-header clearfix cat-toolbar">
-
-            <div class="cat-btn-left">
-
-            </div>
-
-            <h6 class="cat-title truncate">{{ header_title }}</h6>
-
-            {{#unless hideCloseButton}}
-
-                <div class="cat-btn-right" title="{{ tooltip_btn_close_catalog }}">
-                    <button data-role="close" data-dismiss="modal" aria-label="Close" class="btn btn-default"
-                            type="button">
-                        <span class="icojam_button_delete_1"></span>
-                    </button>
-                </div>
-            {{/unless}}
+        <div class="cat-btn-left">
 
         </div>
 
-        <div class="modal-body">
-            <!-- Filter -->
-            <div class="row">
+        <h6 class="cat-title fx-text-primary-color truncate">{{ header_title }}</h6>
 
-                <div class="row-height">
+        {{#unless hideCloseButton}}
 
-                    <div class="col-sm-4 col-sm-height col-top cat-sidebar">
+            <div class="cat-btn-right" title="{{ tooltip_btn_close_catalog }}">
+                <button data-role="close" data-dismiss="modal" aria-label="Close" class="btn btn-default"
+                        type="button">
+                    <span class="icojam_button_delete_1"></span>
+                </button>
+            </div>
+        {{/unless}}
+
+    </div>
+
+    <div class="modal-body">
+        <!-- Filter -->
+        <div class="row">
+
+            <div class="row-height">
+
+                <div class="col-sm-4 col-sm-height col-top cat-sidebar">
+
+                    {{#unless hideAddButton}}
 
                         <div data-role="menu" class="dropdown" title="{{ tooltip_btn_add_selector }}">
-                            <button class="btn btn-floating btn-fx-catalog-filters" type="button" data-toggle="dropdown"
+                            <button class="btn btn-floating fx-background-color-primary-color btn-fx-catalog-filters"
+                                    type="button" data-toggle="dropdown"
                                     aria-expanded="false">
                                 <span class="icojam_add"></span>
                             </button>
                         </div>
+                    {{/unless}}
 
-                        <!-- Filter -->
-                        <div data-role="filter" class="cat-filter-container"></div>
+                    <!-- Filter -->
+                    <div data-role="filter" class="cat-filter-container"></div>
 
-                    </div>
+                </div>
 
-                    <div class="col-sm-8 col-sm-height col-top cat-results">
+                <div class="col-sm-8 col-sm-height col-top cat-results">
 
-                        <!-- Bottom -->
+                    <!-- Bottom -->
 
-                        <div data-role="bottom" data-status="intro" class="cat-statuses-holder">
+                    <div data-role="bottom" data-status="intro" class="cat-statuses-holder">
 
-                            <div data-content="error" class="text-center">
+                        <div data-content="error" class="text-center">
 
-                                <h2>Oh snap!</h2>
+                            <h2>Oh snap!</h2>
 
-                            </div>
-
-                            <div data-content="ready">
-                                <div data-role="results-container">
-                                    <table data-role="results"></table>
+                            <!-- Errors -->
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <ul data-role="error-container" class="alert alert-danger list-unstyled" role="alert"></ul>
                                 </div>
-                                <div data-role="pagination" class="text-center"></div>
                             </div>
 
-                            <div data-content="loading" class="text-center">
-                                <span class="loading loading-48"></span>
-                            </div>
+                        </div>
 
-                            <div data-content="empty" class="text-center">
-                                <h2>Empty</h2>
+                        <div data-content="ready">
+                            <div data-role="results-container">
+                                <table data-role="results"></table>
                             </div>
+                            <div data-role="pagination" class="text-center"></div>
+                        </div>
 
-                            <div data-content="intro" class="text-center">
-                                <h2>This is the intro</h2>
-                            </div>
+                        <div data-content="loading" class="text-center">
+                            <span class="loading loading-48"></span>
+                        </div>
 
-                            <div data-content="huge" class="text-center">
-                                <h2>Too many results. <br> Please add more filter criteria.</h2>
-                            </div>
+                        <div data-content="empty" class="text-center">
+                            <h2>Empty</h2>
+                        </div>
 
+                        <div data-content="intro" class="text-center">
+                            <h2>This is the intro</h2>
+                        </div>
+
+                        <div data-content="huge" class="text-center">
+                            <h2>Too many results. <br> Please add more filter criteria.</h2>
                         </div>
 
                     </div>
 
                 </div>
-            </div>
 
+            </div>
         </div>
 
-        <div class="modal-footer">
-            <!-- Summary -->
-            <div class="row">
-                <div class="col-xs-12" data-role="summary"></div>
-            </div>
+    </div>
 
-        </div>
-
-
-        <!-- Errors -->
+    <div class="modal-footer">
+        <!-- Summary -->
         <div class="row">
-            <div class="col-xs-12">
-                <ul data-role="error-container" class="alert alert-danger list-unstyled" role="alert"></ul>
-            </div>
+            <div class="col-xs-12" data-role="summary"></div>
         </div>
 
     </div>
-
-    <div data-role="actions">
-
-        <div class="btn-group btn-group-justified" role="group">
-            {{#each actions}}
-                <div class="btn-group" role="group">
-                    <button class="btn btn-default" data-action="{{action}}" data-rid="{{../rid}}"> {{label}} </button>
-                </div>
-            {{/each}}
-
-        </div>
-    </div>
-
-</div>
 
 </div>

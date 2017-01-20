@@ -7,39 +7,36 @@ define(function () {
     'use strict';
 
     return {
-        submit_button: "[FR] Submit",
-        reset_button: "[FR] Reset",
-
+        submit_button: "Envoyer",
+        reset_button: "Réinitialiser",
         //menu and selector titles
-        resourceType: "[FR] Resource Type",
-        referencePeriod: "[FR] Reference Period",
-        referenceArea: "[FR] Reference Area",
-        dataDomain: "[FR] Data Domain",
-        statusOfConfidentiality: "[FR] Status of Confidentiality",
-        uid: "[FR] Uid",
-        title : "[FR] Title",
-        region : "[FR] Region",
-        source : "[FR] Source",
-        last_update : "[FR] Last update",
-        periodicity : "[FR] Periodicity",
-        contextSystem : "[FR] Data Source",
-
-        content : "[FR] Content",
-        search_by_id : "[FR] Search by id",
-        accessibility : "[FR] Accessibility",
-
-        action_select : "[FR] Select",
-        action_download : "[FR] Download",
-        action_view : "[FR] View",
-        action_metadata : "[FR] Metadata",
-
+        freeText: "Texte libre",
+        resourceType: " Type de Ressource ",
+        referencePeriod: "Période de Référence ",
+        referenceArea: "Zone de Référence ",
+        dataDomain: "Domaine des Données",
+        statusOfConfidentiality: "Statut Confidentiel",
+        uid: "Uid",
+        title : "Titre",
+        region : "Région",
+        source : "Source",
+        last_update : "Dernière mise à jour",
+        periodicity : "Périodicité",
+        contextSystem : "Source de Données",
+        content : "Contenu",
+        search_by_id : "Rechercher par ID",
+        accessibility : "Accessibilité",
+        action_select : "Sélectionner",
+        action_download : "Télécharger",
+        action_view : "Visualiser",
+        action_metadata : "Métadonnées",
         //Errors
-        request : "[FR] Request error",
-        empty_values : "[FR] Empty selection",
+        request : "Erreur de demande",
+        empty_values : "Sélection vide",
+        header_title : "Ouvrir une ressource",
+        tooltip_btn_close_catalog : "Fermer le catalogue",
+        tooltip_btn_add_selector : "Ajouter métadonnées dans le champ de recherche ",
 
-        header_title : "[FR] Open a resource",
-
-        tooltip_btn_close_catalog : "[FR] Close catalogue",
-        tooltip_btn_add_selector : "[FR] Add metadata search field"
+        filter_validation: "Critères de recherche non valides"
     }
 });

@@ -1,7 +1,3 @@
-if (typeof define !== 'function') {
-    var define = require('amdefine')(module);
-}
-
 define(function () {
 
     'use strict';
@@ -182,6 +178,24 @@ define(function () {
             format : {
                 output : "enumeration",
                 metadataAttribute: "uid"
+            }
+
+        },
+
+        freeText: {
+
+            selector : {
+                id : "input",
+                type : "text"
+            },
+
+            template : {
+                hideRemoveButton : false
+            },
+
+            format : {
+                output : "freeText",
+                metadataAttribute: "freetext"
             }
 
         },
