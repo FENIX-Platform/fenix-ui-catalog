@@ -7,6 +7,11 @@ define(function () {
     'use strict';
 
     return {
+        text_intro: "Chargement des ressources...",
+        text_empty: "Les résultats sont vides. <br> Veuillez vérifier vos critères de filtrage.",
+        text_huge: "Trop de résultats. <br> Veuillez ajouter d'autres critères de filtrage.",
+        text_ohsnap: "Oh snap! <br> Quelque chose s'est mal passé.",
+
         submit_button: "Envoyer",
         reset_button: "Réinitialiser",
         //menu and selector titles

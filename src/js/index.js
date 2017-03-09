@@ -543,7 +543,7 @@ define([
             formatter: function (value, row) {
 
                 //$html = $(templateSelector($.extend(true, {classNames: classNames}, conf)));
-                var $html = $(ActionsTemplate($.extend(true, {}, i18nLabels[this.lang], row, {actions: self._getActions(row)})));
+                var $html = $(ActionsTemplate($.extend(true, {}, i18nLabels[this.lang], row, {actions: self._getActions(row), multiple: (self._getActions(row).length > 1 ? 'btn-group-justified' : '')})));
 
                 return $html[0].outerHTML
             }

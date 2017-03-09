@@ -7,6 +7,13 @@ define(function () {
     'use strict';
 
     return {
+        //Text
+
+        text_intro: "Loading resources...",
+        text_empty: "Results are empty. <br> Please check your filter criteria.",
+        text_huge: "Too many results. <br> Please add more filter criteria.",
+        text_ohsnap: "Oh snap! <br> Something went wrong.",
+
         submit_button: "Submit",
         reset_button: "Reset",
 
