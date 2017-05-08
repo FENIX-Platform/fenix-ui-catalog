@@ -1,6 +1,6 @@
 {
   "name": "fenix-ui-catalog",
-  "version": "2.0.0-beta.35",
+  "version": "2.0.0-beta.37",
   "description": "FENIX Catalog",
   "main": "dist/fenix-ui-catalog.min.js",
   "scripts": {
