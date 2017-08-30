@@ -1,6 +1,6 @@
 {
   "name": "fenix-ui-catalog",
-  "version": "2.0.0-beta.40",
+  "version": "2.0.0-beta.41",
   "description": "FENIX Catalog",
   "main": "dist/fenix-ui-catalog.min.js",
   "scripts": {
@@ -33,7 +33,7 @@
     "fenix-ui-bridge": "^1.0.0-beta.19",
     "fenix-ui-dropdown": "^1.0.0-beta.3",
     "fenix-ui-filter": "^3.0.0-beta.92",
-    "ion-rangeslider": "^2.1.4",
+    "ion-rangeslider": "^2.2.0",
     "jquery": "3.1.0",
     "jstree": "^3.3.3",
     "loglevel": "^1.4.1",
@@ -47,8 +47,10 @@
     "extract-text-webpack-plugin": "^1.0.1",
     "file-loader": "^0.9.0",
     "handlebars-loader": "^1.3.0",
+    "html-webpack-plugin": "^2.30.1",
     "image-webpack-loader": "^2.0.0",
-    "jshint": "^2.9.3",
+    "imports-loader": "^0.6.5",
+    "jshint": "^2.9.5",
     "jshint-loader": "^0.8.3",
     "karma": "^1.2.0",
     "karma-chai": "^0.1.0",
@@ -57,14 +59,12 @@
     "karma-firefox-launcher": "^1.0.0",
     "karma-mocha": "^1.1.1",
     "karma-webpack": "^1.8.0",
-    "mocha": "^3.0.2",
+    "mocha": "^3.5.0",
     "resolve-url-loader": "^1.6.0",
     "style-loader": "^0.13.1",
-    "url-loader": "^0.5.7",
-    "html-webpack-plugin": "^2.24.1",
-    "imports-loader": "^0.6.5",
+    "url-loader": "^0.5.9",
+    "webpack": "^1.13.3",
     "webpack-dev-server": "^1.15.1",
-    "webpack-validator": "^2.2.7",
-    "webpack": "^1.13.3"
+    "webpack-validator": "^2.2.7"
   }
 }

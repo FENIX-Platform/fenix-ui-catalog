@@ -177,7 +177,7 @@ define(function () {
 
             format : {
                 output : "enumeration",
-                metadataAttribute: "uid"
+                metadataAttribute: "id"
             }
 
         },
