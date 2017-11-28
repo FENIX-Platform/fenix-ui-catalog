@@ -512,6 +512,11 @@ define([
                 //width : 100 / columnsIds.length
             };
 
+            if (self.columns[c].type == "epoch") {
+                tableParams.formatter = function (value,row,index) {
+                    return new Moment(value).format(self.dateFormat);
+                }
+            }
 
             if (self.columns[c].width) {
                 tableParams.width = self.columns[c].width;
@@ -721,9 +726,9 @@ define([
             case "i18n":
                 i18nLabel = this._getI18nLabel(metadataValue);
                 label = i18nLabel ? i18nLabel : " ";
-                break;
-            case "source":
+            break;
 
+            case "source":
                 var owner = _.findWhere(metadataValue, {role: "owner"}) || {},
                     organization = owner.organization,
                     organizationUnit = owner.organizationUnit,
@@ -736,20 +741,21 @@ define([
                 label += bothPopulated ? " - " : "";
 
                 label += organizationUnitI18nLabel ? organizationUnitI18nLabel : "";
+            break;
 
-                break;
             case "epoch":
 
-                label = new Moment(metadataValue).format(this.dateFormat);
-                break;
+                //label = new Moment(metadataValue).format(this.dateFormat);
+                label = metadataValue;
+
+            break;
+
             case "code":
-
                 var code = (Array.isArray(metadataValue.codes) && metadataValue.codes.length > 0) ? metadataValue.codes[0] : {};
-
                 i18nLabel = this._getI18nLabel(code.label);
                 label = i18nLabel ? i18nLabel : " ";
 
-                break;
+            break;
             default :
 
                 label = metadataValue;
