@@ -1,6 +1,6 @@
 {
   "name": "fenix-ui-catalog",
-  "version": "2.0.0-beta.43",
+  "version": "2.0.0-beta.44",
   "description": "FENIX Catalog",
   "main": "dist/fenix-ui-catalog.min.js",
   "scripts": {
@@ -32,7 +32,7 @@
     "eonasdan-bootstrap-datetimepicker": "^4.17.43",
     "fenix-ui-bridge": "^1.0.0-beta.20",
     "fenix-ui-dropdown": "^1.0.0-beta.3",
-    "fenix-ui-filter": "^3.0.0-beta.95",
+    "fenix-ui-filter": "^3.0.0-beta.96",
     "ion-rangeslider": "^2.2.0",
     "jquery": "3.1.0",
     "jstree": "^3.3.3",
