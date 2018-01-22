@@ -397,7 +397,7 @@ define([
                 freeText: {
                     selector : {
                         id : "input",
-                        type : "text"
+                        type : "livesearch"
                     },
                     template : {
                         footer: ""

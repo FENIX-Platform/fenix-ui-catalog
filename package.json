@@ -1,6 +1,6 @@
 {
   "name": "fenix-ui-catalog",
-  "version": "2.0.0-beta.45",
+  "version": "2.0.0-beta.47",
   "description": "FENIX Catalog",
   "main": "dist/fenix-ui-catalog.min.js",
   "scripts": {
@@ -8,11 +8,7 @@
     "build": "cross-env NODE_ENV=production webpack --display-error-details",
     "build:stats": "cross-env NODE_ENV=production webpack --display-error-details --profile --json  > stats.json",
     "build:demo": "NODE_ENV=demo webpack --display-error-details",
-    "dev": "cross-env NODE_ENV=develop webpack-dev-server --display-error-details --progress --color --content-base dev  --inline --hot",
-    "w-test": "SET NODE_ENV=test&& karma start ./karma.config.js",
-    "w-build": "SET NODE_ENV=production&& webpack --display-error-details",
-    "w-build:demo": "SET NODE_ENV=demo&& webpack --display-error-details",
-    "w-dev": "SET NODE_ENV=develop&& webpack-dev-server --display-error-details --progress --color --content-base dev  --inline --hot"
+    "dev": "cross-env NODE_ENV=develop webpack-dev-server --display-error-details --progress --color --content-base dev  --inline --hot"
   },
   "repository": {
     "type": "git",
@@ -32,12 +28,12 @@
     "eonasdan-bootstrap-datetimepicker": "^4.17.43",
     "fenix-ui-bridge": "^1.0.0-beta.20",
     "fenix-ui-dropdown": "^1.0.0-beta.3",
-    "fenix-ui-filter": "^3.0.0-beta.96",
+    "fenix-ui-filter": "^3.0.0-beta.97",
     "ion-rangeslider": "^2.2.0",
     "jquery": "3.1.0",
-    "jstree": "^3.3.3",
-    "loglevel": "^1.5.1",
-    "moment": "^2.19.1",
+    "jstree": "^3.3.5",
+    "loglevel": "^1.6.1",
+    "moment": "^2.20.1",
     "underscore": "^1.8.3"
   },
   "devDependencies": {
@@ -56,7 +52,7 @@
     "karma-chai": "^0.1.0",
     "karma-chrome-launcher": "^1.0.1",
     "karma-coverage": "^1.1.1",
-    "karma-firefox-launcher": "^1.0.0",
+    "karma-firefox-launcher": "^1.1.0",
     "karma-mocha": "^1.1.1",
     "karma-webpack": "^1.8.0",
     "mocha": "^3.5.3",

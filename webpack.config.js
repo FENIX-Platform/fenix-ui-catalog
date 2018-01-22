@@ -24,7 +24,8 @@ module.exports = {
         alias: {
             'bootstrap-table' : Path.join(__dirname, 'node_modules/bootstrap-table/dist/bootstrap-table.min.js'),
             handlebars: Path.join(__dirname, 'node_modules/handlebars/dist/handlebars.js'),
-            jquery: Path.join(__dirname, 'node_modules/jquery/dist/jquery')
+            jquery: Path.join(__dirname, 'node_modules/jquery/dist/jquery'),
+            //"fenix-ui-filter" : Path.join(__dirname, 'node_modules/fenix-ui-filter/src/js/index.js')
         }
     },
 

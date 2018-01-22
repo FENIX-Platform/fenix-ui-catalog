@@ -628,7 +628,8 @@ define([
                 this._unlock();
                 this._showError(ERR.request);
 
-            }, this, "fx-request-id-" + window.fx_req_id));
+            }, this, "fx-request-id-" + window.fx_req_id)
+        );
 
     };
 

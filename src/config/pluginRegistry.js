@@ -186,7 +186,7 @@ define(function () {
 
             selector : {
                 id : "input",
-                type : "text"
+                type : "livesearch"
             },
 
             template : {
