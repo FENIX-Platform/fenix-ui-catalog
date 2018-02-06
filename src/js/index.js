@@ -633,8 +633,6 @@ define([
             }, this, "fx-request-id-" + window.fx_req_id)
         );
 
-        console.log(bridgeParams);
-
     };
 
     Catalog.prototype._processSearchServiceParameters = function () {
