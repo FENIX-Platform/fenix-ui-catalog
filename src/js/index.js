@@ -160,6 +160,7 @@ define([
         this.selectorsDependencies = this.initial.selectorsDependencies || {};
         this.searchService = this.initial.searchService;
         this.hideAddButton = typeof this.initial.hideAddButton === "boolean" ? this.initial.hideAddButton : C.hideAddButton;
+        this.extraBridge = this.initial.extraBridge || false;
     };
 
     Catalog.prototype._validateInput = function () {
@@ -246,7 +247,8 @@ define([
 
         this.bridge = new Bridge({
             environment: this.environment,
-            cache: this.cache
+            cache: this.cache,
+            extra: this.extraBridge
         });
 
         Moment.locale(this.lang);
@@ -631,6 +633,8 @@ define([
             }, this, "fx-request-id-" + window.fx_req_id)
         );
 
+        console.log(bridgeParams);
+
     };
 
     Catalog.prototype._processSearchServiceParameters = function () {
@@ -727,7 +731,7 @@ define([
             case "i18n":
                 i18nLabel = this._getI18nLabel(metadataValue);
                 label = i18nLabel ? i18nLabel : " ";
-            break;
+                break;
 
             case "source":
                 var owner = _.findWhere(metadataValue, {role: "owner"}) || {},
@@ -742,21 +746,21 @@ define([
                 label += bothPopulated ? " - " : "";
 
                 label += organizationUnitI18nLabel ? organizationUnitI18nLabel : "";
-            break;
+                break;
 
             case "epoch":
 
                 //label = new Moment(metadataValue).format(this.dateFormat);
                 label = metadataValue;
 
-            break;
+                break;
 
             case "code":
                 var code = (Array.isArray(metadataValue.codes) && metadataValue.codes.length > 0) ? metadataValue.codes[0] : {};
                 i18nLabel = this._getI18nLabel(code.label);
                 label = i18nLabel ? i18nLabel : " ";
 
-            break;
+                break;
             default :
 
                 label = metadataValue;
