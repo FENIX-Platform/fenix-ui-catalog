@@ -6,6 +6,8 @@ define(function () {
 
         lang : "EN",
 
+        pagination: true,
+
         langFallbackOrder : ["EN", "FR", "ES", "AR", "PR"],
         
         perPage : 10,
@@ -57,6 +59,8 @@ define(function () {
         cache : false,
 
         httpStatusMaxSizeError : 416,
+
+        httpStatusNoContent: 204,
 
         hideCloseButton : false,
 

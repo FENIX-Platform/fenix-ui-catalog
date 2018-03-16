@@ -88,7 +88,7 @@ $cat-cmd-right-width: 50px;
   }
 
   //show only the status only correspondent tab content
-  $statuses: "ready" "error" "loading" "empty" "intro" "huge";
+  $statuses: "ready" "error" "loading" "empty" "intro" "huge" "paginated_eof";
 
   @each $status in $statuses {
 

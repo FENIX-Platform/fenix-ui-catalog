@@ -5642,6 +5642,8 @@ input[type="radio"]:disabled + label {
     display: block; }
   .fx-catalog [data-status="huge"] [data-content="huge"] {
     display: block; }
+  .fx-catalog [data-status="paginated_eof"] [data-content="paginated_eof"] {
+    display: block; }
   .fx-catalog .cat-title {
     margin-left: 50px;
     margin-right: 50px; }

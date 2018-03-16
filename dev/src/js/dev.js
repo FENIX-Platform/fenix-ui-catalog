@@ -346,6 +346,8 @@ define([
             el: s.STANDARD,
             lang: lang,
             environment: environment,
+            pagination: false,
+            perPage: 4000,
             pluginRegistry: {
                 contextSystem: {
                     selector: {

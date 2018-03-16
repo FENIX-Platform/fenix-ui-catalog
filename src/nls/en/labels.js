@@ -11,6 +11,7 @@ define(function () {
 
         text_intro: "Loading resources...",
         text_empty: "Results are empty. <br> Please check your filter criteria.",
+        text_paginated: "We've reached the end of the selection. <br> Please go to the previous page.",
         text_huge: "Too many results. <br> Please add more filter criteria.",
         text_ohsnap: "Oh snap! <br> Something went wrong.",
 

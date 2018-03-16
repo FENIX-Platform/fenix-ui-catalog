@@ -150,6 +150,7 @@ define([
         this.lang = this.initial.lang || C.lang;
         this.lang = this.lang.toLowerCase();
         this.perPage = this.initial.perPage || C.perPage;
+        this.pagination = typeof this.initial.pagination === "boolean" ? this.initial.pagination : C.pagination;
         this.menuExcludedItems = this.initial.menuExcludedItems || C.menuExcludedItems;
         this.findServiceParams = this.initial.findServiceParams || C.findServiceParams;
         this.searchTimeoutInterval = this.initial.searchTimeoutInterval || C.searchTimeoutInterval;
@@ -161,6 +162,7 @@ define([
         this.searchService = this.initial.searchService;
         this.hideAddButton = typeof this.initial.hideAddButton === "boolean" ? this.initial.hideAddButton : C.hideAddButton;
         this.extraBridge = this.initial.extraBridge || false;
+
     };
 
     Catalog.prototype._validateInput = function () {
@@ -208,6 +210,14 @@ define([
 
         this.$el.html($html);
 
+        //hide pagination
+
+        if (this.pagination) {
+            this.$el.find("[data-role='pagination']").hide();
+        } else {
+            this.$el.find("[data-role='pagination']").show();
+        }
+
         //render menu
         if (!this.hideAddButton) {
             this.menu = new JsonMenu({
@@ -234,7 +244,7 @@ define([
 
         this.current = {};
         this.current.perPage = this.perPage;
-        this.current.page = 0;
+        this.current.page = 1;
 
         this.actions = this.actions.map(_.bind(function (value) {
 
@@ -281,6 +291,24 @@ define([
     Catalog.prototype._bindEventListeners = function () {
 
         var self = this;
+
+        if (!this.pagination) {
+
+            this.$el.find("[data-role='buttonNext']").on("click", function (e) {
+                self.current.page++;
+                self._refreshResults();
+                self.$el.find(s.RESULTS).bootstrapTable('nextPage');
+            });
+
+            this.$el.find("[data-role='buttonPrev']").on("click", function (e) {
+                if (self.current.page > 1) {
+                    self.current.page--;
+                    self._refreshResults();
+                    self.$el.find(s.RESULTS).bootstrapTable('prevPage');
+                }
+            });
+
+        }
 
         this.$el.find("[data-action='selector']").on("click", function (e) {
             e.preventDefault();
@@ -383,6 +411,8 @@ define([
 
         log.info("Refresh catalog results");
 
+        this.$el.find("[data-role='pagination']").hide();
+
         this._setBottomStatus("loading");
 
         if (this.searchTimeout) {
@@ -476,7 +506,7 @@ define([
         }, this));
 
         this.$el.find(s.RESULTS).bootstrapTable({
-            pagination: true,
+            pagination: this.pagination,
             locale: this.lang.toLowerCase() + "-" + this.lang.toUpperCase(),
             pageSize: this.current.perPage,
             pageList: [],
@@ -510,7 +540,7 @@ define([
             var tableParams = {
                 field: c,
                 title: title,//i18nLabels[self.lang][c] || "Missing label [" + c + "]",
-                sortable: true
+                sortable: self.pagination
                 //width : 100 / columnsIds.length
             };
 
@@ -625,6 +655,7 @@ define([
                     return;
                 }
 
+
                 this._setBottomStatus("error");
                 this.error(e);
                 this._unlock();
@@ -655,6 +686,11 @@ define([
             params.params = this.findServiceParams;
         }
 
+        if (!this.pagination) {
+            params.params.perPage = this.current.perPage;
+            params.params.page = this.current.page;
+        }
+
         return params;
 
     };
@@ -677,7 +713,16 @@ define([
         this.current.data = data;
         this.current.model = this._parseData(this.current.data);
 
+        if (!this.pagination) this.$el.find("[data-role='pagination']").show();
+        this.$el.find("[data-role='buttonNext']").prop( "disabled", false );
+
         if (!this.current.data) {
+            if (!this.pagination) {
+                this._setBottomStatus("paginated_eof");
+                this.$el.find("[data-role='buttonPrev']").prop( "disabled", false );
+                this.$el.find("[data-role='buttonNext']").prop( "disabled", true );
+                return;
+            }
             this._setBottomStatus("empty");
             return;
         }
@@ -774,8 +819,13 @@ define([
 
         this.$el.find(s.RESULTS).bootstrapTable('load', this.current.model);
 
-        this._bindResultsEventListeners();
+        if (this.current.page == 1) {
+            this.$el.find("[data-role='buttonPrev']").prop( "disabled", true );
+        } else {
+            this.$el.find("[data-role='buttonPrev']").prop( "disabled", false );
+        }
 
+        this._bindResultsEventListeners();
     };
 
     Catalog.prototype._unbindResultsEventListeners = function () {

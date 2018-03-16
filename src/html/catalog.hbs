@@ -67,7 +67,6 @@
                             <div data-role="results-container">
                                 <table data-role="results"></table>
                             </div>
-                            <div data-role="pagination" class="text-center"></div>
                         </div>
 
                         <div data-content="loading" class="text-center">
@@ -84,6 +83,15 @@
 
                         <div data-content="huge" class="text-center">
                             <h2>{{{text_huge}}}</h2>
+                        </div>
+
+                        <div data-content="paginated_eof" class="text-center">
+                            <h2>{{{text_paginated}}}</h2>
+                        </div>
+
+                        <div style="display: none" data-role="pagination" class="text-center">
+                            <button data-role="buttonPrev" class="btn btn-default glyphicon glyphicon-chevron-left"></button>
+                            <button data-role="buttonNext" class="btn btn-default glyphicon glyphicon-chevron-right"></button>
                         </div>
 
                     </div>
