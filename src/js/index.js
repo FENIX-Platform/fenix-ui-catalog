@@ -327,8 +327,17 @@ define([
 
             log.info("Filter is ready");
 
-            this._unlock();
+            if ($('input[name=freeText-freeText]').length) {
 
+                $('input[name=freeText-freeText]').on('keyup', function (e) {
+                    if (e.keyCode == 13) self.onFilterChangeEvent();
+                });
+                $('input[name=freeText-freeText]').focusout( function() {
+                    self.onFilterChangeEvent();
+                });
+            }
+
+            this._unlock();
             this._refreshResults();
 
         }, this));
@@ -336,9 +345,7 @@ define([
         this.filter.on('remove', _.bind(function (item) {
 
             log.info("Remove from filter: " + item.id);
-
             this._enableMenuItem(item.id);
-
             this._refreshResults();
 
         }, this));
@@ -347,8 +354,8 @@ define([
             self.onFilterChangeEvent();
         });
 
-        this.filter.on('select', function () {
-            self.onFilterChangeEvent();
+        this.filter.on('select', function (evt) {
+            if (evt.id != "freeText") self.onFilterChangeEvent();
         });
 
         amplify.subscribe(this._getEventName("select"), this, this._onSelectResult);
