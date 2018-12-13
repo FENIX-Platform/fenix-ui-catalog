@@ -329,12 +329,34 @@ define([
 
             if ($('input[name=freeText-freeText]').length) {
 
-                $('input[name=freeText-freeText]').on('keyup', function (e) {
+                var typingTimer;                //timer identifier
+                var doneTypingInterval = 2000;  //time in ms (2 seconds)
+
+                //on keyup, start the countdown
+                $('input[name=freeText-freeText]').keyup(function(e){
+                    clearTimeout(typingTimer);
+                    if (e.keyCode == 13) {
+                        self.onFilterChangeEvent();
+                        return;
+                    }
+                    if ($('input[name=freeText-freeText]').val()) {
+                        typingTimer = setTimeout(doneTyping, doneTypingInterval);
+                    }
+                });
+
+                //user is "finished typing," do something
+                function doneTyping () {
+                    self.onFilterChangeEvent();
+                }
+
+                /*
+                $('input[name=freeText-freeText]').keyup(function (e) {
                     if (e.keyCode == 13) self.onFilterChangeEvent();
                 });
-                $('input[name=freeText-freeText]').focusout( function() {
+                $('input[name=freeText-freeText]').focusout(function() {
                     self.onFilterChangeEvent();
                 });
+                */
             }
 
             this._unlock();
