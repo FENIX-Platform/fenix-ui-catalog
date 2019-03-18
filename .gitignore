@@ -7,3 +7,4 @@ Web.config
 **/.DS_Store
 .DS_Store
 /coverage/
+/dist/
