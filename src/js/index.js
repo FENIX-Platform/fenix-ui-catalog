@@ -15,8 +15,7 @@ define([
     "fenix-ui-bridge",
     "moment",
     'amplify-pubsub',
-    'bootstrap-table',
-    '../../node_modules/bootstrap-table/dist/bootstrap-table-locale-all.min'
+    'bootstrap-table'
 ], function ($, _, log, ERR, EVT, C, MenuConfig, PluginRegistry, CatalogTemplate, ActionsTemplate, i18nLabels, Filter, JsonMenu, Bridge, Moment, amplify, bootstrapTable) {
 
     'use strict';
@@ -162,7 +161,7 @@ define([
         this.searchService = this.initial.searchService;
         this.hideAddButton = typeof this.initial.hideAddButton === "boolean" ? this.initial.hideAddButton : C.hideAddButton;
         this.extraBridge = this.initial.extraBridge || false;
-
+        this.serviceProvider = this.initial.serviceProvider || undefined ;
     };
 
     Catalog.prototype._validateInput = function () {
@@ -258,7 +257,8 @@ define([
         this.bridge = new Bridge({
             environment: this.environment,
             cache: this.cache,
-            extra: this.extraBridge
+            extra: this.extraBridge,
+            serviceProvider : this.serviceProvider
         });
 
         Moment.locale(this.lang);
@@ -327,6 +327,11 @@ define([
 
             log.info("Filter is ready");
 
+            //user is "finished typing," do something
+            function doneTyping () {
+                self.onFilterChangeEvent();
+            }
+
             if ($('input[name=freeText-freeText]').length) {
 
                 var typingTimer;                //timer identifier
@@ -344,10 +349,34 @@ define([
                     }
                 });
 
-                //user is "finished typing," do something
-                function doneTyping () {
+                /*
+                $('input[name=freeText-freeText]').keyup(function (e) {
+                    if (e.keyCode == 13) self.onFilterChangeEvent();
+                });
+                $('input[name=freeText-freeText]').focusout(function() {
                     self.onFilterChangeEvent();
-                }
+                });
+                */
+            }
+
+            if ($('input[name=uid-uid]').length) {
+
+                var typingTimer;                //timer identifier
+                var doneTypingInterval = 2000;  //time in ms (2 seconds)
+
+                //on keyup, start the countdown
+                $('input[name=uid-uid]').keyup(function(e){
+                    clearTimeout(typingTimer);
+                    if (e.keyCode == 13) {
+                        self.onFilterChangeEvent();
+                        return;
+                    }
+                    if ($('input[name=uid-uid]').val()) {
+                        typingTimer = setTimeout(doneTyping, doneTypingInterval);
+                    }
+                });
+
+
 
                 /*
                 $('input[name=freeText-freeText]').keyup(function (e) {
@@ -377,7 +406,11 @@ define([
         });
 
         this.filter.on('select', function (evt) {
-            if (evt.id != "freeText") self.onFilterChangeEvent();
+            if (evt.id == "freeText" || evt.id == "uid" ) {
+                return;
+            } else {
+                self.onFilterChangeEvent();
+            }
         });
 
         amplify.subscribe(this._getEventName("select"), this, this._onSelectResult);
@@ -699,6 +732,10 @@ define([
 
         var params = {};
 
+        params.params = this.findServiceParams;
+
+        /*
+
         if (this.searchService) {
             if (this.searchService.serviceProvider) {
                 params.SERVICE_PROVIDER = this.searchService.serviceProvider;
@@ -714,6 +751,8 @@ define([
         } else {
             params.params = this.findServiceParams;
         }
+
+        */
 
         if (!this.pagination) {
             params.params.perPage = this.current.perPage;
