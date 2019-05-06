@@ -346,6 +346,7 @@ define([
             el: s.STANDARD,
             lang: lang,
             environment: environment,
+            serviceProvider : "http://countrystatqa.aws.fao.org/d3s/",
             pagination: false,
             perPage: 4000,
             pluginRegistry: {

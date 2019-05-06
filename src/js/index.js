@@ -551,6 +551,8 @@ define([
             cache: this.cache,
             ensureAtLeast: 1,
             environment: this.environment,
+            serviceProvider : this.serviceProvider,
+
             //summaryRender : function (item ){ return " -> " + item.code; },
             common: {
                 template: {
